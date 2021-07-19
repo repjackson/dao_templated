@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.borderless.large.inverted.menu
+    #topnav.topnav.ui.attached.borderless.large.inverted.blue.menu
         +status
         if is_loading
             .icon.item
@@ -11,7 +11,7 @@ template(name='nav')
         if current_group
             a.item(href='/') 
                 img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                |#{current_group.title}
+                |Backcountry
         if session_is 'is_global_searching' true
             .ui.icon.transparent.input.global_search_input
                 i.link.large.remove.icon.clear_search.zoomer(title='clear search')
