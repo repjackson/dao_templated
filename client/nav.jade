@@ -1,17 +1,17 @@
 template(name='nav')
-    // #topnav.topnav.ui.attached.borderless.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.borderless.large.inverted.blue.menu
+    // #topnav.topnav.ui.attached.menu(style="background-color:#062639;")
+    #topnav.topnav.ui.attached.large.inverted.blue.menu
         +status
         if is_loading
             .icon.item
-                i.big.loading.grey.yin.yang.icon.cancel
+                i.big.loading.grey.food.icon.cancel
         else 
             a.icon.item.toggle_leftbar.no_blink
                i.bars.large.icon 
-        if current_group
-            a.item(href='/') 
-                img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                |Backcountry
+        // if current_group
+        a.item(href='/') 
+            img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
+            |Backcountry
         if session_is 'is_global_searching' true
             .ui.icon.transparent.input.global_search_input
                 i.link.large.remove.icon.clear_search.zoomer(title='clear search')
@@ -60,7 +60,7 @@ template(name='nav')
                     a.icon.item(href='/login' title='login') 
                         i.sign.in.large.icon
                 else 
-                    i.yin.yang.loading.icon
+                    i.food.loading.icon
                     
                 
 
@@ -96,7 +96,7 @@ template(name='walletbar')
         +user_credit
         
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.borderless.large.inverted.menu
+    .ui.left.sidebar.vertical.large.blue.inverted.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -155,7 +155,7 @@ template(name='left_sidebar')
 
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.borderless.big.inverted.menu.rightbar
+    .ui.right.sidebar.vertical.blue.inverted.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}

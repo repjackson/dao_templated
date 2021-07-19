@@ -30,7 +30,7 @@ Docs.before.insert (userId, doc)->
         doc._timestamp_tags = date_array
 
     doc._author_id = Meteor.userId()
-    # doc.app = 'pes'
+    doc.app = 'bc'
     # doc.points = 0
     # doc.downvoters = []
     # doc.upvoters = []
@@ -77,30 +77,30 @@ force_loggedin =  ()->
     else
         @next()
 
-Router.onBeforeAction(force_loggedin, {
-  # only: ['admin']
-  # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: [
-    'login'
-    'register'
-    # 'users'
-    # 'services'
-    # 'service_view'
-    # 'products'
-    # 'product_view'
-    # 'rentals'
-    # 'rental_view'
-    # 'home'
-    # 'forgot_password'
-    # 'reset_password'
-    # 'user_orders'
-    # 'user_food'
-    # 'user_finance'
-    # 'user_dashboard'
-    # 'verify-email'
-    # 'food_view'
-  ]
-});
+# Router.onBeforeAction(force_loggedin, {
+#   # only: ['admin']
+#   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
+#   except: [
+#     'login'
+#     'register'
+#     # 'users'
+#     # 'services'
+#     # 'service_view'
+#     # 'products'
+#     # 'product_view'
+#     # 'rentals'
+#     # 'rental_view'
+#     # 'home'
+#     # 'forgot_password'
+#     # 'reset_password'
+#     # 'user_orders'
+#     # 'user_food'
+#     # 'user_finance'
+#     # 'user_dashboard'
+#     # 'verify-email'
+#     # 'food_view'
+#   ]
+# });
 
 
 # Router.route('enroll', {

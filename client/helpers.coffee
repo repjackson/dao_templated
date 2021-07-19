@@ -363,7 +363,8 @@ Template.registerHelper 'model_docs_helper', (model) ->
     # console.log model
     Docs.find 
         model:model
-        group_id = Meteor.user().current_group_id
+        app:'bc'
+        # group_id = Meteor.user().current_group_id
         
 Template.registerHelper 'subs_ready', () -> 
     Template.instance().subscriptionsReady()
