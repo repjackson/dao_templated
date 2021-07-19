@@ -27,16 +27,19 @@ template(name='products')
                         |#{title} 
                         // small.ui.grey.text #{count}
             
-            // .ui.left.icon.search.input
-            //     i.search.icon.refresh_tags
-            //     input#search_ingredient.prompt(type='text' autocomplete="off" placeholder='ingredients')
-            // if picked_ingredient_plural
-            //     .ui.icon.black.compact.button.clear_picked_ingredients
-            //         i.remove.icon
-            // .ui.basic.icon.button.toggle_gf(class=toggle_gf_class)
-            //     +icolor name='no-gluten' cl='ui mini inline image'
-            // .ui.basic.icon.button.toggle_vegan(class=toggle_vegan_class)
-            //     +i name='vegan-food' cl='ui mini inline image'
+            .ui.left.icon.search.input
+                i.search.icon.refresh_tags
+                input#search_ingredient.prompt(type='text' autocomplete="off" placeholder='ingredients')
+            if picked_ingredient_plural
+                .ui.icon.black.compact.button.clear_picked_ingredients
+                    i.remove.icon
+            .ui.basic.icon.button.toggle_gf(class=toggle_gf_class)
+                +icolor name='no-gluten' cl='ui mini inline image'
+                |gluten
+            .ui.basic.icon.button.toggle_vegan(class=toggle_vegan_class)
+                +i name='vegan-food' cl='ui mini inline image'
+                |vegan
+            div
             each picked_ingredients
                 button.ui.blue.compact.small.button.unpick_ingredient(tabindex='0')
                     //- i.remove.icon
