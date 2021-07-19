@@ -1,0 +1,199 @@
+template(name='user_layout')
+    +nav
+    .ui.bottom.attached.pushable.segment
+        // +topbar
+        +left_sidebar
+        +right_sidebar
+        // +cartbar
+        // +walletbar
+        // +secnav
+        with user_from_username_param
+            .ui.stackable.grid.global_conainer.pusher
+                .row
+                    //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                    .sixteen.wide.column
+                        a.item.mobile.hidden.zoomer(href="/user/#{username}")
+                            img.ui.centered.rounded.inline.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                        // .spacer
+                        a.ui.inline.header(href="/user/#{username}")
+                            | #{username}
+                        .ui.inline.horizontal.small.statistic
+                            .value
+                                |#{current_user.points}
+                            .label
+                                |current pts
+                                span(title='rank') (##{current_user.point_rank})
+                        .ui.inline.tiny.horizontal.statistic
+                            .value
+                                |#{current_user.total_earned_credits}
+                            .label
+                                |pts earned
+                                span(title='rank') (##{current_user.total_earned_credit_rank})
+                        .ui.inline.tiny.horizontal.statistic
+                            .value
+                                |#{current_user.total_bought_credits}
+                            .label
+                                |pts bought
+                                span(title='rank') (##{current_user.total_bought_credit_rank})
+                            
+                        .ui.two.column.middle.aligned.grid.mobile.only
+                            .column
+                                img.ui.small.inline.image.mobile.only(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                            .column
+                                .ui.inline.header
+                                    strong #{username}
+                        if is_current_user
+                            a.ui.basic.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                                i.cog.large.icon
+                        if is_current_user
+                            .ui.basic.icon.button.logout(title='log out')
+                                i.sign.out.alternate.large.icon
+                        unless is_current_user
+                            +friend_button
+                        // .twelve.wide.column
+                        // a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
+                        //     i.dashboard.icon
+                        //     |dashboard
+                        a.ui.basic.button(href="/user/#{username}/points" class="{{isActiveRoute 'user_points'}}")
+                            i.hashtag.icon
+                            |points
+                        a.ui.basic.button(href="/user/#{username}/work" class="{{isActiveRoute 'user_work'}}")
+                            i.wrench.icon
+                            |work
+                        a.ui.basic.button(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
+                            i.users.icon
+                            |groups
+                        a.ui.basic.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
+                            i.send.icon
+                            |sent
+                        a.ui.basic.button(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
+                            i.user.friends.icon
+                            |friends
+                        a.ui.basic.button(href="/user/#{username}/roles" class="{{isActiveRoute 'user_roles'}}")
+                            i.shield.icon
+                            |roles
+                        a.ui.basic.button(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
+                            i.money.icon
+                            |orders
+                        a.ui.basic.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+                            i.money.icon
+                            |stats
+                        // a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
+                        //     i.money.icon
+                        //     |payroll
+                        div.global_container
+                            .spacer
+                            +yield
+
+        // if in_role 'admin'
+        //     +admin_footer
+
+template(name='user_stats')
+    
+    .ui.header
+        i.line.chart.icon
+        |stats
+    .ui.button.make_chart
+        |make chart
+    .ui.header total calories consumed #{currentUser.total_calories_consumed}
+    .ui.header total calories consumed #{currentUser.total_earned_credit_rank}
+    div(style="width:800px; height:500px;")
+        canvas.chart(width="400" height="400")
+
+template(name='user_friends')
+    .ui.header
+        i.user.friends.icon
+        |user friends
+    .ui.input
+        input.add_friend_by_username(type='text' placeholder='add user by friend')
+    each user_friends
+        .ui.big.button(href="/user/#{username}") #{username}
+
+
+template(name='user_dashboard')
+    with current_user
+        .ui.four.column.stackable.grid
+            .column
+                .ui.header 
+                    i.fire.icon
+                    |groups
+                .ui.link.selection.list
+                    each member_groups
+                        a.item(href="/group/#{_id}")
+                            img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                            |#{title}
+            .column
+                .ui.header #{points} points
+                .ui.inline.header 
+                    i.shield.icon
+                    |roles
+                each roles
+                    .ui.label #{this}
+                .ui.header role (placeholder during beta): #{role}
+                
+            unless is_current_user
+                .ui.button.send_points
+                    |send points
+            +user_requests
+            
+    
+    
+template(name='friend_button')
+    if is_friend
+        .ui.blue.button.unfriend
+            // .visible.content
+            |friends
+            // .hidden.content
+            //     i.minus.icon
+    else 
+        .ui.button.friend
+            |+ friend
+        
+    
+    
+template(name='user_timeclock')
+    .ui.header timeclock
+    .ui.header status: 
+        if current_user.clocked_in
+            |clocked IN
+        else 
+            |clocked OUT
+    unless current_user.clocked_in    
+        .ui.button.clock_in
+            |clock in
+    if current_user.clocked_in
+        .ui.button.clock_out
+            |clock out
+    each time_sessions
+        |#{when}
+        
+        
+template(name='user_chat')
+    .ui.header
+        i.chat.outline.icon
+        |chat
+    .ui.input
+        input.add_chat(type='text' placeholder='add chat')
+    .ui.comments
+        each chat_messages
+            .comment
+                .content
+                    .ui.inline.header #{body}
+                    .meta #{when}
+                        |by 
+                        a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                        if currentUser
+                            +voting_small
+                            if can_edit
+                                +remove_button
+        
+        
+template(name='user_requests')  
+    .ui.header
+        i.bullhorn.icon
+        |#{user_from_username_param.name} requests
+template(name='user_groups')  
+    .ui.header 
+        i.fire.icon
+        |#{user_from_username_param.name} groups
+    
