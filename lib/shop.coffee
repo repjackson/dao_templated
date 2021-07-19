@@ -306,7 +306,7 @@ if Meteor.isServer
         self = @
         # match = {model:'product', app:'pes'}
         match = {model:'product'}
-        match.group_id = Meteor.user().current_group_id
+        # match.group_id = Meteor.user().current_group_id
 
         if picked_ingredients.length > 0
             match.ingredients = $all: picked_ingredients
@@ -415,8 +415,8 @@ if Meteor.isServer
 
         self = @
         # match = {app:'pes'}
-        # match = {}
-        match = {group_id:Meteor.user().current_group_id}
+        match = {}
+        # match = {group_id:Meteor.user().current_group_id}
         match.model = 'product'
         if view_vegan
             match.vegan = true

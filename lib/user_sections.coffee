@@ -38,7 +38,7 @@ if Meteor.isClient
         user_role_docs: ->
             Docs.find 
                 model:'role'
-                group_id: Router.current().params.doc_id
+                # group_id: Router.current().params.doc_id
                 
                 
     Template.user_dashboard.events
