@@ -13,7 +13,7 @@ template(name='chats')
             .ui.fluid.icon.input
                 i.plus.icon
                 input.new_message(type='text' placeholder='add message')
-            .ui.six.doubling.centered.cards
+            .ui.comments
                 each chat_docs
                     +chat_message
         
@@ -28,16 +28,19 @@ template(name='chat_message')
     //             i.checkmark.circular.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .ui.item
+    .comment
         // if unless
-        .ui.header #{body}
-        a(href="/chat/#{_id}")
-            img.ui.image.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         // else
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
-            if is_admin
-                i.pencil.circular.link.icon.edit_chat            
-            if can_edit
-                a.zoomer(href="/chat/#{_id}/edit")
-                    i.pencil.circular.link.icon
+            .ui.header #{body}
+            .meta
+                span.date by #{_author_username} #{when}
+                +voting_small
+                +print_this
+                +alert_this
+            // if is_admin
+            //     i.pencil.circular.link.icon.edit_chat            
+            // if can_edit
+                // a.zoomer(href="/chat/#{_id}/edit")
+                //     i.pencil.circular.link.icon

@@ -31,8 +31,10 @@ if Meteor.isClient
         session_set_class: ->
             if Session.equals(@key,@value) then 'blue' else 'basic'
     Template.print_this.events
-        'click .print': ->
-            console.log @
+        'click .print': -> console.log @
+ 
+    Template.alert_this.events
+        'click .alert': -> alert @valueOf()
  
     Template.search_input.events
         'click .clear_query': -> 
