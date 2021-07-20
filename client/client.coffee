@@ -53,25 +53,25 @@ Template.layout.helpers
     logging_in: -> Meteor.loggingIn()
     
     
-Template.nav.events
-    # 'mouseenter .item': (e,t)->
-    #     $(e.currentTarget).closest('.item').transition('pulse')
-    # 'click .menu_dropdown': ->
-        # $('.menu_dropdown').dropdown(
-            # on:'hover'
-        # )
+# Template.nav.events
+#     # 'mouseenter .item': (e,t)->
+#     #     $(e.currentTarget).closest('.item').transition('pulse')
+#     # 'click .menu_dropdown': ->
+#         # $('.menu_dropdown').dropdown(
+#             # on:'hover'
+#         # )
 
-    'click .logout': ->
-        Session.set 'logging_out', true
-        Meteor.logout ->
-            Session.set 'logging_out', false
-            # Router.go '/'
+#     'click .logout': ->
+#         Session.set 'logging_out', true
+#         Meteor.logout ->
+#             Session.set 'logging_out', false
+#             # Router.go '/'
 
-Template.nav.onCreated ->
-    @autorun -> Meteor.subscribe 'me'
-    # @autorun -> Meteor.subscribe 'users'
-    # @autorun -> Meteor.subscribe 'users_by_role','staff'
-    # @autorun -> Meteor.subscribe 'unread_messages'
+# Template.nav.onCreated ->
+#     @autorun -> Meteor.subscribe 'me'
+#     # @autorun -> Meteor.subscribe 'users'
+#     # @autorun -> Meteor.subscribe 'users_by_role','staff'
+#     # @autorun -> Meteor.subscribe 'unread_messages'
 
 
 Router.route '/', (->
