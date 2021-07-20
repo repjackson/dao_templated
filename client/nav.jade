@@ -2,13 +2,13 @@ template(name='nav')
     // #topnav.topnav.ui.attached.menu(style="background-color:#062639;")
     #topnav.topnav.ui.attached.large.inverted.menu
         +status
-        if is_loading
-            .icon.item
-                i.big.loading.grey.food.icon.cancel
-        else 
-            a.icon.item.toggle_leftbar.no_blink
-               i.bars.large.icon 
-        // if current_group
+        // if is_loading
+        //     .icon.item
+        //         i.big.loading.grey.food.icon.cancel
+        // else 
+        //     a.icon.item.toggle_leftbar.no_blink
+        //       i.bars.large.icon 
+        // // if current_group
         a.item(href='/') 
             img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |Backcountry

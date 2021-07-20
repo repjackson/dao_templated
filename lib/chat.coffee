@@ -6,7 +6,7 @@ if Meteor.isClient
     
     Template.chats.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'chat', ->
-        @autorun => Meteor.subscribe 'model_docs', 'chat_message', ->
+        @autorun => Meteor.subscribe 'model_docs', 'post', ->
             
             
     
@@ -14,7 +14,7 @@ if Meteor.isClient
     Template.chats.helpers
         chat_docs: ->
             Docs.find {
-                model:'chat_message'
+                model:'post'
             }, sort:_timestamp:-1
                 
     Template.chats.events

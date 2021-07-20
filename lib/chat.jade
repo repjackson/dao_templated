@@ -64,12 +64,12 @@ template(name='chat_message')
     //             i.checkmark.circular.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .comment
+    .comment.zoomer
         // if unless
         // else
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
-            a.ui.header(href="/post/#{_id}") #{body}
+            a.ui.header.fly_right(href="/post/#{_id}") #{body}
             .meta
                 if _author_username
                     a(href="/user/#{_author_username}")
@@ -90,6 +90,6 @@ template(name='chat_message')
                     +alert_this
             // if is_admin
             //     i.pencil.circular.link.icon.edit_chat            
-            // if can_edit
-                // a.zoomer(href="/chat/#{_id}/edit")
-                //     i.pencil.circular.link.icon
+            if can_edit
+                a.zoomer(href="/post/#{_id}/edit")
+                    i.pencil.circular.link.icon

@@ -64,7 +64,7 @@ Meteor.publish 'model_fields_from_child_id', (child_id)->
         model:'field'
         parent_id:model._id
 
-Meteor.publish 'model_docs', (model,limit)->
+Meteor.publish 'model_docs', (model,limit=100)->
     if limit
         Docs.find {
             model: model
