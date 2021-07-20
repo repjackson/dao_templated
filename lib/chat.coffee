@@ -37,7 +37,7 @@ if Meteor.isClient
                 body = $('.new_message').val()
                 Docs.insert 
                     model:'post'
-                    body:body    
+                    title:body    
                 body = $('.new_message').val('')
                         
             

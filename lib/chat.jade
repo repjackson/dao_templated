@@ -2,7 +2,7 @@ template(name='chats')
     .ui.padded.stackable.grid
         .twelve.wide.column
             .ui.inline.header 
-                |#{chat_docs.count}
+                i.home.icon
                 |Backcountry Pizza
                 // i.chat.outline.large.icon(title='backcountry chat')
             .ui.basic.icon.button.add_post
@@ -27,6 +27,9 @@ template(name='chats')
                 each chat_docs
                     +chat_message
         .four.wide.column
+            .ui.inline.header
+                |#{chat_docs.count}
+                |results
             span.sorting_row
                 +search_input model='post' field='title'
                 .ui.small.inline.header 
@@ -118,9 +121,13 @@ template(name='chat_message')
                 .metadata
                     |#{when}
                     small {{long_date _timestamp}}
-            .text 
+            .text
                 |!{body}
             span.meta
+                if is_task
+                    i.big.checkmark.icon
+                if is_event
+                    i.big.calendar.icon
                 a.fly_right(href="/post/#{_id}")
                     i.eye.link.icon
                     |#{views}
@@ -136,10 +143,10 @@ template(name='chat_message')
                 if watson
                     +doc_emotion_small
             unless viewing_full
-                .ui.button.view_full
+                .ui.icon.button.view_full
                     i.chevron.down.icon
-                    |view full
+                    // |view full
             if viewing_full
-                .ui.button.view_less
+                .ui.icon.button.view_less
                     i.chevron.up.icon
-                    |view less
+                    // |view less
