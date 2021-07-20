@@ -468,11 +468,11 @@ template(name='alert_this')
 
 
 template(name='session_set')
-    .ui.circular.button.set_value(class=session_set_class title=value)
+    .ui.circular.icon.button.set_value(class=session_set_class title=value)
         if icon
-            i.icon(class=icon)
+            i.large.icon(class=icon)
         // else 
-        |#{label}
+        // |#{label}
 
 
 

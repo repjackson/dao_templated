@@ -1,4 +1,4 @@
-template(name='chats')
+template(name='home')
     .ui.padded.stackable.grid
         .twelve.wide.column
             .ui.inline.header 
@@ -23,9 +23,11 @@ template(name='chats')
             .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
                 input.new_message(type='text' placeholder='quick add (-1p)')
+            if session_is 'view_image' 'view_image'
+                .ui.header color picker
             .ui.divided.comments.scrolling
-                each chat_docs
-                    +chat_message
+                each home_items
+                    +home_item
                     .ui.divider
         .four.wide.column
             .ui.inline.header
@@ -33,16 +35,16 @@ template(name='chats')
                 |results
             span.sorting_row
                 +search_input model='post' field='title'
-                .ui.small.inline.header 
-                    |layout
+                // .ui.small.inline.header 
+                //     |layout
                 +session_set key='view_users' value='grid' icon='th' 
                 +session_set key='view_users' value='list' icon='list'
-                .ui.small.inline.header 
-                    |direction
+                // .ui.small.inline.header 
+                //     |direction
                 +session_set key='sort_users_direction' value='-1' icon='chevron down'
                 +session_set key='sort_users_direction' value='1' icon='chevron up'
-                .ui.small.inline.header 
-                    |by
+                // .ui.small.inline.header 
+                //     |by
                 +session_set key='sort_users_key' value='points' label='points' icon='coins'
                 +session_set key='sort_users_key' value='created_date' label='when' icon='clock'
                 // +session_set key='view_limit' value=1
@@ -65,23 +67,14 @@ template(name='chats')
                 //           +set_product_limit amount=10
                 //             +set_product_limit amount=20
                 div
-                .ui.small.inline.header 
-                    |media
-                .ui.icon.button
-                    i.youtube.icon
-                    |video
-                .ui.compact.button
-                    i.image.icon
-                    |image
-                .ui.compact.button
-                    i.calendar.icon
-                    |event
-                .ui.compact.button
-                    i.money.icon
-                    |price
-                .ui.compact.button
-                    i.checkmark.icon
-                    |task
+                // .ui.small.inline.header 
+                //     |media
+                +session_set key='view_video' value='view video' label='when' icon='youtube'
+                +session_set key='view_image' value='view_image' label='view images' icon='image'
+                +session_set key='view_event' value='view_event' label='view events' icon='calendar'
+                +session_set key='view_tasks' value='view_tasks' label='view tasks' icon='checkmark'
+                +session_set key='view_location' value='location' label='view location' icon='marker'
+                +session_set key='view_food' value='view_food' label='view' icon='food'
             .ui.header points given
             .ui.header points received
             .ui.header
@@ -95,7 +88,7 @@ template(name='chats')
                 
 
 
-template(name='chat_message')
+template(name='home_item')
     // if session_is 'editing_chat' _id
     //     .ui.item
     //         +image_edit key='image_id' direct=true

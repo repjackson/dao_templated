@@ -1,10 +1,5 @@
 if Meteor.isClient
-    Router.route '/chat', (->
-        @layout 'layout'
-        @render 'chats'
-        ), name:'chats'
-    
-    Template.chats.onCreated ->
+    Template.home.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'chat', ->
         # @autorun => Meteor.subscribe 'model_docs', 'post', ->
             
@@ -20,13 +15,13 @@ if Meteor.isClient
 
     
 
-    Template.chats.helpers
-        chat_docs: ->
+    Template.home.helpers
+        home_items: ->
             Docs.find {
                 model:'post'
             }, sort:_timestamp:-1
                 
-    Template.chats.events
+    Template.home.events
         'click .add_post': ->
             new_id = Docs.insert 
                 model:'post'

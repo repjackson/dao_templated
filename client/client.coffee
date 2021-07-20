@@ -75,7 +75,7 @@ Template.layout.helpers
 
 
 Router.route '/', (->
-    @render 'chats'
+    @render 'home'
     ), name:'home'
 # Router.route '/requests', (->
 #     @render 'requests'
