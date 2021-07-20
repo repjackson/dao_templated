@@ -23,16 +23,18 @@ template(name='home')
             .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
                 input.new_message(type='text' placeholder='quick add (-1p)')
-            if session_is 'view_image' 'view_image'
+            if session_is 'view_images' true
                 .ui.header color picker
+            if session_is 'view_locations' true
+                .ui.header near me
+            
             .ui.divided.comments.scrolling
                 each home_items
                     +home_item
                     .ui.divider
         .four.wide.column
-            .ui.inline.header
-                |#{chat_docs.count}
-                |results
+            .ui.big.label(title='results')
+                |#{home_items.count}
             span.sorting_row
                 +search_input model='post' field='title'
                 // .ui.small.inline.header 
@@ -69,11 +71,11 @@ template(name='home')
                 div
                 // .ui.small.inline.header 
                 //     |media
-                +session_set key='view_video' value='view video' label='when' icon='youtube'
-                +session_set key='view_image' value='view_image' label='view images' icon='image'
-                +session_set key='view_event' value='view_event' label='view events' icon='calendar'
-                +session_set key='view_tasks' value='view_tasks' label='view tasks' icon='checkmark'
-                +session_set key='view_location' value='location' label='view location' icon='marker'
+                +session_set key='view_videos' value=true label='when' icon='youtube'
+                +session_set key='view_images' value=true label='view images' icon='image'
+                +session_set key='view_events' value=true label='view events' icon='calendar'
+                +session_set key='view_tasks' value=true label='view tasks' icon='checkmark'
+                +session_set key='view_locations' value=true label='view location' icon='marker'
                 +session_set key='view_food' value='view_food' label='view' icon='food'
             .ui.header points given
             .ui.header points received

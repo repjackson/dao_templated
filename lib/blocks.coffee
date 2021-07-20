@@ -26,7 +26,10 @@ if Meteor.isClient
    
     Template.session_set.events
         'click .set_value': ->
-            Session.set(@key, @value)
+            if Session.equals(@key, @value)
+                Session.set(@key, null)
+            else
+                Session.set(@key, @value)
     Template.session_set.helpers
         session_set_class: ->
             if Session.equals(@key,@value) then 'blue' else 'basic'
