@@ -4,7 +4,7 @@ template(name='chats')
             i.chat.outline.big.icon(title='backcountry chat')
             .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
-                input.new_message(type='text' placeholder='add message (-1p)')
+                input.new_message(type='text' placeholder='quick add (-1p)')
             .ui.comments
                 each chat_docs
                     +chat_message
@@ -14,6 +14,12 @@ template(name='chats')
                 |stats  
             .ui.list 
                 .item #{chat_docs.count} messages
+            .ui.header 
+                |top post
+            .ui.header 
+                |most posts
+            .ui.header 
+                |most points earned
 
 
 template(name='chat_message')
@@ -30,7 +36,7 @@ template(name='chat_message')
         // else
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
-            .ui.header #{body}
+            a.ui.header(href="/post/#{_id}") #{body}
             .meta
                 if _author_username
                     a(href="/user/#{_author_username}")
@@ -42,6 +48,9 @@ template(name='chat_message')
                 else 
                     // i.anon.grey.icon
                     |by anonymous
+                a(href="/post/#{_id}")
+                    i.eye.circular.link.icon
+                    |#{views}
                 +voting_small
                 if in_dev
                     +print_this

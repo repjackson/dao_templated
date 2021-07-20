@@ -121,8 +121,12 @@ template(name='post_view')
                     if tone 
                         +tone_view
                 .six.wide.column
-                    a.ui.basic.icon.button(href="/posts")
-                        i.blog.large.icon
+                    a.ui.basic.button.fly_up(href="/posts")
+                        i.newspaper.large.icon
+                        |posts
+                    a.ui.basic.button.fly_left(href="/chat")
+                        i.chat.large.icon
+                        |chat
                     .ui.inline.header
                         | #{title}
                         small post view
