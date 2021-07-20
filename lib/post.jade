@@ -123,7 +123,7 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .ten.wide.column.scrolling
+                .sixteen.wide.column.scrolling
                     a.ui.basic.button.fly_up(href="/")
                         i.chevron.up.large.icon
                     .scrolling
@@ -140,7 +140,7 @@ template(name='post_view')
                             +watson_view
                         if tone 
                             +tone_view
-                .six.wide.column
+                    // .six.wide.column
                     .ui.inline.header
                         | #{title}
                         small post view
