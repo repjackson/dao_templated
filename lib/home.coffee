@@ -16,17 +16,25 @@ if Meteor.isClient
     
 
     Template.home.helpers
+        current_post: ->
+            Docs.findOne
+                _id:Session.get('viewing_post_id')
+                
         home_items: ->
             Docs.find {
                 model:'post'
             }, sort:_timestamp:-1
                 
+    Template.home_item.events
+        'click .view_post_quick': ->
+            Session.set('viewing_post_id', @_id)
     Template.home.events
         'click .add_post': ->
             new_id = Docs.insert 
                 model:'post'
             Router.go "/post/#{new_id}/edit"    
     
+                
         'keyup .new_message': (e,t)->
             if e.which is 13
                 body = $('.new_message').val()

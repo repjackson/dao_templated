@@ -24,9 +24,9 @@ template(name='home')
                 i.plus.icon
                 input.new_message(type='text' placeholder='quick add (-1p)')
             if session_is 'view_images' true
-                .ui.header color picker
+                .ui.inline.header color picker
             if session_is 'view_locations' true
-                .ui.header near me
+                .ui.inline.header near me
             
             // .four.wide.column
             .ui.big.label(title='results')
@@ -88,11 +88,16 @@ template(name='home')
             .ui.inline.header 
                 |your points
                 |#{currentUser.points}
-                
-        .ui.divided.comments.scrolling
-            each home_items
-                +home_item
-                .ui.divider
+            .ui.two.column.stackable.grid
+                .column
+                    .ui.divided.comments.scrolling
+                        each home_items
+                            +home_item
+                            .ui.divider
+                .column
+                    with current_post
+                        .ui.header hi
+                            |#{title}
 
 
 template(name='home_item')
@@ -109,7 +114,8 @@ template(name='home_item')
         // else
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
-            a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
+            // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
+            a.ui.header.zoomer.view_post_quick !{title}
             
             a.author    
                 if _author_username
