@@ -767,7 +767,7 @@ input.username_search{
 
 
 .button, .selector, .card, p, .header, .item:not(.animated), .image, .fade {
-    animation: fadein .5s;
+    animation: fadein 1s;
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }
@@ -830,11 +830,11 @@ h1.ui.header{
   animation: fadein .25s;
 }
 .segment{
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
 
 /*.icon {*/
-/*  animation: fadein .5s;*/
+/*  animation: fadein 1s;*/
   /*filter: invert(.9) !important;*/
 /*}*/
 
@@ -844,10 +844,10 @@ h1.ui.header{
 }
 
 #main {
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
-.result_column {
-  animation: fadein .5s;
+.result_column, .comment {
+  animation: fadein 1s;
 }
 
 @media screen and (max-width: 1100px) {

@@ -460,19 +460,19 @@ template(name='email_validation_check')
         
 
 template(name='print_this')
-    i.link.circular.code.icon.print.zoomer
+    i.link.large.code.icon.print.zoomer
     
 
 template(name='alert_this')
-    i.link.circular.bullhorn.icon.alert.zoomer
+    i.link.large.bullhorn.icon.alert.zoomer
 
 
 template(name='session_set')
-    .ui.icon.circular.button.set_value(class=session_set_class title=value)
+    .ui.circular.button.set_value(class=session_set_class title=value)
         if icon
             i.icon(class=icon)
-        else 
-            |#{value}
+        // else 
+        |#{label}
 
 
 
