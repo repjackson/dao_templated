@@ -1,9 +1,9 @@
-template(name='group_roles')
+template(name='user_roles')
     .ui.header 
         i.shield.icon
         |roles
     i.plus.circular.link.icon
-    each group_roles
+    each role_docs
         if can_edit 
             i.pencil.circular.link.icon
         else 

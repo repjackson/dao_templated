@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.large.inverted.blue.menu
+    #topnav.topnav.ui.attached.large.inverted.menu
         +status
         if is_loading
             .icon.item
@@ -33,10 +33,12 @@ template(name='nav')
             i.large.wrench.icon
         a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
-        // a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
-        //     i.large.newspaper.icon
-        // a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
-        //     i.large.calendar.icon
+        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
+            i.large.newspaper.icon
+        a.icon.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}")
+            i.large.chat.icon
+        a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
+            i.large.calendar.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
         .right.menu
@@ -96,7 +98,7 @@ template(name='walletbar')
         +user_credit
         
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.large.blue.inverted.menu
+    .ui.left.sidebar.vertical.large.inverted.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -155,7 +157,7 @@ template(name='left_sidebar')
 
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.blue.inverted.menu.rightbar
+    .ui.right.sidebar.vertical.inverted.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.username}

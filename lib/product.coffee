@@ -213,15 +213,15 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'ingredient'
 
     Template.product_edit.onRendered ->
-        Meteor.setTimeout ->
-            today = new Date()
-            $('#availability')
-                .calendar({
-                    inline:true
-                    # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
-                    # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
-                })
-        , 2000
+        # Meteor.setTimeout ->
+        #     today = new Date()
+        #     $('#availability')
+        #         .calendar({
+        #             inline:true
+        #             # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
+        #             # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
+        #         })
+        # , 2000
 
     Template.product_edit.helpers
         included_ingredients: ->

@@ -1,6 +1,6 @@
 if Meteor.isClient
-    Template.group_roles.onCreated ->
-        @autorun => Meteor.subscribe 'group_roles', Router.current().params.doc_id, ->
+    Template.user_roles.onCreated ->
+        @autorun => Meteor.subscribe 'user_roles', Router.current().params.doc_id, ->
     # Template.user_dashboard.onCreated ->
     #     @autorun => Meteor.subscribe 'user_upcoming_reservations', Router.current().params.username
     # Template.user_dashboard.onCreated ->
@@ -34,7 +34,7 @@ if Meteor.isClient
         #     interest_rate.toFixed(2)
 
 
-    Template.group_roles.helpers
+    Template.user_roles.helpers
         user_role_docs: ->
             Docs.find 
                 model:'role'

@@ -1,0 +1,43 @@
+template(name='chats')
+    .ui.padded.stackable.grid
+        .four.wide.column
+            .ui.inline.header 
+                |chat
+                // if is_admin
+                i.plus.circular.link.small.icon.add_chat
+            +session_toggle key='admin_mode' icon='shield'
+                
+            .ui.input
+                input(type='text' placeholder='search title...')
+        .twelve.wide.column
+            .ui.fluid.icon.input
+                i.plus.icon
+                input.new_message(type='text' placeholder='add message')
+            .ui.six.doubling.centered.cards
+                each chat_docs
+                    +chat_message
+        
+
+
+template(name='chat_message')
+    // if session_is 'editing_chat' _id
+    //     .ui.item
+    //         +image_edit key='image_id' direct=true
+    //         .content
+    //             +text_edit key='title' direct=true
+    //             i.checkmark.circular.link.green.icon.save_chat   
+    //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
+    // else
+    .ui.item
+        // if unless
+        .ui.header #{body}
+        a(href="/chat/#{_id}")
+            img.ui.image.pointer(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        // else
+        //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .content
+            if is_admin
+                i.pencil.circular.link.icon.edit_chat            
+            if can_edit
+                a.zoomer(href="/chat/#{_id}/edit")
+                    i.pencil.circular.link.icon
