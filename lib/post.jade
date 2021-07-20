@@ -90,10 +90,20 @@ template(name='post_edit')
                     +image_edit key='image_id' label='image' direct=true
                     +boolean_edit key='published' label='published' direct=true
                     +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
+                    if is_task
+                        +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
                     +boolean_edit key='is_event' label='is event' icon='calendar' direct=true
+                    if is_event
+                        +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
                     +boolean_edit key='has_video' label='has video' icon='youtube' direct=true
+                    if has_video
+                        +youtube_edit key='youtube_id' label='youtube id' icon='youtube'
                     +boolean_edit key='has_image' label='has image' icon='image' direct=true
+                    if has_image
+                        +image_edit key='image_id' label='image' icon='image'
                     +boolean_edit key='has_price' label='has price' icon='money' direct=true
+                    if has_price
+                        +number_edit key='price_dollars' label='price ($)' icon='money'
                     
                     
                     div
@@ -114,26 +124,23 @@ template(name='post_view')
         .ui.stackable.padded.grid
             .row
                 .ten.wide.column.scrolling
-                    +html_view key='body' direct=true
-                    // +html_view key='content' direct=true
-                    // +html_view key='description' direct=true
-                    if youtube_id
-                        +youtube_view key='youtube_id' direct=true
-                    .ui.header 
-                        i.users.icon
-                        |audience
-                    +comments
-                    if watson
-                        +watson_view
-                    if tone 
-                        +tone_view
+                    a.ui.basic.button.fly_up(href="/")
+                        i.chevron.up.large.icon
+                    .scrolling
+                        +html_view key='body' direct=true
+                        // +html_view key='content' direct=true
+                        // +html_view key='description' direct=true
+                        if youtube_id
+                            +youtube_view key='youtube_id' direct=true
+                        .ui.header 
+                            i.users.icon
+                            |audience
+                        +comments
+                        if watson
+                            +watson_view
+                        if tone 
+                            +tone_view
                 .six.wide.column
-                    a.ui.basic.button.fly_up(href="/posts")
-                        i.newspaper.large.icon
-                        |posts
-                    a.ui.basic.button.fly_left(href="/chat")
-                        i.chat.large.icon
-                        |chat
                     .ui.inline.header
                         | #{title}
                         small post view

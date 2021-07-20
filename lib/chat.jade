@@ -23,9 +23,10 @@ template(name='chats')
             .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
                 input.new_message(type='text' placeholder='quick add (-1p)')
-            .ui.comments.scrolling
+            .ui.divided.comments.scrolling
                 each chat_docs
                     +chat_message
+                    .ui.divider
         .four.wide.column
             .ui.inline.header
                 |#{chat_docs.count}
@@ -143,10 +144,10 @@ template(name='chat_message')
                 if watson
                     +doc_emotion_small
             unless viewing_full
-                .ui.icon.button.view_full
+                .ui.icon.circular.basic.button.view_full
                     i.chevron.down.icon
                     // |view full
             if viewing_full
-                .ui.icon.button.view_less
+                .ui.icon.circular.basic.button.view_less
                     i.chevron.up.icon
                     // |view less
