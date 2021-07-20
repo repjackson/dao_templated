@@ -1,22 +1,19 @@
 template(name='chats')
     .ui.padded.stackable.grid
-        .four.wide.column
-            .ui.inline.header 
-                |chat
-                // if is_admin
-                i.plus.circular.link.small.icon.add_chat
-            +session_toggle key='admin_mode' icon='shield'
-                
-            .ui.input
-                input(type='text' placeholder='search title...')
         .twelve.wide.column
-            .ui.fluid.icon.input
+            i.chat.outline.big.icon(title='backcountry chat')
+            .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
-                input.new_message(type='text' placeholder='add message')
+                input.new_message(type='text' placeholder='add message (-1p)')
             .ui.comments
                 each chat_docs
                     +chat_message
-        
+        .four.wide.column
+            .ui.small.header 
+                i.line.chart.icon
+                |stats  
+            .ui.list 
+                .item #{chat_docs.count} messages
 
 
 template(name='chat_message')
@@ -35,10 +32,20 @@ template(name='chat_message')
         .content
             .ui.header #{body}
             .meta
-                span.date by #{_author_username} #{when}
+                if _author_username
+                    a(href="/user/#{_author_username}")
+                        | by 
+                        |#{_author_username}
+                    span
+                        |#{when}
+                        small {{long_date _timestamp}}
+                else 
+                    // i.anon.grey.icon
+                    |by anonymous
                 +voting_small
-                +print_this
-                +alert_this
+                if in_dev
+                    +print_this
+                    +alert_this
             // if is_admin
             //     i.pencil.circular.link.icon.edit_chat            
             // if can_edit

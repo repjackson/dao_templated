@@ -56,27 +56,27 @@ template(name='layout')
                 
 
         
-template(name='transfers')
-    .ui.padded.stackable.grid
-        .twelve.wide.column
-            .ui.inline.header 
-                i.exchange.icon
-                |#{request_docs.count} requests
-            .ui.basic.compact.button new
-            .ui.basic.compact.button in progress
-            .ui.basic.compact.button delivered
-            .ui.large.selection.link.animated.list.scrolling
-                each request_docs
-                    +request_item
-        .four.wide.column
-            .ui.header 
-                i.line.chart.icon
-                |stats
-            .ui.header total requests
-            .ui.header average delivery time
-            .ui.header most requested items
-            .ui.header requests this week
-            .ui.header requests last week
+// template(name='transfers')
+//     .ui.padded.stackable.grid
+//         .twelve.wide.column
+//             .ui.inline.header 
+//                 i.exchange.icon
+//                 |#{request_docs.count} requests
+//             .ui.basic.compact.button new
+//             .ui.basic.compact.button in progress
+//             .ui.basic.compact.button delivered
+//             .ui.large.selection.link.animated.list.scrolling
+//                 each request_docs
+//                     +request_item
+//         .four.wide.column
+//             .ui.header 
+//                 i.line.chart.icon
+//                 |stats
+//             .ui.header total requests
+//             .ui.header average delivery time
+//             .ui.header most requested items
+//             .ui.header requests this week
+//             .ui.header requests last week
             
             
 

@@ -13,9 +13,9 @@ if Meteor.isClient
 
     Template.chats.helpers
         chat_docs: ->
-            Docs.find 
+            Docs.find {
                 model:'chat_message'
-                
+            }, sort:_timestamp:-1
                 
     Template.chats.events
         'keyup .new_message': (e,t)->

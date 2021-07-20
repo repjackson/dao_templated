@@ -77,118 +77,118 @@ Template.nav.onCreated ->
 Router.route '/', (->
     @render 'products'
     ), name:'home'
-Router.route '/requests', (->
-    @render 'requests'
-    ), name:'requests'
-Router.route '/transfers', (->
-    @render 'transfers'
-    ), name:'transfers'
-Router.route '/group/:name', (->
-    @render 'group'
-    ), name:'group'
+# Router.route '/requests', (->
+#     @render 'requests'
+#     ), name:'requests'
+# Router.route '/transfers', (->
+#     @render 'transfers'
+#     ), name:'transfers'
+# Router.route '/group/:name', (->
+#     @render 'group'
+#     ), name:'group'
 
-Template.transfers.onCreated ->
-    @autorun -> Meteor.subscribe 'model_docs', 'request'
-Template.requests.onCreated ->
-    @autorun -> Meteor.subscribe 'model_docs', 'request'
-Template.requests.onCreated ->
-    @autorun -> Meteor.subscribe 'model_docs', 'item'
-    # @autorun -> Meteor.subscribe 'model_docs', 'food'
-    # @autorun -> Meteor.subscribe 'users'
+# Template.transfers.onCreated ->
+#     @autorun -> Meteor.subscribe 'model_docs', 'request'
+# Template.requests.onCreated ->
+#     @autorun -> Meteor.subscribe 'model_docs', 'request'
+# Template.requests.onCreated ->
+#     @autorun -> Meteor.subscribe 'model_docs', 'item'
+#     # @autorun -> Meteor.subscribe 'model_docs', 'food'
+#     # @autorun -> Meteor.subscribe 'users'
 
 # Template.delta.onRendered ->
 #     Meteor.call 'log_view', @_id, ->
 
-Template.request_item.events
-    'click .cancel_request': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly right', 1000)
-        Meteor.setTimeout =>
-            Docs.remove @_id
-            $('body').toast(
-                showIcon: 'checkmark'
-                message: "#{@item_title} request canceled"
-                # showProgress: 'bottom'
-                class: 'error'
-                # displayTime: 'auto',
-                position: "bottom center"
-            )
-        , 1000
+# Template.request_item.events
+#     'click .cancel_request': (e,t)->
+#         $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+#         Meteor.setTimeout =>
+#             Docs.remove @_id
+#             $('body').toast(
+#                 showIcon: 'checkmark'
+#                 message: "#{@item_title} request canceled"
+#                 # showProgress: 'bottom'
+#                 class: 'error'
+#                 # displayTime: 'auto',
+#                 position: "bottom center"
+#             )
+#         , 1000
     
-    'click .pick_up':(e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly left', 1000)
-        Meteor.setTimeout =>
-            Docs.update @_id, 
-                $set:
-                    status:'processing'
-                    pick_up_timestamp:Date.now()
-        , 500
+#     'click .pick_up':(e,t)->
+#         $(e.currentTarget).closest('.grid').transition('fly left', 1000)
+#         Meteor.setTimeout =>
+#             Docs.update @_id, 
+#                 $set:
+#                     status:'processing'
+#                     pick_up_timestamp:Date.now()
+#         , 500
         
         
-    'click .mark_delivered': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('tada', 400)
-        $(e.currentTarget).closest('.grid').transition('fly right', 500)
-        Meteor.setTimeout =>
-            Docs.update @_id, 
-                $set:
-                    status:'delivered'
-                    delivered_timestamp:Date.now()
-            $('body').toast(
-                showIcon: 'checkmark'
-                message: "#{@item_title} marked delivered"
-                # showProgress: 'bottom'
-                class: 'success'
-                # displayTime: 'auto',
-                position: "bottom center"
-            )
-        , 900
+#     'click .mark_delivered': (e,t)->
+#         $(e.currentTarget).closest('.grid').transition('tada', 400)
+#         $(e.currentTarget).closest('.grid').transition('fly right', 500)
+#         Meteor.setTimeout =>
+#             Docs.update @_id, 
+#                 $set:
+#                     status:'delivered'
+#                     delivered_timestamp:Date.now()
+#             $('body').toast(
+#                 showIcon: 'checkmark'
+#                 message: "#{@item_title} marked delivered"
+#                 # showProgress: 'bottom'
+#                 class: 'success'
+#                 # displayTime: 'auto',
+#                 position: "bottom center"
+#             )
+#         , 900
         
         
-    'click .mark_complete': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('tada', 500)
-        Meteor.setTimeout =>
-            Docs.update @_id, 
-                $set:
-                    status:'complete'
-                    complete_timestamp:Date.now()
-            $('body').toast(
-                showIcon: 'checkmark'
-                message: "#{@item_title} completed"
-                # showProgress: 'bottom'
-                class: 'success'
-                # displayTime: 'auto',
-                position: "bottom center"
-            )
-        , 500
+#     'click .mark_complete': (e,t)->
+#         $(e.currentTarget).closest('.grid').transition('tada', 500)
+#         Meteor.setTimeout =>
+#             Docs.update @_id, 
+#                 $set:
+#                     status:'complete'
+#                     complete_timestamp:Date.now()
+#             $('body').toast(
+#                 showIcon: 'checkmark'
+#                 message: "#{@item_title} completed"
+#                 # showProgress: 'bottom'
+#                 class: 'success'
+#                 # displayTime: 'auto',
+#                 position: "bottom center"
+#             )
+#         , 500
 
 
-Template.requests.helpers
-    # roof_requests: ->
-    #     Docs.find
-    #         model:'request'
-    #         _author_id: Meteor.userId()
-    #         status: $ne:'delivered'
-    unprocessed_requests: ->
-        Docs.find
-            model:'request'
-            status: 'requested'
-    processed_requests: ->
-        Docs.find
-            model:'request'
-            status: 'processing'
+# Template.requests.helpers
+#     # roof_requests: ->
+#     #     Docs.find
+#     #         model:'request'
+#     #         _author_id: Meteor.userId()
+#     #         status: $ne:'delivered'
+#     unprocessed_requests: ->
+#         Docs.find
+#             model:'request'
+#             status: 'requested'
+#     processed_requests: ->
+#         Docs.find
+#             model:'request'
+#             status: 'processing'
             
             
-Template.request_item.helpers
-    delivery_time: ->
-        moment_delivered = moment(@delivered_timestamp)
-        moment_pickup = moment(@pick_up_timestamp)
-        moment_delivered.diff(moment_pickup,'minutes');
-    request_class: ->
-        if @status is 'requested'
-            'red'
-        else if @status is 'processing'
-            'yellow'
-        else if @status is 'received'
-            'green'
+# Template.request_item.helpers
+#     delivery_time: ->
+#         moment_delivered = moment(@delivered_timestamp)
+#         moment_pickup = moment(@pick_up_timestamp)
+#         moment_delivered.diff(moment_pickup,'minutes');
+#     request_class: ->
+#         if @status is 'requested'
+#             'red'
+#         else if @status is 'processing'
+#             'yellow'
+#         else if @status is 'received'
+#             'green'
             
 Template.items.helpers
     unarchived_items: ->
