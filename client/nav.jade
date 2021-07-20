@@ -1,6 +1,6 @@
 template(name='nav')
     // #topnav.topnav.ui.attached.menu(style="background-color:#062639;")
-    #topnav.topnav.ui.attached.large.inverted.menu
+    #topnav.topnav.ui.attached.inverted.menu
         +status
         // if is_loading
         //     .icon.item
@@ -12,6 +12,8 @@ template(name='nav')
         a.item(href='/') 
             img.ui.avatar.image(src="{{c.url current_group.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |Backcountry
+        // a.icon.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}")
+        //     i.large.chat.outline.icon
         if session_is 'is_global_searching' true
             .ui.icon.transparent.input.global_search_input
                 i.link.large.remove.icon.clear_search.zoomer(title='clear search')
@@ -27,8 +29,6 @@ template(name='nav')
         //     i.bullhorn.large.icon
         a.icon.item.zoomer(href='/products' class="{{isActivePath '/products'}}")
             i.large.shop.icon
-        a.icon.item.zoomer(href='/chat' class="{{isActivePath '/chat'}}")
-            i.large.chat.outline.icon
         a.icon.item.zoomer(href='/items' class="{{isActivePath '/items'}}")
             i.large.list.icon
         a.icon.item.zoomer(href='/work' class="{{isActivePath '/work'}}")

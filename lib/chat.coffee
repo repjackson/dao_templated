@@ -18,12 +18,17 @@ if Meteor.isClient
             }, sort:_timestamp:-1
                 
     Template.chats.events
+        'click .add_post': ->
+            new_id = Docs.insert 
+                model:'post'
+            Router.go "/post/#{new_id}/edit"    
+    
         'keyup .new_message': (e,t)->
             if e.which is 13
                 body = $('.new_message').val()
                 console.log body
                 Docs.insert 
-                    model:'chat_message'
+                    model:'post'
                     body:body    
                         
             
@@ -48,5 +53,5 @@ if Meteor.isServer
             
     Meteor.publish 'user_liked_chats', (username)->
         Docs.find   
-            model:'chat'
+            model:'post'
             _id:$in:Meteor.user().liked_ids

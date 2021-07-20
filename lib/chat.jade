@@ -1,7 +1,24 @@
 template(name='chats')
     .ui.padded.stackable.grid
-        .twelve.wide.column
-            i.chat.outline.big.icon(title='backcountry chat')
+        .sixteen.wide.column
+            .ui.inline.header 
+                |#{chat_docs.count}
+                i.chat.outline.large.icon(title='backcountry chat')
+            .ui.basic.icon.button.add_post
+                i.large.plus.icon
+            if post_tag_results
+                .ui.inline.small.header
+                    i.tag.icon
+                    |tags
+                each picked_post_tags
+                    a.ui.blue.label.unpick_post_tag
+                        |#{this}
+                each post_tag_results
+                    if title
+                        a.ui.basic.circular.small.link.label.pick_post_tag
+                            |#{title} 
+                            small.ui.grey.text #{count}
+                
             .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
                 input.new_message(type='text' placeholder='quick add (-1p)')
@@ -35,24 +52,9 @@ template(name='chats')
                 .spacer 
         
                 
-            .ui.comments.scrolling
+            .ui.comments
                 each chat_docs
                     +chat_message
-        .four.wide.column
-            .ui.small.header 
-                i.line.chart.icon
-                |stats  
-            .ui.list 
-                .item #{chat_docs.count} messages
-            .ui.header 
-                |top post
-            .ui.small.header 
-                |most posts
-            .ui.small.header 
-                |most points earned
-            .ui.small.header
-                i.eye.icon
-                |most viewed
 
 
 template(name='chat_message')
@@ -88,8 +90,8 @@ template(name='chat_message')
                 if in_dev
                     +print_this
                     +alert_this
-            // if is_admin
-            //     i.pencil.circular.link.icon.edit_chat            
-            if can_edit
-                a.zoomer(href="/post/#{_id}/edit")
-                    i.pencil.circular.link.icon
+                // if is_admin
+                //     i.pencil.circular.link.icon.edit_chat            
+                if can_edit
+                    a.zoomer(href="/post/#{_id}/edit")
+                        i.pencil.circular.link.icon
