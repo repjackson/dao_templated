@@ -5,10 +5,19 @@ if Meteor.isClient
         ), name:'chats'
     
     Template.chats.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'chat', ->
-        @autorun => Meteor.subscribe 'model_docs', 'post', ->
+        # @autorun => Meteor.subscribe 'model_docs', 'chat', ->
+        # @autorun => Meteor.subscribe 'model_docs', 'post', ->
             
-            
+        @autorun => @subscribe 'post_docs',
+            picked_post_tags.array()
+            Session.get('post_title_filter')
+
+        @autorun => @subscribe 'post_facets',
+            picked_post_tags.array()
+            Session.get('post_title_filter')
+
+    
+
     
 
     Template.chats.helpers

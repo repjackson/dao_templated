@@ -156,8 +156,9 @@ template(name='topup_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.basic.icon.button(href="/topups")
-                        i.wrench.icon
+                    a.ui.basic.icon.button.fly_left(href="/topups")
+                        i.small.chevron.left.icon
+                        i.large.money.icon
                     .ui.inline.header
                         | #{title}
                         small topup view

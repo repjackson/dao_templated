@@ -17,7 +17,10 @@ template(name='user_topups')
         |topup
     .ui.link.selection.list.scrolling
         each user_topup_docs
-            a.item(href="/topup/#{_id}" title='view topup') #{topup_amount} #{when}
+            a.item(href="/topup/#{_id}" title='view topup')
+                .content
+                    .header #{topup_amount}
+                    .meta #{when} {{long_date _timestamp}}
 template(name='user_work')
     .ui.inline.header
         i.wrench.icon

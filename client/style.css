@@ -657,7 +657,7 @@ input.username_search{
 } */
 
 .button, input, .label {
-    border-radius: 10px !important; 
+    /*border-radius: 10px !important; */
     margin:2px !important;
 }
 
