@@ -89,6 +89,13 @@ template(name='post_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     +boolean_edit key='published' label='published' direct=true
+                    +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
+                    +boolean_edit key='is_event' label='is event' icon='calendar' direct=true
+                    +boolean_edit key='has_video' label='has video' icon='youtube' direct=true
+                    +boolean_edit key='has_image' label='has image' icon='image' direct=true
+                    +boolean_edit key='has_price' label='has price' icon='money' direct=true
+                    
+                    
                     div
                 .ten.wide.column
                     div
@@ -131,6 +138,13 @@ template(name='post_view')
                         | #{title}
                         small post view
                     +image_view key='image_id' label='image' direct=true
+                    +boolean_view key='published' label='published' direct=true
+                    +boolean_view key='is_task' label='is task' icon='checkmark' direct=true
+                    +boolean_view key='is_event' label='is event' icon='calendar' direct=true
+                    +boolean_view key='has_video' label='has video' icon='youtube' direct=true
+                    +boolean_view key='has_image' label='has image' icon='image' direct=true
+                    +boolean_view key='has_price' label='has price' icon='money' direct=true
+                    
                     div
                     a.ui.icon.button(href="/post/#{_id}/edit")
                         i.pencil.icon

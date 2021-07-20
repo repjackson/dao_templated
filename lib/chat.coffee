@@ -35,10 +35,10 @@ if Meteor.isClient
         'keyup .new_message': (e,t)->
             if e.which is 13
                 body = $('.new_message').val()
-                console.log body
                 Docs.insert 
                     model:'post'
                     body:body    
+                body = $('.new_message').val('')
                         
             
 if Meteor.isServer

@@ -56,7 +56,7 @@ template(name='nav')
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                     else
                         i.user.icon
-                    strong.mobile.hidden #{currentUser.name}
+                    strong.mobile.hidden #{currentUser.username}
             unless currentUser
                 if subs_ready
                     a.icon.item(href='/login' title='login') 

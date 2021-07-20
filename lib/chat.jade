@@ -85,7 +85,9 @@ template(name='chats')
                 |leaderboard
             each top_users
                 .ui.header #{username}
-            
+            .ui.header 
+                |your points
+                |#{currentUser.points}
                 
 
 
