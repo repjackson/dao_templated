@@ -35,10 +35,10 @@ template(name='nav')
             i.large.wrench.icon
         a.icon.item.zoomer(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.checkmark.icon
-        a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
-            i.large.newspaper.icon
-        a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
-            i.large.calendar.icon
+        // a.icon.item.zoomer(href='/posts' class="{{isActivePath '/posts'}}")
+        //     i.large.newspaper.icon
+        // a.icon.item.zoomer(href='/events' class="{{isActivePath '/events'}}")
+        //     i.large.calendar.icon
         a.icon.item.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
         .right.menu
@@ -51,7 +51,7 @@ template(name='nav')
                 a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                     // i.wallet.icon
                     strong {{int currentUser.points}}p
-                a.item.toggle_rightbar.no_blink
+                    // a.item.toggle_rightbar.no_blink
                     if currentUser.image_id
                         img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                     else

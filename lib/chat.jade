@@ -3,7 +3,8 @@ template(name='chats')
         .twelve.wide.column
             .ui.inline.header 
                 |#{chat_docs.count}
-                i.chat.outline.large.icon(title='backcountry chat')
+                |Backcountry Pizza
+                // i.chat.outline.large.icon(title='backcountry chat')
             .ui.basic.icon.button.add_post
                 i.large.plus.icon
             if post_tag_results
@@ -22,7 +23,7 @@ template(name='chats')
             .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 i.plus.icon
                 input.new_message(type='text' placeholder='quick add (-1p)')
-            .ui.comments
+            .ui.comments.scrolling
                 each chat_docs
                     +chat_message
         .four.wide.column
@@ -53,6 +54,27 @@ template(name='chats')
                           +set_product_limit amount=5
                           +set_product_limit amount=10
                             +set_product_limit amount=20
+                .ui.small.inline.header 
+                    |media
+                .ui.icon.button
+                    i.youtube.icon
+                .ui.icon.button
+                    i.image.icon
+                .ui.icon.button
+                    i.calendar.icon
+                .ui.icon.button
+                    i.money.icon
+                .ui.icon.button
+                    i.checkmark.icon
+            .ui.header points given
+            .ui.header points received
+            .ui.header
+                i.line.chart.icon
+                |leaderboard
+            each top_users
+                .ui.header #{username}
+            
+                
 
 
 template(name='chat_message')
