@@ -40,6 +40,10 @@ Meteor.publish 'post_facets', (
     if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
     # match.$regex:"#{product_query}", $options: 'i'}
     # if product_query and product_query.length > 1
+    if view_tasks
+        match.is_task = true
+
+    
     author_cloud = Docs.aggregate [
         { $match: match }
         { $project: "_author_username": 1 }
@@ -157,7 +161,7 @@ Meteor.publish 'post_docs', (
     self = @
     match = {}
     # match = {app:'pes'}
-    match.model = 'post'
+    # match.model = 'post'
     # match.group_id = Meteor.user().current_group_id
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
@@ -166,8 +170,8 @@ Meteor.publish 'post_docs', (
     #     match.vegan = true
     # if view_gf
     #     match.gluten_free = true
-    # if view_local
-    #     match.local = true
+    if view_tasks
+        match.is_task = true
     if picked_authors.length > 0 then match._author_username = $in:picked_authors
     if picked_post_tags.length > 0 then match.tags = $all:picked_post_tags 
     if picked_locations.length > 0 then match.location_title = $in:picked_locations 

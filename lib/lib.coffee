@@ -67,7 +67,7 @@ Docs.helpers
     
 Router.configure
     layoutTemplate: 'layout'
-    notFoundTemplate: 'not_found'
+    notFoundTemplate: 'home'
     loadingTemplate: 'splash'
     trackPageView: false
 
