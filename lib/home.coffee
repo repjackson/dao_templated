@@ -6,14 +6,35 @@ if Meteor.isClient
         @autorun => @subscribe 'post_docs',
             picked_post_tags.array()
             Session.get('post_title_filter')
+            picked_authors.array()
+            picked_tasks.array()
+            picked_locations.array()
+            picked_timestamp_tags.array()
+            Session.get('view_videos')
+            Session.get('view_images')
+            Session.get('view_events')
+            Session.get('view_tasks')
+            Session.get('view_locations')
+            Session.get('view_food')
+            Session.get('sort_key')
+            Session.get('sort_direction')
 
         @autorun => @subscribe 'post_facets',
             picked_post_tags.array()
             Session.get('post_title_filter')
+            picked_authors.array()
+            picked_tasks.array()
+            picked_locations.array()
+            picked_timestamp_tags.array()
+            Session.get('view_videos')
+            Session.get('view_images')
+            Session.get('view_events')
+            Session.get('view_tasks')
+            Session.get('view_locations')
+            Session.get('view_food')
+            Session.get('sort_key')
+            Session.get('sort_direction')
 
-    
-
-    
 
     Template.home.helpers
         current_post: ->
@@ -25,6 +46,9 @@ if Meteor.isClient
                 model:'post'
             }, sort:_timestamp:-1
                 
+    Template.home_item.helpers
+        is_selected: ->
+            Session.equals('viewing_post_id', @_id)
     Template.home_item.events
         'click .view_post_quick': ->
             Session.set('viewing_post_id', @_id)

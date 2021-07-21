@@ -1,14 +1,14 @@
 if Meteor.isClient
     @picked_post_tags = new ReactiveArray []
     
-    Router.route '/post/:doc_id', (->
-        @layout 'layout'
-        @render 'post_view'
-        ), name:'post_view'
-    Router.route '/posts', (->
-        @layout 'layout'
-        @render 'posts'
-        ), name:'posts'
+    # Router.route '/post/:doc_id', (->
+    #     @layout 'layout'
+    #     @render 'post_view'
+    #     ), name:'post_view'
+    # Router.route '/posts', (->
+    #     @layout 'layout'
+    #     @render 'posts'
+    #     ), name:'posts'
         
     Template.post_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id

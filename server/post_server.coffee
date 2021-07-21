@@ -5,6 +5,15 @@ Meteor.publish 'post_facets', (
     picked_tasks=[]
     picked_locations=[]
     picked_timestamp_tags=[]
+    view_videos
+    view_images
+    view_events
+    view_tasks
+    view_locations
+    view_food
+    sort_key
+    sort_direction
+
     )->
     # console.log 'dummy', dummy
     # console.log 'query', query
@@ -129,18 +138,20 @@ Meteor.publish 'post_facets', (
     self.ready()
     
 Meteor.publish 'post_docs', (
-    picked_post_tags
+    picked_post_tags=[]
     title_filter
     picked_authors=[]
     picked_tasks=[]
     picked_locations=[]
     picked_timestamp_tags=[]
-    # product_query
-    # view_vegan
-    # view_gf
-    # doc_limit
-    # doc_sort_key
-    # doc_sort_direction
+    view_videos
+    view_images
+    view_events
+    view_tasks
+    view_locations
+    view_food
+    sort_key
+    sort_direction
     )->
 
     self = @

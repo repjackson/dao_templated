@@ -35,16 +35,16 @@ template(name='home')
             +search_input model='post' field='title'
             // .ui.small.inline.header 
             //     |layout
-            +session_set key='view_users' value='grid' icon='th' 
-            +session_set key='view_users' value='list' icon='list'
+            +session_set key='view_layout' value='grid' icon='th' 
+            +session_set key='view_layout' value='list' icon='list'
             // .ui.small.inline.header 
             //     |direction
-            +session_set key='sort_users_direction' value='-1' icon='chevron down'
-            +session_set key='sort_users_direction' value='1' icon='chevron up'
+            +session_set key='sort_direction' value='-1' icon='chevron down'
+            +session_set key='sort_direction' value='1' icon='chevron up'
             // .ui.small.inline.header 
             //     |by
-            +session_set key='sort_users_key' value='points' label='points' icon='coins'
-            +session_set key='sort_users_key' value='created_date' label='when' icon='clock'
+            +session_set key='sort_key' value='points' label='points' icon='coins'
+            +session_set key='sort_key' value='created_date' label='when' icon='clock'
             // +session_set key='view_limit' value=1
             
             i.large.sort.icon
@@ -74,27 +74,27 @@ template(name='home')
             +session_set key='view_locations' value=true label='view location' icon='marker'
             +session_set key='view_food' value='view_food' label='view' icon='food'
             // .ui.inline.header
-            .ui.big.circular.button
-                |p                
-                i.chevron.up.large.icon
-            .ui.big.circular.button
-                |p                
-                i.chevron.large.down.icon
-            .ui.inline.header
-                i.line.chart.icon
-                |leaderboard
+            // .ui.circular.button
+            //     // |p                
+            //     i.chevron.up.large.icon
+            // .ui.circular.button
+            //     // |p                
+            //     i.chevron.large.down.icon
+            // .ui.inline.header
+            //     i.line.chart.icon
+            //     |leaderboard
             each top_users
                 .ui.inline.header #{username}
             .ui.inline.header 
                 |your points
                 |#{currentUser.points}
-            .ui.two.column.stackable.grid
-                .column
+            .ui.stackable.grid
+                .six.wide.column
                     .ui.divided.comments.scrolling
                         each home_items
                             +home_item
-                            .ui.divider
-                .column
+                            // .ui.divider
+                .ten.wide.column
                     with current_post
                         +post_view
                         // .ui.header
@@ -110,7 +110,9 @@ template(name='home_item')
     //             i.checkmark.large.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .comment
+    .ui.segment.zoomer.pointer(class=card_class)
+        // if is_selected
+        //     .ui.header this one
         // if unless
         // else
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")

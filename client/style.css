@@ -1084,8 +1084,8 @@ h1.ui.header{
 	overflow-x:hidden;
 	max-height:90vh;
 	/*max-height:85vh;*/
-	padding-top: 1em;
-	padding-left: 1em;
+	padding: 1em;
+	/*padding-left: 1em;*/
 }
 
 .smallscroll{
