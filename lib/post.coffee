@@ -5,25 +5,11 @@ if Meteor.isClient
         @layout 'layout'
         @render 'post_view'
         ), name:'post_view'
-    # Router.route '/posts', (->
-    #     @layout 'layout'
-    #     @render 'posts'
-    #     ), name:'posts'
         
     Template.post_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id
 
             
-    # Template.posts.onCreated ->
-    #     @autorun => @subscribe 'post_docs',
-    #         picked_post_tags.array()
-    #         Session.get('post_title_filter')
-
-    #     @autorun => @subscribe 'post_facets',
-    #         picked_post_tags.array()
-    #         Session.get('post_title_filter')
-
-    
     
     Template.post_view.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
@@ -34,27 +20,6 @@ if Meteor.isClient
     Template.post_view.events
         'click .clear_current_post': ->
             Session.set('viewing_post_id',null)
-    # Template.posts.events
-    #     'click .add_post': ->
-    #         new_id = Docs.insert 
-    #             model:'post'
-    #         Router.go "/post/#{new_id}/edit"    
-    #     'click .pick_post_tag': -> picked_post_tags.push @title
-    #     'click .unpick_post_tag': -> picked_post_tags.remove @valueOf()
-
-                
-            
-    # Template.posts.helpers
-    #     picked_post_tags: -> picked_post_tags.array()
-    
-    #     post_docs: ->
-    #         Docs.find 
-    #             model:'post'
-    #     post_tag_results: ->
-    #         Results.find {
-    #             model:'post_tag'
-    #         }, sort:_timestamp:-1
-  
                 
         
 if Meteor.isServer
