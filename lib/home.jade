@@ -104,15 +104,15 @@ template(name='home')
             //     |#{currentUser.points}
             if current_post
                 .ui.stackable.grid
-                    .six.wide.column.scrolling
-                        each home_items
-                            +home_item
-                            // .ui.divider
                     .ten.wide.column.scrolling
                         with current_post
                             +post_view
                             // .ui.header
                             //     |#{title}
+                    .six.wide.column.scrolling
+                        each home_items
+                            +home_item
+                            // .ui.divider
             else 
                 .ui.stackable.five.column.grid.scrolling
                     each home_items
