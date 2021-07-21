@@ -69,10 +69,19 @@ template(name='home')
             if session_is 'view_images' true
                 .ui.inline.header color picker
             +session_set key='view_events' value=true label='view events' icon='calendar'
+            if session_is 'view_events'
+                .ui.icon.input
+                    i.right.chevron.icon
+                    input(type='date' placeholder='from')
+                .ui.icon.input
+                    i.left.chevron.icon
+                    input(type='date' placeholder='to')
             +session_set key='view_tasks' value=true label='view tasks' icon='checkmark'
             +session_set key='view_locations' value=true label='view location' icon='marker'
             if session_is 'view_locations' true
-                .ui.inline.header near me
+                .ui.button
+                    i.location.icon
+                    |near me
             +session_set key='view_food' value='view_food' label='view' icon='food'
             if session_is 'view_food' true
                 .ui.small.inline.header
@@ -88,11 +97,11 @@ template(name='home')
             // .ui.inline.header
             //     i.line.chart.icon
             //     |leaderboard
-            each top_users
-                .ui.inline.header #{username}
-            .ui.inline.header 
-                |your points
-                |#{currentUser.points}
+            // each top_users
+            //     .ui.inline.header #{username}
+            // .ui.inline.header 
+            //     |your points
+            //     |#{currentUser.points}
             if current_post
                 .ui.stackable.grid
                     .six.wide.column.scrolling
@@ -105,7 +114,7 @@ template(name='home')
                             // .ui.header
                             //     |#{title}
             else 
-                .ui.stackable.padded.five.column.grid.scrolling
+                .ui.stackable.five.column.grid.scrolling
                     each home_items
                         .column
                             +home_item
@@ -119,7 +128,7 @@ template(name='home_item')
     //             i.checkmark.large.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .ui.fluid.card.zoomer.pointer(class=card_class)
+    .ui.fluid.card.zoomer.pointer.view_item(class=card_class)
         if image_id
             +image_view key='image_id' direct=true
         if youtube_id
@@ -129,9 +138,9 @@ template(name='home_item')
         // if unless
         // else
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-        .content.view_post_quick
+        .content
             // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
-            a.ui.header.zoomer.view_post_quick !{title}
+            a.ui.header.zoomer !{title}
             
             a.author    
                 if _author_username
@@ -161,15 +170,6 @@ template(name='home_item')
                 span(title='views')
                     i.eye.link.icon
                     |#{views}
-                // +voting_small
-                // if in_dev
-                //     +print_this
-                //     +alert_this
-                // if is_admin
-                //     i.pencil.large.link.icon.edit_chat            
-                if can_edit
-                    a.zoomer.fly_down(href="/post/#{_id}/edit")
-                        i.pencil.large.link.icon
                 if watson
                     +doc_emotion_small
             unless viewing_full
