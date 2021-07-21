@@ -3,13 +3,13 @@ if Meteor.isClient
         @layout 'layout'
         @render 'item_view'
         ), name:'item_view'
-    Router.route '/items', (->
-        @layout 'layout'
-        @render 'items'
-        ), name:'items'
+    # Router.route '/items', (->
+    #     @layout 'layout'
+    #     @render 'items'
+    #     ), name:'items'
     
-    Template.items.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'item', ->
+    # Template.items.onCreated ->
+    #     @autorun => Meteor.subscribe 'model_docs', 'item', ->
             
             
     Template.item_edit.onCreated ->

@@ -5,10 +5,10 @@ if Meteor.isClient
         @layout 'group_layout'
         @render 'group_view'
         ), name:'group_view'
-    Router.route '/groups', (->
-        @layout 'layout'
-        @render 'groups'
-        ), name:'groups'
+    # Router.route '/groups', (->
+    #     @layout 'layout'
+    #     @render 'groups'
+    #     ), name:'groups'
     Router.route '/group/:doc_id/items', (->
         @layout 'group_layout'
         @render 'group_items'
@@ -31,13 +31,13 @@ if Meteor.isClient
         ), name:'group_work'
     
             
-    Template.groups.onCreated ->
-        @autorun => @subscribe 'group_docs',
-            picked_group_tags.array()
-            Session.get('group_title_filter')
-        @autorun => @subscribe 'group_facets',
-            picked_group_tags.array()
-            Session.get('group_title_filter')
+    # Template.groups.onCreated ->
+    #     @autorun => @subscribe 'group_docs',
+    #         picked_group_tags.array()
+    #         Session.get('group_title_filter')
+    #     @autorun => @subscribe 'group_facets',
+    #         picked_group_tags.array()
+    #         Session.get('group_title_filter')
     
     
     Template.group_products.onCreated ->
@@ -147,31 +147,31 @@ if Meteor.isClient
             
             
             
-    Template.groups.events
-        'click .add_group': ->
-            new_id = Docs.insert 
-                model:'group'
-            Router.go "/group/#{new_id}/edit"    
-        'click .pick_group_tag': -> picked_group_tags.push @title
-        'click .unpick_group_tag': -> picked_group_tags.remove @valueOf()
+    # Template.groups.events
+    #     'click .add_group': ->
+    #         new_id = Docs.insert 
+    #             model:'group'
+    #         Router.go "/group/#{new_id}/edit"    
+    #     'click .pick_group_tag': -> picked_group_tags.push @title
+    #     'click .unpick_group_tag': -> picked_group_tags.remove @valueOf()
 
                 
             
-    Template.groups.helpers
-        picked_group_tags: -> picked_group_tags.array()
-        current_group_title_filter: ->
-            Session.get('group_title_filter')
-        group_docs: ->
-            match = {model:'group'}
-            if Session.get('group_title_filter')
-                match.title = {$regex:Session.get('group_title_filter'), $options:'i'}
-            Docs.find match
+    # Template.groups.helpers
+    #     picked_group_tags: -> picked_group_tags.array()
+    #     current_group_title_filter: ->
+    #         Session.get('group_title_filter')
+    #     group_docs: ->
+    #         match = {model:'group'}
+    #         if Session.get('group_title_filter')
+    #             match.title = {$regex:Session.get('group_title_filter'), $options:'i'}
+    #         Docs.find match
             
             
-        group_tag_results: ->
-            Results.find {
-                model:'group_tag'
-            }, sort:_timestamp:-1
+    #     group_tag_results: ->
+    #         Results.find {
+    #             model:'group_tag'
+    #         }, sort:_timestamp:-1
   
                 
         

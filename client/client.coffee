@@ -190,25 +190,25 @@ Router.route '/', (->
 #         else if @status is 'received'
 #             'green'
             
-Template.items.helpers
-    unarchived_items: ->
-        Docs.find
-            model:'item'
-            archived:$ne:true
-    archived_items: ->
-        Docs.find
-            model:'item'
-            archived:true
+# Template.items.helpers
+#     unarchived_items: ->
+#         Docs.find
+#             model:'item'
+#             archived:$ne:true
+#     archived_items: ->
+#         Docs.find
+#             model:'item'
+#             archived:true
             
-Template.items.events
-    'click .save_item': -> Session.set('editing_item', null)
-    'click .edit_item': -> Session.set('editing_item',@_id) 
-    'click .add_item': ->
-        new_id = 
-            Docs.insert 
-                model:'item'
-        Router.go "/item/#{new_id}/edit"
-        # Session.set('editing_item', @_id)
+# Template.items.events
+#     'click .save_item': -> Session.set('editing_item', null)
+#     'click .edit_item': -> Session.set('editing_item',@_id) 
+#     'click .add_item': ->
+#         new_id = 
+#             Docs.insert 
+#                 model:'item'
+#         Router.go "/item/#{new_id}/edit"
+#         # Session.set('editing_item', @_id)
             
             
 Template.item_item.events

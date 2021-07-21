@@ -1,9 +1,9 @@
 template(name='user_layout')
-    +nav
+    // +nav
     .ui.bottom.attached.pushable.segment
         // +topbar
-        +left_sidebar
-        +right_sidebar
+        // +left_sidebar
+        // +right_sidebar
         // +cartbar
         // +walletbar
         // +secnav
@@ -12,6 +12,8 @@ template(name='user_layout')
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .sixteen.wide.column
+                        a.ui.icon.button(href="/")
+                            i.chevron.left.large.icon
                         a.item.mobile.hidden.zoomer(href="/user/#{username}")
                             img.ui.centered.rounded.inline.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         // .spacer

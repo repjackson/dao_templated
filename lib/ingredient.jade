@@ -1,27 +1,27 @@
-template(name='ingredients')
-    .ui.padded.stackable.grid
-        .sixteen.wide.column
-            .ui.inline.header 
-                |ingredient
-                // if is_admin
-                i.plus.circular.link.small.icon.add_ingredient
-            +session_toggle key='admin_mode' icon='shield'
+// template(name='ingredients')
+//     .ui.padded.stackable.grid
+//         .sixteen.wide.column
+//             .ui.inline.header 
+//                 |ingredient
+//                 // if is_admin
+//                 i.plus.circular.link.small.icon.add_ingredient
+//             +session_toggle key='admin_mode' icon='shield'
                 
-            .ui.input
-                input(type='text' placeholder='search title...')
-        .sixteen.wide.column
-            .ui.six.doubling.centered.cards
-                each ingredient_docs
-                    +ingredient_card
-        if is_admin
-            .sixteen.wide.column
-                .ui.header 
-                    i.archive.icon
-                    |archived ingredients
-                .ui.six.doubling.cards
-                    each archived_ingredients
-                        +ingredient_item
-                div
+//             .ui.input
+//                 input(type='text' placeholder='search title...')
+//         .sixteen.wide.column
+//             .ui.six.doubling.centered.cards
+//                 each ingredient_docs
+//                     +ingredient_card
+//         if is_admin
+//             .sixteen.wide.column
+//                 .ui.header 
+//                     i.archive.icon
+//                     |archived ingredients
+//                 .ui.six.doubling.cards
+//                     each archived_ingredients
+//                         +ingredient_item
+//                 div
         
 
 

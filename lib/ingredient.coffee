@@ -3,13 +3,13 @@ if Meteor.isClient
         @layout 'layout'
         @render 'ingredient_view'
         ), name:'ingredient_view'
-    Router.route '/ingredients', (->
-        @layout 'layout'
-        @render 'ingredients'
-        ), name:'ingredients'
+    # Router.route '/ingredients', (->
+    #     @layout 'layout'
+    #     @render 'ingredients'
+    #     ), name:'ingredients'
     
-    Template.ingredients.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'ingredient', ->
+    # Template.ingredients.onCreated ->
+    #     @autorun => Meteor.subscribe 'model_docs', 'ingredient', ->
             
             
     
@@ -24,18 +24,18 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'products_from_ingredient_id', Router.current().params.doc_id, ->
     
 
-    Template.ingredients.helpers
-        ingredient_docs: ->
-            Docs.find 
-                model:'ingredient'
+    # Template.ingredients.helpers
+    #     ingredient_docs: ->
+    #         Docs.find 
+    #             model:'ingredient'
                 
                 
-    Template.ingredients.events
-        'click .add_ingredient': ->
-            new_id = 
-                Docs.insert 
-                    model:'ingredient'
-            Router.go "/ingredient/#{new_id}/edit"
+    # Template.ingredients.events
+    #     'click .add_ingredient': ->
+    #         new_id = 
+    #             Docs.insert 
+    #                 model:'ingredient'
+    #         Router.go "/ingredient/#{new_id}/edit"
 
     Template.ingredient_view.events
         'click .record_work': ->

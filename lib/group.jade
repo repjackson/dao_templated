@@ -1,45 +1,45 @@
-template(name='groups')
-    .ui.stackable.padded.grid
-        .four.wide.column
-            .ui.inline.header 
-                i.large.fire.icon
-                |groups
-            i.plus.circular.link.icon.add_group
-            div
-            .ui.inline.small.header
-                i.tag.icon
-                |tags
-            each picked_group_tags
-                a.ui.blue.label.unpick_group_tag
-                    |#{this}
-            each group_tag_results
-                if title
-                    a.ui.basic.circular.small.link.label.pick_group_tag
-                        |#{title} 
-                        small.ui.grey.text #{count}
-        .twelve.wide.column
-            span.sorting_row
-                // +session_set key='view_users' value='grid' icon='th' 
-                // +session_set key='view_users' value='list' icon='list'
-                // +session_set key='sort_users_direction' value='-1' icon='chevron down'
-                // +session_set key='sort_users_direction' value='1' icon='chevron up'
-                // +session_set key='sort_users_key' value='points' icon='coins'
-                // +session_set key='sort_users_key' value='created_date' icon='clock'
-                // +session_set key='view_limit' value=1
-                +search_input model='group' field='title'
-                i.large.sort.icon
-                .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
-                    if sorting_up
-                        i.sort.amount.down.icon
-                    else
-                        i.sort.amount.up.icon
-                |&nbsp;
-                |&nbsp;
-                .spacer 
+// template(name='groups')
+//     .ui.stackable.padded.grid
+//         .four.wide.column
+//             .ui.inline.header 
+//                 i.large.fire.icon
+//                 |groups
+//             i.plus.circular.link.icon.add_group
+//             div
+//             .ui.inline.small.header
+//                 i.tag.icon
+//                 |tags
+//             each picked_group_tags
+//                 a.ui.blue.label.unpick_group_tag
+//                     |#{this}
+//             each group_tag_results
+//                 if title
+//                     a.ui.basic.circular.small.link.label.pick_group_tag
+//                         |#{title} 
+//                         small.ui.grey.text #{count}
+//         .twelve.wide.column
+//             span.sorting_row
+//                 // +session_set key='view_users' value='grid' icon='th' 
+//                 // +session_set key='view_users' value='list' icon='list'
+//                 // +session_set key='sort_users_direction' value='-1' icon='chevron down'
+//                 // +session_set key='sort_users_direction' value='1' icon='chevron up'
+//                 // +session_set key='sort_users_key' value='points' icon='coins'
+//                 // +session_set key='sort_users_key' value='created_date' icon='clock'
+//                 // +session_set key='view_limit' value=1
+//                 +search_input model='group' field='title'
+//                 i.large.sort.icon
+//                 .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
+//                     if sorting_up
+//                         i.sort.amount.down.icon
+//                     else
+//                         i.sort.amount.up.icon
+//                 |&nbsp;
+//                 |&nbsp;
+//                 .spacer 
         
-            span.ui.doubling.cards.scrolling
-                each group_docs
-                    +group_card
+//             span.ui.doubling.cards.scrolling
+//                 each group_docs
+//                     +group_card
                  
                  
 
@@ -120,7 +120,7 @@ template(name='group_edit')
                 
                 
 template(name='group_layout')
-    +nav
+    // +nav
     .ui.bottom.attached.pushable.segment
         // +topbar
         +left_sidebar

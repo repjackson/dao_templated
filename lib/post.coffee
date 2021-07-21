@@ -14,14 +14,14 @@ if Meteor.isClient
         Meteor.call 'log_view', Router.current().params.doc_id
 
             
-    Template.posts.onCreated ->
-        @autorun => @subscribe 'post_docs',
-            picked_post_tags.array()
-            Session.get('post_title_filter')
+    # Template.posts.onCreated ->
+    #     @autorun => @subscribe 'post_docs',
+    #         picked_post_tags.array()
+    #         Session.get('post_title_filter')
 
-        @autorun => @subscribe 'post_facets',
-            picked_post_tags.array()
-            Session.get('post_title_filter')
+    #     @autorun => @subscribe 'post_facets',
+    #         picked_post_tags.array()
+    #         Session.get('post_title_filter')
 
     
     
@@ -31,27 +31,29 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_docs', 'post', ->
     
 
-
-    Template.posts.events
-        'click .add_post': ->
-            new_id = Docs.insert 
-                model:'post'
-            Router.go "/post/#{new_id}/edit"    
-        'click .pick_post_tag': -> picked_post_tags.push @title
-        'click .unpick_post_tag': -> picked_post_tags.remove @valueOf()
+    Template.post_view.events
+        'click .clear_current_post': ->
+            Session.set('viewing_post_id',null)
+    # Template.posts.events
+    #     'click .add_post': ->
+    #         new_id = Docs.insert 
+    #             model:'post'
+    #         Router.go "/post/#{new_id}/edit"    
+    #     'click .pick_post_tag': -> picked_post_tags.push @title
+    #     'click .unpick_post_tag': -> picked_post_tags.remove @valueOf()
 
                 
             
-    Template.posts.helpers
-        picked_post_tags: -> picked_post_tags.array()
+    # Template.posts.helpers
+    #     picked_post_tags: -> picked_post_tags.array()
     
-        post_docs: ->
-            Docs.find 
-                model:'post'
-        post_tag_results: ->
-            Results.find {
-                model:'post_tag'
-            }, sort:_timestamp:-1
+    #     post_docs: ->
+    #         Docs.find 
+    #             model:'post'
+    #     post_tag_results: ->
+    #         Results.find {
+    #             model:'post_tag'
+    #         }, sort:_timestamp:-1
   
                 
         

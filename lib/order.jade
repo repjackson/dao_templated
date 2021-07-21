@@ -1,38 +1,38 @@
-template(name='orders')
-    .ui.stackable.padded.grid
-        .sixteen.wide.column.scrolling
-            .ui.stackable.grid 
-                .four.wide.column
-                    .ui.header 
-                        |alerts
-                        i.alert.icon
-                    |view
-                    // +session_set key='order_sort_filter' value='open'               
-                    +session_set key='order_sort_filter' value='now'               
-                    +session_set key='order_sort_filter' value='later'   
-                    +session_set key='order_sort_filter' value=null label='all'
-                    |delivery
-                    +session_set key='order_delivery_filter' value='pickup'   
-                    +session_set key='order_delivery_filter' value='delivery'   
-                    +session_set key='order_delivery_filter' value=null label='all'   
-                    +session_set key='order_status_filter' value='cart' label='cart' icon='cart'   
-                    +session_set key='order_status_filter' value=null label='all status' icon='cart'   
-                    div
-                    |sort by
-                    +session_set key='order_sort_key' value='price'               
-                .twelve.wide.column
-                    a.ui.center.aligned.header(href="/orders")
-                        +i name='clock' cl='ui tiny inline image'
-                        | orders
-                    .ui.button today
-                    .ui.button now
-                    .ui.button later
-                    .ui.button sort order
-                    .ui.button sort by
-                    .scrolling
-                        each orders
-                            +order_item
-                            .ui.divider
+// template(name='orders')
+//     .ui.stackable.padded.grid
+//         .sixteen.wide.column.scrolling
+//             .ui.stackable.grid 
+//                 .four.wide.column
+//                     .ui.header 
+//                         |alerts
+//                         i.alert.icon
+//                     |view
+//                     // +session_set key='order_sort_filter' value='open'               
+//                     +session_set key='order_sort_filter' value='now'               
+//                     +session_set key='order_sort_filter' value='later'   
+//                     +session_set key='order_sort_filter' value=null label='all'
+//                     |delivery
+//                     +session_set key='order_delivery_filter' value='pickup'   
+//                     +session_set key='order_delivery_filter' value='delivery'   
+//                     +session_set key='order_delivery_filter' value=null label='all'   
+//                     +session_set key='order_status_filter' value='cart' label='cart' icon='cart'   
+//                     +session_set key='order_status_filter' value=null label='all status' icon='cart'   
+//                     div
+//                     |sort by
+//                     +session_set key='order_sort_key' value='price'               
+//                 .twelve.wide.column
+//                     a.ui.center.aligned.header(href="/orders")
+//                         +i name='clock' cl='ui tiny inline image'
+//                         | orders
+//                     .ui.button today
+//                     .ui.button now
+//                     .ui.button later
+//                     .ui.button sort order
+//                     .ui.button sort by
+//                     .scrolling
+//                         each orders
+//                             +order_item
+//                             .ui.divider
             
             
 template(name='order_item')

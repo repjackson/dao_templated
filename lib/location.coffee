@@ -3,14 +3,14 @@ if Meteor.isClient
         @layout 'layout'
         @render 'location_view'
         ), name:'location_view'
-    Router.route '/locations', (->
-        @layout 'layout'
-        @render 'locations'
-        ), name:'locations'
+    # Router.route '/locations', (->
+    #     @layout 'layout'
+    #     @render 'locations'
+    #     ), name:'locations'
     
             
-    Template.locations.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'location', ->
+    # Template.locations.onCreated ->
+    #     @autorun => Meteor.subscribe 'model_docs', 'location', ->
     
     Template.location_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
@@ -21,18 +21,18 @@ if Meteor.isClient
     
 
 
-    Template.locations.events
-        'click .add_location': ->
-            new_id = Docs.insert 
-                model:'location'
-            Router.go "/location/#{new_id}/edit"    
+    # Template.locations.events
+    #     'click .add_location': ->
+    #         new_id = Docs.insert 
+    #             model:'location'
+    #         Router.go "/location/#{new_id}/edit"    
     
                 
             
-    Template.locations.helpers
-        location_docs: ->
-            Docs.find 
-                model:'location'
+    # Template.locations.helpers
+    #     location_docs: ->
+    #         Docs.find 
+    #             model:'location'
                 
                 
         
