@@ -47,6 +47,8 @@ if Meteor.isClient
             }, sort:_timestamp:-1
                 
     Template.home_item.helpers
+        card_class: ->
+            if Session.equals('viewing_post_id', @_id) then 'inverted large' else 'small basic' 
         is_selected: ->
             Session.equals('viewing_post_id', @_id)
     Template.home_item.events
