@@ -4,10 +4,10 @@ if Meteor.isClient
     @picked_tasks = new ReactiveArray []
     @picked_timestamp_tags = new ReactiveArray []
     
-    Router.route '/work', (->
-        @layout 'layout'
-        @render 'work'
-        ), name:'work'
+    # Router.route '/work', (->
+    #     @layout 'layout'
+    #     @render 'work'
+    #     ), name:'work'
     Router.route '/user/:username/work', (->
         @layout 'user_layout'
         @render 'user_work'
@@ -19,17 +19,17 @@ if Meteor.isClient
     
     
     
-    Template.work.onCreated ->
-        @autorun => @subscribe 'work_docs',
-            picked_authors.array()
-            picked_tasks.array()
-            picked_locations.array()
-            picked_timestamp_tags.array()
-        @autorun => @subscribe 'work_facets',
-            picked_authors.array()
-            picked_tasks.array()
-            picked_locations.array()
-            picked_timestamp_tags.array()
+    # Template.work.onCreated ->
+    #     @autorun => @subscribe 'work_docs',
+    #         picked_authors.array()
+    #         picked_tasks.array()
+    #         picked_locations.array()
+    #         picked_timestamp_tags.array()
+    #     @autorun => @subscribe 'work_facets',
+    #         picked_authors.array()
+    #         picked_tasks.array()
+    #         picked_locations.array()
+    #         picked_timestamp_tags.array()
             
             
     Template.work_edit.onCreated ->
@@ -42,59 +42,59 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'work_task', Router.current().params.doc_id, ->
 
 
-    Template.work.helpers
-        task_results: ->
-            Results.find {
-                model:'task'
-            }, sort:_timestamp:-1
-        timestamp_tag_results: ->
-            Results.find {
-                model:'timestamp_tag'
-            }, sort:_timestamp:-1
-        author_results: ->
-            Results.find {
-                model:'author'
-            }, sort:_timestamp:-1
-        location_results: ->
-            Results.find {
-                model:'location'
-            }, sort:_timestamp:-1
-        work_list: ->
-            Docs.find {
-                model:'work'
-            }, sort:_timestamp:-1
-        eric_total: ->
-            Docs.find({
-                model:'work'
-                _author_username: 'dev'
-            }).count()
-        ryan_total: ->
-            Docs.find({
-                model:'work'
-                _author_username: 'ryan'
-            }).count()
-        picked_tasks: -> picked_tasks.array()
-        picked_locations: -> picked_locations.array()
-        picked_authors: -> picked_authors.array()
-        picked_timestamp_tags: -> picked_timestamp_tags.array()
-    Template.work.events
-        'click .pick_timestamp_tag': -> picked_timestamp_tags.push @title
-        'click .unpick_timestamp_tag': -> picked_timestamp_tags.remove @valueOf()
-        'click .pick_task': -> picked_tasks.push @title
-        'click .unpick_task': -> picked_tasks.remove @valueOf()
-        'click .pick_location': -> picked_locations.push @title
-        'click .unpick_location': -> picked_locations.remove @valueOf()
-        'click .pick_author': -> picked_authors.push @title
-        'click .unpick_author': -> picked_authors.remove @valueOf()
-        'click .add_work': ->
-            new_id = Docs.insert 
-                model:'work'
-            Router.go "/work/#{new_id}/edit"    
+    # Template.work.helpers
+    #     task_results: ->
+    #         Results.find {
+    #             model:'task'
+    #         }, sort:_timestamp:-1
+    #     timestamp_tag_results: ->
+    #         Results.find {
+    #             model:'timestamp_tag'
+    #         }, sort:_timestamp:-1
+    #     author_results: ->
+    #         Results.find {
+    #             model:'author'
+    #         }, sort:_timestamp:-1
+    #     location_results: ->
+    #         Results.find {
+    #             model:'location'
+    #         }, sort:_timestamp:-1
+    #     work_list: ->
+    #         Docs.find {
+    #             model:'work'
+    #         }, sort:_timestamp:-1
+    #     eric_total: ->
+    #         Docs.find({
+    #             model:'work'
+    #             _author_username: 'dev'
+    #         }).count()
+    #     ryan_total: ->
+    #         Docs.find({
+    #             model:'work'
+    #             _author_username: 'ryan'
+    #         }).count()
+    #     picked_tasks: -> picked_tasks.array()
+    #     picked_locations: -> picked_locations.array()
+    #     picked_authors: -> picked_authors.array()
+    #     picked_timestamp_tags: -> picked_timestamp_tags.array()
+    # Template.work.events
+    #     'click .pick_timestamp_tag': -> picked_timestamp_tags.push @title
+    #     'click .unpick_timestamp_tag': -> picked_timestamp_tags.remove @valueOf()
+    #     'click .pick_task': -> picked_tasks.push @title
+    #     'click .unpick_task': -> picked_tasks.remove @valueOf()
+    #     'click .pick_location': -> picked_locations.push @title
+    #     'click .unpick_location': -> picked_locations.remove @valueOf()
+    #     'click .pick_author': -> picked_authors.push @title
+    #     'click .unpick_author': -> picked_authors.remove @valueOf()
+    #     'click .add_work': ->
+    #         new_id = Docs.insert 
+    #             model:'work'
+    #         Router.go "/work/#{new_id}/edit"    
       
-        'click .add_task': ->
-            new_id = Docs.insert 
-                model:'task'
-            Router.go "/task/#{new_id}/edit"    
+    #     'click .add_task': ->
+    #         new_id = Docs.insert 
+    #             model:'task'
+    #         Router.go "/task/#{new_id}/edit"    
     
                 
     Template.work_edit.events

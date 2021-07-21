@@ -5,8 +5,12 @@ template(name='home')
                 i.pizza.slice.icon
                 |backcountry
                 // i.chat.outline.large.icon(title='backcountry chat')
-            .ui.basic.icon.button.add_post
-                i.large.plus.icon
+            if currentUser
+                .ui.basic.icon.button.add_post
+                    i.large.plus.icon
+                .ui.large.icon.input(title='messages cost one point but can receive points from votes')
+                    i.plus.icon
+                    input.new_message(type='text' placeholder='quick add (-1p)')
             if post_tag_results
                 .ui.inline.small.header
                     i.tag.icon
@@ -20,13 +24,6 @@ template(name='home')
                             |#{title} 
                             small.ui.grey.text #{count}
                 
-            .ui.large.icon.input(title='messages cost one point but can receive points from votes')
-                i.plus.icon
-                input.new_message(type='text' placeholder='quick add (-1p)')
-            if session_is 'view_images' true
-                .ui.inline.header color picker
-            if session_is 'view_locations' true
-                .ui.inline.header near me
             
             // .four.wide.column
             .ui.big.label(title='results')
@@ -69,10 +66,18 @@ template(name='home')
             //     |media
             +session_set key='view_videos' value=true label='when' icon='youtube'
             +session_set key='view_images' value=true label='view images' icon='image'
+            if session_is 'view_images' true
+                .ui.inline.header color picker
             +session_set key='view_events' value=true label='view events' icon='calendar'
             +session_set key='view_tasks' value=true label='view tasks' icon='checkmark'
             +session_set key='view_locations' value=true label='view location' icon='marker'
+            if session_is 'view_locations' true
+                .ui.inline.header near me
             +session_set key='view_food' value='view_food' label='view' icon='food'
+            if session_is 'view_food' true
+                .ui.small.inline.header
+                    i.food.icon
+                    |ingredient filter
             // .ui.inline.header
             // .ui.circular.button
             //     // |p                

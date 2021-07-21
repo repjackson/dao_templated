@@ -5,43 +5,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'task_view'
         ), name:'task_view'
-    Router.route '/tasks', (->
-        @layout 'layout'
-        @render 'tasks'
-        ), name:'tasks'
-    
-    Template.tasks.onCreated ->
-        @autorun => @subscribe 'task_docs',
-            picked_task_tags.array()
-            Session.get('task_title_filter')
-
-        @autorun => @subscribe 'task_facets',
-            picked_task_tags.array()
-            Session.get('task_title_filter')
-
-    Template.tasks.events
-        'click .add_task': ->
-            new_id = Docs.insert 
-                model:'task'
-            Router.go "/task/#{new_id}/edit"    
-        'click .pick_task_tag': -> picked_task_tags.push @title
-        'click .unpick_task_tag': -> picked_task_tags.remove @valueOf()
-
-                
-            
-    Template.tasks.helpers
-        picked_task_tags: -> picked_task_tags.array()
-    
-        task_docs: ->
-            Docs.find 
-                model:'task'
-                # group_id: Meteor.user().current_group_id
-                
-        task_tag_results: ->
-            Results.find {
-                model:'task_tag'
-            }, sort:_timestamp:-1
-  
                 
 
             

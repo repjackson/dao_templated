@@ -124,8 +124,8 @@ template(name='post_view')
         .ui.stackable.padded.grid.scrolling
             .row
                 .sixteen.wide.column
-                    .ui.basic.button.clear_current_post
-                        i.chevron.left.large.icon
+                    .ui.basic.icon.circular.button.clear_current_post(title='clear selection')
+                        i.chevron.remove.large.icon
                     .ui.inline.header
                         | #{title}
                         small post

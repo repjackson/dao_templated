@@ -52,175 +52,175 @@ if Meteor.isClient
             
 
 
-    Template.products.events
-        'click .add_product': ->
-            new_id =
-                Docs.insert
-                    model:'product'
-            Router.go("/product/#{new_id}/edit")
+    # Template.products.events
+    #     'click .add_product': ->
+    #         new_id =
+    #             Docs.insert
+    #                 model:'product'
+    #         Router.go("/product/#{new_id}/edit")
 
 
-        'click .toggle_vegan': -> Session.set('view_vegan', !Session.get('view_vegan'))
-        'click .toggle_gf': -> Session.set('view_gf', !Session.get('view_gf'))
-        'click .toggle_pickup': -> Session.set('view_pickup', !Session.get('view_pickup'))
-        'click .toggle_open': -> Session.set('view_open', !Session.get('view_open'))
+    #     'click .toggle_vegan': -> Session.set('view_vegan', !Session.get('view_vegan'))
+    #     'click .toggle_gf': -> Session.set('view_gf', !Session.get('view_gf'))
+    #     'click .toggle_pickup': -> Session.set('view_pickup', !Session.get('view_pickup'))
+    #     'click .toggle_open': -> Session.set('view_open', !Session.get('view_open'))
 
-        'click .pick_product_tag': -> picked_product_tags.push @title
-        'click .unpick_product_tag': -> picked_product_tags.remove @valueOf()
-        'click .pick_section': -> picked_sections.push @title
-        'click .unpick_section': -> picked_sections.remove @valueOf()
-        'click .pick_ingredient': -> picked_ingredients.push @title
-        'click .unpick_ingredient': -> picked_ingredients.remove @valueOf()
-            # console.log picked_ingredients.array()
-            # if picked_ingredients.array().length is 1
-                # Meteor.call 'call_wiki', search, ->
+    #     'click .pick_product_tag': -> picked_product_tags.push @title
+    #     'click .unpick_product_tag': -> picked_product_tags.remove @valueOf()
+    #     'click .pick_section': -> picked_sections.push @title
+    #     'click .unpick_section': -> picked_sections.remove @valueOf()
+    #     'click .pick_ingredient': -> picked_ingredients.push @title
+    #     'click .unpick_ingredient': -> picked_ingredients.remove @valueOf()
+    #         # console.log picked_ingredients.array()
+    #         # if picked_ingredients.array().length is 1
+    #             # Meteor.call 'call_wiki', search, ->
 
-            # if picked_ingredients.array().length > 0
-                # Meteor.call 'search_reddit', picked_ingredients.array(), ->
+    #         # if picked_ingredients.array().length > 0
+    #             # Meteor.call 'search_reddit', picked_ingredients.array(), ->
 
-        'click .clear_picked_ingredients': ->
-            Session.set('product_query',null)
-            picked_ingredients.clear()
+    #     'click .clear_picked_ingredients': ->
+    #         Session.set('product_query',null)
+    #         picked_ingredients.clear()
 
-        'click .clear_product_query': (e,t)->
-            $(e.currentTarget).closest('.input').transition('shake', 500)
+    #     'click .clear_product_query': (e,t)->
+    #         $(e.currentTarget).closest('.input').transition('shake', 500)
 
-            Session.set('product_query', null)
+    #         Session.set('product_query', null)
 
-        'keyup #product_search': _.throttle((e,t)->
-            query = $('#product_search').val()
-            Session.set('product_query', query)
-            # console.log Session.get('product_query')
-            if e.key == "Escape"
-                Session.set('product_query', null)
+    #     'keyup #product_search': _.throttle((e,t)->
+    #         query = $('#product_search').val()
+    #         Session.set('product_query', query)
+    #         # console.log Session.get('product_query')
+    #         if e.key == "Escape"
+    #             Session.set('product_query', null)
                 
-            if e.which is 13
-                search = $('#product_search').val().trim().toLowerCase()
-                if search.length > 0
-                    picked_tags.push search
-                    console.log 'search', search
-                    # Meteor.call 'log_term', search, ->
-                    $('#product_search').val('')
-                    Session.set('product_query', null)
-                    # # $('#search').val('').blur()
-                    # # $( "p" ).blur();
-                    # Meteor.setTimeout ->
-                    #     Session.set('dummy', !Session.get('dummy'))
-                    # , 10000
-        , 1000)
+    #         if e.which is 13
+    #             search = $('#product_search').val().trim().toLowerCase()
+    #             if search.length > 0
+    #                 picked_tags.push search
+    #                 console.log 'search', search
+    #                 # Meteor.call 'log_term', search, ->
+    #                 $('#product_search').val('')
+    #                 Session.set('product_query', null)
+    #                 # # $('#search').val('').blur()
+    #                 # # $( "p" ).blur();
+    #                 # Meteor.setTimeout ->
+    #                 #     Session.set('dummy', !Session.get('dummy'))
+    #                 # , 10000
+    #     , 1000)
 
-        'click .calc_product_count': ->
-            Meteor.call 'calc_product_count', ->
+    #     'click .calc_product_count': ->
+    #         Meteor.call 'calc_product_count', ->
 
-        # 'keydown #search': _.throttle((e,t)->
-        #     if e.which is 8
-        #         search = $('#search').val()
-        #         if search.length is 0
-        #             last_val = picked_tags.array().slice(-1)
-        #             console.log last_val
-        #             $('#search').val(last_val)
-        #             picked_tags.pop()
-        #             Meteor.call 'search_reddit', picked_tags.array(), ->
-        # , 1000)
+    #     # 'keydown #search': _.throttle((e,t)->
+    #     #     if e.which is 8
+    #     #         search = $('#search').val()
+    #     #         if search.length is 0
+    #     #             last_val = picked_tags.array().slice(-1)
+    #     #             console.log last_val
+    #     #             $('#search').val(last_val)
+    #     #             picked_tags.pop()
+    #     #             Meteor.call 'search_reddit', picked_tags.array(), ->
+    #     # , 1000)
 
-        'click .reconnect': ->
-            Meteor.reconnect()
-
-
-        'click .set_sort_direction': ->
-            if Session.get('product_sort_direction') is -1
-                Session.set('product_sort_direction', 1)
-            else
-                Session.set('product_sort_direction', -1)
+    #     'click .reconnect': ->
+    #         Meteor.reconnect()
 
 
-    Template.products.helpers
-        quickbuying_product: ->
-            Docs.findOne Session.get('quickbuying_id')
+    #     'click .set_sort_direction': ->
+    #         if Session.get('product_sort_direction') is -1
+    #             Session.set('product_sort_direction', 1)
+    #         else
+    #             Session.set('product_sort_direction', -1)
 
-        sorting_up: ->
-            parseInt(Session.get('product_sort_direction')) is 1
 
-        toggle_gf_class: -> if Session.get('view_gf') then 'blue' else ''
-        toggle_vegan_class: -> if Session.get('view_vegan') then 'blue' else ''
-        toggle_open_class: -> if Session.get('view_open') then 'blue' else ''
-        # connection: ->
-        #     console.log Meteor.status()
-        #     Meteor.status()
-        # connected: ->
-        #     Meteor.status().connected
+    # Template.products.helpers
+    #     quickbuying_product: ->
+    #         Docs.findOne Session.get('quickbuying_id')
+
+    #     sorting_up: ->
+    #         parseInt(Session.get('product_sort_direction')) is 1
+
+    #     toggle_gf_class: -> if Session.get('view_gf') then 'blue' else ''
+    #     toggle_vegan_class: -> if Session.get('view_vegan') then 'blue' else ''
+    #     toggle_open_class: -> if Session.get('view_open') then 'blue' else ''
+    #     # connection: ->
+    #     #     console.log Meteor.status()
+    #     #     Meteor.status()
+    #     # connected: ->
+    #     #     Meteor.status().connected
                     
-        product_count: -> Counts.get('product_counter')
+    #     product_count: -> Counts.get('product_counter')
      
-        product_tag_results: ->
-            # if Session.get('product_query') and Session.get('product_query').length > 1
-            #     Terms.find({}, sort:count:-1)
-            # else
-            product_count = Docs.find(model:'product').count()
-            # console.log 'product count', product_count
-            if product_count < 3
-                Results.find({model:'product_tag', count: $lt: product_count})
-            else
-                Results.find({model:'product_tag'})
+    #     product_tag_results: ->
+    #         # if Session.get('product_query') and Session.get('product_query').length > 1
+    #         #     Terms.find({}, sort:count:-1)
+    #         # else
+    #         product_count = Docs.find(model:'product').count()
+    #         # console.log 'product count', product_count
+    #         if product_count < 3
+    #             Results.find({model:'product_tag', count: $lt: product_count})
+    #         else
+    #             Results.find({model:'product_tag'})
 
-        ingredients: ->
-            # if Session.get('product_query') and Session.get('product_query').length > 1
-            #     Terms.find({}, sort:count:-1)
-            # else
-            product_count = Docs.find(model:'product').count()
-            # console.log 'product count', product_count
-            if product_count < 3
-                Results.find({model:'ingredient', count: $lt: product_count})
-            else
-                Results.find({model:'ingredient'})
+    #     ingredients: ->
+    #         # if Session.get('product_query') and Session.get('product_query').length > 1
+    #         #     Terms.find({}, sort:count:-1)
+    #         # else
+    #         product_count = Docs.find(model:'product').count()
+    #         # console.log 'product count', product_count
+    #         if product_count < 3
+    #             Results.find({model:'ingredient', count: $lt: product_count})
+    #         else
+    #             Results.find({model:'ingredient'})
 
-        result_class: ->
-            if Template.instance().subscriptionsReady()
-                ''
-            else
-                'disabled'
+    #     result_class: ->
+    #         if Template.instance().subscriptionsReady()
+    #             ''
+    #         else
+    #             'disabled'
 
-        picked_ingredients: -> picked_ingredients.array()
-        picked_sections: -> picked_sections.array()
-        picked_product_tags: -> picked_product_tags.array()
-        picked_ingredients_plural: -> picked_ingredients.array().length > 1
-        searching: -> Session.get('searching')
+    #     picked_ingredients: -> picked_ingredients.array()
+    #     picked_sections: -> picked_sections.array()
+    #     picked_product_tags: -> picked_product_tags.array()
+    #     picked_ingredients_plural: -> picked_ingredients.array().length > 1
+    #     searching: -> Session.get('searching')
 
-        product_query: -> Session.get('product_query')
+    #     product_query: -> Session.get('product_query')
 
-        one_post: ->
-            Docs.find(model:'product').count() is 1
-        two_posts: ->
-            Docs.find(model:'product').count() is 2
-        three_posts: ->
-            Docs.find(model:'product').count() is 3
-        product_docs: ->
-            # if picked_ingredients.array().length > 0
-            Docs.find {
-                model:'product'
-            },
-                sort: "#{Session.get('product_sort_key')}":parseInt(Session.get('product_sort_direction'))
-                limit:Session.get('product_limit')
+    #     one_post: ->
+    #         Docs.find(model:'product').count() is 1
+    #     two_posts: ->
+    #         Docs.find(model:'product').count() is 2
+    #     three_posts: ->
+    #         Docs.find(model:'product').count() is 3
+    #     product_docs: ->
+    #         # if picked_ingredients.array().length > 0
+    #         Docs.find {
+    #             model:'product'
+    #         },
+    #             sort: "#{Session.get('product_sort_key')}":parseInt(Session.get('product_sort_direction'))
+    #             limit:Session.get('product_limit')
 
-        users: ->
-            # if picked_tags.array().length > 0
-            Meteor.users.find {
-            },
-                sort: count:-1
-                # limit:1
+    #     users: ->
+    #         # if picked_tags.array().length > 0
+    #         Meteor.users.find {
+    #         },
+    #             sort: count:-1
+    #             # limit:1
 
 
-        sections: ->
-            # if picked_tags.array().length > 0
-            Results.find {
-                model:'section'
-            },
-                sort: count:-1
-                # limit:1
+    #     sections: ->
+    #         # if picked_tags.array().length > 0
+    #         Results.find {
+    #             model:'section'
+    #         },
+    #             sort: count:-1
+    #             # limit:1
 
-        product_limit: -> Session.get('product_limit')
+    #     product_limit: -> Session.get('product_limit')
 
-        current_product_sort_label: -> Session.get('product_sort_label')
+    #     current_product_sort_label: -> Session.get('product_sort_label')
 
 
     Template.product_card.events

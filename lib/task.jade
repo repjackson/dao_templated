@@ -1,88 +1,88 @@
-template(name='tasks')
-    .ui.stackable.padded.grid
-        .four.wide.column
-            .ui.inline.header 
-                i.tasks.icon
-                |tasks
-            div
-            if currentUser
-                i.plus.large.link.circular.icon.add_task
-            .ui.inline.small.header 
-                i.user.friends.icon
-                |authors
-            each picked_authors
-                a.ui.blue.label.unpick_author
-                    |#{this}
-            each author_results
-                if title
-                    a.ui.basic.circular.small.link.label.pick_author
-                        |#{title} 
-                        small.ui.grey.text #{count}
-            div
-            .ui.small.inline.header
-                i.tags.icon
-                |tags
-            each picked_task_tags
-                a.ui.blue.label.unpick_task
-                    |#{this}
-            each task_tag_results
-                if title
-                    a.ui.basic.circular.small.link.label.pick_task
-                        |#{title} 
-                        small.ui.grey.text #{count}
-            div
-            // .ui.small.inline.header
-            //     i.fire.icon
-            //     |groups
-            // each picked_task_groups
-            //     a.ui.blue.label.unpick_group
-            //         |#{this}
-            // each task_group_results
-            //     if title
-            //         a.ui.basic.circular.small.link.label.pick_group
-            //             |#{title} 
-            //             small.ui.grey.text #{count}
-        .twelve.wide.column
-            span.sorting_row
-                +search_input model='task' field='title'
-                // +session_set key='view_users' value='grid' icon='th' 
-                // +session_set key='view_users' value='list' icon='list'
-                // +session_set key='sort_users_direction' value='-1' icon='chevron down'
-                // +session_set key='sort_users_direction' value='1' icon='chevron up'
-                // +session_set key='sort_users_key' value='points' icon='coins'
-                // +session_set key='sort_users_key' value='created_date' icon='clock'
-                // +session_set key='view_limit' value=1
-                +session_set key='view_limit' value=10
-                +session_set key='view_limit' value=20
-                +session_set key='view_limit' value=50
+// template(name='tasks')
+//     .ui.stackable.padded.grid
+//         .four.wide.column
+//             .ui.inline.header 
+//                 i.tasks.icon
+//                 |tasks
+//             div
+//             if currentUser
+//                 i.plus.large.link.circular.icon.add_task
+//             .ui.inline.small.header 
+//                 i.user.friends.icon
+//                 |authors
+//             each picked_authors
+//                 a.ui.blue.label.unpick_author
+//                     |#{this}
+//             each author_results
+//                 if title
+//                     a.ui.basic.circular.small.link.label.pick_author
+//                         |#{title} 
+//                         small.ui.grey.text #{count}
+//             div
+//             .ui.small.inline.header
+//                 i.tags.icon
+//                 |tags
+//             each picked_task_tags
+//                 a.ui.blue.label.unpick_task
+//                     |#{this}
+//             each task_tag_results
+//                 if title
+//                     a.ui.basic.circular.small.link.label.pick_task
+//                         |#{title} 
+//                         small.ui.grey.text #{count}
+//             div
+//             // .ui.small.inline.header
+//             //     i.fire.icon
+//             //     |groups
+//             // each picked_task_groups
+//             //     a.ui.blue.label.unpick_group
+//             //         |#{this}
+//             // each task_group_results
+//             //     if title
+//             //         a.ui.basic.circular.small.link.label.pick_group
+//             //             |#{title} 
+//             //             small.ui.grey.text #{count}
+//         .twelve.wide.column
+//             span.sorting_row
+//                 +search_input model='task' field='title'
+//                 // +session_set key='view_users' value='grid' icon='th' 
+//                 // +session_set key='view_users' value='list' icon='list'
+//                 // +session_set key='sort_users_direction' value='-1' icon='chevron down'
+//                 // +session_set key='sort_users_direction' value='1' icon='chevron up'
+//                 // +session_set key='sort_users_key' value='points' icon='coins'
+//                 // +session_set key='sort_users_key' value='created_date' icon='clock'
+//                 // +session_set key='view_limit' value=1
+//                 +session_set key='view_limit' value=10
+//                 +session_set key='view_limit' value=20
+//                 +session_set key='view_limit' value=50
 
                 
-                i.large.sort.icon
-                +set_product_sort_key key='comment_count' label='comment count' icon='chat'
-                +set_product_sort_key key='views' label='views' icon='eye'
-                +set_product_sort_key key='points' label='points' icon='line chart'
-                .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
-                    if sorting_up
-                        i.sort.amount.down.icon
-                    else
-                        i.sort.amount.up.icon
-                |&nbsp;
-                |&nbsp;
-                .spacer 
+//                 i.large.sort.icon
+//                 +set_product_sort_key key='comment_count' label='comment count' icon='chat'
+//                 +set_product_sort_key key='views' label='views' icon='eye'
+//                 +set_product_sort_key key='points' label='points' icon='line chart'
+//                 .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
+//                     if sorting_up
+//                         i.sort.amount.down.icon
+//                     else
+//                         i.sort.amount.up.icon
+//                 |&nbsp;
+//                 |&nbsp;
+//                 .spacer 
         
-            span.ui.doubling.cards.scrolling
-                each task_docs
-                    .ui.link.card
-                        a(href="/task/#{_id}") 
-                            img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-                        a.content(href="/task/#{_id}") 
-                            .ui.header 
-                                |#{title}
-                            |#{description}
-                            .ui.inline.header #{points}pts
-                            each tags
-                                .ui.small.basic.label #{this}
-                            // |added #{when} by #{_author_username}
+//             span.ui.doubling.cards.scrolling
+//                 each task_docs
+//                     .ui.link.card
+//                         a(href="/task/#{_id}") 
+//                             img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+//                         a.content(href="/task/#{_id}") 
+//                             .ui.header 
+//                                 |#{title}
+//                             |#{description}
+//                             .ui.inline.header #{points}pts
+//                             each tags
+//                                 .ui.small.basic.label #{this}
+//                             // |added #{when} by #{_author_username}
                 
                 
                 

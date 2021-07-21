@@ -5,45 +5,6 @@ if Meteor.isClient
         @layout 'layout'
         @render 'topup_view'
         ), name:'topup_view'
-    Router.route '/topups', (->
-        @layout 'layout'
-        @render 'topups'
-        ), name:'topups'
-    
-    Template.topups.onCreated ->
-        @autorun => @subscribe 'topup_docs',
-            picked_topup_tags.array()
-            Session.get('topup_title_filter')
-
-        @autorun => @subscribe 'topup_facets',
-            picked_topup_tags.array()
-            Session.get('topup_title_filter')
-
-    Template.topups.events
-        'click .add_topup': ->
-            new_id = Docs.insert 
-                model:'topup'
-            Router.go "/topup/#{new_id}/edit"    
-        'click .pick_topup_tag': -> picked_topup_tags.push @title
-        'click .unpick_topup_tag': -> picked_topup_tags.remove @valueOf()
-
-                
-            
-    Template.topups.helpers
-        picked_topup_tags: -> picked_topup_tags.array()
-    
-        topup_docs: ->
-            Docs.find 
-                model:'topup'
-                # group_id: Meteor.user().current_group_id
-                
-        topup_tag_results: ->
-            Results.find {
-                model:'topup_tag'
-            }, sort:_timestamp:-1
-  
-                
-
             
     Template.topup_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
