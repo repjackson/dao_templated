@@ -33,7 +33,6 @@ template(name='post_edit')
                     a.ui.large.icon.green.button(href="/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
-                    +image_edit key='image_id' label='image' direct=true
                     +boolean_edit key='published' label='published' direct=true
                     +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
                     if is_task
@@ -80,17 +79,17 @@ template(name='post_view')
     .ui.stackable.padded.grid.scrolling
         .row
             .six.wide.column
-                .ui.basic.icon.circular.button.clear_current_post(title='clear selection')
+                .ui.basic.icon.circular.button.clear_current_post.fly_up(title='clear selection')
                     i.chevron.remove.red.large.icon
                 .ui.inline.header
                     | #{title}
-                +image_view key='image_id' label='image' direct=true
+                // +image_view key='image_id' label='image' direct=true
                 // .scrollin
                 if is_task
                     +task_view
                 if is_location
                     +location_view
-                if image_id
+                if has_image
                     +image_view key='image_id' direct=true
                 +html_view key='body' direct=true
                 // +html_view key='content' direct=true

@@ -22,7 +22,7 @@ Meteor.publish 'post_facets', (
     self = @
     # match = {}
     match = {app:'bc'}
-    match.model = 'post'
+    # match.model = 'post'
     # match.group_id = Meteor.user().current_group_id
     
     if title_filter and title_filter.length > 1
