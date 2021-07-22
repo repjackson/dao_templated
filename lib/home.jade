@@ -20,9 +20,9 @@ template(name='home')
                         |#{this}
                 each post_tag_results
                     if title
-                        a.ui.basic.large.small.link.label.pick_post_tag
+                        a.ui.basic.large.small.link.label.pick_post_tag(title=count)
                             |#{title} 
-                            small.ui.grey.text #{count}
+                            // small.ui.grey.text #{count}
                 
             
             // .four.wide.column
