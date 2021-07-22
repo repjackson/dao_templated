@@ -73,7 +73,7 @@ Meteor.publish 'model_docs', (model,limit=100)->
         }, limit:limit
     else
         Docs.find
-            # app:'pes'
+            app:'bc'
             # group_id: Meteor.user().current_group_id
             model: model
 

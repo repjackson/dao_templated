@@ -1,0 +1,149 @@
+template(name='post_card')                
+    a.ui.card(href="/post/#{_id}") 
+        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        if youtube_id
+            +youtube_view key='youtube_id' direct=true
+        .content 
+            .ui.header 
+                |#{title}
+            i.grey.tag.icon
+            each tags
+                .ui.label #{this}
+            if location_tags
+                i.grey.marker.icon
+                each location_tags
+                    .ui.small.label #{this}
+            if people_tags
+                i.grey.marker.icon
+                each people_tags
+                    .ui.small.label #{this}
+
+
+                
+template(name='post_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .six.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                        small post
+                    // a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
+                    a.ui.large.icon.green.button(href="/" title='save product')
+                        i.checkmark.big.icon
+                    +text_edit key='title' label='title' direct=true
+                    +image_edit key='image_id' label='image' direct=true
+                    +boolean_edit key='published' label='published' direct=true
+                    +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
+                    if is_task
+                        +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
+                    div
+                    +boolean_edit key='is_event' label='is event' icon='calendar' direct=true
+                    if is_event
+                        +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
+                    div
+                    +boolean_edit key='has_video' label='has video' icon='youtube' direct=true
+                    if has_video
+                        +youtube_edit key='youtube_id' label='youtube id' icon='youtube'
+                    div
+                    +boolean_edit key='has_image' label='has image' icon='image' direct=true
+                    if has_image
+                        +image_edit key='image_id' label='image' icon='image'
+                    div
+                    +boolean_edit key='has_price' label='has price' icon='money' direct=true
+                    if has_price
+                        +number_edit key='price_dollars' label='price ($)' icon='money'
+                    
+                    
+                    div
+                .ten.wide.column
+                    div
+                    +html_edit key='body' label='body' direct=true
+                    div
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    div
+                    +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
+                    div
+                    +array_edit key='location_tags' label='location tags' icon='tags' direct=true
+                    div
+                    +array_edit key='people_tags' label='people tags' icon='tags' direct=true
+                    +text_edit key='model' label='model' icon='database' direct=true
+                    +text_edit key='app' label='app' icon='template' direct=true
+                    .ui.red.button.delete_post
+                        i.remove.icon   
+                        | delete
+                
+                
+template(name='post_view')
+    // with current_doc
+    .ui.stackable.padded.grid.scrolling
+        .row
+            .six.wide.column
+                .ui.basic.icon.circular.button.clear_current_post(title='clear selection')
+                    i.chevron.remove.red.large.icon
+                .ui.inline.header
+                    | #{title}
+                +image_view key='image_id' label='image' direct=true
+                // .scrollin
+                if is_task
+                    +task_view
+                if is_location
+                    +location_view
+                if image_id
+                    +image_view key='image_id' direct=true
+                +html_view key='body' direct=true
+                // +html_view key='content' direct=true
+                // +html_view key='description' direct=true
+            .six.wide.column
+                if youtube_id
+                    +youtube_view key='youtube_id' direct=true
+                // .ui.header 
+                //     i.users.icon
+                //     |audience
+                +comments
+                if watson
+                    +watson_view
+                if tone 
+                    +tone_view
+                // .six.wide.column
+                +boolean_view key='published' label='published' direct=true
+                div
+                +boolean_view key='is_task' label='is task' icon='checkmark' direct=true
+                div
+                +boolean_view key='is_event' label='is event' icon='calendar' direct=true
+                div
+                +boolean_view key='has_video' label='has video' icon='youtube' direct=true
+                div
+                +boolean_view key='has_image' label='has image' icon='image' direct=true
+                div
+                +boolean_view key='has_price' label='has price' icon='money' direct=true
+                
+                // div
+                if can_edit
+                    a.ui.icon.large.basic.button(href="/post/#{_id}/edit")
+                        i.pencil.blue.icon
+                .ui.large.basic.label added #{when}
+                if body
+                    +call_watson key='body' mode='html'
+                    +call_tone key='body'
+                each _timestamp_tags
+                    .ui.label #{this}
+                if in_dev
+                    +print_this
+                .ui.basic.label
+                    |views
+                    |#{views}
+                div
+                +array_view key='tags' label='tags' icon='tags' direct=true
+                div
+                +array_view key='emotion_tags' label='emotion tags' icon='tags' direct=true
+                div
+                +array_view key='location_tags' label='location tags' icon='tags' direct=true
+                div
+                +array_view key='people_tags' label='people tags' icon='tags' direct=true
+                +voting_full
+                +boolean_view key='published' label='published' direct=true
+                
+                
+                

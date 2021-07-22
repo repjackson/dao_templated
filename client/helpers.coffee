@@ -282,8 +282,10 @@ Template.registerHelper 'editing_doc', () ->
     Docs.findOne Session.get('editing_id')
 
 Template.registerHelper 'can_edit', () ->
-    if Meteor.user()
-        Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles
+    if @_author_id is null 
+        true
+    else if Meteor.user()
+        Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles 
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
