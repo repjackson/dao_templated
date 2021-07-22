@@ -24,11 +24,10 @@ template(name='post_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .eight.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                        small post
                     // a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
                     a.ui.large.icon.green.button(href="/" title='save product')
                         i.checkmark.big.icon
@@ -38,35 +37,37 @@ template(name='post_edit')
                     if is_task
                         +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
                     div
-                    +boolean_edit key='is_event' label='is event' icon='calendar' direct=true
+                    +boolean_edit key='is_event' label='event' icon='calendar' direct=true
                     if is_event
                         +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
                     div
-                    +boolean_edit key='has_video' label='has video' icon='youtube' direct=true
+                    +boolean_edit key='has_video' label='video' icon='youtube' direct=true
                     if has_video
                         +youtube_edit key='youtube_id' label='youtube id' icon='youtube'
                     div
-                    +boolean_edit key='has_image' label='has image' icon='image' direct=true
+                    +boolean_edit key='has_image' label='image' icon='image' direct=true
                     if has_image
                         +image_edit key='image_id' label='image' icon='image'
                     div
-                    +boolean_edit key='has_price' label='has price' icon='money' direct=true
+                    +boolean_edit key='has_price' label='price' icon='money' direct=true
                     if has_price
                         +number_edit key='price_dollars' label='price ($)' icon='money'
                     
                     
                     div
-                .ten.wide.column
+                .eight.wide.column
                     div
-                    +html_edit key='body' label='body' direct=true
-                    div
+                    +boolean_edit key='has_body' label='body' icon='content' direct=true
+                    if has_body
+                        +html_edit key='body' label='body' direct=true
+                    // div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    div
-                    +array_edit key='emotion_tags' label='emotion tags' icon='tags' direct=true
-                    div
-                    +array_edit key='location_tags' label='location tags' icon='tags' direct=true
-                    div
-                    +array_edit key='people_tags' label='people tags' icon='tags' direct=true
+                    // div
+                    +array_edit key='emotion_tags' label='emotion tags' icon='smile' direct=true
+                    // div
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    // div
+                    +array_edit key='people_tags' label='people tags' icon='users' direct=true
                     +text_edit key='model' label='model' icon='database' direct=true
                     +text_edit key='app' label='app' icon='template' direct=true
                     .ui.red.button.delete_post
@@ -78,7 +79,7 @@ template(name='post_view')
     // with current_doc
     .ui.stackable.padded.grid.scrolling
         .row
-            .six.wide.column
+            .ten.wide.column
                 .ui.basic.icon.circular.button.clear_current_post.fly_up(title='clear selection')
                     i.chevron.remove.red.large.icon
                 .ui.inline.header

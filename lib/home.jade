@@ -23,9 +23,7 @@ template(name='home')
                         a.ui.basic.large.small.link.label.pick_post_tag(title=count)
                             |#{title} 
                             // small.ui.grey.text #{count}
-            .ui.inline.small.header 
-                i.user.friends.icon
-                |authors
+            i.user.friends.icon(title='author filter')
             each picked_authors
                 a.ui.blue.label.unpick_author
                     |#{this}
@@ -99,6 +97,9 @@ template(name='home')
             if currentUser
                 a(href="/user/#{currentUser.username}")
                     i.user.link.circular.icon
+            else 
+                a(href="/login")
+                    i.large.sign.in.icon
             // .ui.inline.header
             // .ui.circular.button
             //     // |p                
@@ -116,30 +117,34 @@ template(name='home')
             //     |#{currentUser.points}
         .ui.twelve.wide.column
             if current_post
-                .ui.stackable.padded.grid
-                    .sixteen.wide.column.scrollin
-                        with current_post
-                            +post_view
-                            // .ui.header
-                            //     |#{title}
-                    // .six.wide.column.scrolling
-                    //     each home_items
-                    //         +home_item
-                    //         // .ui.divider
+                // .ui.stackable.padded.grid
+                //     .sixteen.wide.column.scrollin
+                with current_post
+                    +post_view
+                        // .ui.header
+                        //     |#{title}
+                // .six.wide.column.scrolling
+                //     each home_items
+                //         +home_item
+                //         // .ui.divider
             else 
-                .ui.stackable.five.column.grid.scrollin
+                .ui.stackable.four.column.grid.scrollin
                     each home_items
                         .column
                             +home_item
         .four.wide.column
-            .ui.header author filter
-            .ui.header author filter
-            .ui.header author filter
-            .ui.header author filter
-            .ui.header author filter
-            .ui.header author filter
-            .ui.header author filter
-            .ui.header author filter
+            .ui.header 
+                i.users.icon
+                |authors
+            .ui.header 
+                i.marker.icon
+                |locations
+            .ui.header
+                i.smile.icon
+                |emotions
+            .ui.header 
+                i.clock.icon
+                |timestamps
                     
 
 template(name='home_item')
@@ -150,7 +155,7 @@ template(name='home_item')
     //             i.checkmark.large.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .ui.fluid.card.zoomer.pointer.view_item(class=card_class)
+    .ui.fluid.card.zoomer.pointer.view_item.zoom_out(class=card_class)
         if image_id
             +image_view key='image_id' direct=true
         if youtube_id
@@ -164,7 +169,7 @@ template(name='home_item')
             // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
             a.ui.header.zoomer !{title}
             
-            .author    
+            .author.zoomer
                 if _author_username
                     a(href="/user/#{_author_username}")
                         |#{_author_username}
@@ -175,38 +180,44 @@ template(name='home_item')
                 .metadata
                     |#{when}
                     small {{long_date _timestamp}}
-            .text.view_post_quick
+            .text.view_post_quick.zoomer
                 |!{body}
             span.meta
                 if is_task
-                    i.big.checkmark.icon
+                    i.big.checkmark.icon.zoomer
                 if is_event
-                    i.big.calendar.icon
+                    i.big.calendar.icon.zoomer
                 if has_price
                     .ui.green.button
                         |buy #{price_points}p, $#{price_dollars}
-                    i.big.calendar.icon
+                    i.big.calendar.icon.zoomer
                 if has_location
-                    i.large.red.marker.icon
+                    i.large.red.marker.icon.zoomer
                     |#{location}
                 span(title='views')
-                    i.eye.link.icon
+                    i.eye.link.icon.zoomer
                     |#{views}
                 if watson
                     +doc_emotion_small
             unless viewing_full
-                .ui.icon.circular.basic.button.view_full
-                    i.chevron.down.icon
+                .ui.icon.zoomer.circular.basic.button.view_full
+                    i.chevron.down.icon.zoomer
                     // |view full
             if viewing_full
-                .ui.icon.circular.basic.button.view_less
-                    i.chevron.up.icon
+                .ui.icon.zoomer.circular.basic.button.view_less
+                    i.chevron.up.icon.zoomer
                     // |view less
-            .ui.basic.label
-                i.database.icon
+            i.grey.tag.icon.zoomer
+            each tags 
+                .ui.small.basic.label.zoomer #{this}
+            i.grey.marker.icon.zoomer
+            each location_tags 
+                .ui.small.basic.label.zoomer #{this}
+            .ui.basic.small.label.zoomer
+                i.database.icon.zoomer
                 |#{model}
-            .ui.basic.label
-                i.database.icon
+            .ui.basic.small.label.zoomer
+                i.database.icon.zoomer
                 |#{app}
 
 

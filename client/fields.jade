@@ -176,7 +176,8 @@ template(name='iios')
     img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=cl title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=cl title=title)
 template(name='icon')
-    i.icon(class=name)
+    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=cl title=title)
+    // i.icon(class=name)
 // -     //- img.ui.middle.aligned.image(src="https://img.icons8.com/cotton/24/000000/#{name}.png" class=cl title=title)
 //-     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=cl title=title)
 //-     //- img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=cl title=title)
@@ -676,23 +677,24 @@ template(name='boolean_edit')
         //-     else
         //-         |no
 template(name='boolean_view')
-    .ui.basic.label(title=title)
-        .ui.inline.grey.small.header
-            if icon
-                //- i.grey.icon(class=icon)
-                +icon name=icon cl='ui inline mini image'
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
+    if field_value
+        .ui.basic.label(title=title)
+            .ui.inline.grey.small.header
+                if icon
+                    //- i.grey.icon(class=icon)
+                    +icon name=icon cl='ui inline mini image'
+                if title
+                    |#{title}
+                else if label
+                    |#{label}
+                else if key
+                    |#{key}
+                else
+                    |#{this}
+            if field_value
+                i.large.green.checkmark.icon
             else
-                |#{this}
-        if field_value
-            i.large.green.checkmark.icon
-        else
-            i.cancel.grey.icon
+                i.cancel.grey.icon
 
 
 template(name='number_edit')

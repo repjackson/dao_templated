@@ -172,10 +172,11 @@ Template.image_link_edit.events
 Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        parent = Template.parentData()
+        # if @direct
+        #     parent = Template.parentData()
+        # else
+        #     parent = Template.parentData(5)
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
