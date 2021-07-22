@@ -12,9 +12,9 @@ template(name='home')
                 //     i.plus.icon
                 //     input.new_message(type='text' placeholder='quick add (-1p)')
             if post_tag_results
-                .ui.inline.small.header
-                    i.tag.icon
-                    |tags
+                // .ui.inline.small.header
+                //     i.tag.icon
+                //     |tags
                 each picked_post_tags
                     a.ui.blue.label.unpick_post_tag
                         |#{this}
@@ -26,7 +26,6 @@ template(name='home')
                 
             
             // .four.wide.column
-            .ui.big.label(title='results')
             // span.sorting_row
             +search_input model='post' field='title'
             // .ui.small.inline.header 
@@ -196,17 +195,6 @@ template(name='home_item')
 //             .ui.basic.icon.button.add_post
 //                 i.large.plus.icon
 //             div
-//             .ui.inline.small.header
-//                 i.tag.icon
-//                 |tags
-//             each picked_post_tags
-//                 a.ui.blue.label.unpick_post_tag
-//                     |#{this}
-//             each post_tag_results
-//                 if title
-//                     a.ui.basic.circular.small.link.label.pick_post_tag
-//                         |#{title} 
-//                         small.ui.grey.text #{count}
 //         .twelve.wide.column
 //             span.sorting_row
 //                 +search_input model='post' field='title'

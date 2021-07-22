@@ -36,6 +36,10 @@ if Meteor.isClient
             Session.get('sort_direction')
 
 
+    Template.home.events
+        'click .pick_post_tag': -> picked_post_tags.push @title
+        'click .unpick_post_tag': -> picked_post_tags.remove @valueOf()
+
     Template.home.helpers
         current_post: ->
             Docs.findOne

@@ -5,6 +5,21 @@ if Meteor.isClient
     #     @layout 'layout'
     #     @render 'post_view'
     #     ), name:'post_view'
+
+
+    Template.home.helpers        
+        picked_post_tags: -> picked_post_tags.array()
+    
+        # post_docs: ->
+        #     Docs.find 
+        #         model:'post'
+        post_tag_results: ->
+            Results.find {
+                model:'post_tag'
+            }, sort:_timestamp:-1
+  
+                
+        
         
     Template.post_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id
