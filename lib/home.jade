@@ -11,16 +11,16 @@ template(name='home')
                 // .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 //     i.plus.icon
                 //     input.new_message(type='text' placeholder='quick add (-1p)')
-            if post_tag_results
+            if tag_results
                 // .ui.inline.small.header
                 //     i.tag.icon
                 //     |tags
-                each picked_post_tags
-                    a.ui.blue.big.label.unpick_post_tag
+                each picked_tags
+                    a.ui.blue.big.label.unpick_tag
                         with wiki_doc_flat
                             img(src=metadata.image)
                         |#{this}
-                each post_tag_results
+                each tag_results
                     +tag_picker
             // i.user.friends.icon(title='author filter')
             // each picked_authors
@@ -133,7 +133,7 @@ template(name='home')
                     
 template(name='tag_picker')
     if title
-        a.ui.basic.large.small.link.label.pick_post_tag(title=count)
+        a.ui.basic.large.link.image.label.pick_tag(title=count)
             with wiki_doc
                 img(src=metadata.image)
             |#{title} 

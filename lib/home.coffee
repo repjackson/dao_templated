@@ -1,62 +1,81 @@
 if Meteor.isClient
     Template.tag_picker.onCreated ->
-        # @autorun => Meteor.subscribe 'model_docs', 'chat', ->
-        # @autorun => Meteor.subscribe 'model_docs', 'post', ->
-            
         @autorun => @subscribe 'wiki_doc', @data, ->
     Template.home.onCreated ->
         @autorun => @subscribe 'post_docs',
-            picked_post_tags.array()
+            picked_tags.array()
             Session.get('post_title_filter')
-            picked_authors.array()
-            picked_tasks.array()
-            picked_locations.array()
-            picked_timestamp_tags.array()
-            Session.get('view_videos')
-            Session.get('view_images')
-            Session.get('view_events')
-            Session.get('view_tasks')
-            Session.get('view_locations')
-            Session.get('view_food')
-            Session.get('sort_key')
-            Session.get('sort_direction')
+            # picked_authors.array()
+            # picked_tasks.array()
+            # picked_locations.array()
+            # picked_timestamp_tags.array()
+            # Session.get('view_videos')
+            # Session.get('view_images')
+            # Session.get('view_events')
+            # Session.get('view_tasks')
+            # Session.get('view_locations')
+            # Session.get('view_food')
+            # Session.get('sort_key')
+            # Session.get('sort_direction')
 
         @autorun => @subscribe 'post_facets',
-            picked_post_tags.array()
+            picked_tags.array()
             Session.get('post_title_filter')
-            picked_authors.array()
-            picked_tasks.array()
-            picked_locations.array()
-            picked_timestamp_tags.array()
-            Session.get('view_videos')
-            Session.get('view_images')
-            Session.get('view_events')
-            Session.get('view_tasks')
-            Session.get('view_locations')
-            Session.get('view_food')
-            Session.get('sort_key')
-            Session.get('sort_direction')
+            # picked_authors.array()
+            # picked_tasks.array()
+            # picked_locations.array()
+            # picked_timestamp_tags.array()
+            # Session.get('view_videos')
+            # Session.get('view_images')
+            # Session.get('view_events')
+            # Session.get('view_tasks')
+            # Session.get('view_locations')
+            # Session.get('view_food')
+            # Session.get('sort_key')
+            # Session.get('sort_direction')
 
 
+    Template.tag_picker.events
+        'click .pick_tag': -> 
+            picked_tags.push @title
+            # Meteor.call 'call_wiki', @title,=>
+            #     console.log 'called wiki on', @title
     Template.home.events
-        'click .pick_post_tag': -> 
-            picked_post_tags.push @title
-            Meteor.call 'call_wiki', @title,=>
-                console.log 'called wiki on', @title
-        'click .unpick_post_tag': -> picked_post_tags.remove @valueOf()
+        'click .unpick_tag': -> picked_tags.remove @valueOf()
 
     Template.tag_picker.helpers
         wiki_doc_flat: ->
-            console.log @valueOf()
+            # console.log @valueOf()
             Docs.findOne 
                 model:'wikipedia'
                 title:@valueOf()
         wiki_doc: ->
-            console.log @valueOf()
+            # console.log @valueOf()
             Docs.findOne 
                 model:'wikipedia'
                 title:@title
-    Template.home.helpers
+                
+    Template.home.helpers        
+        picked_tags: -> picked_tags.array()
+    
+        # post_docs: ->
+        #     Docs.find 
+        #         model:'post'
+        tag_results: ->
+            doc_count = Docs.find().count()
+            console.log 'count', doc_count
+            if doc_count > 1
+                Results.find {
+                    count:$lt:doc_count
+                    model:'post_tag'
+                }, sort:_timestamp:-1
+            else
+                Results.find {
+                    model:'post_tag'
+                }, sort:_timestamp:-1
+  
+                
+        
         current_post: ->
             Docs.findOne
                 _id:Session.get('viewing_post_id')

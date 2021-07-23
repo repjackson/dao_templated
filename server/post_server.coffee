@@ -1,18 +1,18 @@
 Meteor.publish 'post_facets', (
-    picked_post_tags=[]
+    picked_tags=[]
     title_filter
-    picked_authors=[]
-    picked_tasks=[]
-    picked_locations=[]
-    picked_timestamp_tags=[]
-    view_videos
-    view_images
-    view_events
-    view_tasks
-    view_locations
-    view_food
-    sort_key
-    sort_direction
+    # picked_authors=[]
+    # picked_tasks=[]
+    # picked_locations=[]
+    # picked_timestamp_tags=[]
+    # view_videos
+    # view_images
+    # view_events
+    # view_tasks
+    # view_locations
+    # view_food
+    # sort_key
+    # sort_direction
 
     )->
     # console.log 'dummy', dummy
@@ -22,7 +22,7 @@ Meteor.publish 'post_facets', (
     self = @
     # match = {}
     match = {app:'bc'}
-    # match.model = 'post'
+    match.model = 'post'
     # match.group_id = Meteor.user().current_group_id
     
     if title_filter and title_filter.length > 1
@@ -34,45 +34,45 @@ Meteor.publish 'post_facets', (
     #     match.gluten_free = true
     # if view_local
     #     match.local = true
-    if picked_authors.length > 0 then match._author_username = $in:picked_authors
-    if picked_post_tags.length > 0 then match.tags = $all:picked_post_tags 
-    if picked_locations.length > 0 then match.location_title = $in:picked_locations 
-    if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
-    # match.$regex:"#{product_query}", $options: 'i'}
-    # if product_query and product_query.length > 1
-    if view_tasks
-        match.is_task = true
+    # if picked_authors.length > 0 then match._author_username = $in:picked_authors
+    # if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    # if picked_locations.length > 0 then match.location_title = $in:picked_locations 
+    # if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
+    # # match.$regex:"#{product_query}", $options: 'i'}
+    # # if product_query and product_query.length > 1
+    # if view_tasks
+    #     match.is_task = true
 
     
-    author_cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "_author_username": 1 }
-        { $group: _id: "$_author_username", count: $sum: 1 }
-        { $match: _id: $nin: picked_authors }
-        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 10 }
-        { $project: _id: 0, title: '$_id', count: 1 }
-    ], {
-        allowDiskUse: true
-    }
+    # author_cloud = Docs.aggregate [
+    #     { $match: match }
+    #     { $project: "_author_username": 1 }
+    #     { $group: _id: "$_author_username", count: $sum: 1 }
+    #     { $match: _id: $nin: picked_authors }
+    #     # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+    #     { $sort: count: -1, _id: 1 }
+    #     { $limit: 10 }
+    #     { $project: _id: 0, title: '$_id', count: 1 }
+    # ], {
+    #     allowDiskUse: true
+    # }
     
-    author_cloud.forEach (author, i) =>
-        # console.log 'queried author ', author
-        # console.log 'key', key
-        self.added 'results', Random.id(),
-            title: author.title
-            count: author.count
-            model:'author'
-            # category:key
-            # index: i
+    # author_cloud.forEach (author, i) =>
+    #     # console.log 'queried author ', author
+    #     # console.log 'key', key
+    #     self.added 'results', Random.id(),
+    #         title: author.title
+    #         count: author.count
+    #         model:'author'
+    #         # category:key
+    #         # index: i
 
     tag_cloud = Docs.aggregate [
         { $match: match }
         { $project: "tags": 1 }
         { $unwind: "$tags" }
         { $group: _id: "$tags", count: $sum: 1 }
-        { $match: _id: $nin: picked_post_tags }
+        { $match: _id: $nin: picked_tags }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
         { $limit: 25 }
@@ -92,87 +92,93 @@ Meteor.publish 'post_facets', (
             # index: i
 
 
-    location_cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "location_title": 1 }
-        # { $unwind: "$locations" }
-        { $match: _id: $nin: picked_locations }
-        { $group: _id: "$location_title", count: $sum: 1 }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 10 }
-        { $project: _id: 0, title: '$_id', count: 1 }
-    ], {
-        allowDiskUse: true
-    }
+    # location_cloud = Docs.aggregate [
+    #     { $match: match }
+    #     { $project: "location_title": 1 }
+    #     # { $unwind: "$locations" }
+    #     { $match: _id: $nin: picked_locations }
+    #     { $group: _id: "$location_title", count: $sum: 1 }
+    #     { $sort: count: -1, _id: 1 }
+    #     { $limit: 10 }
+    #     { $project: _id: 0, title: '$_id', count: 1 }
+    # ], {
+    #     allowDiskUse: true
+    # }
 
-    location_cloud.forEach (location, i) =>
-        # console.log 'location result ', location
-        self.added 'results', Random.id(),
-            title: location.title
-            count: location.count
-            model:'location'
-            # category:key
-            # index: i
+    # location_cloud.forEach (location, i) =>
+    #     # console.log 'location result ', location
+    #     self.added 'results', Random.id(),
+    #         title: location.title
+    #         count: location.count
+    #         model:'location'
+    #         # category:key
+    #         # index: i
 
-    timestamp_tag_cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "_timestamp_tags": 1 }
-        { $unwind: "$_timestamp_tags" }
-        { $match: _id: $nin: picked_timestamp_tags }
-        { $group: _id: "$_timestamp_tags", count: $sum: 1 }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 10 }
-        { $project: _id: 0, title: '$_id', count: 1 }
-    ], {
-        allowDiskUse: true
-    }
+    # timestamp_tag_cloud = Docs.aggregate [
+    #     { $match: match }
+    #     { $project: "_timestamp_tags": 1 }
+    #     { $unwind: "$_timestamp_tags" }
+    #     { $match: _id: $nin: picked_timestamp_tags }
+    #     { $group: _id: "$_timestamp_tags", count: $sum: 1 }
+    #     { $sort: count: -1, _id: 1 }
+    #     { $limit: 10 }
+    #     { $project: _id: 0, title: '$_id', count: 1 }
+    # ], {
+    #     allowDiskUse: true
+    # }
 
-    timestamp_tag_cloud.forEach (timestamp_tag, i) =>
-        # console.log 'timestamp_tag result ', timestamp_tag
-        self.added 'results', Random.id(),
-            title: timestamp_tag.title
-            count: timestamp_tag.count
-            model:'timestamp_tag'
-            # category:key
-            # index: i
+    # timestamp_tag_cloud.forEach (timestamp_tag, i) =>
+    #     # console.log 'timestamp_tag result ', timestamp_tag
+    #     self.added 'results', Random.id(),
+    #         title: timestamp_tag.title
+    #         count: timestamp_tag.count
+    #         model:'timestamp_tag'
+    #         # category:key
+    #         # index: i
 
 
 
 
     self.ready()
     
-Meteor.publish 'wiki_docs', (
-    picked_post_tags=[]
-    )->
-        Docs.find 
-            model:'wikipedia'
-            title:$in:picked_post_tags
+# Meteor.publish 'wiki_docs', (
+#     picked_tags=[]
+#     )->
+#         Docs.find 
+#             model:'wikipedia'
+#             title:$in:picked_tags
 Meteor.publish 'wiki_doc', (tag)->
     # console.log 'wiki doc pub', tag.title
-    Docs.find 
+    Docs.find({
         model:'wikipedia'
         title:tag.title
+    }, 
+        fields:
+            title:1
+            model:1
+            metadata:1
+    )
 Meteor.publish 'post_docs', (
-    picked_post_tags=[]
+    picked_tags=[]
     title_filter
-    picked_authors=[]
-    picked_tasks=[]
-    picked_locations=[]
-    picked_timestamp_tags=[]
-    view_videos
-    view_images
-    view_events
-    view_tasks
-    view_locations
-    view_food
-    sort_key
-    sort_direction
+    # picked_authors=[]
+    # picked_tasks=[]
+    # picked_locations=[]
+    # picked_timestamp_tags=[]
+    # view_videos
+    # view_images
+    # view_events
+    # view_tasks
+    # view_locations
+    # view_food
+    # sort_key
+    # sort_direction
     )->
 
     self = @
     # match = {}
     match = {app:'bc'}
-    # match.model = 'post'
+    match.model = 'post'
     # match.group_id = Meteor.user().current_group_id
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
@@ -181,12 +187,12 @@ Meteor.publish 'post_docs', (
     #     match.vegan = true
     # if view_gf
     #     match.gluten_free = true
-    if view_tasks
-        match.is_task = true
-    if picked_authors.length > 0 then match._author_username = $in:picked_authors
-    if picked_post_tags.length > 0 then match.tags = $all:picked_post_tags 
-    if picked_locations.length > 0 then match.location_title = $in:picked_locations 
-    if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
+    # if view_tasks
+    #     match.is_task = true
+    # if picked_authors.length > 0 then match._author_username = $in:picked_authors
+    if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    # if picked_locations.length > 0 then match.location_title = $in:picked_locations 
+    # if picked_timestamp_tags.length > 0 then match._timestamp_tags = $in:picked_timestamp_tags 
     console.log match
     Docs.find match, 
         limit:20

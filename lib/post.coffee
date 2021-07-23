@@ -7,28 +7,6 @@ if Meteor.isClient
     #     ), name:'post_view'
 
 
-    Template.home.helpers        
-        picked_post_tags: -> picked_post_tags.array()
-    
-        # post_docs: ->
-        #     Docs.find 
-        #         model:'post'
-        post_tag_results: ->
-            doc_count = Docs.find().count()
-            console.log 'count', doc_count
-            if doc_count > 1
-                Results.find {
-                    count:$lt:doc_count
-                    model:'post_tag'
-                }, sort:_timestamp:-1
-            else
-                Results.find {
-                    model:'post_tag'
-                }, sort:_timestamp:-1
-  
-                
-        
-        
     Template.post_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id
 
