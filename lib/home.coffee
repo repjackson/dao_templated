@@ -4,7 +4,7 @@ if Meteor.isClient
     Template.home.onCreated ->
         @autorun => @subscribe 'post_docs',
             picked_tags.array()
-            Session.get('post_title_filter')
+            Session.get('title_filter')
             # picked_authors.array()
             # picked_tasks.array()
             # picked_locations.array()
@@ -20,7 +20,7 @@ if Meteor.isClient
 
         @autorun => @subscribe 'post_facets',
             picked_tags.array()
-            Session.get('post_title_filter')
+            Session.get('title_filter')
             # picked_authors.array()
             # picked_tasks.array()
             # picked_locations.array()
@@ -102,13 +102,13 @@ if Meteor.isClient
             Router.go "/post/#{new_id}/edit"    
     
                 
-        'keyup .new_message': (e,t)->
-            if e.which is 13
-                body = $('.new_message').val()
-                Docs.insert 
-                    model:'post'
-                    title:body    
-                body = $('.new_message').val('')
+        # 'keyup .new_message': (e,t)->
+        #     if e.which is 13
+        #         body = $('.new_message').val()
+        #         Docs.insert 
+        #             model:'post'
+        #             title:body    
+        #         body = $('.new_message').val('')
                         
             
 if Meteor.isServer
