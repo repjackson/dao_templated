@@ -1,8 +1,10 @@
 if Meteor.isClient
-    Template.home.onCreated ->
+    Template.tag_picker.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'chat', ->
         # @autorun => Meteor.subscribe 'model_docs', 'post', ->
             
+        @autorun => @subscribe 'wiki_doc', @data, ->
+    Template.home.onCreated ->
         @autorun => @subscribe 'post_docs',
             picked_post_tags.array()
             Session.get('post_title_filter')
@@ -37,9 +39,23 @@ if Meteor.isClient
 
 
     Template.home.events
-        'click .pick_post_tag': -> picked_post_tags.push @title
+        'click .pick_post_tag': -> 
+            picked_post_tags.push @title
+            Meteor.call 'call_wiki', @title,=>
+                console.log 'called wiki on', @title
         'click .unpick_post_tag': -> picked_post_tags.remove @valueOf()
 
+    Template.tag_picker.helpers
+        wiki_doc_flat: ->
+            console.log @valueOf()
+            Docs.findOne 
+                model:'wikipedia'
+                title:@valueOf()
+        wiki_doc: ->
+            console.log @valueOf()
+            Docs.findOne 
+                model:'wikipedia'
+                title:@title
     Template.home.helpers
         current_post: ->
             Docs.findOne

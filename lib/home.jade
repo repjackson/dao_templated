@@ -17,12 +17,11 @@ template(name='home')
                 //     |tags
                 each picked_post_tags
                     a.ui.blue.big.label.unpick_post_tag
+                        with wiki_doc_flat
+                            img(src=metadata.image)
                         |#{this}
                 each post_tag_results
-                    if title
-                        a.ui.basic.large.small.link.label.pick_post_tag(title=count)
-                            |#{title} 
-                            // small.ui.grey.text #{count}
+                    +tag_picker
             // i.user.friends.icon(title='author filter')
             // each picked_authors
             //     a.ui.blue.label.unpick_author
@@ -132,6 +131,15 @@ template(name='home')
                     each home_items
                         +home_item
                     
+template(name='tag_picker')
+    if title
+        a.ui.basic.large.small.link.label.pick_post_tag(title=count)
+            with wiki_doc
+                img(src=metadata.image)
+            |#{title} 
+            // small.ui.grey.text #{count}
+
+
 
 template(name='home_item')
     // if session_is 'editing_chat' _id

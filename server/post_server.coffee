@@ -141,6 +141,17 @@ Meteor.publish 'post_facets', (
 
     self.ready()
     
+Meteor.publish 'wiki_docs', (
+    picked_post_tags=[]
+    )->
+        Docs.find 
+            model:'wikipedia'
+            title:$in:picked_post_tags
+Meteor.publish 'wiki_doc', (tag)->
+    # console.log 'wiki doc pub', tag.title
+    Docs.find 
+        model:'wikipedia'
+        title:tag.title
 Meteor.publish 'post_docs', (
     picked_post_tags=[]
     title_filter
