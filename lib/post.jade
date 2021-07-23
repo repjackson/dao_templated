@@ -36,19 +36,19 @@ template(name='post_edit')
                     +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
                     if is_task
                         +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
-                    div
+                    // div
                     +boolean_edit key='is_event' label='event' icon='calendar' direct=true
                     if is_event
                         +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
-                    div
+                    // div
                     +boolean_edit key='has_video' label='video' icon='youtube' direct=true
                     if has_video
                         +youtube_edit key='youtube_id' label='youtube id' icon='youtube'
-                    div
+                    // div
                     +boolean_edit key='has_image' label='image' icon='image' direct=true
                     if has_image
                         +image_edit key='image_id' label='image' icon='image'
-                    div
+                    // div
                     +boolean_edit key='has_price' label='price' icon='money' direct=true
                     if has_price
                         +number_edit key='price_dollars' label='price ($)' icon='money'

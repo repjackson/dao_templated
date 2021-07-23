@@ -23,15 +23,15 @@ template(name='home')
                         a.ui.basic.large.small.link.label.pick_post_tag(title=count)
                             |#{title} 
                             // small.ui.grey.text #{count}
-            i.user.friends.icon(title='author filter')
-            each picked_authors
-                a.ui.blue.label.unpick_author
-                    |#{this}
-            each author_results
-                if title
-                    a.ui.basic.circular.small.link.label.pick_author
-                        |#{title} 
-                        small.ui.grey.text #{count}
+            // i.user.friends.icon(title='author filter')
+            // each picked_authors
+            //     a.ui.blue.label.unpick_author
+            //         |#{this}
+            // each author_results
+            //     if title
+            //         a.ui.basic.circular.small.link.label.pick_author
+            //             |#{title} 
+            //             small.ui.grey.text #{count}
             // div
 
             // .four.wide.column
@@ -43,20 +43,20 @@ template(name='home')
             // +session_set key='view_layout' value='list' icon='list'
             // .ui.small.inline.header 
             //     |direction
-            +session_set key='sort_direction' value='-1' icon='chevron down'
-            +session_set key='sort_direction' value='1' icon='chevron up'
-            // .ui.small.inline.header 
-            //     |by
-            +session_set key='sort_key' value='points' label='points' icon='coins'
-            +session_set key='sort_key' value='created_date' label='when' icon='clock'
+            // +session_set key='sort_direction' value='-1' icon='chevron down'
+            // +session_set key='sort_direction' value='1' icon='chevron up'
+            // // .ui.small.inline.header 
+            // //     |by
+            // +session_set key='sort_key' value='points' label='points' icon='coins'
+            // +session_set key='sort_key' value='created_date' label='when' icon='clock'
             // +session_set key='view_limit' value=1
             
             // i.large.sort.icon
-            .ui.compact.icon.basic.circular.button.set_sort_direction(title='toggle sort direction')
-                if sorting_up
-                    i.sort.amount.down.icon
-                else
-                    i.sort.amount.up.icon
+            // .ui.compact.icon.basic.circular.button.set_sort_direction(title='toggle sort direction')
+            //     if sorting_up
+            //         i.sort.amount.down.icon
+            //     else
+            //         i.sort.amount.up.icon
             |&nbsp;
             |&nbsp;
             // .ui.compact.menu
@@ -71,29 +71,29 @@ template(name='home')
             // div
             // .ui.small.inline.header 
             //     |media
-            +session_set key='view_videos' value=true label='when' icon='youtube'
-            +session_set key='view_images' value=true label='view images' icon='image'
-            if session_is 'view_images' true
-                .ui.inline.header color picker
-            +session_set key='view_events' value=true label='view events' icon='calendar'
-            if session_is 'view_events'
-                .ui.icon.input
-                    i.right.chevron.icon
-                    input(type='date' placeholder='from')
-                .ui.icon.input
-                    i.left.chevron.icon
-                    input(type='date' placeholder='to')
-            +session_set key='view_tasks' value=true label='view tasks' icon='checkmark'
-            +session_set key='view_locations' value=true label='view location' icon='marker'
-            if session_is 'view_locations' true
-                .ui.button
-                    i.location.icon
-                    |near me
-            +session_set key='view_food' value='view_food' label='view' icon='food'
-            if session_is 'view_food' true
-                .ui.small.inline.header
-                    i.food.icon
-                    |ingredient filter
+            // +session_set key='view_videos' value=true label='when' icon='youtube'
+            // +session_set key='view_images' value=true label='view images' icon='image'
+            // if session_is 'view_images' true
+            //     .ui.inline.header color picker
+            // +session_set key='view_events' value=true label='view events' icon='calendar'
+            // if session_is 'view_events'
+            //     .ui.icon.input
+            //         i.right.chevron.icon
+            //         input(type='date' placeholder='from')
+            //     .ui.icon.input
+            //         i.left.chevron.icon
+            //         input(type='date' placeholder='to')
+            // +session_set key='view_tasks' value=true label='view tasks' icon='checkmark'
+            // +session_set key='view_locations' value=true label='view location' icon='marker'
+            // if session_is 'view_locations' true
+            //     .ui.button
+            //         i.location.icon
+            //         |near me
+            // +session_set key='view_food' value='view_food' label='view' icon='food'
+            // if session_is 'view_food' true
+            //     .ui.small.inline.header
+            //         i.food.icon
+            //         |ingredient filter
             if currentUser
                 a(href="/user/#{currentUser.username}")
                     i.user.link.circular.icon
@@ -115,7 +115,7 @@ template(name='home')
             // .ui.inline.header 
             //     |your points
             //     |#{currentUser.points}
-        .ui.twelve.wide.column
+        .ui.sixteen.wide.column
             if current_post
                 // .ui.stackable.padded.grid
                 //     .sixteen.wide.column.scrollin
@@ -132,19 +132,6 @@ template(name='home')
                     each home_items
                         .column
                             +home_item
-        .four.wide.column
-            .ui.header 
-                i.users.icon
-                |authors
-            .ui.header 
-                i.marker.icon
-                |locations
-            .ui.header
-                i.smile.icon
-                |emotions
-            .ui.header 
-                i.clock.icon
-                |timestamps
                     
 
 template(name='home_item')
@@ -157,7 +144,7 @@ template(name='home_item')
     // else
     .ui.fluid.card.zoomer.pointer.view_item.zoom_out(class=card_class)
         if image_id
-            +image_view key='image_id' direct=true
+            +image_view key='image_id' direct=true 
         if youtube_id
             +youtube_view key='image_id' direct=true
         // if is_selected
