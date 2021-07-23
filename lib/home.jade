@@ -2,9 +2,9 @@ template(name='home')
     .ui.padded.stackable.grid
         .sixteen.wide.column
             .ui.inline.header 
+                i.pizza.slice.icon
+                |backcountry
                 |#{home_items.count}
-                // i.pizza.slice.icon
-                // |backcountry
                 // i.chat.outline.large.icon(title='backcountry chat')
             if currentUser
                 i.large.circular.link.plus.icon.add_post

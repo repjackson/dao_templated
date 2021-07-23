@@ -75,7 +75,7 @@ Meteor.publish 'post_facets', (
         { $match: _id: $nin: picked_post_tags }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 42 }
+        { $limit: 25 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
