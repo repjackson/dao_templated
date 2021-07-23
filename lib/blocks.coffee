@@ -164,20 +164,6 @@ if Meteor.isClient
 
 
 
-    Template.user_card.onCreated ->
-        @autorun => Meteor.subscribe 'user_from_username', @data
-    Template.user_card.helpers
-        user: -> Meteor.users.findOne @valueOf()
-
-
-
-
-    Template.big_user_card.onCreated ->
-        @autorun => Meteor.subscribe 'user_from_username', @data
-    Template.big_user_card.helpers
-        user: -> Meteor.users.findOne username:@valueOf()
-
-
 
 
     Template.username_info.onCreated ->
