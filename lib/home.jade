@@ -6,11 +6,11 @@ template(name='home')
                 |backcountry
                 |#{home_items.count}
                 // i.chat.outline.large.icon(title='backcountry chat')
-            if currentUser
-                i.large.circular.link.plus.icon.add_post
-                // .ui.large.icon.input(title='messages cost one point but can receive points from votes')
-                //     i.plus.icon
-                //     input.new_message(type='text' placeholder='quick add (-1p)')
+            // if currentUser
+            i.large.circular.link.plus.icon.add_post
+            // .ui.large.icon.input(title='messages cost one point but can receive points from votes')
+            //     i.plus.icon
+            //     input.new_message(type='text' placeholder='quick add (-1p)')
             if tag_results
                 // .ui.inline.small.header
                 //     i.tag.icon
@@ -93,12 +93,12 @@ template(name='home')
             //     .ui.small.inline.header
             //         i.food.icon
             //         |ingredient filter
-            if currentUser
-                a(href="/user/#{currentUser.username}")
-                    i.user.link.circular.icon
-            else 
-                a(href="/login")
-                    i.large.sign.in.icon
+            // if currentUser
+            //     a(href="/user/#{currentUser.username}")
+            //         i.user.link.circular.icon
+            // else 
+            //     a(href="/login")
+            //         i.large.sign.in.icon
             // .ui.inline.header
             // .ui.circular.button
             //     // |p                
@@ -163,12 +163,12 @@ template(name='home_item')
             // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
             a.ui.inline.header.zoomer !{title}
             
-            if _author_username
-                a(href="/user/#{_author_username}")
-                    |#{_author_username}
-            else 
-                // i.anon.grey.icon
-                |anonymous
+            // if _author_username
+            //     a(href="/user/#{_author_username}")
+            //         |#{_author_username}
+            // else 
+            //     // i.anon.grey.icon
+            //     |anonymous
                 
             .metadata
                 |#{when}
