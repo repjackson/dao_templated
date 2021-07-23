@@ -56,20 +56,20 @@ template(name='post_edit')
                     
                     div
                 .eight.wide.column
-                    div
-                    +boolean_edit key='has_body' label='body' icon='content' direct=true
-                    if has_body
-                        +html_edit key='body' label='body' direct=true
+                    // div
+                    // +boolean_edit key='has_body' label='body' icon='content' direct=true
+                    // if has_body
+                    +html_edit key='body' label='body' direct=true
                     // div
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     // div
-                    +array_edit key='emotion_tags' label='emotion tags' icon='smile' direct=true
+                    // +array_edit key='emotion_tags' label='emotion tags' icon='smile' direct=true
                     // div
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     // div
-                    +array_edit key='people_tags' label='people tags' icon='users' direct=true
-                    +text_edit key='model' label='model' icon='database' direct=true
-                    +text_edit key='app' label='app' icon='template' direct=true
+                    // +array_edit key='people_tags' label='people tags' icon='users' direct=true
+                    // +text_edit key='model' label='model' icon='database' direct=true
+                    // +text_edit key='app' label='app' icon='template' direct=true
                     .ui.red.button.delete_post
                         i.remove.icon   
                         | delete

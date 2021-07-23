@@ -184,26 +184,26 @@ template(name='home_item')
                     |#{views}
                 if watson
                     +doc_emotion_small
-            unless viewing_full
-                .ui.icon.zoomer.circular.basic.button.view_full
-                    i.chevron.down.icon.zoomer
-                    // |view full
-            if viewing_full
-                .ui.icon.zoomer.circular.basic.button.view_less
-                    i.chevron.up.icon.zoomer
-                    // |view less
-            i.grey.tag.icon.zoomer
+            // unless viewing_full
+            //     .ui.icon.zoomer.circular.basic.button.view_full
+            //         i.chevron.down.icon.zoomer
+            //         // |view full
+            // if viewing_full
+            //     .ui.icon.zoomer.circular.basic.button.view_less
+            //         i.chevron.up.icon.zoomer
+            //         // |view less
+            // i.grey.tag.icon.zoomer
             each tags 
                 .ui.small.basic.label.zoomer #{this}
             i.grey.marker.icon.zoomer
             each location_tags 
                 .ui.small.basic.label.zoomer #{this}
-            .ui.basic.small.label.zoomer
-                i.database.icon.zoomer
-                |#{model}
-            .ui.basic.small.label.zoomer
-                i.database.icon.zoomer
-                |#{app}
+            // .ui.basic.small.label.zoomer
+            //     i.database.icon.zoomer
+            //     |#{model}
+            // .ui.basic.small.label.zoomer
+            //     i.database.icon.zoomer
+            //     |#{app}
 
 
 template(name='task_edit')
