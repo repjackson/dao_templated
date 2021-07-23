@@ -14,9 +14,17 @@ if Meteor.isClient
         #     Docs.find 
         #         model:'post'
         post_tag_results: ->
-            Results.find {
-                model:'post_tag'
-            }, sort:_timestamp:-1
+            doc_count = Docs.find().count()
+            console.log 'count', doc_count
+            if doc_count > 1
+                Results.find {
+                    count:$lt:doc_count
+                    model:'post_tag'
+                }, sort:_timestamp:-1
+            else
+                Results.find {
+                    model:'post_tag'
+                }, sort:_timestamp:-1
   
                 
         

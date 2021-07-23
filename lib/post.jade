@@ -32,26 +32,26 @@ template(name='post_edit')
                     a.ui.large.icon.green.button(href="/" title='save product')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
-                    +boolean_edit key='published' label='published' direct=true
-                    +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
-                    if is_task
-                        +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
+                    // +boolean_edit key='published' label='published' direct=true
+                    // +boolean_edit key='is_task' label='is task' icon='checkmark' direct=true
+                    // if is_task
+                    //     +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
                     // div
-                    +boolean_edit key='is_event' label='event' icon='calendar' direct=true
-                    if is_event
-                        +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
+                    // +boolean_edit key='is_event' label='event' icon='calendar' direct=true
+                    // if is_event
+                    // +datetime_edit key='start_datetime' label='start datetime' icon='calendar' direct=true
                     // div
-                    +boolean_edit key='has_video' label='video' icon='youtube' direct=true
-                    if has_video
-                        +youtube_edit key='youtube_id' label='youtube id' icon='youtube'
+                    // +boolean_edit key='has_video' label='video' icon='youtube' direct=true
+                    // if has_video
+                    // +youtube_edit key='youtube_id' label='youtube id' icon='youtube'
                     // div
-                    +boolean_edit key='has_image' label='image' icon='image' direct=true
-                    if has_image
-                        +image_edit key='image_id' label='image' icon='image'
+                    // +boolean_edit key='has_image' label='image' icon='image' direct=true
+                    // if has_image
+                    +image_edit key='image_id' label='image' icon='image'
                     // div
-                    +boolean_edit key='has_price' label='price' icon='money' direct=true
-                    if has_price
-                        +number_edit key='price_dollars' label='price ($)' icon='money'
+                    // +boolean_edit key='has_price' label='price' icon='money' direct=true
+                    // if has_price
+                    +number_edit key='price_dollars' label='price ($)' icon='money'
                     
                     
                     div
@@ -90,8 +90,8 @@ template(name='post_view')
                     +task_view
                 if is_location
                     +location_view
-                if has_image
-                    +image_view key='image_id' direct=true
+                // if has_image
+                +image_view key='image_id' direct=true
                 +html_view key='body' direct=true
                 // +html_view key='content' direct=true
                 // +html_view key='description' direct=true
@@ -107,17 +107,17 @@ template(name='post_view')
                 if tone 
                     +tone_view
                 // .six.wide.column
-                +boolean_view key='published' label='published' direct=true
-                div
-                +boolean_view key='is_task' label='is task' icon='checkmark' direct=true
-                div
-                +boolean_view key='is_event' label='is event' icon='calendar' direct=true
-                div
-                +boolean_view key='has_video' label='has video' icon='youtube' direct=true
-                div
-                +boolean_view key='has_image' label='has image' icon='image' direct=true
-                div
-                +boolean_view key='has_price' label='has price' icon='money' direct=true
+                // +boolean_view key='published' label='published' direct=true
+                // div
+                // +boolean_view key='is_task' label='is task' icon='checkmark' direct=true
+                // div
+                // +boolean_view key='is_event' label='is event' icon='calendar' direct=true
+                // div
+                // +boolean_view key='has_video' label='has video' icon='youtube' direct=true
+                // div
+                // +boolean_view key='has_image' label='has image' icon='image' direct=true
+                // div
+                // +boolean_view key='has_price' label='has price' icon='money' direct=true
                 
                 // div
                 if can_edit
