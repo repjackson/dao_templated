@@ -128,10 +128,9 @@ template(name='home')
                 //         +home_item
                 //         // .ui.divider
             else 
-                .ui.stackable.four.column.grid.scrollin
+                .ui.doubling.four.cards.scrollin
                     each home_items
-                        .column
-                            +home_item
+                        +home_item
                     
 
 template(name='home_item')
@@ -142,7 +141,7 @@ template(name='home_item')
     //             i.checkmark.large.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .ui.fluid.card.zoomer.pointer.view_item.zoom_out(class=card_class)
+    .ui.card.zoomer.pointer.view_item(class=card_class)
         if image_id
             +image_view key='image_id' direct=true 
         if youtube_id
@@ -154,19 +153,18 @@ template(name='home_item')
         //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
-            a.ui.header.zoomer !{title}
+            a.ui.inline.header.zoomer !{title}
             
-            .author.zoomer
-                if _author_username
-                    a(href="/user/#{_author_username}")
-                        |#{_author_username}
-                else 
-                    // i.anon.grey.icon
-                    |anonymous
-                    
-                .metadata
-                    |#{when}
-                    small {{long_date _timestamp}}
+            if _author_username
+                a(href="/user/#{_author_username}")
+                    |#{_author_username}
+            else 
+                // i.anon.grey.icon
+                |anonymous
+                
+            .metadata
+                |#{when}
+                small {{long_date _timestamp}}
             .text.view_post_quick.zoomer
                 |!{body}
             span.meta
