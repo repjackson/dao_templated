@@ -128,7 +128,7 @@ template(name='home')
                 //         +home_item
                 //         // .ui.divider
             else 
-                .ui.doubling.four.cards.scrollin
+                .ui.doubling.five.cards.scrollin
                     each home_items
                         +home_item
                     
@@ -168,20 +168,20 @@ template(name='home_item')
             .text.view_post_quick.zoomer
                 |!{body}
             span.meta
-                if is_task
-                    i.big.checkmark.icon.zoomer
-                if is_event
-                    i.big.calendar.icon.zoomer
-                if has_price
-                    .ui.green.button
-                        |buy #{price_points}p, $#{price_dollars}
-                    i.big.calendar.icon.zoomer
-                if has_location
-                    i.large.red.marker.icon.zoomer
-                    |#{location}
-                span(title='views')
-                    i.eye.link.icon.zoomer
-                    |#{views}
+                // if is_task
+                //     i.big.checkmark.icon.zoomer
+                // if is_event
+                //     i.big.calendar.icon.zoomer
+                // if has_price
+                //     .ui.green.button
+                //         |buy #{price_points}p, $#{price_dollars}
+                //     i.big.calendar.icon.zoomer
+                // if has_location
+                //     i.large.red.marker.icon.zoomer
+                //     |#{location}
+                // span(title='views')
+                //     i.eye.link.icon.zoomer
+                //     |#{views}
                 if watson
                     +doc_emotion_small
             // unless viewing_full
@@ -195,7 +195,7 @@ template(name='home_item')
             // i.grey.tag.icon.zoomer
             each tags 
                 .ui.small.basic.label.zoomer #{this}
-            i.grey.marker.icon.zoomer
+            // i.grey.marker.icon.zoomer
             each location_tags 
                 .ui.small.basic.label.zoomer #{this}
             // .ui.basic.small.label.zoomer

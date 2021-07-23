@@ -29,7 +29,7 @@ template(name='post_edit')
                         i.pencil.icon
                         | #{title}
                     // a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
-                    a.ui.large.icon.green.button(href="/" title='save product')
+                    a.ui.big.circular.icon.green.button.save_post(href="/" title='save post')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     // +boolean_edit key='published' label='published' direct=true
@@ -79,8 +79,8 @@ template(name='post_view')
     // with current_doc
     .ui.stackable.padded.grid.scrolling
         .row
-            .ten.wide.column
-                .ui.basic.icon.circular.button.clear_current_post.fly_up(title='clear selection')
+            .ten.wide.column.clear_current_post
+                .ui.basic.icon.circular.button.fly_up(title='clear selection')
                     i.chevron.remove.red.large.icon
                 .ui.inline.header
                     | #{title}

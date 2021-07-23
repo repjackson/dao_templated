@@ -84,8 +84,9 @@ if Meteor.isClient
         'click .delete_post':->
             if confirm 'delete?'
                 Docs.remove @_id
-                Router.go "/posts"
-            
+                Router.go "/"
+        'click .save_post': -> Session.get('viewing_post_id', @_id)
+
         'click .add_parent': ->
             Docs.update Router.current().params.doc_id, 
                 $addToSet: 
