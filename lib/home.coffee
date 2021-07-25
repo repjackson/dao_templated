@@ -75,5 +75,5 @@ if Meteor.isClient
         'click .add_post': ->
             new_id = Docs.insert 
                 model:'post'
-            Router.go "/post/#{new_id}/edit"    
+            Session.set('viewing_post_id', new_id)    
     

@@ -10,9 +10,11 @@ Cloudinary.config
     api_secret: Meteor.settings.private.cloudinary_secret
 
 Docs.allow
-    insert: (userId, doc) -> doc._author_id is userId
+    # insert: (userId, doc) -> doc._author_id is userId
+    insert: (userId, doc) -> true
     update: (userId, doc) ->
-        if userId then true
+        true
+        # if userId then true
         # if doc.model in ['calculator_doc','simulated_rental_item','healthclub_session']
         #     true
         # else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
@@ -20,7 +22,9 @@ Docs.allow
         # else
         #     doc._author_id is userId
     # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
-    remove: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
+    remove: (userId, doc) -> 
+        false
+        # doc._author_id is userId or 'admin' in Meteor.user().roles
 
 Meteor.publish 'docs', (selected_tags, filter)->
     # user = Meteor.users.findOne @userId
