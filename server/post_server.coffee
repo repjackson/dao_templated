@@ -1,24 +1,7 @@
 Meteor.publish 'post_facets', (
     picked_tags
     title_filter
-    # picked_authors=[]
-    # picked_tasks=[]
-    # picked_locations=[]
-    # picked_timestamp_tags=[]
-    # view_videos
-    # view_images
-    # view_events
-    # view_tasks
-    # view_locations
-    # view_food
-    # sort_key
-    # sort_direction
-
     )->
-    # console.log 'dummy', dummy
-    # console.log 'query', query
-    # console.log 'picked staff', picked_authors
-
     self = @
     # match = {}
     match = {app:'bc'}
@@ -38,7 +21,7 @@ Meteor.publish 'post_facets', (
         { $match: _id: $nin: picked_tags }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 25 }
+        { $limit: 20 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
