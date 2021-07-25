@@ -13,8 +13,8 @@ if Meteor.isClient
     Template.tag_picker.events
         'click .pick_tag': -> 
             picked_tags.push @title
-            # Meteor.call 'call_wiki', @title,=>
-            #     console.log 'called wiki on', @title
+            Meteor.call 'call_wiki', @title,=>
+                console.log 'called wiki on', @title
     Template.home.events
         'click .unpick_tag': -> picked_tags.remove @valueOf()
 
