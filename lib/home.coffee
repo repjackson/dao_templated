@@ -38,8 +38,8 @@ if Meteor.isClient
         #         model:'post'
         tag_results: ->
             doc_count = Docs.find({model:'post'}).count()
-            # console.log 'count', doc_count
-            if doc_count > 1
+            console.log 'count', doc_count
+            if doc_count > 0
                 Results.find {
                     count:$lt:doc_count
                     model:'post_tag'
