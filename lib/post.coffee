@@ -8,14 +8,9 @@ if Meteor.isClient
 
 
     Template.post_view.onRendered ->
-        Meteor.call 'log_view', Router.current().params.doc_id
+        Meteor.call 'log_view', @data._id
 
             
-    
-    Template.post_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'post_work', Router.current().params.doc_id, ->
-        # @autorun => Meteor.subscribe 'model_docs', 'post', ->
     
 
     Template.post_view.events

@@ -19,17 +19,6 @@ Template.registerHelper 'ingredient_products', () ->
         ingredient_ids:$in:[@_id]
 
 
-Template.registerHelper 'current_group', () ->
-    # if Meteor.user() and Meteor.user().current_group_id
-    if Meteor.user()
-        Docs.findOne Meteor.user().current_group_id
-        
-    # Template.parentData()
-Template.registerHelper 'work_task', () ->
-    Docs.findOne @task_id
-    # Template.parentData()
-
-
 Template.registerHelper 'is_editing_this', (input)-> 
     Session.equals('editing_id', @_id)
 
@@ -37,59 +26,15 @@ Template.registerHelper 'lowered', (input)-> input.toLowerCase()
 
 Template.registerHelper 'pathname_root', () ->
     window.location.pathname.split('/')[1]
-Template.registerHelper 'current_route', () ->
-    # console.log window.location.pathname.split('/')[1]
-    Router.current().location.get().path
+# Template.registerHelper 'current_route', () ->
+#     # console.log window.location.pathname.split('/')[1]
+#     Router.current().location.get().path
     
 Template.registerHelper 'active_path', (metric) ->
     false
 
-Template.registerHelper 'member_groups', (id)->
-    Docs.find 
-        model:'group'
-        _id:$in:@membership_group_ids
-    
-    
-Template.registerHelper 'child_groups', (id)->
-    # current_group = 
-        # Docs.findOne Router.current().params.doc_id
-        # Docs.findOne Router.
-    Docs.find
-        model:'group'
-        # parent_group_ids:$in:[current_group._id]
-        parent_group_id:@_id
-    
-Template.registerHelper 'sibling_groups', (id)->
-    # current_group = 
-        # Docs.findOne Router.current().params.doc_id
-        # Docs.findOne Router.
-    Docs.find
-        model:'group'
-        # parent_group_ids:$in:[current_group._id]
-        has_parent_group:true
-        parent_group_id:@parent_group_id
-        _id:$ne:@_id
-    
-    
-    
-Template.registerHelper 'parent_group', ()->
-    Docs.findOne
-        _id:@parent_group_id
-        model:'group'
-Template.registerHelper 'group_doc', ()->
-    Docs.findOne
-        _id:@group_id
-        model:'group'
-
-Template.registerHelper 'user_from_id', (id)->
-    Meteor.users.findOne id
-    
 Template.registerHelper 'kve', (key,value) ->
     @["#{key}"] is value
-    
-Template.registerHelper 'gs', () ->
-    Docs.findOne
-        model:'global_settings'
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
@@ -112,11 +57,6 @@ Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 
-
-Template.registerHelper 'group_products', (input) ->
-    Docs.find 
-        model:'product'
-        group_id: @_id
 
 
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
@@ -189,7 +129,6 @@ Template.registerHelper 'parent_key_value_is', (key, value)->
 #         _id:$in:session_document.guest_ids
 
 
-Template.registerHelper '_author', () -> Meteor.users.findOne @_author_id
 Template.registerHelper 'is_text', () ->
     # console.log @field_type
     @field_type is 'text'
@@ -254,9 +193,6 @@ Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()
         if Meteor.userId() in @["#{key}"] then true else false
 
-Template.registerHelper 'is_eric', () -> if Meteor.userId() and Meteor.userId() in ['ytjpFxiwnWaJELZEd','rDqxdcTBTszjeMh9T'] then true else false
-
-Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
 Template.registerHelper 'is_current_user', () ->
     if Meteor.user()
         if Meteor.user().username is Router.current().params.username

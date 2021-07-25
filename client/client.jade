@@ -45,17 +45,17 @@ template(name='flat_tag_picker')
 template(name='home')
     if logging_in
         .ui.center.aligned.basic.segment
-            i.massive.loading.yin.yang.grey.icon
+            i.massive.loading.beer.grey.icon
     else
         .ui.padded.stackable.grid
             .sixteen.wide.column
-                .ui.inline.header 
-                    i.pizza.slice.icon
-                    |Backcountry
-                    |#{home_items.count}
+                .ui.inline.header.pointer.add_post(title="#{home_items.count} Backcountry")
+                    i.pizza.slice.big.icon
+                    // |Backcountry
+                    // |#{home_items.count}
                     // i.chat.outline.large.icon(title='backcountry chat')
                 // if currentUser
-                i.large.circular.link.plus.icon.add_post
+                // i.large.link.plus.icon.add_post
                 // .ui.large.icon.input(title='messages cost one point but can receive points from votes')
                 //     i.plus.icon
                 //     input.new_message(type='text' placeholder='quick add (-1p)')
@@ -70,9 +70,8 @@ template(name='home')
                             |#{this}
                     each tag_results
                         +tag_picker
-                +search_input model='post' field='title'
+                // +search_input model='post' field='title'
                 
-            .ui.sixteen.wide.column
                 if current_post
                     // .ui.stackable.padded.grid
                     //     .sixteen.wide.column.scrollin
@@ -85,13 +84,13 @@ template(name='home')
                     //         +home_item
                     //         // .ui.divider
                 else 
-                    .ui.doubling.five.cards.scrolling
+                    .ui.doubling.five.cards.scrollin
                         each home_items
                             +home_item
                         
 template(name='tag_picker')
     if title
-        a.ui.basic.large.link.image.label.pick_tag(title=count)
+        a.ui.basic.big.tertiary.link.image.label.pick_tag(title=count)
             with wiki_doc
                 img(src=metadata.image)
             |#{title} 
@@ -121,52 +120,11 @@ template(name='home_item')
             // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
             a.ui.inline.header.zoomer !{title}
             
-            // if _author_username
-            //     a(href="/user/#{_author_username}")
-            //         |#{_author_username}
-            // else 
-            //     // i.anon.grey.icon
-            //     |anonymous
-                
             // .metadata
             //     |#{when}
             //     small {{long_date _timestamp}}
             .text.view_post_quick.zoomer
                 |!{body}
             span.meta
-                // if is_task
-                //     i.big.checkmark.icon.zoomer
-                // if is_event
-                //     i.big.calendar.icon.zoomer
-                // if has_price
-                //     .ui.green.button
-                //         |buy #{price_points}p, $#{price_dollars}
-                //     i.big.calendar.icon.zoomer
-                // if has_location
-                //     i.large.red.marker.icon.zoomer
-                //     |#{location}
-                // span(title='views')
-                //     i.eye.link.icon.zoomer
-                //     |#{views}
                 if watson
                     +doc_emotion_small
-            // unless viewing_full
-            //     .ui.icon.zoomer.circular.basic.button.view_full
-            //         i.chevron.down.icon.zoomer
-            //         // |view full
-            // if viewing_full
-            //     .ui.icon.zoomer.circular.basic.button.view_less
-            //         i.chevron.up.icon.zoomer
-            //         // |view less
-            // i.grey.tag.icon.zoomer
-            // each tags 
-            //     .ui.small.basic.label.zoomer #{this}
-            // // i.grey.marker.icon.zoomer
-            // each location_tags 
-            //     .ui.small.basic.label.zoomer #{this}
-            // .ui.basic.small.label.zoomer
-            //     i.database.icon.zoomer
-            //     |#{model}
-            // .ui.basic.small.label.zoomer
-            //     i.database.icon.zoomer
-            //     |#{app}
