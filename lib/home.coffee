@@ -14,8 +14,8 @@ if Meteor.isClient
         'click .pick_tag': -> 
             picked_tags.push @title
             Session.set('viewing_post_id',null)
-            Meteor.call 'call_wiki', @title,=>
-                console.log 'called wiki on', @title
+            # Meteor.call 'call_wiki', @title,=>
+            #     console.log 'called wiki on', @title
     Template.home.events
         'click .unpick_tag': -> picked_tags.remove @valueOf()
 
@@ -64,8 +64,14 @@ if Meteor.isClient
     Template.home_item.helpers
         card_class: ->
             if Session.equals('viewing_post_id', @_id) then 'inverted large' else 'small basic' 
-        is_selected: ->
-            Session.equals('viewing_post_id', @_id)
+        is_selected: -> Session.equals('viewing_post_id', @_id)
+    Template.post_view.events
+        'click .edit_this': ->
+            Session.set('is_editing',true)
+        'click .save_this': ->
+            Session.set('is_editing',false)
+    Template.post_view.helpers
+        is_editing: -> Session.get('is_editing')
     Template.home_item.events
         'click .view_item': ->
             Session.set('viewing_post_id', @_id)
@@ -76,4 +82,5 @@ if Meteor.isClient
             new_id = Docs.insert 
                 model:'post'
             Session.set('viewing_post_id', new_id)    
+            Session.set('is_editing', true)    
     

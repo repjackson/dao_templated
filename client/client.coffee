@@ -35,3 +35,21 @@ Template.body.events
 
 Template.home.helpers
     logging_in: -> Meteor.loggingIn()
+    
+    
+Template.post_view.onRendered ->
+    Meteor.call 'log_view', @data._id
+
+        
+
+
+Template.post_view.events
+    'click .clear_current_post': ->
+        Session.set('viewing_post_id',null)
+            
+    
+    'click .delete_post':->
+        if confirm 'delete?'
+            Docs.remove @_id
+            Session.set('viewing_post_id',null)
+    'click .save_post': -> Session.get('viewing_post_id', @_id)

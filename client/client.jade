@@ -45,7 +45,7 @@ template(name='flat_tag_picker')
 template(name='home')
     if logging_in
         .ui.center.aligned.basic.segment
-            i.massive.loading.beer.grey.icon
+            i.massive.loading.food.grey.icon
     else
         .ui.padded.stackable.grid
             .sixteen.wide.column
@@ -71,7 +71,8 @@ template(name='tag_picker')
     if title
         a.ui.basic.huge.tertiary.link.image.label.pick_tag.zoomer(title=count)
             with wiki_doc
-                img(src=metadata.image)
+                img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                // img(src=metadata.image)
             |#{title} 
             // small.ui.grey.text #{count}
 
@@ -132,8 +133,9 @@ template(name='post_card')
 
 
                 
-template(name='post_edit')
-    with current_doc
+template(name='post_view')
+    // with current_doc
+    if is_editing
         .ui.stackable.padded.grid
             .row
                 .eight.wide.column
@@ -141,61 +143,41 @@ template(name='post_edit')
                         i.pencil.icon
                         | #{title}
                     // a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
-                    a.ui.big.circular.icon.green.button.save_post(href="/" title='save post')
+                    a.ui.big.circular.icon.green.button.save_this(title='save')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='price_dollars' label='price ($)' icon='money'
                 .eight.wide.column
                     +html_edit key='body' label='body' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
                     .ui.red.button.delete_post
                         i.remove.icon   
                         | delete
-                
-                
-template(name='post_view')
-    // with current_doc
-    .ui.stackable.padded.grid.scrollin
-        .row.clear_current_post.pointer.zoomer
-            .sixteen.wide.column
-                // .ui.basic.icon.circular.button.fly_up(title='clear selection')
-                //     i.chevron.remove.red.large.icon
-                .ui.inline.header
-                    | #{title}
-                +image_view key='image_id' direct=true
-                +html_view key='body' direct=true
-                // +html_view key='content' direct=true
-                // +html_view key='description' direct=true
-                +array_view key='tags' direct=true
-                if youtube_id
-                    +youtube_view key='youtube_id' direct=true
-                // .ui.header 
-                //     i.users.icon
-                //     |audience
-                // +comments
-                if watson
-                    +watson_view
-                if tone 
-                    +tone_view
-                if can_edit
-                    a.ui.icon.large.basic.button(href="/post/#{_id}/edit")
-                        i.pencil.blue.icon
-                // .ui.large.basic.label added #{when}
-                if body
-                    +call_watson key='body' mode='html'
-                    +call_tone key='body'
-                // each _timestamp_tags
-                //     .ui.label #{this}
-                // if in_dev
-                //     +print_this
-                // .ui.basic.label
-                //     |views
-                //     |#{views}
-                // div
-                // div
-                // +voting_full
-                // +boolean_view key='published' label='published' direct=true
-                
+    else 
+        .ui.stackable.padded.grid.scrollin
+            .row.pointer.zoomer
+                .sixteen.wide.column
+                    .ui.basic.icon.circular.button.fly_up.clear_current_post(title='clear selection')
+                        i.chevron.remove.red.large.icon
+                    .ui.inline.header.clear_current_post
+                        | #{title}
+                    +array_view key='tags' direct=true
+                    +image_view key='image_id' direct=true
+                    +html_view key='body' direct=true
+                    if youtube_id
+                        +youtube_view key='youtube_id' direct=true
+                    if watson
+                        +watson_view
+                    if tone 
+                        +tone_view
+                    // if can_edit
+                    a.ui.icon.large.basic.button.edit_this
+                        i.pencil.large.icon
+                    // .ui.large.basic.label added #{when}
+                    if body
+                        +call_watson key='body' mode='html'
+                        +call_tone key='body'
+                    
                 
                 

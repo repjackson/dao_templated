@@ -48,13 +48,14 @@ Meteor.publish 'post_facets', (
 Meteor.publish 'wiki_doc', (tag)->
     # console.log 'wiki doc pub', tag.title
     Docs.find({
-        model:'wikipedia'
+        model:'post'
         title:tag.title
     }, 
         fields:
             title:1
             model:1
             metadata:1
+            image_id:1
     )
 Meteor.publish 'post_docs', (
     picked_tags=[]
