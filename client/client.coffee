@@ -1,20 +1,9 @@
 @picked_tags = new ReactiveArray []
 
 
-# Meteor.startup ->
-#     Status.setTemplate('semantic_ui')
-
-Tracker.autorun ->
-    current = Router.current()
-    Tracker.afterFlush ->
-        $(window).scrollTop 0
-
-
 
 $.cloudinary.config
     cloud_name:"facet"
-# Router.notFound =
-    # action: 'not_found'
 
         
 Template.body.events
@@ -44,10 +33,5 @@ Template.body.events
             $inc: views: 1
 
 
-Template.layout.helpers
+Template.home.helpers
     logging_in: -> Meteor.loggingIn()
-    
-
-Router.route '/', (->
-    @render 'home'
-    ), name:'home'

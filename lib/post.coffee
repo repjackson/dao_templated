@@ -33,13 +33,6 @@ if Meteor.isServer
             
             
 if Meteor.isClient
-    Router.route '/post/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'post_edit'
-        ), name:'post_edit'
-
-
-
     Template.post_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'parent_posts', Router.current().params.doc_id

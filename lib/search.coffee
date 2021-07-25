@@ -1,10 +1,4 @@
 if Meteor.isClient
-    Router.route '/search', (->
-        @layout 'layout'
-        @render 'search'
-        ), name:'search'
-
-
     Template.search.onCreated ->
         @autorun => Meteor.subscribe 'global_search', Session.get('global_search'), ->
 
