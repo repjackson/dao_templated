@@ -274,7 +274,7 @@ Meteor.methods
                 # if mode is 'url'
                 #     Meteor.call 'call_tone', doc_id, 'body', 'text', ->
 
-                Meteor.call 'clear_blocklist_doc', doc_id, ->
+                # Meteor.call 'clear_blocklist_doc', doc_id, ->
                 # if Meteor.isDevelopment
         )
         return doc_id

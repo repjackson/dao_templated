@@ -49,48 +49,27 @@ template(name='home')
     else
         .ui.padded.stackable.grid
             .sixteen.wide.column
-                i.pizza.slice.big.icon.add_post
-                // .ui.inline.header.pointer.add_post(title="#{home_items.count} Backcountry")
-                // |Backcountry
-                // |#{home_items.count}
-                // i.chat.outline.large.icon(title='backcountry chat')
-                // if currentUser
-                // i.large.link.plus.icon.add_post
-                // .ui.large.icon.input(title='messages cost one point but can receive points from votes')
-                //     i.plus.icon
-                //     input.new_message(type='text' placeholder='quick add (-1p)')
+                i.pizza.slice.huge.grey.icon.add_post
                 if tag_results
-                    // .ui.inline.small.header
-                    //     i.tag.icon
-                    //     |tags
                     each picked_tags
-                        a.ui.black.big.label.unpick_tag
+                        a.ui.black.massive.label.zoomer.unpick_tag
                             with wiki_doc_flat
                                 img(src=metadata.image)
                             |#{this}
                     each tag_results
                         +tag_picker
-                // +search_input model='post' field='title'
-                .ui.hidden.divider
+                // .ui.hidden.divider
                 if current_post
-                    // .ui.stackable.padded.grid
-                    //     .sixteen.wide.column.scrollin
                     with current_post
                         +post_view
-                            // .ui.header
-                            //     |#{title}
-                    // .six.wide.column.scrolling
-                    //     each home_items
-                    //         +home_item
-                    //         // .ui.divider
                 else 
-                    .ui.doubling.five.cards.scrollin
+                    .ui.doubling.five.centered.cards.scrollin
                         each home_items
                             +home_item
                         
 template(name='tag_picker')
     if title
-        a.ui.basic.big.tertiary.link.image.label.pick_tag.zoomer(title=count)
+        a.ui.basic.huge.tertiary.link.image.label.pick_tag.zoomer(title=count)
             with wiki_doc
                 img(src=metadata.image)
             |#{title} 

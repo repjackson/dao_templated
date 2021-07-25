@@ -13,6 +13,7 @@ if Meteor.isClient
     Template.tag_picker.events
         'click .pick_tag': -> 
             picked_tags.push @title
+            Session.set('viewing_post_id',null)
             Meteor.call 'call_wiki', @title,=>
                 console.log 'called wiki on', @title
     Template.home.events
@@ -20,7 +21,7 @@ if Meteor.isClient
 
     Template.tag_picker.helpers
         wiki_doc_flat: ->
-            # console.log @valueOf()
+            console.log @valueOf()
             Docs.findOne 
                 model:'wikipedia'
                 title:@valueOf()
