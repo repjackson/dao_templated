@@ -179,11 +179,20 @@ Template.home.helpers
 Template.unpick_tag.helpers
     ref_doc_flat: ->
         console.log @
-        Docs.findOne 
-            model:'post'
-            app:'bc'
-            title:@valueOf()
-    
+        
+        match = {}
+        match.app = 'bc'
+        match.model = 'post'
+        match.title = @valueOf()
+        found = 
+            Docs.findOne match
+        if found
+            found 
+        else 
+            match.title = null
+            match.tags = $in: [@valueOf()]
+            Docs.findOne match
+            
 
        
             
@@ -208,7 +217,7 @@ Template.home.events
         new_id = Docs.insert 
             model:'post'
             tags:picked_tags.array()
-            title:picked_tags.array()
+            title:picked_tags.array().toString()
         Session.set('viewing_post_id', new_id)    
         Session.set('is_editing', true)    
     'click .unpick_tag': -> 
