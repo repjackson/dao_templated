@@ -61,11 +61,10 @@ template(name='home')
                     // .ui.fluid.cards.scrollin
                     each home_items
                         +post_view
-                // else 
-                //     else 
-                //         .ui.stackable.five.centered.cards.scrollin
-                //             each home_items
-                //                 +home_item
+                else 
+                    .ui.stackable.five.centered.cards.scrollin
+                        each home_items
+                            +home_item
                         
 template(name='unpick_tag')                        
     a.ui.black.massive.image.label.zoomer.unpick_tag
@@ -81,13 +80,13 @@ template(name='unpick_tag')
                         
 template(name='tag_picker')
     // if title
-    with ref_doc
-        a.ui.basic.massive.link.image.label.pick_tag.zoomer(title=count)
+    a.ui.basic.massive.link.image.label.pick_tag.zoomer(title=count)
+        with ref_doc
             if image_url
                 +image_link_view key='image_url' direct=true
             else if image_id
                 +image_view key='image_id' direct=true
-    else
+        // else
         a.ui.image.pick_tag.pointer.zoomer(title=count)
             |#{title} 
             // 
@@ -124,9 +123,6 @@ template(name='home_item')
             //     small {{long_date _timestamp}}
             .text.view_post_quick.zoomer
                 |!{body}
-            span.meta
-                if watson
-                    +doc_emotion_small
 
 
                 
