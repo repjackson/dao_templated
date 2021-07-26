@@ -44,29 +44,35 @@ template(name='home')
             i.massive.loading.food.grey.icon
     else
         .ui.padded.stackable.grid
-            .sixteen.wide.column
-                i.pizza.slice.huge.grey.icon.add_post
-                if tag_results
-                    each picked_tags
-                        a.ui.black.massive.image.label.zoomer.unpick_tag
-                            with ref_doc_flat
-                                img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                            |#{this}
-                    each tag_results
-                        +tag_picker
-                // .ui.hidden.divider
-                // if current_post
-                //     with current_post
-                //         +post_view
-                // else 
+            .sixteen.wide.center.aligned.column
+                unless current_post
+                    img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
+                    // i.pizza.slice.huge.grey.icon.add_post
+                    if tag_results
+                        each picked_tags
+                            +unpick_tag
+                        each tag_results
+                            +tag_picker
+                    // .ui.hidden.divider
                 if one_doc
                     // .ui.fluid.cards.scrollin
                     each home_items
                         +post_view
                 else 
-                    .ui.doubling.five.centered.cards.scrollin
-                        each home_items
-                            +home_item
+                    if current_post
+                        with current_post
+                            +post_view
+                    else 
+                        .ui.stackable.five.centered.cards.scrollin
+                            each home_items
+                                +home_item
+                        
+template(name='unpick_tag')                        
+    a.ui.black.massive.image.label.zoomer.unpick_tag
+        with ref_doc_flat
+            img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        |#{this}
+                        
                         
 template(name='tag_picker')
     if title
@@ -139,10 +145,10 @@ template(name='post_view')
                 .sixteen.wide.column
                     // .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
                     //     i.chevron.remove.red.large.icon
-                    .ui.big.header
+                    .ui.big.header.clear_current_post.pointer
                         | #{title}
-                    // .clear_current_post.pointer.fly_up
-                    +image_view key='image_id' direct=true
+                    .clear_current_post.pointer.fly_up.pointer
+                        +image_view key='image_id' direct=true
                     each tags
                         +flat_tag_picker
                     // +array_view key='tags' direct=true

@@ -58,6 +58,8 @@ Template.post_view.events
 
 Template.tag_picker.onCreated ->
     @autorun => @subscribe 'ref_doc', @data, ->
+Template.unpick_tag.onCreated ->
+    @autorun => @subscribe 'flat_ref_doc', @data, ->
 Template.flat_tag_picker.onCreated ->
     @autorun => @subscribe 'flat_ref_doc', @data, ->
 Template.home.onCreated ->
@@ -76,8 +78,6 @@ Template.tag_picker.events
         Session.set('viewing_post_id',null)
         # Meteor.call 'call_wiki', @title,=>
         #     console.log 'called wiki on', @title
-Template.home.events
-    'click .unpick_tag': -> picked_tags.remove @valueOf()
 
 Template.home.helpers
     one_doc: ->
@@ -96,6 +96,7 @@ Template.flat_tag_picker.events
         console.log @
         picked_tags.clear()
         picked_tags.push @valueOf()
+        Session.set('viewing_post_id',null)
 Template.flat_tag_picker.helpers
     ref_doc_flat: ->
         # console.log @valueOf()
@@ -131,7 +132,11 @@ Template.home.helpers
                 model:'post_tag'
             }, sort:_timestamp:-1
 
-            
+    ref_doc_flat: ->
+        Docs.findOne 
+            model:'post'
+            app:'bc'
+            title:@valueOf()
     
     current_post: ->
         Docs.findOne
@@ -146,6 +151,16 @@ Template.home.helpers
             match.tags = $in:picked_tags.array()
         Docs.find match,
             sort:_timestamp:-1
+       
+Template.unpick_tag.helpers
+    ref_doc_flat: ->
+        Docs.findOne 
+            model:'post'
+            app:'bc'
+            title:@valueOf()
+    
+
+       
             
 Template.home_item.helpers
     card_class: ->
@@ -171,3 +186,6 @@ Template.home.events
             title:picked_tags.array()
         Session.set('viewing_post_id', new_id)    
         Session.set('is_editing', true)    
+    'click .unpick_tag': -> 
+        Session.set('viewing_post_id', null)
+        picked_tags.remove @valueOf()
