@@ -78,6 +78,18 @@ Template.home.events
     'click .unpick_tag': -> picked_tags.remove @valueOf()
 
 Template.home.helpers
+    one_doc: ->
+        count = 
+            Docs.find(
+                model:'post'
+                app:'bc'
+                tags:$in:picked_tags.array()
+            ).count()
+        console.log 'count', count
+        count is 1
+        
+        
+Template.flat_tag_picker.helpers
     ref_doc_flat: ->
         # console.log @valueOf()
         Docs.findOne 

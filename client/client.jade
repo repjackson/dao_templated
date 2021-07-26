@@ -37,10 +37,6 @@ body
     +home
                 
 
-template(name='flat_tag_picker')
-    .ui.label #{this}
-
-        
         
 template(name='home')
     if logging_in
@@ -63,9 +59,14 @@ template(name='home')
                     with current_post
                         +post_view
                 else 
-                    .ui.doubling.five.centered.cards.scrollin
+                    if one_doc
+                        // .ui.fluid.cards.scrollin
                         each home_items
-                            +home_item
+                            +post_view
+                    else 
+                        .ui.doubling.five.centered.cards.scrollin
+                            each home_items
+                                +home_item
                         
 template(name='tag_picker')
     if title
@@ -136,13 +137,15 @@ template(name='post_view')
         .ui.stackable.padded.grid.scrollin
             .row
                 .sixteen.wide.column
-                    .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
-                        i.chevron.remove.red.large.icon
-                    .ui.inline.header.clear_current_post.pointer.zoomer
+                    // .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
+                    //     i.chevron.remove.red.large.icon
+                    .ui.inline.header
                         | #{title}
-                    +array_view key='tags' direct=true
-                    .clear_current_post.pointer.fly_up
-                        +image_view key='image_id' direct=true
+                    // .clear_current_post.pointer.fly_up
+                    +image_view key='image_id' direct=true
+                    each tags
+                        +flat_tag_picker
+                    // +array_view key='tags' direct=true
                     +html_view key='body' direct=true
                     if youtube_id
                         +youtube_view key='youtube_id' direct=true
@@ -160,3 +163,8 @@ template(name='post_view')
                     
                 
                 
+
+template(name='flat_tag_picker')
+    .ui.button 
+        img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
+        |#{this}
