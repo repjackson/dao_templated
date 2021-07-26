@@ -70,7 +70,12 @@ template(name='home')
 template(name='unpick_tag')                        
     a.ui.black.massive.image.label.zoomer.unpick_tag
         with ref_doc_flat
-            img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+            if image_url
+                +image_link_view key='image_url' direct=true
+            else if image_id
+                +image_view key='image_id' direct=true
+        
+            // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{this}
                         
                         
@@ -78,7 +83,12 @@ template(name='tag_picker')
     if title
         a.ui.basic.massive.tertiary.link.image.label.pick_tag.zoomer(title=count)
             with ref_doc
-                img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                if image_url
+                    +image_link_view key='image_url' direct=true
+                else if image_id
+                    +image_view key='image_id' direct=true
+            // 
+                // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                 // img(src=metadata.image)
             |#{title} 
             // small.ui.grey.text #{count}
@@ -132,13 +142,14 @@ template(name='post_view')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +image_link_edit key='image_url' label='image link' icon='image'
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='price_dollars' label='price ($)' icon='money'
                 .eight.wide.column
                     +html_edit key='body' label='body' direct=true
-                    .ui.red.button.delete_post
-                        i.remove.icon   
-                        | delete
+                    // .ui.red.large.icon.button.delete_post(title='delete')
+                    //     i.remove.icon   
+                    //     // | delete
     else 
         .ui.stackable.padded.grid.scrollin
             .row
@@ -148,7 +159,10 @@ template(name='post_view')
                     .ui.big.header.clear_current_post.pointer
                         | #{title}
                     .clear_current_post.pointer.fly_up.pointer
-                        +image_view key='image_id' direct=true
+                        if image_url
+                            +image_link_view key='image_url' direct=true
+                        else if image_id
+                            +image_view key='image_id' direct=true
                 .eight.wide.column
                     each tags
                         +flat_tag_picker
@@ -173,5 +187,10 @@ template(name='post_view')
 
 template(name='flat_tag_picker')
     .ui.massive.image.link.label.flat_tag_pick.zoomer.pointer
-        img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
+        with ref_doc_flat
+            if image_url
+                +image_link_view key='image_url' direct=true
+            else if image_id
+                +image_view key='image_id' direct=true
+        // img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
         |#{this}
