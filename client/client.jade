@@ -178,9 +178,9 @@ template(name='post_view')
                     a.ui.icon.large.basic.button.edit_this
                         i.pencil.large.icon
                     // .ui.large.basic.label added #{when}
-                    // if body
-                    //     +call_watson key='body' mode='html'
-                    //     +call_tone key='body'
+                    if body
+                        +call_watson key='body' mode='html'
+                        +call_tone key='body'
                     
                 
                 

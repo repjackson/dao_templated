@@ -48,6 +48,7 @@ Template.post_view.onRendered ->
 Template.post_view.events
     'click .clear_current_post': ->
         Session.set('viewing_post_id',null)
+        picked_tags.pop()
             
     
     'click .delete_post':->
