@@ -13,6 +13,8 @@ Template.body.events
         $(e.currentTarget).closest('.grid').transition('scale', 1000)
     'click .fly_up': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly up', 1000)
+    'click .cards_up': (e,t)->
+        $(e.currentTarget).closest('.cards').transition('fly up', 1000)
     'click .fly_down': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly down', 1000)
     'click .fly_right': (e,t)->
@@ -57,6 +59,7 @@ Template.post_view.events
 Template.tag_picker.onCreated ->
     @autorun => @subscribe 'ref_doc', @data, ->
 Template.home.onCreated ->
+    @autorun => @subscribe('doc_by_id',Session.get('viewing_post_id'))
     @autorun => @subscribe 'post_docs',
         picked_tags.array()
         Session.get('title_filter')
@@ -74,12 +77,13 @@ Template.tag_picker.events
 Template.home.events
     'click .unpick_tag': -> picked_tags.remove @valueOf()
 
-Template.tag_picker.helpers
+Template.home.helpers
     ref_doc_flat: ->
         # console.log @valueOf()
         Docs.findOne 
             model:'post'
             title:@valueOf()
+Template.tag_picker.helpers
     ref_doc: ->
         # console.log @valueOf()
         Docs.findOne 
@@ -93,8 +97,11 @@ Template.home.helpers
     #     Docs.find 
     #         model:'post'
     tag_results: ->
-        doc_count = Docs.find({model:'post'}).count()
-        console.log 'count', doc_count
+        doc_count = Docs.find({
+            model:'post'
+            tags:$all:picked_tags.array()
+            }).count()
+        # console.log 'count', doc_count
         if doc_count > 0
             Results.find {
                 count:$lt:doc_count
@@ -136,5 +143,7 @@ Template.home.events
     'click .add_post': ->
         new_id = Docs.insert 
             model:'post'
+            tags:picked_tags.array()
+            title:picked_tags.array()
         Session.set('viewing_post_id', new_id)    
         Session.set('is_editing', true)    

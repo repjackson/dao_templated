@@ -78,10 +78,7 @@ if Meteor.isClient
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
-                if Router.current().params.doc_id
-                    parent = Docs.findOne Router.current().params.doc_id
-                else
-                    parent = Docs.findOne Template.parentData()._id
+                parent = Docs.findOne Template.parentData()._id
                 # parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
                 Docs.insert
