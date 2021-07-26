@@ -21,7 +21,7 @@ Meteor.publish 'post_facets', (
         { $match: _id: $nin: picked_tags }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 21 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -86,6 +86,6 @@ Meteor.publish 'post_docs', (
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
     console.log match
     Docs.find match, 
-        limit:20
+        limit:10
         sort:
             _timestamp:-1

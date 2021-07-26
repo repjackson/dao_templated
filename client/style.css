@@ -25,7 +25,7 @@ body {
 }
 
 .global_search_input {
-    animation: fadein .25s !important;
+    animation: fadein 1s !important;
     animation: slide 1s !important;
     transition: 1s ease-in-out
 }
@@ -91,9 +91,9 @@ body {
 }
 
 
-/* .ui.image:not(.avatar2), .label, img:not(.avatar2) {*/
-/*    border-radius: 10px !important;*/
-/*} */
+ .ui.image:not(.avatar2), .label, img:not(.avatar2) {
+    border-radius: 15px !important;
+} 
 
 
 /*.scrolling{*/
@@ -133,7 +133,7 @@ body, p, header {
     animation: drop 1s !important;
 }
 .button, .selector, .card, p, .header, .image, .fade {
-    animation: fadein .25s !important;
+    animation: fadein 1s !important;
     /*animation: slide 1s !important;*/
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
@@ -340,7 +340,7 @@ img, .button{
 }
 
 /* #topnav > .item {
-    transition: all .25s ease !important;
+    transition: all 1s ease !important;
 } */
 
 .card {
@@ -602,7 +602,7 @@ input.username_search{
 } */
 
 .button, input, .label {
-    border-radius: 10px !important; 
+    /*border-radius: 10px !important; */
     margin:2px !important;
 }
 
@@ -712,7 +712,7 @@ input.username_search{
 
 
 .button, .selector, .card, p, .header, .item:not(.animated), .image, .fade {
-    animation: fadein .25s;
+    animation: fadein 1s;
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }
@@ -763,7 +763,7 @@ input.username_search{
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/
 }
 .ui.header{
-    animation: fadein .25s;
+    animation: fadein 1s;
      /*font-family: 'Benne', sans-serif !important; */
     /* font-family: 'Lusitana', serif !important; */
     /* font-size: 300% !important; */
@@ -773,14 +773,14 @@ input.username_search{
 }
 
 .label {
-  animation: fadein .25s;
+  animation: fadein 1s;
 }
 .segment{
-  animation: fadein .25s;
+  animation: fadein 1s;
 }
 
 /*.icon {*/
-/*  animation: fadein .25s;*/
+/*  animation: fadein 1s;*/
   /*filter: invert(.9) !important;*/
 /*}*/
 
@@ -790,10 +790,10 @@ input.username_search{
 }
 
 #main {
-  animation: fadein .25s;
+  animation: fadein 1s;
 }
 .result_column, .comment {
-  animation: fadein .25s;
+  animation: fadein 1s;
 }
 
 @media screen and (max-width: 1100px) {
