@@ -59,18 +59,21 @@ Meteor.publish 'ref_doc', (tag)->
     )
 Meteor.publish 'flat_ref_doc', (title)->
     console.log 'flat_ref doc', title
-    Docs.find({
-        model:'post'
-        title:title
-    }, 
-        fields:
-            title:1
-            model:1
-            app:1
-            # metadata:1
-            image_id:1
-        limit:1
-    )
+    if title
+        Docs.find({
+            model:'post'
+            app:'bc'
+            title:title
+        }, 
+            fields:
+                title:1
+                model:1
+                app:1
+                # metadata:1
+                image_id:1
+                image_url:1
+            limit:1
+        )
 Meteor.publish 'post_docs', (
     picked_tags=[]
     title_filter
