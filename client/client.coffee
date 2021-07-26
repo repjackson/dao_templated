@@ -154,6 +154,7 @@ Template.home.helpers
        
 Template.unpick_tag.helpers
     ref_doc_flat: ->
+        console.log @
         Docs.findOne 
             model:'post'
             app:'bc'
