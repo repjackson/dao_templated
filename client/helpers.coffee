@@ -77,17 +77,6 @@ Template.registerHelper 'key_value_is', (key, value)->
     # console.log 'this', this
     @["#{key}"] is value
 
-Template.registerHelper 'in_role', (role)->
-    if Meteor.user()
-        Meteor.user().roles and role in Meteor.user().roles
-
-
-Template.registerHelper 'is_requester', ->
-    if Meteor.user()
-        @_author_username is Meteor.user().username
-Template.registerHelper 'is_requested', -> @status is 'requested'
-Template.registerHelper 'is_processing', -> @status is 'processing'
-Template.registerHelper 'is_delivered', -> @status is 'delivered'
 
 
 
@@ -152,30 +141,6 @@ Template.registerHelper 'fields', () ->
             sort:rank:1
         # console.log cur.fetch()
         cur
-
-Template.registerHelper 'edit_fields', () ->
-    model = Docs.findOne
-        model:'model'
-        slug:Router.current().params.model_slug
-    if model
-        Docs.find {
-            model:'field'
-            parent_id:model._id
-            edit_roles:$in:Meteor.user().roles
-        }, sort:rank:1
-
-Template.registerHelper 'sortable_fields', () ->
-    model = Docs.findOne
-        model:'model'
-        slug:Router.current().params.model_slug
-    if model
-        Docs.find {
-            model:'field'
-            parent_id:model._id
-            sortable:true
-        }, sort:rank:1
-
-
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
     new Spacebars.SafeString(nl2br)
@@ -236,10 +201,6 @@ Template.registerHelper 'current_doc', ->
     if doc then doc else if user then user
 
 
-Template.registerHelper 'user_from_username_param', () ->
-    found = Meteor.users.findOne username:Router.current().params.username
-    # console.log found
-    found
 Template.registerHelper 'field_value', () ->
     # console.log @
     parent = Template.parentData()
@@ -343,24 +304,6 @@ Template.registerHelper 'product_doc',->
 #                 subtotal += product.price_usd
 #                 # console.log 'product', product
 #         subtotal
-    
-Template.registerHelper 'my_cart_subtotal', () ->
-    
-    subtotal = 0
-    for item in Docs.find(model:'thing',_author_id:Meteor.userId(),status:'cart').fetch()
-        # product = Docs.findOne(item.product_id)
-        # console.log product
-        subtotal += item.product_price
-        # if product
-        #     if product.price_usd
-        # if product.price_usd
-        #     console.log product.price_usd
-            # console.log 'product', product
-    # console.log subtotal
-    subtotal.toFixed(2)
-    
-
-
 Template.registerHelper 'commafy', (num)-> if num then num.toLocaleString()
 
     
