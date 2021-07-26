@@ -178,7 +178,7 @@ Template.home.helpers
        
 Template.unpick_tag.helpers
     ref_doc_flat: ->
-        console.log @
+        # console.log @
         
         match = {}
         match.app = 'bc'
