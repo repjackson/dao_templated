@@ -70,7 +70,7 @@ template(name='home')
 template(name='tag_picker')
     if title
         a.ui.basic.huge.tertiary.link.image.label.pick_tag.zoomer(title=count)
-            with wiki_doc
+            with ref_doc
                 img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                 // img(src=metadata.image)
             |#{title} 
@@ -108,28 +108,6 @@ template(name='home_item')
             span.meta
                 if watson
                     +doc_emotion_small
-
-
-
-template(name='post_card')                
-    a.ui.card(href="/post/#{_id}") 
-        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
-        if youtube_id
-            +youtube_view key='youtube_id' direct=true
-        .content 
-            .ui.header 
-                |#{title}
-            i.grey.tag.icon
-            each tags
-                .ui.label #{this}
-            if location_tags
-                i.grey.marker.icon
-                each location_tags
-                    .ui.small.label #{this}
-            if people_tags
-                i.grey.marker.icon
-                each people_tags
-                    .ui.small.label #{this}
 
 
                 

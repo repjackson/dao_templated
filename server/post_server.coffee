@@ -45,8 +45,8 @@ Meteor.publish 'post_facets', (
 #         Docs.find 
 #             model:'wikipedia'
 #             title:$in:picked_tags
-Meteor.publish 'wiki_doc', (tag)->
-    # console.log 'wiki doc pub', tag.title
+Meteor.publish 'ref_doc', (tag)->
+    console.log 'wiki doc pub', tag
     Docs.find({
         model:'post'
         title:tag.title
@@ -54,7 +54,7 @@ Meteor.publish 'wiki_doc', (tag)->
         fields:
             title:1
             model:1
-            metadata:1
+            # metadata:1
             image_id:1
     )
 Meteor.publish 'post_docs', (
