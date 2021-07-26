@@ -47,16 +47,18 @@ Meteor.publish 'post_facets', (
 #             title:$in:picked_tags
 Meteor.publish 'ref_doc', (tag)->
     # console.log 'wiki doc pub', tag
-    Docs.find({
-        model:'post'
-        title:tag.title
-    }, 
-        fields:
-            title:1
-            model:1
-            # metadata:1
-            image_id:1
-    )
+    match = {}
+    match.model = 'post'
+    match.title = tag.title
+    found = 
+        Docs.findOne match
+    if found
+        Docs.find match
+    else 
+        match.title = null
+        match.tags = $in:[tag.title]
+        Docs.find match
+            
 Meteor.publish 'flat_ref_doc', (title)->
     console.log 'flat_ref doc', title
     if title
@@ -74,6 +76,13 @@ Meteor.publish 'flat_ref_doc', (title)->
                 image_url:1
             limit:1
         )
+    else 
+        Docs.find {
+            model:'post'
+            tags:$in:[title]
+            app:'bc'
+        },
+            limit:1
 Meteor.publish 'post_docs', (
     picked_tags=[]
     title_filter

@@ -100,16 +100,32 @@ Template.flat_tag_picker.events
 Template.flat_tag_picker.helpers
     ref_doc_flat: ->
         # console.log @valueOf()
-        Docs.findOne 
+        found = Docs.findOne 
             model:'post'
             title:@valueOf()
+        if found 
+            found
+        else 
+            Docs.findOne
+                model:'post'
+                tags:$in:[@valueOf()]
+                app:'bc'
+
 Template.tag_picker.helpers
     ref_doc: ->
         # console.log @valueOf()
-        Docs.findOne 
-            model:'post'
-            title:@title
-            
+        found = 
+            Docs.findOne 
+                model:'post'
+                title:@title
+        if found 
+            found
+        else 
+            Docs.findOne
+                model:'post'
+                tags:$in:[@title]
+                app:'bc'
+
 Template.home.helpers        
     picked_tags: -> picked_tags.array()
 
@@ -133,11 +149,19 @@ Template.home.helpers
             }, sort:_timestamp:-1
 
     ref_doc_flat: ->
-        Docs.findOne 
-            model:'post'
-            app:'bc'
-            title:@valueOf()
-    
+        found = 
+            Docs.findOne 
+                model:'post'
+                app:'bc'
+                title:@valueOf()
+        if found 
+            found
+        else 
+            Docs.findOne
+                model:'post'
+                tags:$in:[@valueOf()]
+                app:'bc'
+
     current_post: ->
         Docs.findOne
             _id:Session.get('viewing_post_id')
