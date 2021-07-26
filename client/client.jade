@@ -55,18 +55,18 @@ template(name='home')
                     each tag_results
                         +tag_picker
                 // .ui.hidden.divider
-                if current_post
-                    with current_post
+                // if current_post
+                //     with current_post
+                //         +post_view
+                // else 
+                if one_doc
+                    // .ui.fluid.cards.scrollin
+                    each home_items
                         +post_view
                 else 
-                    if one_doc
-                        // .ui.fluid.cards.scrollin
+                    .ui.doubling.five.centered.cards.scrollin
                         each home_items
-                            +post_view
-                    else 
-                        .ui.doubling.five.centered.cards.scrollin
-                            each home_items
-                                +home_item
+                            +home_item
                         
 template(name='tag_picker')
     if title
@@ -139,7 +139,7 @@ template(name='post_view')
                 .sixteen.wide.column
                     // .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
                     //     i.chevron.remove.red.large.icon
-                    .ui.inline.header
+                    .ui.big.header
                         | #{title}
                     // .clear_current_post.pointer.fly_up
                     +image_view key='image_id' direct=true
@@ -165,6 +165,6 @@ template(name='post_view')
                 
 
 template(name='flat_tag_picker')
-    .ui.button 
+    .ui.massive.image.link.label.flat_tag_pick.zoomer.pointer
         img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
         |#{this}

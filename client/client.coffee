@@ -58,6 +58,8 @@ Template.post_view.events
 
 Template.tag_picker.onCreated ->
     @autorun => @subscribe 'ref_doc', @data, ->
+Template.flat_tag_picker.onCreated ->
+    @autorun => @subscribe 'flat_ref_doc', @data, ->
 Template.home.onCreated ->
     @autorun => @subscribe('doc_by_id',Session.get('viewing_post_id'))
     @autorun => @subscribe 'post_docs',
@@ -89,6 +91,11 @@ Template.home.helpers
         count is 1
         
         
+Template.flat_tag_picker.events
+    'click .flat_tag_pick': ->
+        console.log @
+        picked_tags.clear()
+        picked_tags.push @valueOf()
 Template.flat_tag_picker.helpers
     ref_doc_flat: ->
         # console.log @valueOf()
@@ -131,9 +138,14 @@ Template.home.helpers
             _id:Session.get('viewing_post_id')
             
     home_items: ->
-        Docs.find {
+        match = {
             model:'post'
-        }, sort:_timestamp:-1
+            app:'bc'
+        }
+        if picked_tags.array().length > 0
+            match.tags = $in:picked_tags.array()
+        Docs.find match,
+            sort:_timestamp:-1
             
 Template.home_item.helpers
     card_class: ->

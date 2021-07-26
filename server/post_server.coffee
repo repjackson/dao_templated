@@ -21,7 +21,7 @@ Meteor.publish 'post_facets', (
         { $match: _id: $nin: picked_tags }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 25 }
+        { $limit: 20 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -56,6 +56,19 @@ Meteor.publish 'ref_doc', (tag)->
             model:1
             # metadata:1
             image_id:1
+    )
+Meteor.publish 'flat_ref_doc', (title)->
+    # console.log 'flat_ref doc', tag
+    Docs.find({
+        model:'post'
+        title:title
+    }, 
+        fields:
+            title:1
+            model:1
+            # metadata:1
+            image_id:1
+        limit:1
     )
 Meteor.publish 'post_docs', (
     picked_tags=[]
