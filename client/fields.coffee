@@ -168,10 +168,8 @@ Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
         parent = Template.parentData()
-        # if @direct
-        #     parent = Template.parentData()
-        # else
-        #     parent = Template.parentData(5)
+        console.log @
+        console.log Template.parentData()
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -183,28 +181,11 @@ Template.image_edit.events
                     if doc
                         Docs.update parent._id,
                             $set:"#{@key}":res.public_id
-                    user = Meteor.users.findOne parent._id
-                    if user
-                        Meteor.users.update parent._id,
-                            $set:"#{@key}":res.public_id
 
-    'click .call_cloud_visual': (e,t)->
-        Meteor.call 'call_visual', Router.current().params.doc_id, 'cloud', ->
-            $('body').toast(
-                showIcon: 'dna'
-                message: 'image autotagged'
-                # showProgress: 'bottom'
-                class: 'success'
-                displayTime: 'auto',
-                position: "bottom center"
-            )
 
 
     'click #remove_photo': ->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        parent = Template.parentData()
 
         if confirm 'Remove Photo?'
             # Docs.update parent._id,
@@ -212,10 +193,6 @@ Template.image_edit.events
             doc = Docs.findOne parent._id
             if doc
                 Docs.update parent._id,
-                    $unset:"#{@key}":1
-            user = Meteor.users.findOne parent._id
-            if user
-                Meteor.users.update parent._id,
                     $unset:"#{@key}":1
 
 
@@ -332,19 +309,16 @@ Template.text_edit.events
 
 
 Template.textarea_view.onRendered ->
-    Meteor.setTimeout ->
-        $('.accordion').accordion()
-    , 1000
+    # Meteor.setTimeout ->
+    #     $('.accordion').accordion()
+    # , 1000
 
 
 
 Template.number_edit.events
     'blur .edit_number': (e,t)->
         # console.log @
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        parent = Template.parentData()
         val = parseInt t.$('.edit_number').val()
         doc = Docs.findOne parent._id
         if doc
@@ -380,12 +354,7 @@ Template.slug_edit.events
 
 
     'click .slugify_title': (e,t)->
-        page_doc = Docs.findOne Router.current().params.doc_id
-        # val = t.$('.edit_text').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        parent = Template.parentData()
         doc = Docs.findOne parent._id
         Meteor.call 'slugify', page_doc._id, (err,res)=>
             Docs.update page_doc._id,

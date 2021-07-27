@@ -46,11 +46,11 @@ template(name='home')
         .ui.padded.stackable.grid
             .sixteen.wide.center.aligned.column
                 unless current_post
-                    img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                     // i.pizza.slice.huge.grey.icon.add_post
                     if tag_results
                         each picked_tags
                             +unpick_tag
+                        img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                         each tag_results
                             +tag_picker
                     // .ui.hidden.divider
@@ -62,7 +62,7 @@ template(name='home')
                     each home_items
                         +post_view
                 else 
-                    .ui.stackable.five.centered.cards.scrolling
+                    .ui.stackable.four.centered.cards.scrolling
                         each home_items
                             +home_item
                         
@@ -70,9 +70,9 @@ template(name='unpick_tag')
     a.ui.black.massive.image.label.zoomer.unpick_tag
         with ref_doc_flat
             if image_url
-                +image_link_view key='image_url' direct=true
+                +image_link_view key='image_url'
             else if image_id
-                +image_view key='image_id' direct=true
+                +image_view key='image_id'
         
             // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{this}
@@ -180,7 +180,7 @@ template(name='post_view')
                     // if body
                     //     +call_watson key='body' mode='html'
                     //     +call_tone key='body'
-                    
+                    // +comments
                 
                 
 

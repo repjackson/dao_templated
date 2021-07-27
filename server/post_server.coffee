@@ -102,5 +102,13 @@ Meteor.publish 'post_docs', (
     console.log match
     Docs.find match, 
         limit:10
+        fields:
+            title:1
+            model:1
+            tags:1
+            app:1
+            image_id:1
+            image_url:1
+            body:1
         sort:
             _timestamp:-1
