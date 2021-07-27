@@ -91,6 +91,17 @@ Template.home.helpers
         # console.log 'count', count
         count is 1
         
+Template.home_item.helpers
+    one_doc: ->
+        count = 
+            Docs.find(
+                model:'post'
+                app:'bc'
+                tags:$in:picked_tags.array()
+            ).count()
+        # console.log 'count', count
+        count is 1
+        
         
 Template.flat_tag_picker.events
     'click .flat_tag_pick': ->
@@ -175,7 +186,7 @@ Template.home.helpers
         if picked_tags.array().length > 0
             match.tags = $in:picked_tags.array()
         Docs.find match,
-            sort:_timestamp:-1
+            sort:views:-1
        
 Template.unpick_tag.helpers
     ref_doc_flat: ->
