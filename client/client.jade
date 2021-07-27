@@ -45,22 +45,21 @@ template(name='home')
     else
         .ui.padded.stackable.grid
             .sixteen.wide.center.aligned.column
-                unless current_post
-                    // i.pizza.slice.huge.grey.icon.add_post
-                    if tag_results
-                        each picked_tags
-                            +unpick_tag
-                        img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
-                        each tag_results
-                            +tag_picker
-                    // .ui.hidden.divider
+                // unless current_post
+                if tag_results
+                    each picked_tags
+                        +unpick_tag
+                    img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
+                    each tag_results
+                        +tag_picker
+                .ui.hidden.divider
                 if current_post
                     with current_post
-                        +post_view
+                        +home_item
                 else if one_doc
                     // .ui.fluid.cards.scrollin
                     each home_items
-                        +post_view
+                        +home_item
                 else 
                     .ui.stackable.four.centered.cards.scrolling
                         each home_items
@@ -103,7 +102,7 @@ template(name='home_item')
     //             i.checkmark.large.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .ui.card.zoomer.pointer.view_item.cards_up(class=card_class)
+    .ui.card(class=card_class)
         if image_url
             +image_link_view key='image_url' direct=true
         else if image_id
@@ -122,12 +121,14 @@ template(name='home_item')
             // .metadata
             //     |#{when}
             //     small {{long_date _timestamp}}
-            .text.view_post_quick.zoomer
+            .text.zoomer
                 |!{body}
-
-
-                
-template(name='post_view')
+            each tags
+                +flat_tag_picker
+                // .ui.button 
+                //     |#{this}
+            a.ui.icon.large.basic.button.edit_this
+                i.pencil.large.icon
     // with current_doc
     if is_editing
         .ui.stackable.padded.grid
@@ -152,40 +153,40 @@ template(name='post_view')
     else 
         .ui.stackable.padded.grid.scrollin
             .row
-                .eight.wide.column
-                    // .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
-                    //     i.chevron.remove.red.large.icon
-                    .ui.big.header.clear_current_post.pointer
-                        | #{title}
-                    .clear_current_post.pointer.fly_up.pointer
-                        if image_url
-                            +image_link_view key='image_url' direct=true
-                        else if image_id
-                            +image_view key='image_id' direct=true
-                .eight.wide.column
-                    each tags
-                        +flat_tag_picker
-                    // +array_view key='tags' direct=true
-                    +html_view key='body' direct=true
-                    if youtube_id
-                        +youtube_view key='youtube_id' direct=true
-                    if watson
-                        +watson_view
-                    if tone 
-                        +tone_view
-                    // if can_edit
-                    a.ui.icon.large.basic.button.edit_this
-                        i.pencil.large.icon
-                    // .ui.large.basic.label added #{when}
-                    // if body
-                    //     +call_watson key='body' mode='html'
-                    //     +call_tone key='body'
-                    // +comments
+                // .eight.wide.column
+                //     // .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
+                //     //     i.chevron.remove.red.large.icon
+                //     .ui.big.header.clear_current_post.pointer
+                //         | #{title}
+                //     .clear_current_post.pointer.fly_right.pointer
+                //         if image_url
+                //             +image_link_view key='image_url' direct=true
+                //         else if image_id
+                //             +image_view key='image_id' direct=true
+                // .eight.wide.column
+                //     each tags
+                //         +flat_tag_picker
+                //     // +array_view key='tags' direct=true
+                //     +html_view key='body' direct=true
+                //     if youtube_id
+                //         +youtube_view key='youtube_id' direct=true
+                //     if watson
+                //         +watson_view
+                //     if tone 
+                //         +tone_view
+                //     // if can_edit
+                //     a.ui.icon.large.basic.button.edit_this
+                //         i.pencil.large.icon
+                //     // .ui.large.basic.label added #{when}
+                //     // if body
+                //     //     +call_watson key='body' mode='html'
+                //     //     +call_tone key='body'
+                //     // +comments
                 
                 
 
 template(name='flat_tag_picker')
-    .ui.big.image.link.label.flat_tag_pick.zoomer.pointer
+    .ui.large.image.link.label.flat_tag_pick.zoomer.pointer
         with ref_doc_flat
             if image_url
                 +image_link_view key='image_url' direct=true

@@ -39,13 +39,13 @@ Template.home.helpers
     logging_in: -> Meteor.loggingIn()
     
     
-Template.post_view.onRendered ->
-    Meteor.call 'log_view', @data._id
+# Template.home_item.onRendered ->
+#     Meteor.call 'log_view', @data._id
 
         
 
 
-Template.post_view.events
+Template.home_item.events
     'click .clear_current_post': ->
         Session.set('viewing_post_id',null)
         picked_tags.pop()
@@ -201,13 +201,15 @@ Template.home_item.helpers
     card_class: ->
         if Session.equals('viewing_post_id', @_id) then 'inverted large' else 'small basic' 
     is_selected: -> Session.equals('viewing_post_id', @_id)
-Template.post_view.events
+Template.home_item.events
     'click .edit_this': ->
-        Session.set('is_editing',true)
+        Session.set('is_editing',@_id)
     'click .save_this': ->
         Session.set('is_editing',false)
-Template.post_view.helpers
-    is_editing: -> Session.get('is_editing')
+Template.home_item.helpers
+    is_editing: -> Session.equals('is_editing',@_id)
+# Template.home_item.helpers
+#     is_editing: -> Session.get('is_editing')
 Template.home_item.events
     'click .view_item': ->
         Session.set('viewing_post_id', @_id)
@@ -220,7 +222,7 @@ Template.home.events
             tags:picked_tags.array()
             title:picked_tags.array().toString()
         Session.set('viewing_post_id', new_id)    
-        Session.set('is_editing', true)    
+        Session.set('is_editing', @_id)    
     'click .unpick_tag': -> 
         Session.set('viewing_post_id', null)
         picked_tags.remove @valueOf()
