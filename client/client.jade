@@ -87,7 +87,7 @@ template(name='tag_picker')
             else if image_id
                 +image_view key='image_id' direct=true
         // else
-        a.ui.image.pick_tag.pointer.zoomer(title=count)
+        a.ui.image.pointer.zoomer(title=count)
             |#{title} 
             // 
                 // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
@@ -176,9 +176,9 @@ template(name='post_view')
                     a.ui.icon.large.basic.button.edit_this
                         i.pencil.large.icon
                     // .ui.large.basic.label added #{when}
-                    if body
-                        +call_watson key='body' mode='html'
-                        +call_tone key='body'
+                    // if body
+                    //     +call_watson key='body' mode='html'
+                    //     +call_tone key='body'
                     
                 
                 

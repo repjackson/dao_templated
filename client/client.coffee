@@ -88,7 +88,7 @@ Template.home.helpers
                 app:'bc'
                 tags:$in:picked_tags.array()
             ).count()
-        console.log 'count', count
+        # console.log 'count', count
         count is 1
         
         

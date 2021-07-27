@@ -231,24 +231,17 @@ Template.array_edit.events
         # console.log @
         picked_tags.clear()
         picked_tags.push @valueOf()
-        Router.go "/#{Router.current().params.group}"
 
     'keyup .new_element': (e,t)->
         if e.which is 13
             element_val = t.$('.new_element').val().trim()
             if element_val.length>0
-                if @direct
-                    parent = Template.parentData()
-                else
-                    parent = Template.parentData(5)
+                # if @direct
+                parent = Template.parentData()
                 doc = Docs.findOne parent._id
 
-                user = Meteor.users.findOne parent._id
                 if doc
                     Docs.update parent._id,
-                        $addToSet:"#{@key}":element_val
-                else if user
-                    Meteor.users.update parent._id,
                         $addToSet:"#{@key}":element_val
                         
                 # window.speechSynthesis.speak new SpeechSynthesisUtterance element_val
