@@ -94,7 +94,7 @@ Template.home.helpers
         
 Template.flat_tag_picker.events
     'click .flat_tag_pick': ->
-        console.log @
+        # console.log @
         picked_tags.clear()
         picked_tags.push @valueOf()
         Session.set('viewing_post_id',null)

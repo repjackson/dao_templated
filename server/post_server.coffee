@@ -8,7 +8,6 @@ Meteor.publish 'post_facets', (
     match.model = 'post'
     # match.group_id = Meteor.user().current_group_id
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
-    console.log 'tags match', match
 
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
@@ -28,8 +27,6 @@ Meteor.publish 'post_facets', (
     }
     
     tag_cloud.forEach (tag, i) =>
-        # console.log 'queried tag ', tag
-        # console.log 'key', key
         self.added 'results', Random.id(),
             title: tag.title
             count: tag.count
@@ -46,7 +43,6 @@ Meteor.publish 'post_facets', (
 #             model:'wikipedia'
 #             title:$in:picked_tags
 Meteor.publish 'ref_doc', (tag)->
-    # console.log 'wiki doc pub', tag
     match = {}
     match.model = 'post'
     match.title = tag.title
@@ -61,7 +57,6 @@ Meteor.publish 'ref_doc', (tag)->
             sort:views:1
             
 Meteor.publish 'flat_ref_doc', (title)->
-    console.log 'flat_ref doc', title
     if title
         Docs.find({
             model:'post'
@@ -99,7 +94,6 @@ Meteor.publish 'post_docs', (
         match.title = {$regex:title_filter, $options:'i'}
     
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
-    console.log match
     Docs.find match, 
         limit:10
         fields:

@@ -41,7 +41,7 @@ body
 template(name='home')
     if logging_in
         .ui.center.aligned.basic.segment
-            i.massive.loading.food.grey.icon
+            i.big.loading.food.grey.icon
     else
         .ui.padded.stackable.grid
             .sixteen.wide.center.aligned.column
@@ -67,7 +67,7 @@ template(name='home')
                             +home_item
                         
 template(name='unpick_tag')                        
-    a.ui.black.massive.image.label.zoomer.unpick_tag
+    a.ui.black.big.image.label.zoomer.unpick_tag
         with ref_doc_flat
             if image_url
                 +image_link_view key='image_url'
@@ -80,7 +80,7 @@ template(name='unpick_tag')
                         
 template(name='tag_picker')
     // if title
-    a.ui.massive.link.image.label.pick_tag.zoomer(title=count)
+    a.ui.big.link.image.label.pick_tag.zoomer(title=count)
         with ref_doc
             if image_url
                 +image_link_view key='image_url' direct=true
@@ -185,7 +185,7 @@ template(name='post_view')
                 
 
 template(name='flat_tag_picker')
-    .ui.massive.image.link.label.flat_tag_pick.zoomer.pointer
+    .ui.big.image.link.label.flat_tag_pick.zoomer.pointer
         with ref_doc_flat
             if image_url
                 +image_link_view key='image_url' direct=true
