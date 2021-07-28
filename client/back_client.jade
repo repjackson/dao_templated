@@ -53,21 +53,25 @@ template(name='home')
                     each tag_results
                         +tag_picker
                 .ui.hidden.divider
-                if current_post
-                    with current_post
-                        +home_item
-                else if one_doc
-                    .ui.fluid.cards.scrollin
-                        each home_items
-                            +home_item
-                else if two_docs
-                    .ui.stackable.two.cards.scrollin
-                        each home_items
-                            +home_item
+                unless subs_ready
+                    .ui.center.aligned.basic.segment
+                        i.massive.grey.food.loading.icon
                 else 
-                    .ui.stackable.four.centered.cards.scrollin
-                        each home_items
+                    if current_post
+                        with current_post
                             +home_item
+                    else if one_doc
+                        .ui.fluid.cards.scrollin
+                            each home_items
+                                +home_item
+                    else if two_docs
+                        .ui.stackable.two.cards.scrollin
+                            each home_items
+                                +home_item
+                    else 
+                        .ui.stackable.four.centered.cards.scrollin
+                            each home_items
+                                +home_item
                         
 template(name='unpick_tag')                        
     a.ui.black.huge.image.label.zoomer.unpick_tag

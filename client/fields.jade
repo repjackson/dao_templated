@@ -17,58 +17,6 @@ template(name='youtube_view')
 
         //- // iframe(width='560' height='315' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
         //- iframe(src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
-template(name='color_edit')
-    .ui.large.form
-        .field
-            label 
-                if icon
-                    +i name=icon
-                    //- i.grey.icon(class=icon)
-                if title
-                    |#{title}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
-            input.edit_color(type='color' value=field_value placeholder='color' autocomplete="off")
-
-
-
-template(name='color_view')
-    .ui.form
-        .field
-            label 
-                if icon
-                    //- +i name=icon
-                    i.grey.icon(class=icon)
-                if title
-                    |#{title}
-                else if key
-                    |#{key}
-                else
-                    |#{this}
-            .ui.large.label(style="background:#{field_value}")
-            |#{field_value}
-
-template(name='html_view')
-    if field_value
-        .spacer
-        // .ui.small.inline.header
-        //     if icon
-        //         i.icon(class=icon)
-        //     if title
-        //         |#{title}
-        //     else if label
-        //         |#{label}
-        //     else if key
-        //         |#{key}
-        //     else
-        //         |#{this}
-        // .f10
-        |!{field_value}
-
-
-
 template(name='html_edit')
     .ui.form
         .field
@@ -96,104 +44,6 @@ template(name='html_edit')
 
 
 
-template(name='color_icon_edit')
-    div
-    .ui.inline.header
-        if title
-            |#{title}
-        else if key
-            |#{key}
-        else
-            |#{this}
-    .ui.input
-        input.color_icon(type='url' value=field_value placeholder='icons8 class' autocomplete="off")
-    if field_value
-        //- i.large.icon(class=field_value)
-        //- img.ui.inline.image(src="https://img.icons8.com/fluent/48/000000/#{field_value}.png")
-        //- img.ui.inline.image(src="https://img.icons8.com/dusk/48/000000/#{field_value}.png")
-        img.ui.inline.image(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
-        //- img.ui.inline.image(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
-template(name='icon_edit')
-    div
-    if icon
-        //- i.grey.icon(class=icon)
-        +icon name=icon cl='ui avatar image'
-    .ui.inline.header
-        if title
-            |#{title}
-        else if key
-            |#{key}
-        else
-            |#{this}    
-    if field_value
-        i.large.icon(class=field_value)
-    .ui.right.icon.input
-        input.icon_val(type='text' value=field_value placeholder='fa class' autocomplete="off")
-    a(href="https://fomantic-ui.com/elements/icon.html" target='_window')
-        i.external.icon
-        |icons
-
-
-template(name='color_icon_view')
-    if field_value
-        //- img(src="https://img.icons8.com/color/48/000000/#{field_value}.png")
-        img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
-        //- img(src="https://img.icons8.com/dusk/48/000000/#{field_value}.png")
-        //- img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
-        //- img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
-template(name='icon_view')
-    if field_value
-        span.inline.spaced
-            +icon name=field_value
-        //- i.icon(class=field_value)
-        //- img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
-        //- img(src="https://img.icons8.com/fluent/48/000000/#{field_value}.png")
-        //- img(src="https://img.icons8.com/ios/48/000000/#{field_value}.png")
-template(name='i')
-    //- i.icon(class=name)
-    // img(src="https://img.icons8.com/cotton/48/000000/#{name}.png" class=cl title=title)
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=cl title=title)
-    //- img.icon8(src="https://img.icons8.com/ios/50/000000/#{name}.png" class=cl title=title)
-    //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=cl title=title)
-    //- img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=cl title=title)
-    //- if cl.length
-    //-     img(src="https://img.icons8.com/#{gs.icon_theme}/48/000000/#{name}.png" class=cl title=title)
-    //- else 
-    //-     img.ui.mini.inline.image(src="https://img.icons8.com/#{gs.icon_theme}/48/000000/#{name}.png" class=cl title=title)
-    //- img(src="https://img.icons8.com/plasticine/48/000000/#{name}.png" class=cl title=title)
-template(name='ioffice')
-    img(src="https://img.icons8.com/office/48/000000/#{name}.png" class=cl title=title)
-template(name='ismall')
-    img(src="https://img.icons8.com/fluent/24/000000/#{name}.png" class=cl title=title)
-template(name='icolor')
-    // i.icon(name=name)
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=cl title=title)
-    // img(src="https://img.icons8.com/dusk/48/000000/#{name}.png" class=cl title=title)
-template(name='icolorlg')
-    // i.icon(name=name)
-    img(src="https://img.icons8.com/color/96/000000/#{name}.png" class=cl title=title)
-template(name='iios')
-    img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=cl title=title)
-    //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=cl title=title)
-template(name='icon')
-    img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=cl title=title)
-    // i.icon(class=name)
-// -     //- img.ui.middle.aligned.image(src="https://img.icons8.com/cotton/24/000000/#{name}.png" class=cl title=title)
-//-     //- img(src="https://img.icons8.com/office/24/000000/#{name}.png" class=cl title=title)
-//-     //- img.ui.middle.aligned.image(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=cl title=title)
-//-     //- img(src="https://img.icons8.com/plasticine/24/000000/#{name}.png" class=cl title=title)
-//-     //- img.ui.inline.image(src="https://img.icons8.com/#{gs.icon_theme}/24/000000/#{name}.png" class=cl title=title)
-//-     //- img(src="https://img.icons8.com/ultraviolet/24/000000/#{name}.png" class=cl title=title)
-//-     //- img(src="https://img.icons8.com/ios/24/000000/#{name}.png" class=cl title=title) 
-//-     //- |&nbsp;
-template(name='iblue')
-    img(src="https://img.icons8.com/ultraviolet/40/000000/#{name}.png" class=cl)
-
-template(name='iflat')
-    img.ui.mini.image(src="https://img.icons8.com/flat_round/64/000000/#{name}.png")
-
-//- template(name='ioffice')
-//-     img.ui.image(src="https://img.icons8.com/office/30/000000/#{name}.png" class=cl)
 template(name='link_edit')
     div
     if icon
@@ -235,7 +85,7 @@ template(name='image_view')
         //-     img(src="{{c.url field_value gravity='face' crop='fit'}}" class=cl)
         //- else 
         // a(href="{{c.url field_value }}" target='_window')
-        img.ui.centered.rounded.image.zoomer(src="{{c.url field_value gravity='face' crop='fit'}}" class=currentUser.invert_class)
+        img.ui.centered.rounded.image(src="{{c.url field_value gravity='face' crop='fit'}}" class=currentUser.invert_class)
         //- a(href="{{c.url field_value gravity='face' crop='fit'}}")
         //-     |download
     //- +call_visual

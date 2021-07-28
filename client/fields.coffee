@@ -23,24 +23,11 @@ Template.youtube_edit.events
 
 
 
-Template.color_edit.events
-    'blur .edit_color': (e,t)->
-        val = t.$('.edit_color').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":val
-
-
 
 Template.html_edit.onRendered ->
     @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
     # 	"tabDisable": false
-        # "minHeight": "400px"
+        "minHeight": "400px"
         buttonList: [
             [
                 'undo' 
@@ -54,26 +41,26 @@ Template.html_edit.onRendered ->
                 'underline' 
                 'italic' 
                 'strike' 
-                'subscript' 
-                'superscript'
-                'fontColor' 
-                'hiliteColor' 
-                'textStyle'
-                'removeFormat'
-                'outdent' 
-                'indent'
-                'align' 
-                'horizontalRule' 
-                'list' 
-                'lineHeight'
-                'fullScreen' 
-                'showBlocks' 
+                # 'subscript' 
+                # 'superscript'
+                # 'fontColor' 
+                # 'hiliteColor' 
+                # 'textStyle'
+                # 'removeFormat'
+                # 'outdent' 
+                # 'indent'
+                # 'align' 
+                # 'horizontalRule' 
+                # 'list' 
+                # 'lineHeight'
+                # 'fullScreen' 
+                # 'showBlocks' 
                 'codeView' 
                 'preview' 
                 'table' 
-                'image' 
-                'video' 
-                'audio' 
+                # 'image' 
+                # 'video' 
+                # 'audio' 
                 'link'
             ]
         ]
@@ -97,21 +84,6 @@ Template.html_edit.events
 
 Template.html_edit.helpers
         
-
-
-Template.color_icon_edit.events
-    'blur .color_icon': (e,t)->
-        val = t.$('.color_icon').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":val
-
-
 
 
 Template.clear_value.events
@@ -140,17 +112,6 @@ Template.link_edit.events
                 $set:"#{@key}":val
 
 
-Template.icon_edit.events
-    'blur .icon_val': (e,t)->
-        val = t.$('.icon_val').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
-        if doc
-            Docs.update parent._id,
-                $set:"#{@key}":val
 
 Template.image_link_edit.events
     'blur .image_link_val': (e,t)->
