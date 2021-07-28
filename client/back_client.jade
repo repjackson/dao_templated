@@ -47,11 +47,15 @@ template(name='home')
             .sixteen.wide.column
                 // unless current_post
                 img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
-                if tag_results
-                    each picked_tags
-                        +unpick_tag
-                    each tag_results
-                        +tag_picker
+                // unless subs_ready
+                //     .ui.center.aligned.basic.segment
+                //         i.massive.grey.food.loading.icon
+                each picked_tags
+                    +unpick_tag
+                if subs_ready
+                    if tag_results
+                        each tag_results
+                            +tag_picker
                 .ui.hidden.divider
                 unless subs_ready
                     .ui.center.aligned.basic.segment
@@ -87,7 +91,7 @@ template(name='unpick_tag')
                         
 template(name='tag_picker')
     // if title
-    a.ui.huge.link.image.label.pick_tag.zoomer(title=count)
+    a.ui.huge.link.image.basic.label.pick_tag.zoomer(title=count)
         with ref_doc
             if image_url
                 +image_link_view key='image_url' direct=true
@@ -159,43 +163,11 @@ template(name='home_item')
                     // .ui.red.large.icon.button.delete_post(title='delete')
                     //     i.remove.icon   
                     //     // | delete
-    else 
-        .ui.stackable.padded.grid.scrollin
-            .row
-                // .eight.wide.column
-                //     // .ui.basic.icon.circular.button.fly_up.zoomer.clear_current_post(title='clear selection')
-                //     //     i.chevron.remove.red.large.icon
-                //     .ui.huge.header.clear_current_post.pointer
-                //         | #{title}
-                //     .clear_current_post.pointer.fly_right.pointer
-                //         if image_url
-                //             +image_link_view key='image_url' direct=true
-                //         else if image_id
-                //             +image_view key='image_id' direct=true
-                // .eight.wide.column
-                //     each tags
-                //         +flat_tag_picker
-                //     // +array_view key='tags' direct=true
-                //     +html_view key='body' direct=true
-                //     if youtube_id
-                //         +youtube_view key='youtube_id' direct=true
-                //     if watson
-                //         +watson_view
-                //     if tone 
-                //         +tone_view
-                //     // if can_edit
-                //     a.ui.icon.large.basic.button.edit_this
-                //         i.pencil.large.icon
-                //     // .ui.large.basic.label added #{when}
-                //     // if body
-                //     //     +call_watson key='body' mode='html'
-                //     //     +call_tone key='body'
-                //     // +comments
                 
                 
 
 template(name='flat_tag_picker')
-    .ui.large.image.link.label.flat_tag_pick.zoomer.pointer
+    .ui.big.image.link.basic.label.flat_tag_pick.zoomer.pointer
         with ref_doc_flat
             if image_url
                 +image_link_view key='image_url' direct=true

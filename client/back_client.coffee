@@ -192,8 +192,8 @@ Template.home.helpers
             model:'post'
             app:'bc'
         }
-        if picked_tags.array().length > 0
-            match.tags = $in:picked_tags.array()
+        # if picked_tags?.array().length > 0
+        match.tags = $in:picked_tags.array()
         Docs.find match,
             sort:views:-1
        

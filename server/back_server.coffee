@@ -133,6 +133,7 @@ Meteor.publish 'post_docs', (
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
     
+    # if picked_tags.length > 0 then match.tags = $all:picked_tags 
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
     Docs.find match, 
         limit:10
