@@ -65,7 +65,7 @@ template(name='home')
                         each home_items
                             +home_item
                 else 
-                    .ui.stackable.three.centered.cards.scrollin
+                    .ui.stackable.four.centered.cards.scrollin
                         each home_items
                             +home_item
                         
@@ -106,7 +106,8 @@ template(name='home_item')
     //             i.checkmark.large.link.green.icon.save_chat   
     //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
     // else
-    .ui.fluid.card(class=card_class)
+    // .ui.fluid.card(class=card_class)
+    .ui.fluid.card
         if image_url
             +image_link_view key='image_url' direct=true
         else if image_id
@@ -142,8 +143,8 @@ template(name='home_item')
                         i.pencil.icon
                         | #{title}
                     // a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
-                    a.ui.huge.circular.icon.green.button.save_this(title='save')
-                        i.checkmark.huge.icon
+                    a.ui.big.circular.icon.green.button.save_this(title='save')
+                        i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +image_link_edit key='image_url' label='image link' icon='image'

@@ -1,3 +1,36 @@
+Cloudinary.config
+    cloud_name: 'facet'
+    api_key: Meteor.settings.private.cloudinary_key
+    api_secret: Meteor.settings.private.cloudinary_secret
+
+Docs.allow
+    # insert: (userId, doc) -> doc._author_id is userId
+    insert: (userId, doc) -> true
+    update: (userId, doc) ->
+        true
+        # if userId then true
+        # if doc.model in ['calculator_doc','simulated_rental_item','healthclub_session']
+        #     true
+        # else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
+        #     true
+        # else
+        #     doc._author_id is userId
+    # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
+    remove: (userId, doc) -> 
+        false
+        # doc._author_id is userId or 'admin' in Meteor.user().roles
+
+Meteor.methods
+    log_view: (doc_id)->
+        Docs.update doc_id,
+            $inc:views:1
+
+
+Meteor.publish 'doc_by_id', (doc_id)->
+    Docs.find doc_id
+Meteor.publish 'doc', (doc_id)->
+    Docs.find doc_id
+
 Meteor.publish 'post_facets', (
     picked_tags
     title_filter
@@ -6,11 +39,13 @@ Meteor.publish 'post_facets', (
     # match = {}
     match = {app:'bc'}
     match.model = 'post'
-    # match.group_id = Meteor.user().current_group_id
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
 
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
+
+    result_count = Docs.find(match).count()
+    console.log result_count
 
     tag_cloud = Docs.aggregate [
         { $match: match }
@@ -18,6 +53,7 @@ Meteor.publish 'post_facets', (
         { $unwind: "$tags" }
         { $group: _id: "$tags", count: $sum: 1 }
         { $match: _id: $nin: picked_tags }
+        { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
         { $limit: 20 }
@@ -43,7 +79,7 @@ Meteor.publish 'post_facets', (
 #             model:'wikipedia'
 #             title:$in:picked_tags
 Meteor.publish 'ref_doc', (tag)->
-    match = {}
+    match = {app:'bc'}
     match.model = 'post'
     match.title = tag.title
     found = 
@@ -57,6 +93,7 @@ Meteor.publish 'ref_doc', (tag)->
             sort:views:1
             
 Meteor.publish 'flat_ref_doc', (title)->
+    # console.log title
     if title
         Docs.find({
             model:'post'
@@ -78,8 +115,11 @@ Meteor.publish 'flat_ref_doc', (title)->
             tags:$in:[title]
             app:'bc'
         },
-            sort:views:1
+            sort:
+                views:1
             limit:1
+            
+            
 Meteor.publish 'post_docs', (
     picked_tags=[]
     title_filter
@@ -105,4 +145,4 @@ Meteor.publish 'post_docs', (
             image_url:1
             body:1
         sort:
-            _timestamp:-1
+            views:-1

@@ -210,6 +210,7 @@ Template.unpick_tag.helpers
         if found
             found 
         else 
+            # console.log found
             match.title = null
             match.tags = $in: [@valueOf()]
             Docs.findOne match

@@ -5,7 +5,7 @@ body {
     /* font-family: 'Lato', sans-serif !important; */
     /*font-size: 120% !important; */
     /* line-height: 200% !important; */
-     background: rgba(0,0,0,.1) !important; 
+     background: rgba(0,0,0,.05) !important; 
     /*scroll-behavior: smooth;*/
     /*margin-top: 5em;*/
     /*background: rgba(200,200,200,1) !important;*/
@@ -20,7 +20,7 @@ body {
     cursor: pointer !important;
     filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
     transition: transform .5s; /* Animation */
-    border-radius: 10px !important;
+    /*border-radius: 10px !important;*/
     transfom: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
@@ -32,7 +32,7 @@ body {
 
 .button {
   margin:.1em !important;
-  /*border-radius: 10px !important;*/
+  border-radius: 10px !important;
 }
 .button:hover {
   transition: transform .5s; /* Animation */
@@ -92,7 +92,7 @@ body {
 
 
 .ui.image:not(.avatar2), .label, img:not(.avatar2) {
-    border-radius: 10px !important;
+    /*border-radius: 10px !important;*/
 } 
 
 
