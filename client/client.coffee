@@ -101,6 +101,15 @@ Template.home_item.helpers
             ).count()
         # console.log 'count', count
         count is 1
+    two_doc: ->
+        count = 
+            Docs.find(
+                model:'post'
+                app:'bc'
+                tags:$in:picked_tags.array()
+            ).count()
+        # console.log 'count', count
+        count is 2
         
         
 Template.flat_tag_picker.events
