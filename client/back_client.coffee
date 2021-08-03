@@ -5,6 +5,21 @@
 Router.route '/', (->
     @render 'home'
     ), name:'home'
+Router.route '/sales', (->
+    @render 'sales'
+    ), name:'sales'
+Router.route '/checkins', (->
+    @render 'checkins'
+    ), name:'checkins'
+Router.route '/inventory', (->
+    @render 'inventory'
+    ), name:'inventory'
+Router.route '/menu', (->
+    @render 'menu'
+    ), name:'menu'
+Router.route '/loss', (->
+    @render 'loss'
+    ), name:'loss'
 # Router.route '/', (->
 #     @layout 'layout'
 #     @render 'home'
@@ -48,6 +63,9 @@ Template.body.events
         # console.log @
         Docs.update @_id,
             $inc: views: 1
+
+
+Router.route '*', -> @render 'home'
 
 
 Template.home.helpers
