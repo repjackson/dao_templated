@@ -33,8 +33,37 @@ head
         gtag('config', 'G-GLYPPRGJFQ');
 
     
-body
-    +home
+template(name='layout')
+    // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
+    +nav
+    // .ui.bottom.attached.pushable.segment.scrolling
+        // +left_sidebar
+        // +right_sidebar
+    //     // +topbar
+    //     // +cartbar
+    //     // +walletbar
+    //     // +secnav
+    
+    // if logging_in
+    //     .ui.center.aligned.basic.segment
+    //         i.massive.loading.yin.yang.grey.icon
+    // else
+    .global_conainer.pusher
+        +yield
+        // if in_role 'admin'
+        //     +admin_footer
+      
+template(name='nav')
+    .ui.fluid.inverted.attached.menu
+        .header.item.zoomer
+            img.ui.inline.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
+        .item inventory
+        .item menu
+        .item sales
+        .item loss
+        .item check ins
+        .item users
+        
                 
 
         
@@ -46,7 +75,6 @@ template(name='home')
         .ui.padded.stackable.grid
             .sixteen.wide.column
                 // unless current_post
-                img.ui.inline.tiny.image.pointer.zoomer.add_post(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                 // unless subs_ready
                 //     .ui.center.aligned.basic.segment
                 //         i.massive.grey.food.loading.icon

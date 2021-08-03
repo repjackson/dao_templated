@@ -2,6 +2,21 @@
 
 
 
+Router.route '/', (->
+    @render 'home'
+    ), name:'home'
+# Router.route '/', (->
+#     @layout 'layout'
+#     @render 'home'
+#     ), name:'home'
+
+Router.configure
+    layoutTemplate: 'layout'
+    notFoundTemplate: 'home'
+    loadingTemplate: 'splash'
+    trackPageView: false
+
+
 $.cloudinary.config
     cloud_name:"facet"
 
