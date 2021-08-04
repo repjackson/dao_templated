@@ -1,6 +1,8 @@
 @picked_tags = new ReactiveArray []
 
 
+Router.configure
+	progressSpinner : false
 
 Router.route '/', (->
     @render 'home'

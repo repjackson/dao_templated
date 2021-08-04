@@ -30,6 +30,8 @@ Meteor.publish 'doc_by_id', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
+Meteor.publish 'me', ()->
+    Meteor.users.findOne Meteor.userId()
 
 Meteor.publish 'post_facets', (
     picked_tags

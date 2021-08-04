@@ -185,6 +185,12 @@ Template.registerHelper 'is_editing', () -> Session.equals 'editing_id', @_id
 Template.registerHelper 'editing_doc', () ->
     Docs.findOne Session.get('editing_id')
 
+
+Template.registerHelper 'in_role', (role)->
+    if Meteor.user()
+        Meteor.user().roles and role in Meteor.user().roles
+
+
 Template.registerHelper 'can_edit', () ->
     # if @_author_id is null 
     #     true
