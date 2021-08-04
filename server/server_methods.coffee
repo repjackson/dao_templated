@@ -24,7 +24,7 @@ Meteor.methods
         for point_doc in point_credit_docs 
             point_credit_total += point_doc.task_points
             
-        console.log 'work credit total', point_credit_total
+        # console.log 'work credit total', point_credit_total
         
         topup_match = {}
         topup_match.model = 'topup'
@@ -33,14 +33,14 @@ Meteor.methods
         
         point_topup_docs = Docs.find(topup_match).fetch()
         for topup_doc in point_topup_docs 
-            console.log topup_doc.topup_amount
+            # console.log topup_doc.topup_amount
             if topup_doc.topup_amount
                 point_topup_total += parseInt(topup_doc.topup_amount)
             
-        console.log 'topup credit total', point_topup_total
+        # console.log 'topup credit total', point_topup_total
                         # 
         total_bought_credit_rank = Meteor.users.find(total_bought_credits:$gt:parseInt(point_topup_total)).count()
-        console.log 'total earned credit rank', total_earned_credit_rank
+        # console.log 'total earned credit rank', total_earned_credit_rank
         Meteor.users.update user._id, 
             $set:total_bought_credit_rank:total_bought_credit_rank+1
 
@@ -57,7 +57,7 @@ Meteor.methods
         # ]
         # console.log res.toArray()
         # user = Meteor.users.findOne current_order._author_id
-        console.log 'user points', user.points
+        # console.log 'user points', user.points
         orders = 
             Docs.find 
                 model:'order'
@@ -74,18 +74,18 @@ Meteor.methods
                 if product.calories
                     console.log 'calories added', product.calories
                     total_calories_consumed += parseInt(product.calories)
-        console.log 'total debits', total_debits
-        console.log 'total credits', point_credit_total
+        # console.log 'total debits', total_debits
+        # console.log 'total credits', point_credit_total
         final_calculated_current_points = point_credit_total - total_debits + point_topup_total
         
         
-        console.log 'total current points', final_calculated_current_points
+        # console.log 'total current points', final_calculated_current_points
         if final_calculated_current_points
             Meteor.users.update user._id,
                 $set:
                     points: final_calculated_current_points
             current_point_rank = Meteor.users.find(points:$gt:parseInt(final_calculated_current_points)).count()
-            console.log 'amount more ranked', current_point_rank
+            # console.log 'amount more ranked', current_point_rank
             Meteor.users.update user._id, 
                 $set:point_rank:current_point_rank+1
 
@@ -94,14 +94,14 @@ Meteor.methods
 
                 # 
         total_earned_credit_rank = Meteor.users.find(total_earned_credits:$gt:parseInt(calculated_total_earned_credits)).count()
-        console.log 'total earned credit rank', total_earned_credit_rank
+        # console.log 'total earned credit rank', total_earned_credit_rank
         Meteor.users.update user._id, 
             $set:total_earned_credit_rank:total_earned_credit_rank+1
 
         
         calculated_total_credits = point_credit_total + point_topup_total
         
-        console.log 'total current points', final_calculated_current_points
+        # console.log 'total current points', final_calculated_current_points
         if final_calculated_current_points
             Meteor.users.update user._id,
                 $set:
