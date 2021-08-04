@@ -57,6 +57,9 @@ Template.registerHelper 'when', () -> moment(@_timestamp).fromNow()
 Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 
+Template.registerHelper 'current_doc', (input) -> 
+    Docs.findOne Router.current().params.doc_id
+    # moment(input).calendar()
 
 
 Template.registerHelper 'logging_out', () -> Session.get 'logging_out'
@@ -183,9 +186,10 @@ Template.registerHelper 'editing_doc', () ->
     Docs.findOne Session.get('editing_id')
 
 Template.registerHelper 'can_edit', () ->
-    if @_author_id is null 
-        true
-    else if Meteor.user()
+    # if @_author_id is null 
+    #     true
+    # else if Meteor.user()
+    if Meteor.user()
         Meteor.userId() is @_author_id or 'admin' in Meteor.user().roles 
 
 Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()

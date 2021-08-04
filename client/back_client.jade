@@ -76,7 +76,15 @@ template(name='nav')
         a.item(href='/users')
             i.users.icon
             |users
-        
+        .right.menu
+            if currentUser
+                a.item.log_out(title='sign out')
+                    i.sign.out.icon
+                    |sign out
+            else 
+                a.item(href="/login" title='sign in')
+                    i.sign.in.icon
+                    |sign in
                 
 
         
@@ -198,7 +206,8 @@ template(name='home_item')
     // else
     // .ui.fluid.card(class=card_class)
     .ui.fluid.card
-        span.clear_current_post
+        // span.clear_current_post
+        a.zoomer.fly_right(href="/post/#{_id}")
             if image_url
                 +image_link_view key='image_url' direct=true
             else if image_id
@@ -211,8 +220,8 @@ template(name='home_item')
             // else
             //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
-            // a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
-            a.ui.inline.header.zoomer.clear_current_post !{title}
+            a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
+            // a.ui.inline.header.zoomer.clear_current_post !{title}
             
             // .metadata
             //     |#{when}
@@ -223,31 +232,8 @@ template(name='home_item')
                 +flat_tag_picker
                 // .ui.button 
                 //     |#{this}
-            a.ui.icon.large.basic.button.edit_this
-                i.pencil.large.icon
     // with current_doc
-    if is_editing
-        .ui.stackable.padded.grid
-            .row
-                .eight.wide.column
-                    .ui.inline.header
-                        i.pencil.icon
-                        | #{title}
-                    // a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
-                    a.ui.big.circular.icon.green.button.save_this(title='save')
-                        i.checkmark.big.icon
-                    +text_edit key='title' label='title' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +text_edit key='model' label='model' icon='database' direct=true
-                    +image_link_edit key='image_url' label='image link' icon='image'
-                    +image_edit key='image_id' label='image' icon='image'
-                    +number_edit key='price_dollars' label='price ($)' icon='money'
-                .eight.wide.column
-                    +html_edit key='body' label='body' direct=true
-                    // .ui.red.large.icon.button.delete_post(title='delete')
-                    //     i.remove.icon   
-                    //     // | delete
-                
+
                 
 
 template(name='flat_tag_picker')

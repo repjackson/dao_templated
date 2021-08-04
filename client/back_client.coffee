@@ -22,6 +22,11 @@ Router.route '/loss', (->
 #     @render 'home'
 #     ), name:'home'
 
+Template.nav.events
+    'click .log_out': ->
+        Meteor.logout()
+
+
 Router.configure
     layoutTemplate: 'layout'
     notFoundTemplate: 'not_found'

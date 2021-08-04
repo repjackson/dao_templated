@@ -63,7 +63,8 @@ if Meteor.isClient
         # , 1000
     Template.comments.onCreated ->
         console.log Template.parentData()
-        parent = Docs.findOne Template.parentData()._id
+        # parent = Docs.findOne Template.parentData()._id
+        parent = Docs.findOne Router.current().params.doc_id
         if parent
             @autorun => Meteor.subscribe 'children', 'comment', parent._id
     Template.comments.helpers

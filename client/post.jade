@@ -1,0 +1,310 @@
+template(name='posts')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column.scrolling
+            .ui.stackable.grid 
+                .four.wide.column
+                    .ui.header 
+                        |alerts
+                        i.alert.icon
+                    |view
+                    // +session_set key='post_sort_filter' value='open'               
+                    +session_set key='post_sort_filter' value='now'               
+                    +session_set key='post_sort_filter' value='later'   
+                    +session_set key='post_sort_filter' value=null label='all'
+                    |delivery
+                    +session_set key='order_delivery_filter' value='pickup'   
+                    +session_set key='order_delivery_filter' value='delivery'   
+                    +session_set key='order_delivery_filter' value=null label='all'   
+                    +session_set key='order_status_filter' value='cart' label='cart' icon='cart'   
+                    +session_set key='order_status_filter' value=null label='all status' icon='cart'   
+                    div
+                    |sort by
+                    +session_set key='order_sort_key' value='price'               
+                .twelve.wide.column
+                    a.ui.center.aligned.header(href="/orders")
+                        +i name='clock' cl='ui tiny inline image'
+                        | orders
+                    .ui.button today
+                    .ui.button now
+                    .ui.button later
+                    .ui.button sort order
+                    .ui.button sort by
+                    .scrolling
+                        each orders
+                            +order_item
+                            .ui.divider
+            
+            
+template(name='post_item')
+    a.ui.grid(href="/post/#{_id}")
+        .row
+            // .four.wide.column.zoomer
+            //     with post_product
+            //         //- img.ui.mini.image(src=image)
+            //         +image_view key='image_id' direct=true cl='zoomer ui fluid image'
+            .sixteen.wide.column
+                .ui.list
+                    each post_things
+                        .item
+                            strong #{product_title}
+                            small $#{product_price}
+                            |status:#{status}
+                            // if kve status 'pending'
+                            //     i.large.yellow.clock.icon
+                            // else if kve status 'ready'
+                            //     i.large.green.clock.icon
+                            // else if kve status 'complete'
+                            //     i.large.green.checkmark.icon
+                            // .ui.inline.header product_id: #{product_id}
+                            | {{from_now _timestamp}} 
+                            small ({{long_date _timestamp}})
+                a.ui.icon.big.button(href="/post/#{_id}")
+                    i.right.chevron.large.icon
+                .ui.inline.header #{status}
+                .ui.inline.header $#{subtotal}
+                .ui.inline.header paid: #{paid}
+                each post_things
+                    img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                if in_dev 
+                    +print_this
+                i.cubes.icon(title='things')
+                // each post_things
+                |#{when}, #{_author_username} 
+
+template(name='post_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    a.ui.icon.button.fly_left(href="/posts")
+                        i.chevron.left.icon
+                        |posts
+                    a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
+                        i.chevron.left.icon
+                        |#{product_doc.title}
+                        // +i name='invoice' cl='ui avatar image'
+                    .ui.inline.header 
+                        // strong '#{post_product.title}'
+                        +i name='invoice' cl='ui avatar image'
+                        |post
+                    // .ui.segment 
+                    //     with post_product
+                    //         a(href="/product/#{_id}")
+                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                    //         a.ui.header(href="/product/#{_id}") #{title}
+                    //         // - .ui.header #{cook_tip} cook tip
+                    //         // .ui.header $#{post_total_transaction_amount} 
+                    //         //     small total transaction amount
+                    div
+                    .ui.inline.header 
+                        i.clock.icon
+                        small started
+                        strong #{when}
+                        small by
+                        strong #{_author_username}
+                    with buyer
+                        +user_card
+                    if is_admin
+                        +print_this
+                    +comments
+                    .ui.grey.header 
+                        i.eye.icon
+                        |viewers
+                    .ui.small.button.mark_viewed
+                        |mark viewed
+                    each view_events
+                        .item 
+                            |#{username} {{from_now view_timestamp}}
+                .six.wide.column
+                    .ui.large.feed
+                        .event
+                            .label
+                                img.ui.mini.inline.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
+                            .content
+                                .summary
+                                    a.user #{_author_username}
+                                    |started post 
+                                    .date #{when}
+                        each post_things
+                            .event
+                                .label
+                                    img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                .content
+                                    .summary
+                                        a.user #{product_title}
+                                        |added for ${{fixed product_price}}
+                                        .date #{when}
+                        if completed
+                            .event
+                                .label
+                                    img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                .content
+                                    .summary
+                                        a.user payment completed
+                                        .date {{from_now payment_timestamp}}
+                        // .event
+                        //     .label
+                        //         img.avatar
+                        //     .content
+                        //         .summary
+                        //             a.user dev 
+                        //             |message
+                        //             .date #{when}
+                        //         .meta
+                        //             a.like
+                        //                 i.like.icon
+                        //                 |4 likes
+                    // a.ui.compact.button(href="/product/#{product_id}")
+                    //     i.left.chevron.icon
+                    //     img.ui.avatar.image(src="{{c.url post_product.image_id width=200 height=200}}")    
+                    //     |#{post_product.title}
+                    // .ui.header 
+                    //     i.cart.icon
+                    //     |cart items
+                    // each cart_items 
+                    //     .ui.header #{title}
+                    
+                    if kve 'when' 'later'
+                        +datetime_view key='pickup_datetime'
+                    .ui.header status: #{status}
+                    // if complete
+                    //     .ui.header
+                    //         i.checkmark.icon
+                    //         |complete
+                    //     .ui.inline.header {{from_now complete_timestamp}}
+                    // .ui.header complete #{complete}
+                    // .ui.header 
+                    //     i.shield.icon
+                    //     |admin
+                    // if is_admin
+                    //     +kvs key='status' value='started' label='mark started' direct=true
+                    //     if kve status 'started'
+                    //         +kvs key='status' value='ready' label='mark ready' direct=true
+                    //         +kvs key='status' value='picked_up' label='picked up' direct=true
+                    // div
+                    .ui.segment
+                        .ui.inline.header 
+                            i.user.outline.icon
+                            |customer
+                        if arrived
+                            if is_author
+                                // +kvs key='status' value='picked_up' label='picked up' direct=true
+                                .ui.basic.large.fluid.button.mark_arrived
+                                    +i name='pick-up' cl='ui inline image'
+                                    |mark picked up
+                        if is_author
+                            .ui.button.add_review 
+                                i.bullhorn.icon
+                                |review
+                            with post_review
+                                if is_editing_this
+                                    +textarea_edit key='body' direct=true
+                                    +voting_full
+                                    +image_edit key='image_id' direct=true
+                                    +session_edit_button                            
+                                else
+                                    .ui.small.header #{body}
+                                    +image_view key='image_id' direct=true
+                                    .ui.small.header #{when}
+                                    unless submitted
+                                        +session_edit_button                            
+                    // +kvs key='status' value='picked_up' label='mark picked up' direct=true
+                        
+                .six.wide.column
+                    +product_delivery
+                    // |{{from_now datetime_available}}:
+                    // +textarea_view key='description'
+                    div
+                    if pickup
+                        .ui.header
+                            |pickup
+                    else if delivery
+                        .ui.header 
+                            |delivery
+                    if is_admin
+                        .ui.small.compact.button.delete_post
+                            i.remove.icon
+                            |cancel
+                    .ui.hidden.divider
+                    if can_edit
+                        a.ui.icon.large.basic.button(href="/post/#{_id}/edit")
+                            i.pencil.large.icon
+                    
+                    +comments
+                    +print_this
+                    
+                    
+                    
+
+template(name='user_posts')
+    .ui.inline.header #{posts.count} 
+        +i name='invoice'
+        |posts
+    .ui.button
+        |view complete
+    |sort by
+    .ui.button
+        |price
+    .ui.button
+        |time
+    .ui.button 
+        |delivery
+    .scrolling
+        each posts
+            +user_post_item
+
+template(name='user_post_item')
+    .ui.segment
+        // each post_items
+        img.ui.avatar.image(src="{{c.url product_doc.image_id width=200 height=200 gravity='face' crop='fill'}}")
+        a.ui.inline.header(href="/post/#{_id}")
+            | #{product_doc.title}
+            // |#{subtitle}c
+        .ui.inline.header
+            |status: 
+            if is status 'pending'
+                i.large.yellow.clock.icon
+            else if is status 'ready'
+                i.large.green.clock.icon
+            else if is status 'complete'
+                i.large.green.checkmark.icon
+            |#{status}
+            if product_doc.has_calories
+                .ui.label 
+                    |#{product_doc.calories}cals
+            // .ui.inline.header product_id: #{product_id}
+            
+        a.ui.icon.big.button(href="/post/#{_id}")
+            i.right.chevron.large.icon
+        |#{status}
+        i.clock.icon
+        |#{when}
+        if is_admin 
+            +print_this
+            +remove_button
+
+
+
+template(name='post_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .eight.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                    a.ui.large.icon.green.button(href="/post/#{_id}/" title='save product')
+                        i.checkmark.big.icon
+                    // a.ui.big.circular.icon.green.button.save_this(title='save')
+                    +text_edit key='title' label='title' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +text_edit key='model' label='model' icon='database' direct=true
+                    +image_link_edit key='image_url' label='image link' icon='image'
+                    +image_edit key='image_id' label='image' icon='image'
+                    +number_edit key='price_dollars' label='price ($)' icon='money'
+                .eight.wide.column
+                    +html_edit key='body' label='body' direct=true
+                    // .ui.red.large.icon.button.delete_post(title='delete')
+                    //     i.remove.icon   
+                    //     // | delete
+                
