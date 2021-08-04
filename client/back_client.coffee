@@ -8,9 +8,6 @@ Router.route '/', (->
 Router.route '/sales', (->
     @render 'sales'
     ), name:'sales'
-Router.route '/checkins', (->
-    @render 'checkins'
-    ), name:'checkins'
 Router.route '/inventory', (->
     @render 'inventory'
     ), name:'inventory'
@@ -27,7 +24,7 @@ Router.route '/loss', (->
 
 Router.configure
     layoutTemplate: 'layout'
-    notFoundTemplate: 'home'
+    notFoundTemplate: 'not_found'
     loadingTemplate: 'splash'
     trackPageView: false
 
@@ -76,7 +73,12 @@ Template.home.helpers
 #     Meteor.call 'log_view', @data._id
 
         
-
+Template.checkins.events
+    'click .checkin': ->
+        new_id = 
+            Docs.insert
+                model:'checkin'
+        Router.go "/checkin/#{new_id}/edit"
 
 Template.home_item.events
     'click .clear_current_post': ->

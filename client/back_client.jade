@@ -57,12 +57,25 @@ template(name='nav')
     .ui.fluid.inverted.attached.menu
         a.header.item.zoomer(href='/')
             img.ui.inline.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
-        a.item(href='/inventory') inventory
-        a.item(href="/menu") menu
-        a.item(href='/sales') sales
-        a.item(href="/loss") loss
-        a.item(href="/checkins") check ins
-        a.item(href='/users') users
+            |Backcountry
+        a.item(href='/inventory') 
+            i.list.icon
+            |inventory
+        a.item(href="/menu") 
+            i.food.icon
+            |menu
+        a.item(href='/sales')
+            i.money.icon
+            |sales
+        a.item(href="/loss") 
+            i.frown.icon
+            |loss
+        a.item(href="/checkins")
+            i.checkmark.icon
+            |check ins
+        a.item(href='/users')
+            i.users.icon
+            |users
         
                 
 
@@ -93,15 +106,15 @@ template(name='home')
                         with current_post
                             +home_item
                     else if one_doc
-                        .ui.fluid.cards.scrollin
+                        .ui.fluid.cards.scrollin.smallscroll
                             each home_items
                                 +home_item
                     else if two_docs
-                        .ui.stackable.two.cards.scrollin
+                        .ui.stackable.two.cards.scrollin.smallscroll
                             each home_items
                                 +home_item
                     else 
-                        .ui.stackable.four.centered.cards.scrollin
+                        .ui.stackable.five.centered.cards.scrollin.smallscroll
                             each home_items
                                 +home_item
             .sixteen.wide.column
@@ -119,11 +132,16 @@ template(name='sales')
         i.money.icon
         |sales
 template(name='checkins')
-    .ui.header 
-        i.checkmark.icon
-        |checkins
-    .ui.button.checkin
-        |checkin
+    .ui.two.column.grid
+        .column
+            .ui.header 
+                i.checkmark.icon
+                |checkins
+            .ui.button.checkin
+                |checkin
+        .column
+            .ui.header 
+                |checked in people
 template(name='menu')
     .ui.header 
         i.food.icon
@@ -220,6 +238,7 @@ template(name='home_item')
                         i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +text_edit key='model' label='model' icon='database' direct=true
                     +image_link_edit key='image_url' label='image link' icon='image'
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='price_dollars' label='price ($)' icon='money'
@@ -232,7 +251,7 @@ template(name='home_item')
                 
 
 template(name='flat_tag_picker')
-    .ui.large.image.link.basic.circular.label.flat_tag_pick.zoomer.pointer
+    .ui.image.link.basic.circular.label.flat_tag_pick.zoomer.pointer
         with ref_doc_flat
             if image_url
                 +image_link_view key='image_url' direct=true
@@ -240,3 +259,10 @@ template(name='flat_tag_picker')
                 +image_view key='image_id' direct=true
         // img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
         |#{this}
+
+
+template(name='not_found')
+    .ui.center.aligned.basic.segment
+        .ui.header 
+            i.question.icon
+            |not found
