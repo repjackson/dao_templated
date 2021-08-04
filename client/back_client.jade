@@ -66,7 +66,7 @@ template(name='nav')
             |Backcountry
         if session_is 'is_global_searching' true
             .ui.icon.transparent.input.global_search_input
-                i.link.large.remove.icon.clear_search.zoomer(title='clear search')
+                i.link.large.remove.white.icon.clear_search.zoomer(title='clear search')
                 // if current_search
                 // else
                 //     i.search.icon
@@ -160,13 +160,13 @@ template(name='not_found')
             
             
             
-template(name='cartbar')
-    .ui.right.wide.sidebar.cartbar
-        +cart
+// template(name='cartbar')
+//     .ui.right.wide.sidebar.cartbar
+//         +cart
         
-template(name='walletbar')
-    .ui.right.sidebar.walletbar
-        +user_credit
+// template(name='walletbar')
+//     .ui.right.sidebar.walletbar
+//         +user_credit
         
 template(name='left_sidebar')
     .ui.left.sidebar.vertical.large.blue.inverted.menu
@@ -231,14 +231,15 @@ template(name='right_sidebar')
     .ui.right.sidebar.vertical.blue.inverted.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
-            |#{currentUser.username}
+            |#{currentUser.name}
+            small (#{currentUser.username})
         with currentUser
             a.item.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
                 i.dashboard.icon
                 |dashboard
-            a.item.toggle_rightbar(href="/user/#{username}/emotions" class="{{isActiveRoute regex='user_emotions'}}")
+            a.item.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute regex='user_checkins'}}")
                 i.smile.icon
-                |emotions
+                |checkins
             a.item.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
                 i.coins.icon
                 |points

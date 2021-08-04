@@ -87,11 +87,17 @@ template(name='checkins')
             .ui.header 
                 i.checkmark.icon
                 |checkins
-            .ui.button.checkin
-                |checkin
+            if currentUser.checkedin
+                .ui.button.checkout
+                    |check out
+            else 
+                .ui.button.checkin
+                    |checkin
         .column
             .ui.header 
                 |checked in people
+            each checked_in_users
+                .ui.header #{username}
 template(name='menu')
     .ui.header 
         i.food.icon

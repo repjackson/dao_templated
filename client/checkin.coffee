@@ -251,19 +251,24 @@ if Meteor.isClient
             @purchase_amount/Meteor.user().points
     Template.checkin_edit.events
         'click .complete_checkin': (e,t)->
-            console.log @
-            Session.set('checkining',true)
-            if @purchase_amount
-                if Meteor.user().points and @purchase_amount < Meteor.user().points
-                    Meteor.call 'complete_checkin', @_id, =>
-                        Router.go "/product/#{@product_id}"
-                        Session.set('checkining',false)
-                else 
-                    alert "not enough points"
-                    Router.go "/user/#{Meteor.user().username}/points"
-                    Session.set('checkining',false)
-            else 
-                alert 'no purchase amount'
+            # console.log @
+            Session.set('checking_in',true)
+            Meteor.users.update Meteor.userId(),    
+                $set:
+                    checkedin:true
+            Router.go "/user/#{Meteor.user().username}/"
+            Session.set('checking_in',false)
+            # if @purchase_amount
+            # if Meteor.user().points and @purchase_amount < Meteor.user().points
+            # Meteor.call 'complete_checkin', @_id, =>
+            #     Router.go "/product/#{@product_id}"
+            #     Session.set('checkining',false)
+            #     else 
+            #         alert "not enough points"
+            #         Router.go "/user/#{Meteor.user().username}/points"
+            #         Session.set('checkining',false)
+            # else 
+            #     alert 'no purchase amount'
             
             
         'click .delete_checkin': ->
