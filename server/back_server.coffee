@@ -7,8 +7,8 @@ Docs.allow
     # insert: (userId, doc) -> doc._author_id is userId
     insert: (userId, doc) -> true
     update: (userId, doc) ->
-        true
-        # if userId then true
+        # true
+        if userId then true
         # if doc.model in ['calculator_doc','simulated_rental_item','healthclub_session']
         #     true
         # else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
@@ -49,6 +49,21 @@ Meteor.publish 'doc', (doc_id)->
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 
+Meteor.publish 'user_from_username', (username)->
+    Meteor.users.find username:username
+
+Meteor.publish 'user_from_id', (user_id)->
+    Meteor.users.find user_id
+
+Meteor.publish 'author_from_doc_id', (doc_id)->
+    doc = Docs.findOne doc_id
+    Meteor.users.find user_id
+
+
+
+
+Meteor.publish 'users', ()->
+    Meteor.users.find()
 Meteor.publish 'post_facets', (
     picked_tags
     title_filter
@@ -165,3 +180,5 @@ Meteor.publish 'post_docs', (
             body:1
         sort:
             views:-1
+            
+            

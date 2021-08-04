@@ -4,18 +4,19 @@ if Meteor.isClient
     Template.users.onCreated ->
         @autorun -> Meteor.subscribe('users')
         # @autorun => Meteor.subscribe 'user_search', Session.get('username_query')
+        Session.setDefault('view_limit', 20)
     Template.users.helpers
         user_docs: ->
-            username_query = Session.get('username_query')
-            if username_query
-                Meteor.users.find({
-                    username: {$regex:"#{username_query}", $options: 'i'}
-                    # roles:$in:['resident','owner']
-                    },{ limit:parseInt(Session.get('view_limit')) }).fetch()
-            else
-                Meteor.users.find({
-                    },{ limit:parseInt(Session.get('view_limit')) }).fetch()
-
+            # username_query = Session.get('username_query')
+            # if username_query
+            #     Meteor.users.find({
+            #         username: {$regex:"#{username_query}", $options: 'i'}
+            #         # roles:$in:['resident','owner']
+            #         },{ limit:parseInt(Session.get('view_limit')) }).fetch()
+            # else
+            #     # Meteor.users.find({
+            #     #     },{ limit:parseInt(Session.get('view_limit')) }).fetch()
+            Meteor.users.find()
     Template.users.events
         'click .add_user': ->
             new_username = prompt('username')
@@ -38,11 +39,11 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'users', (limit)->
-        match = {membership_group_ids:$in:[Meteor.user().current_group_id]}
-        # match.station = $exists:true
-        limit = if limit then limit else 20
-        Meteor.users.find(match,limit:limit)
+    # Meteor.publish 'users', (limit)->
+    #     match = {membership_group_ids:$in:[Meteor.user().current_group_id]}
+    #     # match.station = $exists:true
+    #     limit = if limit then limit else 20
+    #     Meteor.users.find(match,limit:limit)
 
 
     Meteor.publish 'user_search', (username, role)->
