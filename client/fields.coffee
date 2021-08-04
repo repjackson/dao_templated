@@ -129,7 +129,7 @@ Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
         parent = Template.parentData()
-        console.log @
+        # console.log @
         console.log Template.parentData()
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
@@ -141,6 +141,10 @@ Template.image_edit.events
                     doc = Docs.findOne parent._id
                     if doc
                         Docs.update parent._id,
+                            $set:"#{@key}":res.public_id
+                    user = Meteor.users.findOne parent._id
+                    if user
+                        Meteor.users.update parent._id,
                             $set:"#{@key}":res.public_id
 
 

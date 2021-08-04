@@ -19,6 +19,22 @@ Docs.allow
     remove: (userId, doc) -> 
         false
         # doc._author_id is userId or 'admin' in Meteor.user().roles
+Meteor.users.allow
+    # insert: (userId, doc) -> doc._author_id is userId
+    insert: (userId, doc) -> true
+    update: (userId, doc) ->
+        true
+        # if userId then true
+        # if doc.model in ['calculator_doc','simulated_rental_item','healthclub_session']
+        #     true
+        # else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
+        #     true
+        # else
+        #     doc._author_id is userId
+    # update: (userId, doc) -> doc._author_id is userId or 'admin' in Meteor.user().roles
+    remove: (userId, doc) -> 
+        false
+        # doc._author_id is userId or 'admin' in Meteor.user().roles
 
 Meteor.methods
     log_view: (doc_id)->
@@ -31,7 +47,7 @@ Meteor.publish 'doc_by_id', (doc_id)->
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'me', ()->
-    Meteor.users.findOne Meteor.userId()
+    Meteor.users.find Meteor.userId()
 
 Meteor.publish 'post_facets', (
     picked_tags

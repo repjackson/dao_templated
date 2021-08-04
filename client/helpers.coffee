@@ -172,6 +172,10 @@ Template.registerHelper 'is_current_user', () ->
                 false
     else 
         false
+
+Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
+
+
             
 Template.registerHelper 'view_template', -> "#{@field_type}_view"
 Template.registerHelper 'edit_template', -> "#{@field_type}_edit"

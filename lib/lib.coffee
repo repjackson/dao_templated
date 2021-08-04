@@ -2,6 +2,12 @@
 @Results = new Meteor.Collection 'results'
 
 Docs.before.insert (userId, doc)->
+    if Meteor.userId()
+        doc._author_id = Meteor.userId()
+        doc._author_username = Meteor.user().username
+        if Meteor.user().current_group_id
+            doc.group_id = Meteor.user().current_group_id
+    
     timestamp = Date.now()
     doc._timestamp = timestamp
     doc._timestamp_long = moment(timestamp).format("dddd, MMMM Do YYYY, h:mm:ss a")
@@ -54,8 +60,32 @@ if Meteor.isServer
 
 
 Docs.helpers
+    author: -> Meteor.users.findOne @_author_id
     when: -> moment(@_timestamp).fromNow()
     
+
+Meteor.users.helpers
+    name: ->
+        if @nickname
+            "#{@nickname}"
+        else if @first_name and @last_name
+            "#{@first_name} #{@last_name}"
+        else
+            "#{@username}"
+    is_current_member: ->
+        if @roles
+            if 'admin' in @roles
+                if 'member' in @current_roles then true else false
+            else
+                if 'member' in @roles then true else false
+
+    email_address: -> if @emails and @emails[0] then @emails[0].address
+    email_verified: -> if @emails and @emails[0] then @emails[0].verified
+    five_tags: -> if @tags then @tags[..4]
+    three_tags: -> if @tags then @tags[..2]
+    last_name_initial: -> if @last_name then @last_name.charAt 0
+ 
+ 
     
 Meteor.methods
     upvote: (doc)->
