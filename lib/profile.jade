@@ -8,7 +8,7 @@ template(name='user_layout')
         // +walletbar
         // +secnav
         with user_from_username_param
-            .ui.stackable.grid.global_conainer.pusher
+            .ui.stackable.padded.grid.global_conainer.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column
@@ -23,19 +23,23 @@ template(name='user_layout')
                             .label
                                 |current pts
                                 span(title='rank') (##{current_user.point_rank})
-                        .ui.inline.tiny.horizontal.statistic
+                        .ui.inline.tiny.statistic
                             .value
                                 |#{current_user.total_earned_credits}
                             .label
                                 |pts earned
                                 span(title='rank') (##{current_user.total_earned_credit_rank})
-                        .ui.inline.tiny.horizontal.statistic
+                        .ui.inline.tiny.statistic
                             .value
                                 |#{current_user.total_bought_credits}
                             .label
                                 |pts bought
                                 span(title='rank') (##{current_user.total_bought_credit_rank})
-                            
+                        .ui.header app:#{app}
+                        .ui.header roles:
+                        each roles
+                            .ui.basic.label #{this}
+                        
                         .ui.two.column.middle.aligned.grid.mobile.only
                             .column
                                 img.ui.small.inline.image.mobile.only(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")

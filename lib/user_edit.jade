@@ -36,10 +36,10 @@ template(name='user_edit')
                                 |emails
                             +emails_edit
                         +phone_edit key='phone' label='phone' icon='phone' direct=true
-                        +array_edit key='roles' label='roles' icon='shield' direct=true
                 .four.wide.column
-                    +array_edit key='allergens' label='allergens' direct=true
-                    +array_edit key='food_dislikes' label='food dislikes' direct=true
+                    +array_edit key='roles' label='roles' icon='shield' direct=true
+                    +array_edit key='allergens' label='allergens' icon='food' direct=true
+                    +array_edit key='food_dislikes' label='food dislikes' icon='meal' direct=true
                     
 template(name='user_settings')
     .ui.segment

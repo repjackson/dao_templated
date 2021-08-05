@@ -15,16 +15,16 @@ template(name='users')
             +session_set key='view_limit' value=50
             +session_set key='view_limit' value=100
             .scrolling
-                // if skv_is 'view_users' 'grid'
-                //     .ui.stackable.three.cards
-                //         each users
-                //             +user_card
-                //     // else if session_is 'view_users' 'list'
-                // else
-                .ui.large.list
-                    each user_docs
-                        +user_item
-                        div
+                if session_is 'view_users' 'grid'
+                    .ui.stackable.three.cards
+                        each user_docs
+                            +user_card
+                    // else if session_is 'view_users' 'list'
+                else
+                    .ui.large.list
+                        each user_docs
+                            +user_item
+                            div
 
 template(name='user_cloud')
     i.shield.blue.large.icon
@@ -71,7 +71,7 @@ template(name='user_item')
             //     i.blue.chat.pointer.message.big.disabled.icon
         
 template(name='user_card')
-    .card.rounded.calc_points
+    .card.rounded.calc_points.zoomer
         img.ui.image.mobile.only(class=currentUser.invert_class src="{{c.url profile_image_id width=400 height=300 crop='fill'}}")    
         a.zoom.pointer.mobile.hidden.blink.fly_left(href="/user/#{username}")
             unless avatar_image_id

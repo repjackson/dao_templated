@@ -63,7 +63,8 @@ Meteor.publish 'author_from_doc_id', (doc_id)->
 
 
 Meteor.publish 'users', ()->
-    Meteor.users.find()
+    Meteor.users.find({},
+        limit:20)
 Meteor.publish 'post_facets', (
     picked_tags
     title_filter
