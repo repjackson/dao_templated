@@ -76,31 +76,41 @@ template(name='inventory')
     .ui.header 
         i.list.icon
         |inventory
+    .ui.list
+        each inventory_docs
+            .item #{title}
+
+
 template(name='sales')
     .ui.header 
         i.money.icon
         |sales
-template(name='checkins')
-    .ui.two.column.grid
-        .column
-            .ui.header 
-                i.checkmark.icon
-                |checkins
-            if currentUser.checkedin
-                .ui.button.checkout
-                    |check out
-            else 
-                .ui.button.checkin
-                    |checkin
-        .column
-            .ui.header 
-                |checked in people
-            each checked_in_users
-                .ui.header #{username}
+    .ui.list
+        each sales_docs
+            .item #{title}
+            
+            
 template(name='menu')
     .ui.header 
         i.food.icon
         |menu
+    .ui.two.column.stackable.grid
+        .column
+            .ui.small.header 
+                i.food.icon
+                |food
+            .ui.selection.link.list
+                each food_items
+                    a.item(href="/menu/#{_id}") #{title}
+        .column
+            .ui.small.header 
+                i.beer.icon
+                |drinks
+            .ui.selection.link.list
+                each drinks
+                    a.item(href="/menu/#{_id}") #{title}
+            
+            
 template(name='loss')
     .ui.header 
         i.frown.icon

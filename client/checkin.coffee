@@ -9,17 +9,38 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
+    Template.checkins.onCreated ->
+        @autorun => @subscribe 'checked_in_users', ->
+        @autorun => @subscribe 'checkins', ->
     Template.checkins.helpers
-        checkins: ->
-            match = {model:'checkin'}
-            if Session.get('checkin_status_filter')
-                match.status = Session.get('checkin_status_filter')
-            if Session.get('checkin_delivery_filter')
-                match.delivery_method = Session.get('checkin_sort_filter')
-            if Session.get('checkin_sort_filter')
-                match.delivery_method = Session.get('checkin_sort_filter')
-            Docs.find match,
-                sort: _timestamp:-1
+        checked_in_users: ->
+            Meteor.users.find checkedin:true
+        checkin_docs: ->
+            Docs.find {
+                model:'checkin'
+            }, 
+                sort:
+                    _timestamp:-1
+            
+            
+    Template.checkins.events
+        'click .checkout': ->
+            Meteor.users.update Meteor.userId(),
+                $set:checkedin:false
+
+
+
+    # Template.checkins.helpers
+    #     checkins: ->
+    #         match = {model:'checkin'}
+    #         if Session.get('checkin_status_filter')
+    #             match.status = Session.get('checkin_status_filter')
+    #         if Session.get('checkin_delivery_filter')
+    #             match.delivery_method = Session.get('checkin_sort_filter')
+    #         if Session.get('checkin_sort_filter')
+    #             match.delivery_method = Session.get('checkin_sort_filter')
+    #         Docs.find match,
+    #             sort: _timestamp:-1
 
 
 if Meteor.isClient
@@ -31,110 +52,10 @@ if Meteor.isClient
 
     Template.checkin_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'product_by_checkin_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'checkin_things', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'review_from_checkin_id', Router.current().params.doc_id
 
 
     Template.checkin_view.events
-        'click .mark_viewed': ->
-            # if confirm 'mark viewed?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    runner_viewed: true
-                    runner_viewed_timestamp: Date.now()
-                    runner_username: Meteor.user().username
-                    status: 'viewed' 
-      
-        'click .mark_preparing': ->
-            # if confirm 'mark mark_preparing?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    preparing: true
-                    preparing_timestamp: Date.now()
-                    status: 'preparing' 
-       
-        'click .mark_prepared': ->
-            # if confirm 'mark prepared?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    prepared: true
-                    prepared_timestamp: Date.now()
-                    status: 'prepared' 
-     
-        'click .mark_arrived': ->
-            # if confirm 'mark arrived?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    arrived: true
-                    arrived_timestamp: Date.now()
-                    status: 'arrived' 
         
-        'click .mark_delivering': ->
-            # if confirm 'mark delivering?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    delivering: true
-                    delivering_timestamp: Date.now()
-                    status: 'delivering' 
-      
-        'click .mark_delivered': ->
-            # if confirm 'mark delivered?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    delivered: true
-                    delivered_timestamp: Date.now()
-                    status: 'delivered' 
-      
-        'click .delete_checkin': ->
-            thing_count = Docs.find(model:'thing').count()
-            if confirm "delete? #{thing_count} things still"
-                Docs.remove @_id
-                Router.go "/checkins"
-    
-        'click .mark_ready': ->
-            if confirm 'mark ready?'
-                Docs.insert 
-                    model:'checkin_event'
-                    checkin_id: Router.current().params.doc_id
-                    checkin_status:'ready'
-
-        'click .add_review': ->
-            Docs.insert 
-                model:'checkin_review'
-                checkin_id: Router.current().params.doc_id
-                
-                
-        'click .review_positive': ->
-            Docs.update @_id,
-                $set:
-                    rating:1
-        'click .review_negative': ->
-            Docs.update @_id,
-                $set:
-                    rating:-1
-
-    Template.checkin_view.helpers
-        checkin_review: ->
-            Docs.findOne 
-                model:'checkin_review'
-                checkin_id:Router.current().params.doc_id
-    
-        can_checkin: ->
-            # if StripeCheckout
-            unless @_author_id is Meteor.userId()
-                checkin_count =
-                    Docs.find(
-                        model:'checkin'
-                        checkin_id:@_id
-                    ).count()
-                if checkin_count is @servings_amount
-                    false
-                else
-                    true
-            # else
-            #     false
-
 
 
 
@@ -147,22 +68,22 @@ if Meteor.isServer
 
         Docs.find match
         
-    Meteor.publish 'review_from_checkin_id', (checkin_id)->
-        # checkin = Docs.findOne checkin_id
-        # match = {model:'checkin'}
-        Docs.find 
-            model:'checkin_review'
-            checkin_id:checkin_id
+    # Meteor.publish 'review_from_checkin_id', (checkin_id)->
+    #     # checkin = Docs.findOne checkin_id
+    #     # match = {model:'checkin'}
+    #     Docs.find 
+    #         model:'checkin_review'
+    #         checkin_id:checkin_id
         
-    Meteor.publish 'product_by_checkin_id', (checkin_id)->
-        checkin = Docs.findOne checkin_id
-        Docs.find
-            _id: checkin.product_id
-    Meteor.publish 'checkin_things', (checkin_id)->
-        checkin = Docs.findOne checkin_id
-        Docs.find
-            model:'thing'
-            checkin_id: checkin_id
+    # Meteor.publish 'product_by_checkin_id', (checkin_id)->
+    #     checkin = Docs.findOne checkin_id
+    #     Docs.find
+    #         _id: checkin.product_id
+    # Meteor.publish 'checkin_things', (checkin_id)->
+    #     checkin = Docs.findOne checkin_id
+    #     Docs.find
+    #         model:'thing'
+    #         checkin_id: checkin_id
 
     # Meteor.methods
         # checkin_checkin: (checkin_id)->
@@ -242,21 +163,45 @@ if Meteor.isClient
         # , 2000
 
     Template.checkin_edit.helpers
-        balance_after_purchase: ->
-            Meteor.user().points - @purchase_amount
-        percent_difference: ->
-            balance_after_purchase = 
-                Meteor.user().points - @purchase_amount
-            # difference
-            @purchase_amount/Meteor.user().points
+        upvote_class: -> if @checkin_vote and @checkin_vote is 1 then 'green' else 'outline grey'
+        downvote_class: -> if @checkin_vote and @checkin_vote is -1 then 'red' else 'outline grey'
+        # balance_after_purchase: ->
+        #     Meteor.user().points - @purchase_amount
+        # percent_difference: ->
+        #     balance_after_purchase = 
+        #         Meteor.user().points - @purchase_amount
+        #     # difference
+        #     @purchase_amount/Meteor.user().points
     Template.checkin_edit.events
-        'click .complete_checkin': (e,t)->
+        'click .upvote': ->
+            Docs.update @_id,
+                $set:
+                    checkin_vote:1
+    
+        'click .downvote': ->
+            Docs.update @_id,
+                $set:
+                    checkin_vote:-1
+    
+        'click .publish_anon': (e,t)->
             # console.log @
             Session.set('checking_in',true)
             Meteor.users.update Meteor.userId(),    
                 $set:
                     checkedin:true
-            Router.go "/user/#{Meteor.user().username}/"
+                    anon:true
+            # Router.go "/user/#{Meteor.user().username}/"
+            Router.go "/"
+            Session.set('checking_in',false)
+        'click .publish_public': (e,t)->
+            # console.log @
+            Session.set('checking_in',true)
+            Meteor.users.update Meteor.userId(),    
+                $set:
+                    checkedin:true
+                    anon:false
+            # Router.go "/user/#{Meteor.user().username}/"
+            Router.go "/"
             Session.set('checking_in',false)
             # if @purchase_amount
             # if Meteor.user().points and @purchase_amount < Meteor.user().points

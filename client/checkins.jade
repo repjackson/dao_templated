@@ -33,6 +33,37 @@
 //                         each orders
 //                             +order_item
 //                             .ui.divider
+     
+template(name='checkins')
+    .ui.two.column.stackable.grid
+        .column
+            .ui.inline.header 
+                i.checkmark.icon
+                |checkins
+            if currentUser.checkedin
+                .ui.red.basic.inverted.small.compact.button.checkout
+                    +i name='exit-sign' cl='ui avatar image'
+                    |check out
+            else 
+                .ui.button.checkin
+                    |checkin
+            .ui.link.selection.list
+                each checkin_docs
+                    a.item.fly_left(href="/checkin/#{_id}") 
+                        |#{_author_username}
+                        small #{when}
+                        each tags
+                            .ui.small.label #{this}
+        .column
+            .ui.header
+                i.users.icon
+                |checked in people
+            .ui.large.link.selection.animation.list
+                each checked_in_users
+                    a.item.fly_left(href="/user/#{username}") 
+                        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        |#{username}
+     
             
             
 template(name='checkin_item')
@@ -75,39 +106,25 @@ template(name='checkin_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .eight.wide.column
                     a.ui.icon.button.fly_left(href="/checkins")
-                        i.chevron.left.icon
+                        i.checkmark.large.icon
                         |checkins
-                    a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
-                        i.chevron.left.icon
-                        |#{product_doc.title}
-                        // +i name='invoice' cl='ui avatar image'
+                    a.ui.icon.button.fly_left(href="/" title='home')
+                        i.large.home.icon
                     .ui.inline.header 
                         // strong '#{checkin_product.title}'
-                        +i name='invoice' cl='ui avatar image'
+                        +i name='in-progress--v1' cl='ui avatar image'
                         |checkin
-                    // .ui.segment 
-                    //     with checkin_product
-                    //         a(href="/product/#{_id}")
-                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
-                    //         a.ui.header(href="/product/#{_id}") #{title}
-                    //         // - .ui.header #{cook_tip} cook tip
-                    //         // .ui.header $#{checkin_total_transaction_amount} 
-                    //         //     small total transaction amount
                     div
                     .ui.inline.header 
                         i.clock.icon
-                        small started
                         strong #{when}
                         small by
                         strong #{_author_username}
-                    with buyer
+                    with author
                         +user_card
-                    if is_admin
-                        +print_this
-                    +comments
-                    .ui.grey.header 
+                    .ui.grey.inline.header 
                         i.eye.icon
                         |viewers
                     .ui.small.button.mark_viewed
@@ -116,115 +133,12 @@ template(name='checkin_view')
                         .item 
                             |#{username} {{from_now view_timestamp}}
                 .six.wide.column
-                    .ui.large.feed
-                        .event
-                            .label
-                                img.ui.mini.inline.image(src="{{c.url author.image_id width=200 height=200 gravity='face' crop='fill'}}")
-                            .content
-                                .summary
-                                    a.user #{_author_username}
-                                    |started checkin 
-                                    .date #{when}
-                        each checkin_things
-                            .event
-                                .label
-                                    img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                .content
-                                    .summary
-                                        a.user #{product_title}
-                                        |added for ${{fixed product_price}}
-                                        .date #{when}
-                        if completed
-                            .event
-                                .label
-                                    img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                                .content
-                                    .summary
-                                        a.user payment completed
-                                        .date {{from_now payment_timestamp}}
-                        // .event
-                        //     .label
-                        //         img.avatar
-                        //     .content
-                        //         .summary
-                        //             a.user dev 
-                        //             |message
-                        //             .date #{when}
-                        //         .meta
-                        //             a.like
-                        //                 i.like.icon
-                        //                 |4 likes
-                    // a.ui.compact.button(href="/product/#{product_id}")
-                    //     i.left.chevron.icon
-                    //     img.ui.avatar.image(src="{{c.url checkin_product.image_id width=200 height=200}}")    
-                    //     |#{checkin_product.title}
-                    // .ui.header 
-                    //     i.cart.icon
-                    //     |cart items
-                    // each cart_items 
-                    //     .ui.header #{title}
-                    
-                    if kve 'when' 'later'
-                        +datetime_view key='pickup_datetime'
-                    .ui.header status: #{status}
-                    // if complete
-                    //     .ui.header
-                    //         i.checkmark.icon
-                    //         |complete
-                    //     .ui.inline.header {{from_now complete_timestamp}}
-                    // .ui.header complete #{complete}
-                    // .ui.header 
-                    //     i.shield.icon
-                    //     |admin
-                    // if is_admin
-                    //     +kvs key='status' value='started' label='mark started' direct=true
-                    //     if kve status 'started'
-                    //         +kvs key='status' value='ready' label='mark ready' direct=true
-                    //         +kvs key='status' value='picked_up' label='picked up' direct=true
-                    // div
-                    .ui.segment
-                        .ui.inline.header 
-                            i.user.outline.icon
-                            |customer
-                        if arrived
-                            if is_author
-                                // +kvs key='status' value='picked_up' label='picked up' direct=true
-                                .ui.basic.large.fluid.button.mark_arrived
-                                    +i name='pick-up' cl='ui inline image'
-                                    |mark picked up
-                        if is_author
-                            .ui.button.add_review 
-                                i.bullhorn.icon
-                                |review
-                            with checkin_review
-                                if is_editing_this
-                                    +textarea_edit key='body' direct=true
-                                    +voting_full
-                                    +image_edit key='image_id' direct=true
-                                    +session_edit_button                            
-                                else
-                                    .ui.small.header #{body}
-                                    +image_view key='image_id' direct=true
-                                    .ui.small.header #{when}
-                                    unless submitted
-                                        +session_edit_button                            
-                    // +kvs key='status' value='picked_up' label='mark picked up' direct=true
-                        
-                .six.wide.column
-                    +product_delivery
-                    // |{{from_now datetime_available}}:
-                    // +textarea_view key='description'
-                    div
-                    if pickup
-                        .ui.header
-                            |pickup
-                    else if delivery
-                        .ui.header 
-                            |delivery
-                    if is_admin
-                        .ui.small.compact.button.delete_checkin
-                            i.remove.icon
-                            |cancel
+                    i.big.tag.icon
+                    each tags
+                        .ui.large.basic.label #{this}
+                    if can_edit 
+                        a(href="/checkin/#{_id}/edit")
+                            i.large.pencil.circular.link.icon
                     .ui.hidden.divider
                     +comments
                     +print_this
@@ -293,10 +207,9 @@ template(name='checkin_edit')
                     // +linked_product
                     .ui.header #{when}
                 .eight.wide.column
-                    // .ui.header price: #{purchase_amount}pts
-                    // .ui.header balance #{currentUser.points}pts
-                    // .ui.header balance after purchase #{balance_after_purchase}pts
-                        small ({{fixed percent_difference}}% difference)
+                    .ui.basic.center.aligned.segment
+                        i.thumbs.up.massive.link.icon.upvote(class=upvote_class)
+                        i.thumbs.down.massive.link.icon.downvote(class=downvote_class)
                     div
                     // +image_edit key='image_id' label='image' direct=true
                     +array_edit key='tags' label='emotion tags' icon='tags' direct=true
@@ -308,9 +221,15 @@ template(name='checkin_edit')
                     // if session_is 'checkining' true
                     //     i.big.refresh.icon
                     // else
-                    .ui.large.fluid.green.button.complete_checkin.fly_left(title='complete checkin')
-                        i.checkmark.large.icon   
-                        |complete
+                    .ui.large.fluid.green.button.publish_anon.fly_left(title='complete checkin')
+                        // i.checkmark.large.icon  
+                        +i name='anonymous-mask' cl='ui avatar image'
+                        |publish anonymously
+                    .ui.horizontal.divider or
+                    .ui.large.fluid.orange.button.publish_public.fly_left(title='complete checkin')
+                        // i.checkmark.large.icon   
+                        +i name='identity-theft' cl='ui avatar image'
+                        |publish publically 
                     .ui.hidden.divider
                     .ui.red.circular.button.delete_checkin.fly_left
                         i.large.remove.icon

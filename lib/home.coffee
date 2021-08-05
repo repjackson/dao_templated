@@ -1,17 +1,4 @@
 if Meteor.isClient
-    Template.checkins.onCreated ->
-        @autorun => @subscribe 'checked_in_users', ->
-    Template.checkins.helpers
-        checked_in_users: ->
-            Meteor.users.find checkedin:true
-    Template.checkins.events
-        'click .checkout': ->
-            Meteor.users.update Meteor.userId(),
-                $set:checkedin:false
-
-
-
-
     Template.tag_picker.onCreated ->
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->
@@ -209,3 +196,8 @@ if Meteor.isServer
     Meteor.publish 'checked_in_users', ->
         Meteor.users.find
             checkedin:true
+    Meteor.publish 'checkins', ->
+        Docs.find 
+            model:'checkin'
+            
+            

@@ -273,7 +273,7 @@ Template.registerHelper 'model_docs_helper', (model) ->
         # group_id = Meteor.user().current_group_id
         
 Template.registerHelper 'connected', () -> 
-    console.log Meteor.status()
+    # console.log Meteor.status()
     if Meteor.status().status is 'connected' then true else false
 
 Template.registerHelper 'subs_ready', () -> 
