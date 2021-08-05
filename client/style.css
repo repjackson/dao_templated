@@ -514,9 +514,9 @@ img, .button{
 }
 
 
-.input{
+input{
     /*-webkit-border-radius: 10px !important;*/
-    /*border-radius: 0px !important;*/
+    border-radius: 10px !important;
 }
 input:not(.no_format){
     /* -webkit-border-radius: 10px !important; */ */
@@ -1109,12 +1109,12 @@ input.username_search{
 }
 
 #iron-router-progress {
-	background-color : black;
-	box-shadow       : 0 0 5px grey;
+	background-color : blue;
+	box-shadow       : 0 0 5px navy;
 }
 
 #iron-router-progress.spinner:before {
-	border-color : black;
+	border-color : blue;
 }
 
 .topnav::-webkit-scrollbar {

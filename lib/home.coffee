@@ -1,4 +1,11 @@
 if Meteor.isClient
+    Template.menu.onCreated ->
+        @autorun => @subscribe 'model_docs', 'drink', ->
+        @autorun => @subscribe 'model_docs', 'food', ->
+    Template.menu.helpers
+        drinks: ->
+            Docs.find 
+                model:'drink'
     Template.tag_picker.onCreated ->
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->

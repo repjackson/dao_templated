@@ -64,7 +64,7 @@ template(name='nav')
             else 
                 a.icon.item.toggle_leftbar.no_blink
                    i.bars.large.icon 
-            a.header.item.zoomer.fly_left(href='/')
+            a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute regex='home'}}")
                 img.ui.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                 span.mobile.hidden Backcountry
             if session_is 'is_global_searching' true
@@ -78,23 +78,23 @@ template(name='nav')
                 a.icon.item.init_global_search(title='search')
                     i.search.large.icon
                 
-            a.item.mobile.hidden(href='/inventory') 
-                i.list.icon
+            a.item.mobile.hidden(href='/inventory' class="{{isActiveRoute regex='inventory'}}")
+                i.large.list.icon
                 |inventory
-            a.item.mobile.hidden(href="/menu") 
-                i.food.icon
+            a.item.mobile.hidden(href="/menu" class="{{isActiveRoute regex='menu'}}")
+                i.large.food.icon
                 |menu
-            a.item.mobile.hidden(href='/sales')
-                i.money.icon
+            a.item.mobile.hidden(href='/sales' class="{{isActiveRoute regex='sales'}}")
+                i.large.money.icon
                 |sales
-            a.item.mobile.hidden(href="/loss") 
-                i.frown.icon
+            a.item.mobile.hidden(href="/loss" class="{{isActiveRoute regex='loss'}}")
+                i.large.frown.icon
                 |loss
-            a.item.mobile.hidden(href="/checkins")
-                i.checkmark.icon
+            a.item.mobile.hidden(href="/checkins" class="{{isActiveRoute regex='checkins'}}")
+                i.large.checkmark.icon
                 |check ins
-            a.item.mobile.hidden(href='/users')
-                i.users.icon
+            a.item.mobile.hidden(href='/users' class="{{isActiveRoute regex='users'}}")
+                i.large.users.icon
                 |users
             .right.menu
                 // if currentUser
