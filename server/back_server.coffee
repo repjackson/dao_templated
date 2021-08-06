@@ -7,8 +7,8 @@ Docs.allow
     # insert: (userId, doc) -> doc._author_id is userId
     insert: (userId, doc) -> true
     update: (userId, doc) ->
-        # true
-        if userId then true
+        true
+        # if userId then true
         # if doc.model in ['calculator_doc','simulated_rental_item','healthclub_session']
         #     true
         # else if Meteor.user() and Meteor.user().roles and 'admin' in Meteor.user().roles
@@ -46,6 +46,12 @@ Meteor.publish 'doc_by_id', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
+Meteor.publish 'model_docs', (model)->
+    Docs.find 
+        model:model
+        app:'bc'
+    
+
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 

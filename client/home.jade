@@ -24,15 +24,15 @@ template(name='home')
                         with current_post
                             +home_item
                     else if one_doc
-                        .ui.fluid.cards.scrollin.smallscroll
+                        .ui.fluid.cards.scrollin.smallscrol
                             each home_items
                                 +home_item
                     else if two_docs
-                        .ui.stackable.two.cards.scrollin.smallscroll
+                        .ui.stackable.two.cards.scrollin.smallscrol
                             each home_items
                                 +home_item
                     else 
-                        .ui.stackable.five.centered.cards.scrollin.smallscroll
+                        .ui.stackable.five.centered.cards.scrollin.smallscrol
                             each home_items
                                 +home_item
             .four.wide.column
@@ -98,21 +98,21 @@ template(name='menu')
     a.ui.header(href="/menu")
         i.food.icon
         |menu
-    .ui.two.column.stackable.grid
+    .ui.one.column.stackable.grid
         .column
             .ui.small.header 
                 i.food.icon
                 |food
             .ui.selection.link.list
-                each food_items
-                    a.item(href="/menu/#{_id}") #{title}
+                each food_docs
+                    a.item(href="/post/#{_id}") #{title}
         .column
             .ui.small.header 
                 i.beer.icon
                 |drinks
             .ui.selection.link.list
-                each drinks
-                    a.item(href="/menu/#{_id}") #{title}
+                each drink_docs
+                    a.item(href="/post/#{_id}") #{title}
             
             
 template(name='loss')
@@ -165,9 +165,8 @@ template(name='home_item')
                 |!{body}
             each tags
                 +flat_tag_picker
-                // .ui.button 
-                //     |#{this}
-    // with current_doc
+            .ui.large.label #{model}
+            +text_edit key='model' label='model' direct=true
 
                 
 

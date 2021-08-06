@@ -118,9 +118,9 @@ template(name='post_view')
                 .eight.wide.column
                     if image_url
                         +image_link_view key='image_url' direct=true
-                    else if image_id
+                    if image_id
                         +image_view key='image_id' direct=true 
-                    else if youtube_id
+                    if youtube_id
                         +youtube_view key='image_id' direct=true
                 
                     if is_admin
