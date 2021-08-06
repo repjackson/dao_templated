@@ -35,11 +35,15 @@ template(name='home')
                         .ui.stackable.five.centered.cards.scrollin.smallscroll
                             each home_items
                                 +home_item
-            .sixteen.wide.column
+            .four.wide.column
                 +inventory
+            .four.wide.column
                 +sales
+            .four.wide.column
                 +checkins
+            .four.wide.column
                 +menu
+            .four.wide.column
                 +orders
 
 
@@ -91,7 +95,7 @@ template(name='sales')
             
             
 template(name='menu')
-    .ui.header 
+    a.ui.header(href="/menu")
         i.food.icon
         |menu
     .ui.two.column.stackable.grid
@@ -112,11 +116,11 @@ template(name='menu')
             
             
 template(name='loss')
-    .ui.header 
+    a.ui.header(href="/loss") 
         i.frown.icon
         |loss
 template(name='orders')
-    .ui.header 
+    a.ui.header(href="/orders") 
         i.cart.icon
         |orders
     

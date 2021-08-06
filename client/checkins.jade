@@ -35,11 +35,11 @@
 //                             .ui.divider
      
 template(name='checkins')
-    .ui.two.column.stackable.grid
+    .ui.one.column.stackable.grid
         .column
             .ui.inline.header 
                 i.checkmark.icon
-                |checkins
+                |todays checkins
             if currentUser.checkedin
                 .ui.red.basic.inverted.small.compact.button.checkout
                     +i name='exit-sign' cl='ui avatar image'
@@ -47,7 +47,7 @@ template(name='checkins')
             else 
                 .ui.button.checkin
                     |checkin
-            .ui.link.selection.list
+            .ui.large.link.selection.list.smallscroll
                 each checkin_docs
                     a.item.fly_left(href="/checkin/#{_id}") 
                         |#{_author_username}
@@ -225,11 +225,12 @@ template(name='checkin_edit')
                         // i.checkmark.large.icon  
                         +i name='anonymous-mask' cl='ui avatar image'
                         |publish anonymously
-                    .ui.horizontal.divider or
-                    .ui.large.fluid.orange.button.publish_public.fly_left(title='complete checkin')
-                        // i.checkmark.large.icon   
-                        +i name='identity-theft' cl='ui avatar image'
-                        |publish publically 
+                    if currentUser
+                        .ui.horizontal.divider or
+                        .ui.large.fluid.orange.button.publish_public.fly_left(title='complete checkin')
+                            // i.checkmark.large.icon   
+                            +i name='identity-theft' cl='ui avatar image'
+                            |publish publically 
                     .ui.hidden.divider
                     .ui.red.circular.button.delete_checkin.fly_left
                         i.large.remove.icon

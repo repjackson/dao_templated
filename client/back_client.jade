@@ -107,6 +107,9 @@ template(name='nav')
                 //         |sign in
                 //       .right.menu
                 if currentUser
+                    if logging_out
+                        .icon.item
+                            i.large.refresh.loading.icon
                     // if in_role 'admin'
                     //     a.icon.item(href='/admin' title='admin')
                     //         i.large.shield.icon
