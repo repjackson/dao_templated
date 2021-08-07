@@ -26,6 +26,8 @@ template(name='badges')
                                 .content 
                                     .header #{title}
 
+template(name='user_badges')
+    .ui.header user badges
 template(name='badge_edit')
     with current_doc
         .ui.stackable.padded.grid
@@ -40,7 +42,7 @@ template(name='badge_edit')
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +textarea_edit key='notes' label='notes' direct=true
                     if in_dev
                         +print_this

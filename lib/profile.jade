@@ -47,10 +47,10 @@ template(name='user_layout')
                                 .ui.inline.header
                                     strong #{username}
                         if is_current_user
-                            a.ui.basic.circular.icon.button(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                                 i.cog.large.icon
                         if is_current_user
-                            .ui.basic.icon.button.logout(title='log out')
+                            .ui.basic.icon.button.logout.fly_down(title='log out')
                                 i.sign.out.alternate.large.icon
                         unless is_current_user
                             +friend_button

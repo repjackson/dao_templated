@@ -2,6 +2,9 @@ if Meteor.isClient
     Router.route '/badges', (->
         @render 'badges'
         ), name:'badges'
+    Router.route '/user/:username/badges', (->
+        @render 'user_badges'
+        ), name:'user_badges'
 
     Template.badges.onCreated ->
         @autorun -> Meteor.subscribe 'model_docs', 'badge'

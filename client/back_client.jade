@@ -258,6 +258,9 @@ template(name='right_sidebar')
             a.item.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                 i.chat.icon
                 |chat
+            a.item.toggle_rightbar(href="/user/#{username}/badges" class="{{isActiveRoute regex='user_badges'}}")
+                i.certificate.icon
+                |badges
             a.item.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
                 i.clock.icon
                 |timeclock
