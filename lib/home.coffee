@@ -8,9 +8,9 @@ if Meteor.isClient
         @autorun => @subscribe 'model_docs', 'item', ->
     Template.orders.onCreated ->
         @autorun => @subscribe 'model_docs', 'order', ->
-    Template.loss.onCreated ->
+    Template.losses.onCreated ->
         @autorun => @subscribe 'model_docs', 'loss', ->
-    Template.loss.helpers
+    Template.losses.helpers
         loss_docs: ->
             Docs.find 
                 model:'loss'

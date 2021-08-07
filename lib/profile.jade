@@ -35,8 +35,8 @@ template(name='user_layout')
                             .label
                                 |pts bought
                                 span(title='rank') (##{current_user.total_bought_credit_rank})
-                        .ui.header app:#{app}
-                        .ui.header roles:
+                        .ui.large.label app: #{app}
+                        .ui.inline.header roles:
                         each roles
                             .ui.basic.label #{this}
                         

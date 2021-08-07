@@ -1,54 +1,60 @@
 if Meteor.isClient
-    Router.route '/badges', (->
-        @render 'badges'
-        ), name:'badges'
-    Router.route '/user/:username/badges', (->
-        @render 'user_badges'
-        ), name:'user_badges'
+    Router.route '/losses', (->
+        @render 'losses'
+        ), name:'losses'
+    Router.route '/user/:username/losses', (->
+        @render 'user_losses'
+        ), name:'user_losses'
 
-    Template.badges.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'badge'
-        # @autorun -> Meteor.subscribe 'badges',
-        #     Session.get('badge_status_filter')
+    Template.losses.onCreated ->
+        @autorun -> Meteor.subscribe 'model_docs', 'loss'
+        # @autorun -> Meteor.subscribe 'losses',
+        #     Session.get('loss_status_filter')
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
-    Template.badges.events
-        'click .add_badge': ->
+    Template.losses.events
+        'click .add_loss': ->
             new_id = 
                 Docs.insert 
-                    model:'badge'
-            Router.go "/badge/#{new_id}/edit"
+                    model:'loss'
+            Router.go "/loss/#{new_id}/edit"
+
+    Template.losses.events
+        'click .new_loss': ->
+            new_id = 
+                Docs.insert 
+                    model:'loss'
+            Router.go "/loss/#{new_id}/edit"
 
 
-
-    Template.badges.helpers
-        badges: ->
-            match = {model:'badge'}
-            if Session.get('badge_status_filter')
-                match.status = Session.get('badge_status_filter')
-            if Session.get('badge_delivery_filter')
-                match.delivery_method = Session.get('badge_sort_filter')
-            if Session.get('badge_sort_filter')
-                match.delivery_method = Session.get('badge_sort_filter')
+    Template.losses.helpers
+        losses: ->
+            match = {model:'loss'}
+            if Session.get('loss_status_filter')
+                match.status = Session.get('loss_status_filter')
+            if Session.get('loss_delivery_filter')
+                match.delivery_method = Session.get('loss_sort_filter')
+            if Session.get('loss_sort_filter')
+                match.delivery_method = Session.get('loss_sort_filter')
             Docs.find match,
                 sort: _timestamp:-1
 
 
 if Meteor.isClient
-    Router.route '/badge/:doc_id', (->
+    Router.route '/loss/:doc_id', (->
         @layout 'layout'
-        @render 'badge_view'
-        ), name:'badge_view'
+        @render 'loss_view'
+        ), name:'loss_view'
 
 
-    Template.badge_view.onCreated ->
+    Template.loss_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'product_by_badge_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'badge_things', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'review_from_badge_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'product_by_loss_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'loss_things', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'review_from_loss_id', Router.current().params.doc_id
 
 
-    Template.badge_view.events
+    Template.loss_view.events
         'click .mark_viewed': ->
             # if confirm 'mark viewed?'
             Docs.update Router.current().params.doc_id, 
@@ -66,23 +72,23 @@ if Meteor.isClient
                     preparing_timestamp: Date.now()
                     status: 'preparing' 
        
-        'click .delete_badge': ->
+        'click .delete_loss': ->
             thing_count = Docs.find(model:'thing').count()
             if confirm "delete? #{thing_count} things still"
                 Docs.remove @_id
-                Router.go "/badges"
+                Router.go "/losses"
     
         'click .mark_ready': ->
             if confirm 'mark ready?'
                 Docs.insert 
-                    model:'badge_event'
-                    badge_id: Router.current().params.doc_id
-                    badge_status:'ready'
+                    model:'loss_event'
+                    loss_id: Router.current().params.doc_id
+                    loss_status:'ready'
 
         'click .add_review': ->
             Docs.insert 
-                model:'badge_review'
-                badge_id: Router.current().params.doc_id
+                model:'loss_review'
+                loss_id: Router.current().params.doc_id
                 
                 
         'click .review_positive': ->
@@ -94,21 +100,21 @@ if Meteor.isClient
                 $set:
                     rating:-1
 
-    Template.badge_view.helpers
-        badge_review: ->
+    Template.loss_view.helpers
+        loss_review: ->
             Docs.findOne 
-                model:'badge_review'
-                badge_id:Router.current().params.doc_id
+                model:'loss_review'
+                loss_id:Router.current().params.doc_id
     
-        can_badge: ->
+        can_loss: ->
             # if StripeCheckout
             unless @_author_id is Meteor.userId()
-                badge_count =
+                loss_count =
                     Docs.find(
-                        model:'badge'
-                        badge_id:@_id
+                        model:'loss'
+                        loss_id:@_id
                     ).count()
-                if badge_count is @servings_amount
+                if loss_count is @servings_amount
                     false
                 else
                     true
@@ -119,68 +125,68 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'badges', (badge_id, status)->
-        # badge = Docs.findOne badge_id
-        match = {model:'badge'}
+    Meteor.publish 'losses', (loss_id, status)->
+        # loss = Docs.findOne loss_id
+        match = {model:'loss'}
         if status 
             match.status = status
 
         Docs.find match
         
-    Meteor.publish 'review_from_badge_id', (badge_id)->
-        # badge = Docs.findOne badge_id
-        # match = {model:'badge'}
+    Meteor.publish 'review_from_loss_id', (loss_id)->
+        # loss = Docs.findOne loss_id
+        # match = {model:'loss'}
         Docs.find 
-            model:'badge_review'
-            badge_id:badge_id
+            model:'loss_review'
+            loss_id:loss_id
         
-    Meteor.publish 'product_by_badge_id', (badge_id)->
-        badge = Docs.findOne badge_id
+    Meteor.publish 'product_by_loss_id', (loss_id)->
+        loss = Docs.findOne loss_id
         Docs.find
-            _id: badge.product_id
-    Meteor.publish 'badge_things', (badge_id)->
-        badge = Docs.findOne badge_id
+            _id: loss.product_id
+    Meteor.publish 'loss_things', (loss_id)->
+        loss = Docs.findOne loss_id
         Docs.find
             model:'thing'
-            badge_id: badge_id
+            loss_id: loss_id
 
     # Meteor.methods
-        # badge_badge: (badge_id)->
-        #     badge = Docs.findOne badge_id
+        # loss_loss: (loss_id)->
+        #     loss = Docs.findOne loss_id
         #     Docs.insert
-        #         model:'badge'
-        #         badge_id: badge._id
-        #         badge_price: badge.price_per_serving
+        #         model:'loss'
+        #         loss_id: loss._id
+        #         loss_price: loss.price_per_serving
         #         buyer_id: Meteor.userId()
         #     Meteor.users.update Meteor.userId(),
-        #         $inc:credit:-badge.price_per_serving
-        #     Meteor.users.update badge._author_id,
-        #         $inc:credit:badge.price_per_serving
-        #     Meteor.call 'calc_badge_data', badge_id, ->
+        #         $inc:credit:-loss.price_per_serving
+        #     Meteor.users.update loss._author_id,
+        #         $inc:credit:loss.price_per_serving
+        #     Meteor.call 'calc_loss_data', loss_id, ->
 
 
 if Meteor.isServer
-    Meteor.publish 'product_from_badge_id', (badge_id)->
-        badge = Docs.findOne badge_id
+    Meteor.publish 'product_from_loss_id', (loss_id)->
+        loss = Docs.findOne loss_id
         Docs.find
             model:'product'
-            _id: badge.product_id
+            _id: loss.product_id
 
 
 if Meteor.isClient
-    Router.route '/badge/:doc_id/edit', (->
+    Router.route '/loss/:doc_id/edit', (->
         @layout 'layout'
-        @render 'badge_edit'
-        ), name:'badge_edit'
+        @render 'loss_edit'
+        ), name:'loss_edit'
 
 
 
-    Template.badge_edit.onCreated ->
+    Template.loss_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'source'
 
-    Template.badge_edit.onRendered ->
+    Template.loss_edit.onRendered ->
         # Meteor.setTimeout ->
         #     today = new Date()
         #     $('#availability')
@@ -191,7 +197,7 @@ if Meteor.isClient
         #         })
         # , 2000
 
-    Template.badge_edit.helpers
+    Template.loss_edit.helpers
         balance_after_purchase: ->
             Meteor.user().points - @purchase_amount
         percent_difference: ->
@@ -199,23 +205,23 @@ if Meteor.isClient
                 Meteor.user().points - @purchase_amount
             # difference
             @purchase_amount/Meteor.user().points
-    Template.badge_edit.events
-        'click .complete_badge': (e,t)->
+    Template.loss_edit.events
+        'click .complete_loss': (e,t)->
             console.log @
-            Session.set('badgeing',true)
+            Session.set('lossing',true)
             if @purchase_amount
                 if Meteor.user().points and @purchase_amount < Meteor.user().points
-                    Meteor.call 'complete_badge', @_id, =>
+                    Meteor.call 'complete_loss', @_id, =>
                         Router.go "/product/#{@product_id}"
-                        Session.set('badgeing',false)
+                        Session.set('lossing',false)
                 else 
                     alert "not enough points"
                     Router.go "/user/#{Meteor.user().username}/points"
-                    Session.set('badgeing',false)
+                    Session.set('lossing',false)
             else 
                 alert 'no purchase amount'
             
             
-        'click .delete_badge': ->
+        'click .delete_loss': ->
             Docs.remove @_id
             Router.go "/product/#{@product_id}"

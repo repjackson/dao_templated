@@ -52,13 +52,9 @@ template(name='item_view')
                     a.ui.icon.button.fly_left(href="/items")
                         i.chevron.left.icon
                         |items
-                    a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
-                        i.chevron.left.icon
-                        |#{product_doc.title}
-                        // +i name='invoice' cl='ui avatar image'
                     .ui.inline.header 
                         // strong '#{item_product.title}'
-                        +i name='invoice' cl='ui avatar image'
+                        +i name='inventory' cl='ui avatar image'
                         |item
                     // .ui.segment 
                     //     with item_product
@@ -89,4 +85,9 @@ template(name='item_view')
                         .ui.label #{this}
                     if is_admin
                         +print_this
-        
+                    .ui.header products used in
+                    each inventory_products
+                        .ui.header #{title}
+                    .ui.header inventory updates
+                    .ui.header current amount from calculation
+                    

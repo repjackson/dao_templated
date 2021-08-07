@@ -16,17 +16,16 @@ Router.route '/inventory', (->
 Router.route '/menu', (->
     @render 'menu'
     ), name:'menu'
-Router.route '/loss', (->
-    @render 'loss'
-    ), name:'loss'
 # Router.route '/', (->
 #     @layout 'layout'
 #     @render 'home'
 #     ), name:'home'
 
-Template.nav.events
+Template.right_sidebar.events
     'click .log_out': ->
         Meteor.logout()
+
+
 
 
 Router.configure
