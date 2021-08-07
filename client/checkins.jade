@@ -50,10 +50,19 @@ template(name='checkins')
             .ui.large.link.selection.list.smallscroll
                 each checkin_docs
                     a.item.fly_left(href="/checkin/#{_id}") 
-                        |#{_author_username}
-                        small #{when}
-                        each tags
-                            .ui.small.label #{this}
+                        .content
+                            if checkin_vote
+                                i.green.thumbs.up.icon
+                                each tags
+                                    .ui.large.green.label #{this}
+                            else 
+                                i.red.thumbs.down.icon
+                                each tags
+                                    .ui.large.red.label #{this}
+                            if anon 
+                                i.mask.icon
+                            |#{_author_username}
+                            small #{when}
         .column
             .ui.header
                 i.users.icon
