@@ -42,7 +42,21 @@ template(name='home')
             .four.wide.column
                 +checkins
             .four.wide.column
-                +menu
+                .ui.small.header 
+                    i.food.icon
+                    |food
+                .ui.selection.link.list.smallscroll
+                    each food_docs
+                        a.item(href="/post/#{_id}") #{title}
+            .four.wide.column
+                .ui.small.header 
+                    i.beer.icon
+                    |drinks
+                .ui.selection.link.list.smallscroll
+                    each drink_docs
+                        a.item(href="/post/#{_id}") #{title}
+                    
+
             .four.wide.column
                 +orders
 
@@ -93,26 +107,6 @@ template(name='sales')
         each sales_docs
             .item #{title}
             
-            
-template(name='menu')
-    a.ui.header(href="/menu")
-        i.food.icon
-        |menu
-    .ui.one.column.stackable.grid
-        .column
-            .ui.small.header 
-                i.food.icon
-                |food
-            .ui.selection.link.list
-                each food_docs
-                    a.item(href="/post/#{_id}") #{title}
-        .column
-            .ui.small.header 
-                i.beer.icon
-                |drinks
-            .ui.selection.link.list
-                each drink_docs
-                    a.item(href="/post/#{_id}") #{title}
             
             
 template(name='loss')

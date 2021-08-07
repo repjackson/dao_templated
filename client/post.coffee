@@ -268,7 +268,7 @@ if Meteor.isClient
             
         'click .delete_post': ->
             Docs.remove @_id
-            Router.go "/product/#{@product_id}"
+            Router.go "/"
 
 
     Template.linked_product.onCreated ->
