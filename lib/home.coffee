@@ -4,7 +4,20 @@ if Meteor.isClient
         @autorun => @subscribe 'model_docs', 'food', ->
     Template.home.onCreated ->
         @autorun => @subscribe 'model_docs', 'order', ->
+    Template.inventory.onCreated ->
         @autorun => @subscribe 'model_docs', 'item', ->
+    Template.orders.onCreated ->
+        @autorun => @subscribe 'model_docs', 'order', ->
+    Template.loss.onCreated ->
+        @autorun => @subscribe 'model_docs', 'loss', ->
+    Template.loss.helpers
+        loss_docs: ->
+            Docs.find 
+                model:'loss'
+    Template.inventory.helpers
+        item_docs: ->
+            Docs.find 
+                model:'item'
     Template.home.helpers
         drink_docs: ->
             Docs.find 
@@ -12,6 +25,9 @@ if Meteor.isClient
         food_docs: ->
             Docs.find 
                 model:'food'
+        item_docs: ->
+            Docs.find 
+                model:'item'
     Template.tag_picker.onCreated ->
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->

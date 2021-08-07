@@ -3,8 +3,11 @@ template(name='home')
         .ui.center.aligned.basic.segment
             i.huge.loading.food.grey.icon
     else
-        .ui.padded.stackable.grid
-            .sixteen.wide.column
+        .ui.padded.stackable.three.column.grid
+            .column
+                .ui.header 
+                    i.newspaper.icon
+                    |posts
                 // unless current_post
                 // unless subs_ready
                 //     .ui.center.aligned.basic.segment
@@ -24,41 +27,45 @@ template(name='home')
                         with current_post
                             +home_item
                     else if one_doc
-                        .ui.fluid.cards.scrollin.smallscrol
+                        .ui.cards.scrolling
                             each home_items
                                 +home_item
                     else if two_docs
-                        .ui.stackable.two.cards.scrollin.smallscrol
+                        .ui.stackable.two.cards.scrolling
                             each home_items
                                 +home_item
                     else 
-                        .ui.stackable.five.centered.cards.scrollin.smallscrol
+                        .ui.stackable.centered.cards.scrolling
                             each home_items
                                 +home_item
-            .four.wide.column
+            .column
                 +inventory
-            .four.wide.column
-                +sales
-            .four.wide.column
+            .column
                 +checkins
-            .four.wide.column
+            .column
+                +loss
+            .column
                 .ui.small.header 
                     i.food.icon
                     |food
-                .ui.selection.link.list.smallscroll
+                .ui.selection.link.large.list.smallscroll
                     each food_docs
-                        a.item(href="/post/#{_id}") #{title}
-            .four.wide.column
+                        a.item(href="/post/#{_id}") 
+                            img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                            |#{title}
+            .column
                 .ui.small.header 
                     i.beer.icon
                     |drinks
-                .ui.selection.link.list.smallscroll
+                .ui.selection.link.large.list.smallscroll
                     each drink_docs
-                        a.item(href="/post/#{_id}") #{title}
+                        a.item(href="/post/#{_id}") 
+                            img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                            |#{title}
+            .column
+                +orders
                     
 
-            .four.wide.column
-                +orders
 
 
 
@@ -94,29 +101,32 @@ template(name='inventory')
     .ui.header 
         i.list.icon
         |inventory
-    .ui.list
-        each inventory_docs
-            .item #{title}
+    .ui.selection.big.animated.list.smallscroll
+        each item_docs
+            a.item.zoomer(href="/item/#{_id}")
+                img.ui.avatar.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                .content
+                    .header #{title}
 
 
-template(name='sales')
+template(name='orders')
     .ui.header 
         i.money.icon
-        |sales
+        |orders
     .ui.list
-        each sales_docs
+        each order_docs
             .item #{title}
-            
             
             
 template(name='loss')
-    a.ui.header(href="/loss") 
+    .ui.header 
         i.frown.icon
         |loss
-template(name='orders')
-    a.ui.header(href="/orders") 
-        i.cart.icon
-        |orders
+    .ui.list
+        each loss_docs
+            .item #{title}
+            
+            
     
     
     
