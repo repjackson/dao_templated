@@ -183,7 +183,7 @@ if Meteor.isClient
 
     Template.loss_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'model_docs', 'product', ->
         # @autorun => Meteor.subscribe 'model_docs', 'source'
 
     Template.loss_edit.onRendered ->

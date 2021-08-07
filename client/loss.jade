@@ -39,7 +39,18 @@ template(name='loss_edit')
                     div
                     .ui.header #{when}
                 .eight.wide.column
-                    +text_edit key='title' label='title' direct=true
+                    .ui.header product
+                    if picked_product
+                        with picked_product
+                            .ui.header #{title}
+                            .ui.button.clear_product
+                                i.remove.icon
+                    else 
+                        .ui.header pick product
+                        each unpicked_products
+                            .ui.big.button.pick_product #{title}
+                            
+                            
                     +image_edit key='image_id' label='image' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
