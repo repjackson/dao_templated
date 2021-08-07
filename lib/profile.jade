@@ -142,7 +142,8 @@ template(name='user_dashboard')
                     |roles
                 each roles
                     .ui.label #{this}
-                .ui.header role (placeholder during beta): #{role}
+                .ui.header roles #{role}
+                .ui.header badges #{role}
                 
             unless is_current_user
                 .ui.button.send_points

@@ -64,8 +64,10 @@ if Meteor.isServer
                 Meteor.users.update found_user._id,
                     $set:app:'bc'
             else
-                Accounts.createUser(options)
-
+                new_id = Accounts.createUser(options)
+                Meteor.users.update new_id,
+                    $set:app:'bc'
+                new_id
 
     # Meteor.publish 'users', (limit)->
     #     match = {membership_group_ids:$in:[Meteor.user().current_group_id]}
