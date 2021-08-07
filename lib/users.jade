@@ -1,6 +1,8 @@
 template(name='users')
     .ui.padded.stackable.grid
         .four.wide.column
+            a.ui.button.add_user
+                |add
             +user_cloud
         .twelve.wide.column
             +session_set key='view_users' value='grid' icon='th' 

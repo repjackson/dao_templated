@@ -1,0 +1,92 @@
+template(name='items')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column.scrolling
+            .ui.stackable.grid 
+                .four.wide.column
+                    .ui.header 
+                        |alerts
+                        i.alert.icon
+                    |view
+                    // +session_set key='item_sort_filter' value='open'               
+                    +session_set key='item_sort_filter' value='now'               
+                    +session_set key='item_sort_filter' value='later'   
+                    +session_set key='item_sort_filter' value=null label='all'
+                    |delivery
+                    +session_set key='item_delivery_filter' value='pickup'   
+                    +session_set key='item_delivery_filter' value='delivery'   
+                    +session_set key='item_delivery_filter' value=null label='all'   
+                    +session_set key='item_status_filter' value='cart' label='cart' icon='cart'   
+//                     +session_set key='item_status_filter' value=null label='all status' icon='cart'   
+
+
+template(name='item_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        small item
+                    div
+                    .ui.header #{when}
+                .eight.wide.column
+                    .ui.header price: #{purchase_amount}pts
+                    .ui.header balance #{currentUser.points}pts
+                    .ui.header balance after purchase #{balance_after_purchase}pts
+                        small ({{fixed percent_difference}}% difference)
+                    div
+                    // +image_edit key='image_id' label='image' direct=true
+                    // +array_edit key='tags' label='tags' icon='tags' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +textarea_edit key='notes' label='notes' direct=true
+                    if in_dev
+                        +print_this
+        
+        
+        
+template(name='item_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    a.ui.icon.button.fly_left(href="/items")
+                        i.chevron.left.icon
+                        |items
+                    a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
+                        i.chevron.left.icon
+                        |#{product_doc.title}
+                        // +i name='invoice' cl='ui avatar image'
+                    .ui.inline.header 
+                        // strong '#{item_product.title}'
+                        +i name='invoice' cl='ui avatar image'
+                        |item
+                    // .ui.segment 
+                    //     with item_product
+                    //         a(href="/product/#{_id}")
+                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                    //         a.ui.header(href="/product/#{_id}") #{title}
+                    //         // - .ui.header #{cook_tip} cook tip
+                    //         // .ui.header $#{item_total_transaction_amount} 
+                    //         //     small total transaction amount
+                    div
+                    .ui.inline.header 
+                        i.clock.icon
+                        small started
+                        strong #{when}
+                        small by
+                        strong #{_author_username}
+                .twelve.wide.column
+                    // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    if image_url
+                        +image_link_view key='image_url' direct=true
+                    else if image_id
+                        +image_view key='image_id' direct=true 
+                    else if youtube_id
+                        +youtube_view key='image_id' direct=true
+
+                    .ui.header #{title}
+                    each tags
+                        .ui.label #{this}
+                    if is_admin
+                        +print_this
+        
