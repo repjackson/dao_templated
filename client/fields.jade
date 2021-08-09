@@ -161,10 +161,10 @@ template(name='image_edit')
             
 
 template(name='image_link_edit')
-    .ui.fluid.input
-        .ui.label image link
+    .ui.fluid.labeled.icon.input
+        .label image link
         i.image.icon
-        input.image_link_val(type='link' value=field_value placeholder='image link'  autocomplete="off")
+        input.image_link_val(type='link' value=field_value placeholder='full url'  autocomplete="off")
     if field_value
         img.ui.fluid.image(src=field_value)
     // +call_visual
@@ -248,19 +248,19 @@ template(name='textarea_edit')
 
         
 template(name='text_edit')
-    div
-    if icon
-        //- i.grey.icon(class=icon)
-        +icon name=icon cl='ui avatar image'
-    .ui.inline.small.header
-        if title
-            |#{title}
-        else if label
-            |#{label}
-        else if key
-            |#{key}
-            //- +clear_value
+    // div
     .ui.icon.large.fluid.input
+        .ui.inline.small.header
+            if icon
+                //- i.grey.icon(class=icon)
+                +icon name=icon cl='ui avatar image'
+            if title
+                |#{title}
+            else if label
+                |#{label}
+            else if key
+                |#{key}
+                //- +clear_value
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 

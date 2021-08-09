@@ -11,7 +11,7 @@ body {
     /*background: rgba(200,200,200,1) !important;*/
     /*filter: invert(1) !important; */
     /* overscroll-behavior: none; */
-    /*transition: all .5s ease !important;*/
+    /*transition: all 1s ease !important;*/
      /*background: #0e0e44 !important; */
 }
 
@@ -19,13 +19,13 @@ body {
 .pointer:hover {
     cursor: pointer !important;
     filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
-    transition: transform .5s; /* Animation */
+    transition: transform 1s; /* Animation */
     /*border-radius: 10px !important;*/
     transfom: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .global_search_input {
-    animation: fadein .5s !important;
+    animation: fadein 1s !important;
     animation: slide 1s !important;
     transition: 1s ease-in-out
 }
@@ -35,7 +35,7 @@ body {
   border-radius: 10px !important;
 }
 .button:hover {
-  transition: transform .5s; /* Animation */
+  transition: transform 1s; /* Animation */
   transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   /*margin:.1em !important;*/
 }
@@ -130,10 +130,10 @@ body, p, header {
     animation: drop 1s !important;
 }
 .button, .selector, .card, p, .header, .image, .fade {
-    animation: fadein .5s !important;
+    animation: fadein 1s !important;
     /*animation: slide 1s !important;*/
      /*-webkit-transition: opacity 2s ease-out; */
-    /* animation: fadeout .5s; */
+    /* animation: fadeout 1s; */
 }
 @keyframes fadein {
   from { opacity: 0}
@@ -351,7 +351,7 @@ img, .button{
 
 /*}*/
 .button:hover {
-    transition: transform .5s; /* Animation */
+    transition: transform 1s; /* Animation */
     transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     /*box-shadow: inset 0px 0px 10px 10px rgba(250,250,250,0.8);*/
 }
@@ -417,10 +417,10 @@ img, .button{
 
 
 .home_segment{
-    -webkit-transition: all 0.5s ease;
-    -moz-transition: all 0.5s ease;
-    -o-transition: all 0.5s ease;
-    transition: all 0.5s ease;
+    -webkit-transition: all 01s ease;
+    -moz-transition: all 01s ease;
+    -o-transition: all 01s ease;
+    transition: all 01s ease;
     /* border-radius: 10px !important; */
     margin: 0px !important;
 }
@@ -465,8 +465,8 @@ img, .button{
 }
 
 .move {
-    transition: position 0.5s ease-out !important;
-    transition: height 0.5s ease-out !important;
+    transition: position 01s ease-out !important;
+    transition: height 01s ease-out !important;
 }
 
 .profile_grid {
@@ -709,9 +709,9 @@ input.username_search{
 
 
 .button, .selector, .card, p, .header, .item:not(.animated), .image, .fade {
-    animation: fadein .5s;
+    animation: fadein 1s;
      /*-webkit-transition: opacity 2s ease-out; */
-    /* animation: fadeout .5s; */
+    /* animation: fadeout 1s; */
 }
 .global_container {
     padding-left:5px !important;
@@ -760,7 +760,7 @@ input.username_search{
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/
 }
 .ui.header{
-    animation: fadein .5s;
+    animation: fadein 1s;
      /*font-family: 'Benne', sans-serif !important; */
     /* font-family: 'Lusitana', serif !important; */
     /* font-size: 300% !important; */
@@ -770,14 +770,14 @@ input.username_search{
 }
 
 .label {
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
 .segment{
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
 
 /*.icon {*/
-/*  animation: fadein .5s;*/
+/*  animation: fadein 1s;*/
   /*filter: invert(.9) !important;*/
 /*}*/
 
@@ -787,10 +787,10 @@ input.username_search{
 }
 
 #main {
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
 .result_column, .comment {
-  animation: fadein .5s;
+  animation: fadein 1s;
 }
 
 @media screen and (max-width: 1100px) {
@@ -1093,7 +1093,7 @@ input.username_search{
 	/*max-height:1000px;*/
 	/*max-height:85vh;*/
     /* transition: background-color 3s; /* Animation */
-    /* transition: height .5s; /* Animation */
+    /* transition: height 1s; /* Animation */
     /* box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important; */
 
     /* background-color: (250,250,250,.1) !important; */

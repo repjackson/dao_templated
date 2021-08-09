@@ -67,16 +67,16 @@ template(name='nav')
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute regex='home'}}")
                 img.ui.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                 span.mobile.hidden Backcountry
-            if session_is 'is_global_searching' true
-                .ui.icon.transparent.input.global_search_input
-                    i.link.large.remove.white.icon.clear_search.zoomer(title='clear search')
-                    // if current_search
-                    // else
-                    //     i.search.icon
-                    input.global_search(type='text' value=current_search autocomplete="off")
-            else
-                a.icon.item.init_global_search(title='search')
-                    i.search.large.icon
+            // if session_is 'is_global_searching' true
+            //     .ui.icon.transparent.input.global_search_input
+            //         i.link.large.remove.white.icon.clear_search.zoomer(title='clear search')
+            //         // if current_search
+            //         // else
+            //         //     i.search.icon
+            //         input.global_search(type='text' value=current_search autocomplete="off")
+            // else
+            //     a.icon.item.init_global_search(title='search')
+            //         i.search.large.icon
                 
             a.item.mobile.hidden(href='/inventory' class="{{isActiveRoute regex='inventory'}}")
                 i.large.database.icon
@@ -113,11 +113,11 @@ template(name='nav')
                     if logging_out
                         .icon.item
                             i.large.refresh.loading.icon
-                    // if in_role 'admin'
-                    //     a.icon.item(href='/admin' title='admin')
-                    //         i.large.shield.icon
-                    // a.icon.item.toggle_topbar(title='alerts')
-                    //     i.bell.outline.large.icon
+                    if in_role 'admin'
+                        a.icon.item(href='/admin' title='admin')
+                            i.large.shield.icon
+                    a.icon.item.toggle_topbar(title='alerts')
+                        i.bell.outline.large.icon
                     a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                         // i.wallet.icon
                         strong {{int currentUser.points}}p
