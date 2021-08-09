@@ -38,27 +38,29 @@ template(name='loss_edit')
                         small loss
                     div
                     .ui.header #{when}
-                .eight.wide.column
-                    .ui.header product
-                    if picked_ref
-                        with picked_ref
-                            .ui.header #{title}
-                            .ui.button.clear_product
-                                i.remove.icon
-                    else 
-                        .ui.header pick product
-                        each unpicked_refs
-                            .ui.big.button.pick_product #{title}
-                            
-                            
-                    +image_edit key='image_id' label='image' direct=true
-                    +array_edit key='tags' label='tags' icon='tags' direct=true
-                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +textarea_edit key='notes' label='notes' direct=true
                     if in_dev
                         +print_this
                     a.ui.large.fluid.icon.green.button.fly_up(href="/loss/#{_id}")
                         i.large.checkmark.icon
+                .twelve.wide.column
+                    .ui.header product
+                    if picked_ref
+                        with picked_ref
+                            img.ui.small.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                            .ui.inline.header
+                                |#{title}
+                            .ui.circular.red.basic.icon.button.clear_ref
+                                i.remove.icon
+                    else 
+                        .ui.header pick product
+                        each unpicked_refs
+                            .ui.big.basic.button.pick_ref
+                                img.ui.small.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                                |#{title}
+                    +image_edit key='image_id' label='image' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
         
         
 template(name='loss_view')

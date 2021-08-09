@@ -143,7 +143,7 @@ if Meteor.isServer
     Meteor.publish 'product_by_loss_id', (loss_id)->
         loss = Docs.findOne loss_id
         Docs.find
-            _id: loss.product_id
+            _id: loss.ref_id
     Meteor.publish 'loss_things', (loss_id)->
         loss = Docs.findOne loss_id
         Docs.find
@@ -170,7 +170,7 @@ if Meteor.isServer
         loss = Docs.findOne loss_id
         Docs.find
             model:'product'
-            _id: loss.product_id
+            _id: loss.ref_id
 
 
 if Meteor.isClient
@@ -206,8 +206,8 @@ if Meteor.isClient
         picked_ref: ->
             current_loss_doc = Docs.findOne Router.current().params.doc_id
             Docs.findOne 
-                model:'ref'
-                _id:current_loss_doc.product_id
+                model:'food'
+                _id:current_loss_doc.ref_id
         # balance_after_purchase: ->
         #     Meteor.user().points - @purchase_amount
         # percent_difference: ->
@@ -220,6 +220,10 @@ if Meteor.isClient
             current_loss_doc = Docs.findOne Router.current().params.doc_id
             Docs.update Router.current().params.doc_id,
                 $set:ref_id:@_id
+        'click .clear_ref': (e,t)->
+            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            Docs.update Router.current().params.doc_id,
+                $unset:ref_id:1
 
         # 'click .complete_loss': (e,t)->
         #     console.log @

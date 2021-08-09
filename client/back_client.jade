@@ -53,7 +53,7 @@ template(name='layout')
             //     +admin_footer
       
 template(name='nav')
-    .ui.fluid.inverted.attached.blue.menu.topnav
+    .ui.fluid.inverted.attached.blue.large.menu.topnav
         unless connected
             .item 
                 +status
@@ -79,23 +79,26 @@ template(name='nav')
                     i.search.large.icon
                 
             a.item.mobile.hidden(href='/inventory' class="{{isActiveRoute regex='inventory'}}")
-                i.large.list.icon
-                |inventory
-            a.item.mobile.hidden(href="/menu" class="{{isActiveRoute regex='menu'}}")
+                i.large.database.icon
+                // |inventory
+            a.icon.item.mobile.hidden(href="/menu" class="{{isActiveRoute regex='menu'}}")
                 i.large.food.icon
-                |menu
-            a.item.mobile.hidden(href='/sales' class="{{isActiveRoute regex='sales'}}")
+                // |menu
+            a.icon.item.mobile.hidden(href='/sales' class="{{isActiveRoute regex='sales'}}")
                 i.large.money.icon
-                |sales
-            a.item.mobile.hidden(href="/losses" class="{{isActiveRoute regex='losses'}}")
+                // |sales
+            a.icon.item.mobile.hidden(href="/losses" class="{{isActiveRoute regex='losses'}}")
                 i.large.frown.icon
-                |losses
-            a.item.mobile.hidden(href="/checkins" class="{{isActiveRoute regex='checkins'}}")
+                // |losses
+            a.icon.item.mobile.hidden(href="/checkins" class="{{isActiveRoute regex='checkins'}}")
                 i.large.checkmark.icon
-                |check ins
-            a.item.mobile.hidden(href='/users' class="{{isActiveRoute regex='users'}}")
+                // |check ins
+            a.icon.item.mobile.hidden(href='/users' class="{{isActiveRoute regex='users'}}")
                 i.large.users.icon
-                |users
+                // |users
+            a.icon.item.mobile.hidden(href='/tasks' class="{{isActiveRoute regex='tasks'}}")
+                i.large.tasks.icon
+                // |users
             .right.menu
                 // if currentUser
                 //     a.item.log_out(title='sign out')
