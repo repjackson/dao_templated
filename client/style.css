@@ -1093,22 +1093,22 @@ input.username_search{
 	/*max-height:1000px;*/
 	/*max-height:85vh;*/
     /* transition: background-color 3s; /* Animation */
-    /* transition: height .5s; /* Animation */ */
+    /* transition: height .5s; /* Animation */
     /* box-shadow: 0 2px 2px 2px rgba(50, 50, 100, 0.1) !important; */
 
     /* background-color: (250,250,250,.1) !important; */
 	/* padding: 1em; */
     /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,.8))); */
-    /* mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */ */
-}
+    /* mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
+/*}*/
 
 #iron-router-progress {
-	background-color : blue;
-	box-shadow       : 0 0 5px navy;
+	background-color : grey;
+	box-shadow       : 0 0 5px white;
 }
 
 #iron-router-progress.spinner:before {
-	border-color : blue;
+	border-color : grey;
 }
 
 .topnav::-webkit-scrollbar {
