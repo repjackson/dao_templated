@@ -183,7 +183,7 @@ if Meteor.isClient
 
     Template.loss_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'product', ->
+        @autorun => Meteor.subscribe 'model_docs', 'food', ->
         # @autorun => Meteor.subscribe 'model_docs', 'source'
 
     Template.loss_edit.onRendered ->
@@ -198,30 +198,45 @@ if Meteor.isClient
         # , 2000
 
     Template.loss_edit.helpers
-        balance_after_purchase: ->
-            Meteor.user().points - @purchase_amount
-        percent_difference: ->
-            balance_after_purchase = 
-                Meteor.user().points - @purchase_amount
-            # difference
-            @purchase_amount/Meteor.user().points
+        unpicked_refs: ->
+            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            Docs.find   
+                model:'food'
+                _id:$ne:current_loss_doc.ref_id
+        picked_ref: ->
+            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            Docs.findOne 
+                model:'ref'
+                _id:current_loss_doc.product_id
+        # balance_after_purchase: ->
+        #     Meteor.user().points - @purchase_amount
+        # percent_difference: ->
+        #     balance_after_purchase = 
+        #         Meteor.user().points - @purchase_amount
+        #     # difference
+        #     @purchase_amount/Meteor.user().points
     Template.loss_edit.events
-        'click .complete_loss': (e,t)->
-            console.log @
-            Session.set('lossing',true)
-            if @purchase_amount
-                if Meteor.user().points and @purchase_amount < Meteor.user().points
-                    Meteor.call 'complete_loss', @_id, =>
-                        Router.go "/product/#{@product_id}"
-                        Session.set('lossing',false)
-                else 
-                    alert "not enough points"
-                    Router.go "/user/#{Meteor.user().username}/points"
-                    Session.set('lossing',false)
-            else 
-                alert 'no purchase amount'
+        'click .pick_ref': (e,t)->
+            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            Docs.update Router.current().params.doc_id,
+                $set:ref_id:@_id
+
+        # 'click .complete_loss': (e,t)->
+        #     console.log @
+        #     Session.set('lossing',true)
+        #     if @purchase_amount
+        #         if Meteor.user().points and @purchase_amount < Meteor.user().points
+        #             Meteor.call 'complete_loss', @_id, =>
+        #                 Router.go "/ref/#{@ref_id}"
+        #                 Session.set('lossing',false)
+        #         else 
+        #             alert "not enough points"
+        #             Router.go "/user/#{Meteor.user().username}/points"
+        #             Session.set('lossing',false)
+        #     else 
+        #         alert 'no purchase amount'
             
             
         'click .delete_loss': ->
             Docs.remove @_id
-            Router.go "/product/#{@product_id}"
+            Router.go "/"

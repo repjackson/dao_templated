@@ -40,14 +40,14 @@ template(name='loss_edit')
                     .ui.header #{when}
                 .eight.wide.column
                     .ui.header product
-                    if picked_product
-                        with picked_product
+                    if picked_ref
+                        with picked_ref
                             .ui.header #{title}
                             .ui.button.clear_product
                                 i.remove.icon
                     else 
                         .ui.header pick product
-                        each unpicked_products
+                        each unpicked_refs
                             .ui.big.button.pick_product #{title}
                             
                             
