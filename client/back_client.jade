@@ -211,9 +211,9 @@ template(name='left_sidebar')
         a.item.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
             i.large.shield.icon
             | #{posts.count} roles
-        a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
-            i.large.marker.icon
-            |locations
+        // a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
+        //     i.large.marker.icon
+        //     |locations
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             i.large.user.friends.icon
             | #{users.count} users

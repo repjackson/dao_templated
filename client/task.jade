@@ -4,6 +4,7 @@ template(name='tasks')
             .four.wide.column
                 .ui.header 
                     i.tasks.icon
+                    |#{tasks.count}
                     |tasks
                 .ui.icon.large.button.new_task
                     i.green.plus.icon
@@ -49,9 +50,9 @@ template(name='tasks')
                     with picked_task_doc
                         +picked_task
                 else 
-                    .ui.small.button.new_task 
-                        i.plus.icon
-                        |new task 
+                    // .ui.icon.basic.button.new_task 
+                    //     i.plus.icon
+                    //     // |new task 
                     i.refresh.link.icon.refresh_tasks_stats
                     with tasks_stats_doc
                         .ui.small.grey.header #{total_tasks} total tasks 
