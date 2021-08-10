@@ -7,19 +7,6 @@ Router.configure
 Router.route '/', (->
     @render 'home'
     ), name:'home'
-Router.route '/sales', (->
-    @render 'sales'
-    ), name:'sales'
-Router.route '/inventory', (->
-    @render 'inventory'
-    ), name:'inventory'
-Router.route '/menu', (->
-    @render 'menu'
-    ), name:'menu'
-# Router.route '/', (->
-#     @layout 'layout'
-#     @render 'home'
-#     ), name:'home'
 
 Template.right_sidebar.events
     'click .log_out': ->

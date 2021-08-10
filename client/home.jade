@@ -104,16 +104,6 @@ template(name='tag_picker')
 
 
         
-template(name='inventory')
-    .ui.header 
-        i.list.icon
-        |inventory
-    .ui.selection.big.animated.list.smallscroll
-        each item_docs
-            a.item.zoomer.fly_left(href="/item/#{_id}")
-                img.ui.avatar.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                .content
-                    .header #{title}
 
 
 template(name='orders')

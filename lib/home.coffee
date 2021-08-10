@@ -4,8 +4,6 @@ if Meteor.isClient
         @autorun => @subscribe 'model_docs', 'food', ->
     Template.home.onCreated ->
         @autorun => @subscribe 'model_docs', 'order', ->
-    Template.inventory.onCreated ->
-        @autorun => @subscribe 'model_docs', 'item', ->
     Template.orders.onCreated ->
         @autorun => @subscribe 'model_docs', 'order', ->
     Template.losses.onCreated ->
@@ -14,7 +12,7 @@ if Meteor.isClient
         loss_docs: ->
             Docs.find 
                 model:'loss'
-    Template.inventory.helpers
+    Template.items.helpers
         item_docs: ->
             Docs.find 
                 model:'item'

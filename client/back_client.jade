@@ -80,15 +80,15 @@ template(name='nav')
             //     a.icon.item.init_global_search(title='search')
             //         i.search.large.icon
                 
-            a.icon.item.mobile.hidden(href='/inventory' class="{{isActiveRoute regex='inventory'}}" title='inventory')
+            a.icon.item.mobile.hidden(href='/items' class="{{isActiveRoute regex='items'}}" title='items')
                 i.large.database.icon
-                // |inventory
+                // |items
             a.icon.item.mobile.hidden(href="/menu" class="{{isActiveRoute regex='menu'}}" title='menu')
                 i.large.food.icon
                 // |menu
-            a.icon.item.mobile.hidden(href='/sales' class="{{isActiveRoute regex='sales'}}" title='sales')
+            a.icon.item.mobile.hidden(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
                 i.large.money.icon
-                // |sales
+                // |orders
             a.icon.item.mobile.hidden(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
                 i.large.frown.icon
                 // |losses
@@ -192,7 +192,7 @@ template(name='left_sidebar')
             | #{product_count} products
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             i.large.list.icon
-            | #{items.count} inventory
+            | #{items.count} items
         a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
             i.large.tasks.icon
             | #{tasks.count} tasks

@@ -21,8 +21,10 @@ if Meteor.isClient
             # Session.get('view_complete')
             # Session.get('view_incomplete')
             )
-        @autorun => Meteor.subscribe 'model_docs', 'tasks_stats'
+        @autorun => Meteor.subscribe 'model_docs', 'task'
+        # @autorun => Meteor.subscribe 'model_docs', 'tasks_stats'
         @autorun => Meteor.subscribe 'current_tasks'
+        
     Template.tasks.events
         'click .toggle_complete': ->
             Session.set('view_complete', !Session.get('view_complete'))
@@ -32,6 +34,7 @@ if Meteor.isClient
                     model:'task'
             Session.set('editing_task', true)
             Session.set('picked_task_id', new_task_id)
+            Router.go "/task/#{new_task_id}/edit"
         'click .unselect_task': ->
             Session.set('picked_task_id', null)
 
@@ -43,7 +46,7 @@ if Meteor.isClient
         current_tasks: ->
             Docs.find
                 model:'task'
-                current:true
+                # current:true
         tasks_stats_doc: ->
             Docs.findOne
                 model:'tasks_stats'

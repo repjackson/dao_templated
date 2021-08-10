@@ -1,4 +1,6 @@
 if Meteor.isClient
+    Template.items.onCreated ->
+        @autorun => @subscribe 'model_docs', 'item', ->
     Router.route '/items', (->
         @render 'items'
         ), name:'items'

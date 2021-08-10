@@ -1,23 +1,16 @@
 template(name='items')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
-            .ui.stackable.grid 
-                .four.wide.column
-                    .ui.header 
-                        |alerts
-                        i.alert.icon
-                    |view
-                    // +session_set key='item_sort_filter' value='open'               
-                    +session_set key='item_sort_filter' value='now'               
-                    +session_set key='item_sort_filter' value='later'   
-                    +session_set key='item_sort_filter' value=null label='all'
-                    |delivery
-                    +session_set key='item_delivery_filter' value='pickup'   
-                    +session_set key='item_delivery_filter' value='delivery'   
-                    +session_set key='item_delivery_filter' value=null label='all'   
-                    +session_set key='item_status_filter' value='cart' label='cart' icon='cart'   
-//                     +session_set key='item_status_filter' value=null label='all status' icon='cart'   
-
+            .ui.header 
+                i.list.icon
+                |inventory
+            .ui.selection.big.animated.list.smallscroll
+                each item_docs
+                    a.item.zoomer.fly_left(href="/item/#{_id}")
+                        img.ui.avatar.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        .content
+                            .header #{title}
+        
 
 template(name='item_edit')
     with current_doc
