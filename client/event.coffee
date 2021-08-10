@@ -7,54 +7,54 @@ if Meteor.isClient
         ), name:'user_events'
 
     Template.events.onCreated ->
-        @autorun -> Meteor.subscribe 'model_docs', 'loss'
+        @autorun -> Meteor.subscribe 'model_docs', 'event'
         # @autorun -> Meteor.subscribe 'events',
-        #     Session.get('loss_status_filter')
+        #     Session.get('event_status_filter')
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
     Template.events.events
-        'click .add_loss': ->
+        'click .add_event': ->
             new_id = 
                 Docs.insert 
-                    model:'loss'
-            Router.go "/loss/#{new_id}/edit"
+                    model:'event'
+            Router.go "/event/#{new_id}/edit"
 
     Template.events.events
-        'click .new_loss': ->
+        'click .new_event': ->
             new_id = 
                 Docs.insert 
-                    model:'loss'
-            Router.go "/loss/#{new_id}/edit"
+                    model:'event'
+            Router.go "/event/#{new_id}/edit"
 
 
     Template.events.helpers
         events: ->
-            match = {model:'loss'}
-            if Session.get('loss_status_filter')
-                match.status = Session.get('loss_status_filter')
-            if Session.get('loss_delivery_filter')
-                match.delivery_method = Session.get('loss_sort_filter')
-            if Session.get('loss_sort_filter')
-                match.delivery_method = Session.get('loss_sort_filter')
+            match = {model:'event'}
+            if Session.get('event_status_filter')
+                match.status = Session.get('event_status_filter')
+            if Session.get('event_delivery_filter')
+                match.delivery_method = Session.get('event_sort_filter')
+            if Session.get('event_sort_filter')
+                match.delivery_method = Session.get('event_sort_filter')
             Docs.find match,
                 sort: _timestamp:-1
 
 
 if Meteor.isClient
-    Router.route '/loss/:doc_id', (->
+    Router.route '/event/:doc_id', (->
         @layout 'layout'
-        @render 'loss_view'
-        ), name:'loss_view'
+        @render 'event_view'
+        ), name:'event_view'
 
 
-    Template.loss_view.onCreated ->
+    Template.event_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'product_by_loss_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'loss_things', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'review_from_loss_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'product_by_event_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'event_things', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'review_from_event_id', Router.current().params.doc_id
 
 
-    Template.loss_view.events
+    Template.event_view.events
         'click .mark_viewed': ->
             # if confirm 'mark viewed?'
             Docs.update Router.current().params.doc_id, 
@@ -72,7 +72,7 @@ if Meteor.isClient
                     preparing_timestamp: Date.now()
                     status: 'preparing' 
        
-        'click .delete_loss': ->
+        'click .delete_event': ->
             thing_count = Docs.find(model:'thing').count()
             if confirm "delete? #{thing_count} things still"
                 Docs.remove @_id
@@ -81,14 +81,14 @@ if Meteor.isClient
         'click .mark_ready': ->
             if confirm 'mark ready?'
                 Docs.insert 
-                    model:'loss_event'
-                    loss_id: Router.current().params.doc_id
-                    loss_status:'ready'
+                    model:'event_event'
+                    event_id: Router.current().params.doc_id
+                    event_status:'ready'
 
         'click .add_review': ->
             Docs.insert 
-                model:'loss_review'
-                loss_id: Router.current().params.doc_id
+                model:'event_review'
+                event_id: Router.current().params.doc_id
                 
                 
         'click .review_positive': ->
@@ -100,21 +100,21 @@ if Meteor.isClient
                 $set:
                     rating:-1
 
-    Template.loss_view.helpers
-        loss_review: ->
+    Template.event_view.helpers
+        event_review: ->
             Docs.findOne 
-                model:'loss_review'
-                loss_id:Router.current().params.doc_id
+                model:'event_review'
+                event_id:Router.current().params.doc_id
     
-        can_loss: ->
+        can_event: ->
             # if StripeCheckout
             unless @_author_id is Meteor.userId()
-                loss_count =
+                event_count =
                     Docs.find(
-                        model:'loss'
-                        loss_id:@_id
+                        model:'event'
+                        event_id:@_id
                     ).count()
-                if loss_count is @servings_amount
+                if event_count is @servings_amount
                     false
                 else
                     true
@@ -125,16 +125,16 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'events', (loss_id, status)->
-        # loss = Docs.findOne loss_id
-        match = {model:'loss'}
+    Meteor.publish 'events', (event_id, status)->
+        # event = Docs.findOne event_id
+        match = {model:'event'}
         if status 
             match.status = status
 
         Docs.find match
         
-    Meteor.publish 'review_from_loss_id', (loss_id)->
-        # loss = Docs.findOne loss_id
+    Meteor.publish 'review_from_event_id', (event_id)->
+        # event = Docs.findOne loss_id
         # match = {model:'loss'}
         Docs.find 
             model:'loss_review'
@@ -174,19 +174,19 @@ if Meteor.isServer
 
 
 if Meteor.isClient
-    Router.route '/loss/:doc_id/edit', (->
+    Router.route '/event/:doc_id/edit', (->
         @layout 'layout'
-        @render 'loss_edit'
-        ), name:'loss_edit'
+        @render 'event_edit'
+        ), name:'event_edit'
 
 
 
-    Template.loss_edit.onCreated ->
+    Template.event_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'food', ->
         # @autorun => Meteor.subscribe 'model_docs', 'source'
 
-    Template.loss_edit.onRendered ->
+    Template.event_edit.onRendered ->
         # Meteor.setTimeout ->
         #     today = new Date()
         #     $('#availability')
@@ -197,17 +197,17 @@ if Meteor.isClient
         #         })
         # , 2000
 
-    Template.loss_edit.helpers
+    Template.event_edit.helpers
         unpicked_refs: ->
-            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            current_event_doc = Docs.findOne Router.current().params.doc_id
             Docs.find   
                 model:'food'
-                _id:$ne:current_loss_doc.ref_id
+                _id:$ne:current_event_doc.ref_id
         picked_ref: ->
-            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            current_event_doc = Docs.findOne Router.current().params.doc_id
             Docs.findOne 
                 model:'food'
-                _id:current_loss_doc.ref_id
+                _id:current_event_doc.ref_id
         # balance_after_purchase: ->
         #     Meteor.user().points - @purchase_amount
         # percent_difference: ->
@@ -215,32 +215,32 @@ if Meteor.isClient
         #         Meteor.user().points - @purchase_amount
         #     # difference
         #     @purchase_amount/Meteor.user().points
-    Template.loss_edit.events
+    Template.event_edit.events
         'click .pick_ref': (e,t)->
-            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            current_event_doc = Docs.findOne Router.current().params.doc_id
             Docs.update Router.current().params.doc_id,
                 $set:ref_id:@_id
         'click .clear_ref': (e,t)->
-            current_loss_doc = Docs.findOne Router.current().params.doc_id
+            current_event_doc = Docs.findOne Router.current().params.doc_id
             Docs.update Router.current().params.doc_id,
                 $unset:ref_id:1
 
-        # 'click .complete_loss': (e,t)->
+        # 'click .complete_event': (e,t)->
         #     console.log @
-        #     Session.set('lossing',true)
+        #     Session.set('eventing',true)
         #     if @purchase_amount
         #         if Meteor.user().points and @purchase_amount < Meteor.user().points
-        #             Meteor.call 'complete_loss', @_id, =>
+        #             Meteor.call 'complete_event', @_id, =>
         #                 Router.go "/ref/#{@ref_id}"
-        #                 Session.set('lossing',false)
+        #                 Session.set('eventing',false)
         #         else 
         #             alert "not enough points"
         #             Router.go "/user/#{Meteor.user().username}/points"
-        #             Session.set('lossing',false)
+        #             Session.set('eventing',false)
         #     else 
         #         alert 'no purchase amount'
             
             
-        'click .delete_loss': ->
+        'click .delete_event': ->
             Docs.remove @_id
             Router.go "/"

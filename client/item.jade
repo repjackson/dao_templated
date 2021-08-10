@@ -4,11 +4,12 @@ template(name='items')
             .ui.header 
                 i.list.icon
                 |inventory
-            .ui.selection.big.animated.list.smallscroll
+            .ui.four.stackable.cards.smallscroll
                 each item_docs
-                    a.item.zoomer.fly_left(href="/item/#{_id}")
-                        img.ui.inline.rounded.small.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                        .ui.inline.header #{title}
+                    a.card.zoomer.fly_left(href="/item/#{_id}")
+                        img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        .content
+                            .ui.inline.header #{title}
         
 
 template(name='item_edit')
