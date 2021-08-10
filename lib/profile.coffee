@@ -31,10 +31,14 @@ if Meteor.isClient
     #     @layout 'user_layout'
     #     @render 'user_chat'
     #     ), name:'user_chat'
-    Router.route '/user/:username/scheduling', (->
+    Router.route '/user/:username/timeclock', (->
         @layout 'user_layout'
-        @render 'user_scheduling'
-        ), name:'user_scheduling'
+        @render 'user_timeclock'
+        ), name:'user_timeclock'
+    Router.route '/user/:username/schedule', (->
+        @layout 'user_layout'
+        @render 'user_schedule'
+        ), name:'user_schedule'
     Router.route '/user/:username/roles', (->
         @layout 'user_layout'
         @render 'user_roles'
@@ -173,25 +177,25 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'time_session', ->
         # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
 
-    # Template.user_timeclock.events
-    #     'click .clock_in':->
-    #         Meteor.users.update Meteor.userId(),
-    #             $set:
-    #                 clocked_in:true
+    Template.user_timeclock.events
+        'click .clock_in':->
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    clocked_in:true
             
             
-    #     'click .clock_out':->
-    #         Meteor.users.update Meteor.userId(),
-    #             $set:
-    #                 clocked_in:false
+        'click .clock_out':->
+            Meteor.users.update Meteor.userId(),
+                $set:
+                    clocked_in:false
             
             
             
             
-    # Template.user_timeclock.helpers
-    #     time_sessions: ->
-    #         Docs.find 
-    #             model:'time_session'
+    Template.user_timeclock.helpers
+        time_sessions: ->
+            Docs.find 
+                model:'time_session'
                 
                 
                 

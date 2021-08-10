@@ -1,0 +1,51 @@
+template(name='food_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .eight.wide.column
+                    a.ui.icon.button.fly_left(href="/posts")
+                        i.chevron.left.icon
+                        |posts
+                    .ui.inline.header 
+                        +i name='invoice' cl='ui avatar image'
+                        |post
+                    // .ui.segment 
+                    //     with post_product
+                    //         a(href="/product/#{_id}")
+                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                    //         a.ui.header(href="/product/#{_id}") #{title}
+                    //         // - .ui.header #{cook_tip} cook tip
+                    //         // .ui.header $#{post_total_transaction_amount} 
+                    //         //     small total transaction amount
+                    div
+                    .ui.inline.header 
+                        i.clock.icon
+                        small started
+                        strong #{when}
+                        small by
+
+
+
+template(name='food_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .eight.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                    a.ui.fluid.icon.green.button.fly_up(href="/post/#{_id}/" title='save product')
+                        i.checkmark.big.icon
+                    // a.ui.big.circular.icon.green.button.save_this(title='save')
+                    +text_edit key='title' label='title' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +text_edit key='model' label='model' icon='database' direct=true
+                    +image_link_edit key='image_url' label='image link' icon='image'
+                    +image_edit key='image_id' label='image' icon='image'
+                    +number_edit key='price_dollars' label='price ($)' icon='money'
+                .eight.wide.column
+                    +html_edit key='body' label='body' direct=true
+                    .ui.red.large.icon.button.delete_post(title='delete')
+                        i.remove.icon   
+                        // | delete
+                

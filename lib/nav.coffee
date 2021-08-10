@@ -16,11 +16,11 @@ if Meteor.isClient
             $('.ui.left.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'push'
-                    mobileTransition:'scale'
+                    transition:'overlay'
+                    mobileTransition:'overlay'
                     exclusive:true
                     duration:200
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_leftbar')
         , 2000
@@ -28,11 +28,11 @@ if Meteor.isClient
             $('.ui.rightbar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'push'
-                    mobileTransition:'scale'
+                    transition:'overlay'
+                    mobileTransition:'overlay'
                     exclusive:true
                     duration:200
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_rightbar')
         , 2000
@@ -40,11 +40,11 @@ if Meteor.isClient
         #     $('.ui.topbar.sidebar')
         #         .sidebar({
         #             context: $('.bottom.segment')
-        #             transition:'scale'
-        #             mobileTransition:'scale'
+        #             transition:'overlay'
+        #             mobileTransition:'overlay'
         #             exclusive:true
         #             duration:200
-        #             scrollLock:true
+        #             scrollLock:false
         #         })
         #         .sidebar('attach events', '.toggle_topbar')
         # , 2000
@@ -52,11 +52,11 @@ if Meteor.isClient
         #     $('.ui.secnav.sidebar')
         #         .sidebar({
         #             context: $('.bottom.segment')
-        #             transition:'scale'
-        #             mobileTransition:'scale'
+        #             transition:'overlay'
+        #             mobileTransition:'overlay'
         #             exclusive:true
         #             duration:200
-        #             scrollLock:true
+        #             scrollLock:false
         #         })
         #         .sidebar('attach events', '.toggle_leftbar')
         # , 2000
@@ -64,11 +64,11 @@ if Meteor.isClient
         #     $('.ui.sidebar.cartbar')
         #         .sidebar({
         #             context: $('.bottom.segment')
-        #             transition:'scale'
-        #             mobileTransition:'scale'
+        #             transition:'overlay'
+        #             mobileTransition:'overlay'
         #             exclusive:true
         #             duration:200
-        #             scrollLock:true
+        #             scrollLock:false
         #         })
         #         .sidebar('attach events', '.toggle_cartbar')
         # , 3000
@@ -77,10 +77,10 @@ if Meteor.isClient
         #         .sidebar({
         #             context: $('.bottom.segment')
         #             transition:''
-        #             mobileTransition:'scale'
+        #             mobileTransition:'overlay'
         #             exclusive:true
         #             duration:200
-        #             scrollLock:true
+        #             scrollLock:false
         #         })
         #         .sidebar('attach events', '.toggle_walletbar')
         # , 2000

@@ -79,12 +79,7 @@ template(name='post_view')
                     a.ui.icon.button.fly_left(href="/posts")
                         i.chevron.left.icon
                         |posts
-                    a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
-                        i.chevron.left.icon
-                        |#{product_doc.title}
-                        // +i name='invoice' cl='ui avatar image'
                     .ui.inline.header 
-                        // strong '#{post_product.title}'
                         +i name='invoice' cl='ui avatar image'
                         |post
                     // .ui.segment 
@@ -194,7 +189,7 @@ template(name='post_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button(href="/post/#{_id}/" title='save product')
+                    a.ui.fluid.icon.green.button.fly_up(href="/post/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true

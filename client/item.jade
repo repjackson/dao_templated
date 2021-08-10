@@ -48,7 +48,7 @@ template(name='item_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
+                .six.wide.column
                     a.ui.icon.button.fly_left(href="/items")
                         i.chevron.left.icon
                         |items
@@ -56,6 +56,7 @@ template(name='item_view')
                         // strong '#{item_product.title}'
                         +i name='inventory' cl='ui avatar image'
                         |item
+                    .ui.header #{title}
                     // .ui.segment 
                     //     with item_product
                     //         a(href="/product/#{_id}")
@@ -71,16 +72,6 @@ template(name='item_view')
                         strong #{when}
                         small by
                         strong #{_author_username}
-                .twelve.wide.column
-                    // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                    if image_url
-                        +image_link_view key='image_url' direct=true
-                    else if image_id
-                        +image_view key='image_id' direct=true 
-                    else if youtube_id
-                        +youtube_view key='image_id' direct=true
-
-                    .ui.header #{title}
                     each tags
                         .ui.label #{this}
                     if is_admin
@@ -90,4 +81,12 @@ template(name='item_view')
                         .ui.header #{title}
                     .ui.header inventory updates
                     .ui.header current amount from calculation
-                    
+                    +comments
+                .ten.wide.column
+                    // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    if image_url
+                        +image_link_view key='image_url' direct=true
+                    else if image_id
+                        +image_view key='image_id' direct=true 
+                    else if youtube_id
+                        +youtube_view key='image_id' direct=true

@@ -23,10 +23,9 @@ template(name='users')
                             +user_card
                     // else if session_is 'view_users' 'list'
                 else
-                    .ui.large.list
+                    .ui.large.selection.animated.list
                         each user_docs
                             +user_item
-                            div
 
 template(name='user_cloud')
     i.shield.blue.large.icon
@@ -54,9 +53,9 @@ template(name='user_cloud')
 
 
 template(name='user_item')
-    .item
+    .item.zoomer
         a.zoomer.pointer.blink.fly_right(href="/user/#{username}")
-            img.ui.avatar.image(src="{{c.url profile_image_id height=500 width=500 gravity='face' crop='fill'}}") 
+            img.ui.tiny.inline.rounded.image(src="{{c.url image_id height=500 width=500 gravity='face' crop='fill'}}") 
 
             a.ui.inline.header.pointer(href="/user/#{username}" style="color:#{theme_color};")
                 |#{name}

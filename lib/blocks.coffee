@@ -69,15 +69,16 @@ if Meteor.isClient
             @autorun => Meteor.subscribe 'children', 'comment', parent._id
     Template.comments.helpers
         doc_comments: ->
-            parent = Docs.findOne Template.parentData()._id
+            parent = Docs.findOne Router.current().params.doc_id
+            # parent = Docs.findOne Template.parentData()._id
             Docs.find
                 parent_id:parent._id
                 model:'comment'
     Template.comments.events
         'keyup .add_comment': (e,t)->
             if e.which is 13
-                parent = Docs.findOne Template.parentData()._id
-                # parent = Docs.findOne Router.current().params.doc_id
+                # parent = Docs.findOne Template.parentData()._id
+                parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
                 Docs.insert
                     parent_id: parent._id
