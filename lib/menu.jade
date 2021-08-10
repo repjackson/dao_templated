@@ -31,13 +31,17 @@ template(name='food_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .eight.wide.column
+                .six.wide.column
                     a.ui.icon.button.fly_left(href="/posts")
-                        i.chevron.left.icon
-                        |posts
+                        i.food.icon
+                        |menu
+                    if can_edit
+                        a.ui.icon.button.fly_down(href="/food/#{_id}/edit" title='edit product')
+                            i.pencil.big.icon
+
                     .ui.inline.header 
-                        +i name='invoice' cl='ui avatar image'
-                        |post
+                        +i name='food' cl='ui avatar image'
+                        |food
                     // .ui.segment 
                     //     with post_product
                     //         a(href="/product/#{_id}")
@@ -52,6 +56,11 @@ template(name='food_view')
                         small started
                         strong #{when}
                         small by
+                .ten.wide.column
+                    .ui.header #{title}
+                    if image_url
+                        img.ui.inline.image(src=image_url)
+                    img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
 
 
 

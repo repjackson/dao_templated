@@ -55,7 +55,7 @@ template(name='layout')
             //     +admin_footer
       
 template(name='nav')
-    .ui.fluid.inverted.attached.large.borderless.menu.topnav
+    .ui.fluid.inverted.attached.big.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -80,6 +80,9 @@ template(name='nav')
             //     a.icon.item.init_global_search(title='search')
             //         i.search.large.icon
                 
+            a.icon.item.mobile.hidden(href='/events' class="{{isActiveRoute regex='events'}}" title='events')
+                i.large.calendar.icon
+                // |events
             a.icon.item.mobile.hidden(href='/items' class="{{isActiveRoute regex='items'}}" title='items')
                 i.large.database.icon
                 // |items

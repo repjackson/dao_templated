@@ -39,7 +39,7 @@ template(name='tasks')
                 .ui.small.compact.button soonest
                 .ui.small.compact.button priority
             
-                .largescroll
+                .largescroll.ui.segments
                     each tasks 
                         +task_card_template
             .six.wide.column
@@ -118,7 +118,7 @@ template(name='task_card_template')
                     //-     .bar
                         //- .progress
                     //- .label complete
-    .spacer
+    // .spacer
 
 
 
