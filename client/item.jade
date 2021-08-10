@@ -7,9 +7,8 @@ template(name='items')
             .ui.selection.big.animated.list.smallscroll
                 each item_docs
                     a.item.zoomer.fly_left(href="/item/#{_id}")
-                        img.ui.avatar.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                        .content
-                            .header #{title}
+                        img.ui.inline.rounded.small.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        .ui.inline.header #{title}
         
 
 template(name='item_edit')

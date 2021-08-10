@@ -1,3 +1,32 @@
+template(name='menu')
+    .ui.padded.stackable.grid
+        .sixteen.wide.column
+            .ui.small.header 
+                i.food.icon
+                |food
+            .ui.selection.link.large.animated.list.smallscroll
+                each food_docs
+                    +food_item
+            .ui.small.header 
+                i.beer.icon
+                |drinks
+            .ui.selection.link.large.animated.list.smallscroll
+                each drink_docs
+                    +drink_item
+                    
+            
+template(name='drink_item')
+    a.item(href="/drink/#{_id}") 
+        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        |#{title}
+
+
+template(name='food_item')
+    a.item(href="/food/#{_id}") 
+        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        |#{title}
+
+
 template(name='food_view')
     with current_doc
         .ui.stackable.padded.grid

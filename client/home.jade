@@ -39,7 +39,7 @@ template(name='home')
                             each home_items
                                 +home_item
             .column
-                +inventory
+                +items
             .column
                 +checkins
             .column
@@ -49,32 +49,6 @@ template(name='home')
             .column
                 +orders
                 
-                
-template(name='menu')
-    .ui.small.header 
-        i.food.icon
-        |food
-    .ui.selection.link.large.animated.list.smallscroll
-        each food_docs
-            +food_item
-    .ui.small.header 
-        i.beer.icon
-        |drinks
-    .ui.selection.link.large.animated.list.smallscroll
-        each drink_docs
-            +drink_item
-            
-            
-template(name='drink_item')
-    a.item(href="/drink/#{_id}") 
-        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-        |#{title}
-
-
-template(name='food_item')
-    a.item(href="/food/#{_id}") 
-        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-        |#{title}
 
 template(name='unpick_tag')                        
     a.ui.black.large.image.circular.label.zoomer.unpick_tag
