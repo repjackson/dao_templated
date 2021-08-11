@@ -1,13 +1,15 @@
 if Meteor.isClient
     Router.route '/menu', -> @render 'menu'
     
-    Template.menu.onCreated ->
+    Template.drinks.onCreated ->
         @autorun => @subscribe 'model_docs', 'drink', ->
+    Template.food.onCreated ->
         @autorun => @subscribe 'model_docs', 'food', ->
-    Template.menu.helpers
+    Template.drinks.helpers
         drink_docs: ->
             Docs.find 
                 model:'drink'
+    Template.food.helpers
         food_docs: ->
             Docs.find 
                 model:'food'
@@ -47,6 +49,10 @@ if Meteor.isClient
         ), name:'drink_view'
 
 
+    Template.drink_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.drink_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.food_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'product_by_food_id', Router.current().params.doc_id

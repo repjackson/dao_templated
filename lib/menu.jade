@@ -1,20 +1,23 @@
 template(name='menu')
     .ui.padded.stackable.grid
-        .sixteen.wide.column
+        .eight.wide.column
             +food
+        .eight.wide.column
+            +drinks
             
             
 template(name='food')            
-    .ui.small.header 
+    .ui.big.header 
         i.food.icon
-        |food
-    .ui.selection.link.large.animated.list.smallscroll
+        |#{food_docs.count} food
+    .ui.selection.link.big.animated.list.smallscroll
         each food_docs
             +food_item
-    .ui.small.header 
+template(name='drinks')
+    .ui.big.header 
         i.beer.icon
-        |drinks
-    .ui.selection.link.large.animated.list.smallscroll
+        |#{drink_docs.count} drinks
+    .ui.selection.link.larbigge.animated.list.smallscroll
         each drink_docs
             +drink_item
                     
@@ -96,11 +99,11 @@ template(name='drink_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.icon.button.fly_left(href="/posts")
-                        i.drink.icon
+                    a.ui.basic.big.button.fly_left(href="/menu")
+                        i.food.icon
                         |menu
                     if can_edit
-                        a.ui.icon.button.fly_down(href="/drink/#{_id}/edit" title='edit product')
+                        a.ui.icon.basic.circular.button.fly_down(href="/drink/#{_id}/edit" title='edit product')
                             i.pencil.big.icon
 
                     .ui.inline.header 
@@ -136,7 +139,7 @@ template(name='drink_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/post/#{_id}/" title='save product')
+                    a.ui.fluid.icon.green.button.fly_up(href="/drink/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true

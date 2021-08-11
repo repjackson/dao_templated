@@ -120,7 +120,7 @@ body {
 }
 
 body, p, header {
-  /*font-family: "Ubuntu","Montserrat",sans-serif;*/
+  font-family: "Ubuntu","Montserrat",sans-serif;
   /*font-family: "Benne",sans-serif;*/
 }
 
@@ -336,9 +336,9 @@ img, .button{
     transition: background-color 3s ease !important;
 }
 
-/* #topnav > .item {
+ #topnav > .item {
     transition: all 1s ease !important;
-} */
+} 
 
 .card {
     /* border-radius:10px !important; */

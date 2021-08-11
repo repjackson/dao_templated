@@ -72,7 +72,7 @@ Meteor.methods
             product = Docs.findOne _id:order.product_id
             if product
                 if product.calories
-                    console.log 'calories added', product.calories
+                    # console.log 'calories added', product.calories
                     total_calories_consumed += parseInt(product.calories)
         # console.log 'total debits', total_debits
         # console.log 'total credits', point_credit_total
