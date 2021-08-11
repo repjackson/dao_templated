@@ -11,28 +11,28 @@ if Meteor.isClient
         food_docs: ->
             Docs.find 
                 model:'food'
-# if Meteor.isClient
-    # Router.route '/food', (->
-    #     @render 'food'
-    #     ), name:'food'
+if Meteor.isClient
+    Router.route '/food', (->
+        @render 'food'
+        ), name:'food'
 
-    # Template.food.onCreated ->
-    #     @autorun -> Meteor.subscribe 'food',
-    #         Session.get('food_status_filter')
-    #     # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
-    #     # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
+    Template.food.onCreated ->
+        @autorun -> Meteor.subscribe 'food',
+            Session.get('food_status_filter')
+        # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
+        # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    # Template.food.helpers
-    #     food: ->
-    #         match = {model:'food'}
-    #         if Session.get('food_status_filter')
-    #             match.status = Session.get('food_status_filter')
-    #         if Session.get('food_delivery_filter')
-    #             match.delivery_method = Session.get('food_sort_filter')
-    #         if Session.get('food_sort_filter')
-    #             match.delivery_method = Session.get('order_sort_filter')
-    #         Docs.find match,
-    #             sort: _timestamp:-1
+    Template.food.helpers
+        food: ->
+            match = {model:'food'}
+            if Session.get('food_status_filter')
+                match.status = Session.get('food_status_filter')
+            if Session.get('food_delivery_filter')
+                match.delivery_method = Session.get('food_sort_filter')
+            if Session.get('food_sort_filter')
+                match.delivery_method = Session.get('order_sort_filter')
+            Docs.find match,
+                sort: _timestamp:-1
 
 
 if Meteor.isClient

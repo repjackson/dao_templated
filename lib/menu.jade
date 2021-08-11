@@ -1,18 +1,22 @@
 template(name='menu')
     .ui.padded.stackable.grid
         .sixteen.wide.column
-            .ui.small.header 
-                i.food.icon
-                |food
-            .ui.selection.link.large.animated.list.smallscroll
-                each food_docs
-                    +food_item
-            .ui.small.header 
-                i.beer.icon
-                |drinks
-            .ui.selection.link.large.animated.list.smallscroll
-                each drink_docs
-                    +drink_item
+            +food
+            
+            
+template(name='food')            
+    .ui.small.header 
+        i.food.icon
+        |food
+    .ui.selection.link.large.animated.list.smallscroll
+        each food_docs
+            +food_item
+    .ui.small.header 
+        i.beer.icon
+        |drinks
+    .ui.selection.link.large.animated.list.smallscroll
+        each drink_docs
+            +drink_item
                     
             
 template(name='drink_item')

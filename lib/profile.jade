@@ -17,7 +17,7 @@ template(name='user_layout')
                         // .spacer
                         a.ui.inline.header(href="/user/#{username}")
                             | #{username}
-                        .ui.inline.small.statistic
+                        a.ui.inline.small.statistic.zoomer(href="/users")
                             .value
                                 |#{current_user.points}
                             .label

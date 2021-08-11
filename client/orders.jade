@@ -33,7 +33,19 @@
 //                         each orders
 //                             +order_item
 //                             .ui.divider
+template(name='orders')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.header 
+                i.money.icon
+                |orders
+            .ui.list
+                each order_docs
+                    .item #{title}
             
+            
+                        
+
             
 template(name='order_item')
     a.ui.grid(href="/order/#{_id}")
