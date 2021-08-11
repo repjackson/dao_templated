@@ -2,9 +2,11 @@ if Meteor.isClient
     Router.route '/menu', -> @render 'menu'
     
     Template.drinks.onCreated ->
-        @autorun => @subscribe 'model_docs', 'drink', ->
-    Template.food.onCreated ->
-        @autorun => @subscribe 'model_docs', 'food', ->
+        # @autorun => @subscribe 'model_docs', 'drink', ->
+        @autorun -> Meteor.subscribe 'drinks',
+            Session.get('food_title_filter')
+    # Template.food.onCreated ->
+    #     @autorun => @subscribe 'model_docs', 'food', ->
     Template.drinks.helpers
         drink_docs: ->
             Docs.find 
@@ -20,19 +22,19 @@ if Meteor.isClient
 
     Template.food.onCreated ->
         @autorun -> Meteor.subscribe 'food',
-            Session.get('food_status_filter')
+            Session.get('food_title_filter')
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
     Template.food.helpers
         food: ->
             match = {model:'food'}
-            if Session.get('food_status_filter')
-                match.status = Session.get('food_status_filter')
-            if Session.get('food_delivery_filter')
-                match.delivery_method = Session.get('food_sort_filter')
-            if Session.get('food_sort_filter')
-                match.delivery_method = Session.get('order_sort_filter')
+            # if Session.get('food_status_filter')
+            #     match.status = Session.get('food_status_filter')
+            # if Session.get('food_delivery_filter')
+            #     match.delivery_method = Session.get('food_sort_filter')
+            # if Session.get('food_sort_filter')
+            #     match.delivery_method = Session.get('order_sort_filter')
             Docs.find match,
                 sort: _timestamp:-1
 
@@ -55,9 +57,9 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     Template.food_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'product_by_food_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'food_things', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'review_from_food_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'product_by_food_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'food_things', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'review_from_food_id', Router.current().params.doc_id
 
 
     Template.food_view.events
@@ -138,11 +140,24 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'food', (food_id, status)->
+    Meteor.publish 'food', (title_filter, status)->
         # food = Docs.findOne food_id
         match = {model:'food'}
+        match.app = 'bc'
         if status 
             match.status = status
+        if title_filter and title_filter.length > 1
+            match.title = {$regex:title_filter, $options:'i'}
+
+        Docs.find match
+    Meteor.publish 'drinks', (title_filter, status)->
+        # food = Docs.findOne food_id
+        match = {model:'drink'}
+        match.app = 'bc'
+        if status 
+            match.status = status
+        if title_filter and title_filter.length > 1
+            match.title = {$regex:title_filter, $options:'i'}
 
         Docs.find match
         

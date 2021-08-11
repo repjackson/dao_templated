@@ -1,5 +1,7 @@
 template(name='menu')
     .ui.padded.stackable.grid
+        .sixteen.wide.column
+            +search_input model='food' field='title'
         .eight.wide.column
             +food
         .eight.wide.column
@@ -26,13 +28,16 @@ template(name='drink_item')
     a.item(href="/drink/#{_id}") 
         img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{title}
+        each tags
+            .ui.basic.small.label #{this}
 
 
 template(name='food_item')
     a.item(href="/food/#{_id}") 
         img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{title}
-
+        each tags
+            .ui.basic.small.label #{this}
 
 template(name='food_view')
     with current_doc
@@ -68,7 +73,8 @@ template(name='food_view')
                     if image_url
                         img.ui.inline.image(src=image_url)
                     img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-
+                    if in_dev
+                        +print_this
 
 
 template(name='food_edit')
@@ -87,6 +93,7 @@ template(name='food_edit')
                     +text_edit key='model' label='model' icon='database' direct=true
                     +image_link_edit key='image_url' label='image link' icon='image'
                     +image_edit key='image_id' label='image' icon='image'
+                    +number_edit key='calories' label='calories' icon='cheese' direct=true
                     +number_edit key='price_dollars' label='price ($)' icon='money'
                 .eight.wide.column
                     +html_edit key='body' label='body' direct=true
@@ -118,6 +125,7 @@ template(name='drink_view')
                     //         // .ui.header $#{post_total_transaction_amount} 
                     //         //     small total transaction amount
                     div
+                    .ui.header #{company}
                     .ui.inline.header 
                         i.clock.icon
                         small started
@@ -125,9 +133,13 @@ template(name='drink_view')
                         small by
                 .ten.wide.column
                     .ui.header #{title}
+                    each tags   
+                        .ui.basic.big.label #{this}
                     if image_url
                         img.ui.inline.image(src=image_url)
                     img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    if in_dev
+                        +print_this
 
 
 
@@ -143,6 +155,7 @@ template(name='drink_edit')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
+                    +text_edit key='company' label='company' icon='business' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +text_edit key='model' label='model' icon='database' direct=true
                     +image_link_edit key='image_url' label='image link' icon='image'
@@ -150,6 +163,10 @@ template(name='drink_edit')
                     +number_edit key='price_dollars' label='price ($)' icon='money'
                 .eight.wide.column
                     +html_edit key='body' label='body' direct=true
+                    +number_edit key='calories' label='calories' icon='cheese'
+                    +float_edit key='abv' label='abv' icon='beer'
+                    +text_edit key='city' label='city' icon='marker'
+                    +text_edit key='state' label='state' icon='marker'
                     .ui.red.large.icon.button.delete_post(title='delete')
                         i.remove.icon   
                         // | delete
