@@ -80,31 +80,31 @@ template(name='nav')
             //     a.icon.item.init_global_search(title='search')
             //         i.search.large.icon
                 
-            a.icon.item.mobile.hidden(href='/events' class="{{isActiveRoute regex='events'}}" title='events')
+            a.icon.item.mobile.hidden.zoomer(href='/events' class="{{isActiveRoute regex='events'}}" title='events')
                 i.large.calendar.icon
                 // |events
-            a.icon.item.mobile.hidden(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
+            a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
                 i.large.database.icon
                 // |items
-            a.icon.item.mobile.hidden(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
+            a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
                 i.large.food.icon
                 // |menu
-            a.icon.item.mobile.hidden(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
+            a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
                 i.large.beer.icon
                 // |menu
-            a.icon.item.mobile.hidden(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
+            a.icon.item.mobile.hidden.zoomer(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
                 i.large.money.icon
                 // |orders
-            a.icon.item.mobile.hidden(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
+            a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
                 i.large.frown.icon
                 // |losses
-            a.icon.item.mobile.hidden(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
+            a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
                 i.large.checkmark.icon
                 // |check ins
-            a.icon.item.mobile.hidden(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
+            a.icon.item.mobile.hidden.zoomer(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
                 i.large.users.icon
                 // |users
-            a.icon.item.mobile.hidden(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
+            a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
                 i.large.tasks.icon
                 // |users
             .right.menu
@@ -120,21 +120,22 @@ template(name='nav')
                 if currentUser
                     if logging_out
                         .icon.item
-                            i.large.refresh.loading.icon
-                    // if in_role 'admin'
-                    //     a.icon.item(href='/admin' title='admin')
-                    //         i.large.shield.icon
-                    // a.icon.item.toggle_topbar(title='alerts')
-                    //     i.bell.outline.large.icon
-                    a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
-                        // i.wallet.icon
-                        strong {{int currentUser.points}}p
-                    a.item.toggle_rightbar.no_blink
-                        if currentUser.image_id
-                            img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
-                        else
-                            i.user.icon
-                        strong.mobile.hidden #{currentUser.name}
+                            i.large.food.loading.icon
+                    else
+                        // if in_role 'admin'
+                        //     a.icon.item(href='/admin' title='admin')
+                        //         i.large.shield.icon
+                        // a.icon.item.toggle_topbar(title='alerts')
+                        //     i.bell.outline.large.icon
+                        a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
+                            // i.wallet.icon
+                            strong {{int currentUser.points}}p
+                        a.item.toggle_rightbar.no_blink
+                            if currentUser.image_id
+                                img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                            else
+                                i.user.icon
+                            strong.mobile.hidden #{currentUser.name}
                 unless currentUser
                     if subs_ready
                         a.icon.item(href='/login' title='login') 

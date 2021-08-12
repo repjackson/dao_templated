@@ -9,8 +9,8 @@ template(name='home')
                 .ui.header money earned last week
                 .ui.header payroll yesterday
             .column
-                .ui.header 
-                    i.newspaper.icon
+                .ui.inline.header 
+                    +i name='blog'
                     |posts
                 // unless current_post
                 // unless subs_ready
@@ -25,7 +25,8 @@ template(name='home')
                 .ui.hidden.divider
                 unless subs_ready
                     .ui.center.aligned.basic.segment
-                        i.massive.grey.food.loading.icon
+                        +ibig name='pizza' cl='spinning'
+    
                 else 
                     if current_post
                         with current_post

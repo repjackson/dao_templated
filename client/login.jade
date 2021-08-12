@@ -4,7 +4,8 @@ template(name='login')
             .six.wide.center.aligned.column
                 // img.ui.image(src="{{c.url 'kitchen_logo' gravity='face' crop='fill'}}")
                 if is_logging_in
-                    i.massive.loading.pizza.slice.icon
+                    +ibig name='pizza' cl='spinning'
+                    // i.massive.loading.pizza.slice.icon
                 else 
                     img.ui.small.centered.inline.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                 // img.ui.centered.image(src="https://mark.trademarkia.com/services/logo.ashx?sid=88023400")

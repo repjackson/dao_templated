@@ -3,31 +3,40 @@ template(name='food')
         .ui.big.inline.header 
             // i.food.icon
             +i name='food'
-            |#{food_docs.count} food
-        .ui.basic.circular.big.compact.button.set_apps
-            +i name='nachos' cl='ui avatar image'
-            |appetizers
-        .ui.basic.circular.big.compact.button.set_soup
-            +i name='soup-plate' cl='ui avatar image'
-            |soups
-        .ui.basic.circular.big.compact.button.set_salad
-            +i name='salad' cl='ui avatar image'
-            |salad
-        .ui.basic.circular.big.compact.button.set_sandwich
-            +i name='sandwich' cl='ui avatar image'
-            |sandwiches
-        .ui.basic.circular.big.compact.button.set_sandwich
-            +i name='sandwich' cl='ui avatar image'
-            |sandwiches
+            |#{food_docs.count} products
+        +session_set key='food_view_filter' value='appetizers' icon='nachos'
+        +session_set key='food_view_filter' value='soup' icon='soup-plate'
+        +session_set key='food_view_filter' value='salad' icon='salad'
+        +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
+        +session_set key='food_view_filter' value='pizza' icon='pizza'
         .ui.selection.link.big.animated.list.smallcroll
             each food_docs
                 +food_item
 template(name='drinks')
     if drink_docs.count
-        .ui.big.header 
+        a.ui.big.inline.header(href="/drinks")
             // i.beer.icon
             +i name='beer'
             |#{drink_docs.count} drinks
+        .ui.basic.circular.big.compact.button.set_gf
+            +i name='no-gluten' cl='ui avatar image'
+            |gluten free
+        .ui.basic.circular.big.compact.button.set_sour
+            +i name='sour' cl='ui avatar image'
+            |sour
+        .ui.basic.circular.big.compact.button.set_dark
+            +i name='guinness-beer' cl='ui avatar image'
+            |dark/boozy
+        .ui.basic.circular.big.compact.button.set_hoppy
+            +i name='hops' cl='ui avatar image'
+            |hoppy
+        .ui.basic.circular.big.compact.button.set_hoppy
+            +i name='beer-glass' cl='ui avatar image'
+            |light/malty
+        .ui.basic.circular.big.compact.button.set_hoppy
+            +i name='pint' cl='ui avatar image'
+            |belgian style/brett
+            
         .ui.selection.link.big.animated.list.smallscrll
             each drink_docs
                 +drink_item
@@ -100,8 +109,13 @@ template(name='food_view')
                         |buy for #{price_dollars}
                     .ui.header section: #{section}
                     .ui.header also by #{company}
-                    .ui.header stats
+                    .ui.header rating
+                    +rating icon='beer' value='3'
+                    
+                    
                     .ui.header orders
+template(name='rating')
+    .ui.yellow.massive.rating(data-icon=icon data-rating=value)
 
 template(name='food_edit')
     with current_doc

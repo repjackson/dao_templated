@@ -1,6 +1,6 @@
 body {
     /* font-family: 'Raleway', sans-serif !important; */
-    /*font-family: 'Ubuntu', sans-serif !important;*/
+    font-family: 'Ubuntu', sans-serif !important;
     /* font-family: 'Lato+Mono', sans-serif !important; */
     /* font-family: 'Lato', sans-serif !important; */
     /*font-size: 120% !important; */
@@ -184,45 +184,46 @@ img, .button{
   background: lightgrey;
 }
 
-.red {
-    color:#DB2828 !important;
-}
-.orange {
-    color:#FE9A76 !important;
-}
-.yellow {
-    color:#FFD700 !important;
-}
-.olive {
-    color:#32CD32 !important;
-}
-.green {
-    color:#016936 !important;
-}
-.teal {
-    color: #008080 !important;
-}
-.blue, .blue.segment{
-    color: #0E6EB8 !important;
-}
-.violet {
-    color:#EE82EE !important;
-}
-.purple {
-    color:#B413EC !important;
-}
-.pink {
-    color: #FF1493 !important;
-}
-.brown {
-    color:#A52A2A !important;
-}
-.grey {
-    color: #A0A0A0 !important;
-}
-.black {
-    color:#000000 !important;
-}
+/*.red {*/
+/*    color:#DB2828 !important;*/
+/*}*/
+/*.orange {*/
+/*    color:#FE9A76 !important;*/
+/*}*/
+/*.yellow {*/
+/*    color:#FFD700 !important;*/
+/*}*/
+/*.olive {*/
+/*    color:#32CD32 !important;*/
+/*}*/
+/*.green {*/
+/*    color:#016936 !important;*/
+/*}*/
+/*.teal {*/
+/*    color: #008080 !important;*/
+/*}*/
+/*.blue, .blue.segment{*/
+/*    color: #0E6EB8 !important;*/
+/*}*/
+/*.violet {*/
+/*    color:#EE82EE !important;*/
+/*}*/
+/*.purple {*/
+/*    color:#B413EC !important;*/
+/*}*/
+/*.pink {*/
+/*    color: #FF1493 !important;*/
+/*}*/
+/*.brown {*/
+/*    color:#A52A2A !important;*/
+/*}*/
+/*.grey {*/
+/*    color: #A0A0A0 !important;*/
+/*    text-colo*/
+/*}*/
+/*.black {*/
+/*    color:#000000 !important;*/
+/*}*/
 
 
 

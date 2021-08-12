@@ -17,7 +17,7 @@ template(name='user_layout')
                         // .spacer
                         a.ui.inline.header(href="/user/#{username}")
                             | #{username}
-                        a.ui.inline.small.statistic.zoomer(href="/users")
+                        a.ui.inline.tiny.statistic.zoomer(href="/users")
                             .value
                                 |#{current_user.points}
                             .label
@@ -36,6 +36,7 @@ template(name='user_layout')
                                 |pts bought
                                 span(title='rank') (##{current_user.total_bought_credit_rank})
                         .ui.large.label app: #{app}
+                        div
                         .ui.inline.header roles:
                         each roles
                             .ui.basic.label #{this}

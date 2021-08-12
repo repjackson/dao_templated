@@ -1,6 +1,12 @@
 if Meteor.isClient
     Router.route '/drinks', -> @render 'drinks'
     
+    Template.rating.onRendered ->
+        Meteor.setTimeout =>
+            $('.ui.rating').rating()
+        , 1000
+
+    
     Template.drinks.onCreated ->
         # @autorun => @subscribe 'model_docs', 'drink', ->
         @autorun -> Meteor.subscribe 'drinks',
