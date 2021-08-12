@@ -212,8 +212,13 @@ if Meteor.isClient
                     })
                 else
                     # console.log res
-                    Router.go "/"
-                    # Router.go "/user/#{username}"
+                    $('body').toast({
+                        message: 'login successful'
+                    })
+                    $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+                    
+                    # Router.go "/"
+                    Router.go "/user/#{username}"
 
         'keyup .password, keyup .username': (e,t)->
             if e.which is 13

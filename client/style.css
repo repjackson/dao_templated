@@ -185,43 +185,43 @@ img, .button{
 }
 
 .red {
-    background-color:#DB2828 !important;
+    color:#DB2828 !important;
 }
 .orange {
-    background-color:#FE9A76 !important;
+    color:#FE9A76 !important;
 }
 .yellow {
-    background-color:#FFD700 !important;
+    color:#FFD700 !important;
 }
 .olive {
-    background-color:#32CD32 !important;
+    color:#32CD32 !important;
 }
 .green {
-    background-color:#016936 !important;
+    color:#016936 !important;
 }
 .teal {
-    background-color: #008080 !important;
+    color: #008080 !important;
 }
 .blue, .blue.segment{
-    background-color: #0E6EB8 !important;
+    color: #0E6EB8 !important;
 }
 .violet {
-    background-color:#EE82EE !important;
+    color:#EE82EE !important;
 }
 .purple {
-    background-color:#B413EC !important;
+    color:#B413EC !important;
 }
 .pink {
-    background-color: #FF1493 !important;
+    color: #FF1493 !important;
 }
 .brown {
-    background-color:#A52A2A !important;
+    color:#A52A2A !important;
 }
 .grey {
-    background-color: #A0A0A0 !important;
+    color: #A0A0A0 !important;
 }
 .black {
-    background-color:#000000 !important;
+    color:#000000 !important;
 }
 
 

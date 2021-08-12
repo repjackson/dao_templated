@@ -134,10 +134,11 @@ if Meteor.isClient
         'click .logout_other_clients': ->
             Meteor.logoutOtherClients()
 
-        'click .logout': ->
-            # Router.go '/login'
+        'click .logout': (e,t)->
+            $(e.currentTarget).closest('.grid').transition('fly right', 1000)
             Meteor.logout()
-            
+            Router.go '/login'
+
             
     Router.route '/user/:username/edit', -> @render 'user_edit'
 

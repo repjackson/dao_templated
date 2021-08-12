@@ -53,9 +53,9 @@ template(name='food_view')
         .ui.stackable.padded.grid
             .row
                 .four.wide.column
-                    a.ui.icon.button.fly_left(href="/menu")
+                    a.ui.icon.button.fly_left(href="/food")
                         i.food.icon
-                        |menu
+                        |food
                     if can_edit
                         a.ui.icon.button.fly_down(href="/food/#{_id}/edit" title='edit product')
                             i.pencil.big.icon
@@ -134,10 +134,10 @@ template(name='drink_view')
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.big.button.fly_left(href="/menu")
-                        // i.food.icon
-                        +i name='food' cl='ui avatar image'
-                        |menu
+                    a.ui.basic.big.button.fly_left(href="/drinks")
+                        // i.drinks.icon
+                        +i name='beer' cl='ui avatar image'
+                        |drinks
                     if can_edit
                         a.ui.icon.basic.circular.button.fly_down(href="/drink/#{_id}/edit" title='edit product')
                             i.pencil.big.icon

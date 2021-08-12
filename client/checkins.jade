@@ -38,7 +38,8 @@ template(name='checkins')
     .ui.one.column.stackable.grid
         .column
             .ui.inline.header 
-                i.checkmark.icon
+                +i name='health-checkup'
+                // i.checkmark.icon
                 |todays checkins
             if currentUser.checkedin
                 .ui.red.basic.inverted.small.compact.button.checkout
