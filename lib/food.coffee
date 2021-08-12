@@ -3,7 +3,11 @@ if Meteor.isClient
     
     Template.rating.onRendered ->
         Meteor.setTimeout =>
-            $('.ui.rating').rating()
+            $('.ui.rating').rating(
+                # icon: 'pizza slice',
+                initialRating: 3,
+                maxRating: 10
+            )
         , 1000
 
     

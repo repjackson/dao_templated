@@ -12,7 +12,7 @@ template(name='food')
             +session_set key='food_view_filter' value='salad' icon='salad'
             +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
             +session_set key='food_view_filter' value='pizza' icon='pizza'
-            .ui.doubling.cards.scrolling
+            .ui.doubling.centered.cards.scrolling
                 each food_docs
                     +food_item
 
@@ -24,19 +24,21 @@ template(name='food_item')
             .header #{title}
             .ui.large.label #{section}
             each tags
-                .ui.basic.small.label #{this}
+                +flat_tag_picker
+                // .ui.basic.small.label #{this}
 
 template(name='food_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .four.wide.column
-                    a.ui.icon.button.fly_left(href="/food")
-                        i.food.icon
+                .five.wide.column
+                    a.ui.basic.large.button.fly_left(href="/food")
+                        i.chevron.left.icon
+                        i.large.food.icon
                         |food
                     if can_edit
-                        a.ui.icon.button.fly_down(href="/food/#{_id}/edit" title='edit product')
-                            i.pencil.big.icon
+                        a.ui.icon.basic.button.fly_down(href="/food/#{_id}/edit" title='edit product')
+                            i.pencil.icon
 
                     .ui.inline.header 
                         +i name='food' cl='ui avatar image'
@@ -58,28 +60,30 @@ template(name='food_view')
                         strong #{_author_username}
                     +i name='tags' cl='ui avatar image'
                     each tags
-                        .ui.label #{this}
+                        +flat_tag_picker
+                        // .ui.label #{this}
                     +voting_full
                     +comments
                 .six.wide.column
-                    .ui.header #{title}
+                    h1.ui.center.aligned.big.header #{title}
                     .ui.header 
                         i.business.icon
                         |#{company}
                     // if image_url
                     //     img.ui.inline.image(src=image_url)
                     if image_id
-                        img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                        img.ui.inline.rounded.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                     if in_dev
                         +print_this
-                .six.wide.column
+                .five.wide.column
                     .ui.big.fluid.green.button.buy_food 
-                        i.cart.icon
-                        |buy for #{price_dollars}
+                        i.cart.big.icon
+                        .ui.inline.white.header
+                            |buy for $#{price_dollars}
                     .ui.header section: #{section}
                     .ui.header also by #{company}
                     .ui.header rating
-                    +rating icon='beer' value='3'
+                    +rating icon='pizza slice' value='3'
                     
                     
                     .ui.header orders
@@ -167,9 +171,11 @@ template(name='drink_view')
                     .ui.big.fluid.green.button.buy_drink
                         |buy for #{price_dollars}
                     .ui.header also by #{company}
+                    .ui.header #{calories} calories
                     .ui.header stats
                     .ui.header orders
-
+                    .ui.basic.circular.icon.button.add_order
+                        i.plus.icon
 
 
 template(name='drink_edit')
