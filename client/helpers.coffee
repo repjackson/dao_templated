@@ -263,6 +263,7 @@ Template.registerHelper 'calculated_size', (metric) ->
 
 
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
+Template.registerHelper 'user_from_id', () -> Meteor.users.findOne @
 
 
 Template.registerHelper 'model_docs_helper', (model) ->

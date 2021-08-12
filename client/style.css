@@ -111,8 +111,10 @@ body {
 /*	padding-left: 1em;*/
 /*}*/
 
-.scrolling::-webkit-scrollbar {
+/*.scrolling::-webkit-scrollbar {*/
+::-webkit-scrollbar {
     width: 0px !important;
+    height: 0px !important;
 }
 
 .inline {
@@ -182,43 +184,43 @@ img, .button{
   background: lightgrey;
 }
 
-.red.button {
+.red {
     background-color:#DB2828 !important;
 }
-.orange.button {
+.orange {
     background-color:#FE9A76 !important;
 }
-.yellow.button {
+.yellow {
     background-color:#FFD700 !important;
 }
-.olive.button {
+.olive {
     background-color:#32CD32 !important;
 }
-.green.button {
+.green {
     background-color:#016936 !important;
 }
-.teal.button {
+.teal {
     background-color: #008080 !important;
 }
-.blue.button, .blue.segment{
+.blue, .blue.segment{
     background-color: #0E6EB8 !important;
 }
-.violet.button {
+.violet {
     background-color:#EE82EE !important;
 }
-.purple.button {
+.purple {
     background-color:#B413EC !important;
 }
-.pink.button {
+.pink {
     background-color: #FF1493 !important;
 }
-.brown.button {
+.brown {
     background-color:#A52A2A !important;
 }
-.grey.button {
+.grey {
     background-color: #A0A0A0 !important;
 }
-.black.button {
+.black {
     background-color:#000000 !important;
 }
 

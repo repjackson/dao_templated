@@ -2,7 +2,8 @@ template(name='items')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             a.ui.header(href="/items")
-                i.list.icon
+                // i.list.icon
+                +i name='scan-stock'
                 |inventory
             .ui.four.stackable.cards.smallscroll
                 each item_docs

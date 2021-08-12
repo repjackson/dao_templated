@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Router.route '/menu', -> @render 'menu'
+    Router.route '/drinks', -> @render 'drinks'
     
     Template.drinks.onCreated ->
         # @autorun => @subscribe 'model_docs', 'drink', ->
@@ -15,6 +15,7 @@ if Meteor.isClient
         food_docs: ->
             Docs.find 
                 model:'food'
+                
 if Meteor.isClient
     Router.route '/food', (->
         @render 'food'
@@ -285,8 +286,9 @@ if Meteor.isClient
             
             
         'click .delete_food': ->
-            Docs.remove @_id
-            Router.go "/product/#{@product_id}"
+            if confirm "delete #{@title}?"
+                Docs.remove @_id
+                Router.go "/food"
 
 
     Template.linked_product.onCreated ->

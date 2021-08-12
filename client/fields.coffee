@@ -27,7 +27,7 @@ Template.youtube_edit.events
 Template.html_edit.onRendered ->
     @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
     # 	"tabDisable": false
-        "minHeight": "400px"
+        # "minHeight": "400px"
         buttonList: [
             [
                 'undo' 
@@ -102,13 +102,17 @@ Template.clear_value.events
 Template.link_edit.events
     'blur .edit_url': (e,t)->
         val = t.$('.edit_url').val()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        doc = Docs.findOne parent._id
+        # if @direct
+        #     parent = Template.parentData()
+        # else
+        #     parent = Template.parentData(5)
+        doc = Docs.findOne Router.current().params.doc_id
+        user = Meteor.users.findOne username:Router.current().params.username
         if doc
-            Docs.update parent._id,
+            Docs.update doc._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update doc._id,
                 $set:"#{@key}":val
 
 
@@ -296,12 +300,12 @@ Template.number_edit.events
 
 Template.float_edit.events
     'blur .edit_float': (e,t)->
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
+        # if @direct
+        #     parent = Template.parentData()
+        # else
+        #     parent = Template.parentData(5)
         val = parseFloat t.$('.edit_float').val()
-        doc = Docs.findOne parent._id
+        doc = Docs.findOne Router.current().params.doc_id
         if doc
             Docs.update parent._id,
                 $set:"#{@key}":val

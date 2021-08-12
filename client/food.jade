@@ -1,31 +1,40 @@
-template(name='menu')
-    .ui.padded.stackable.grid
-        .sixteen.wide.column
-            +search_input model='food' field='title'
-        .eight.wide.column
-            +food
-        .eight.wide.column
-            +drinks
-            
-            
 template(name='food')            
-    .ui.big.header 
-        i.food.icon
-        |#{food_docs.count} food
-    .ui.selection.link.big.animated.list.smallscroll
-        each food_docs
-            +food_item
+    if food_docs.count
+        .ui.big.inline.header 
+            // i.food.icon
+            +i name='food'
+            |#{food_docs.count} food
+        .ui.basic.circular.big.compact.button.set_apps
+            +i name='nachos' cl='ui avatar image'
+            |appetizers
+        .ui.basic.circular.big.compact.button.set_soup
+            +i name='soup-plate' cl='ui avatar image'
+            |soups
+        .ui.basic.circular.big.compact.button.set_salad
+            +i name='salad' cl='ui avatar image'
+            |salad
+        .ui.basic.circular.big.compact.button.set_sandwich
+            +i name='sandwich' cl='ui avatar image'
+            |sandwiches
+        .ui.basic.circular.big.compact.button.set_sandwich
+            +i name='sandwich' cl='ui avatar image'
+            |sandwiches
+        .ui.selection.link.big.animated.list.smallcroll
+            each food_docs
+                +food_item
 template(name='drinks')
-    .ui.big.header 
-        i.beer.icon
-        |#{drink_docs.count} drinks
-    .ui.selection.link.larbigge.animated.list.smallscroll
-        each drink_docs
-            +drink_item
+    if drink_docs.count
+        .ui.big.header 
+            // i.beer.icon
+            +i name='beer'
+            |#{drink_docs.count} drinks
+        .ui.selection.link.big.animated.list.smallscrll
+            each drink_docs
+                +drink_item
                     
             
 template(name='drink_item')
-    a.item(href="/drink/#{_id}") 
+    a.item.fly_right(href="/drink/#{_id}") 
         img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{title}
         each tags
@@ -33,7 +42,7 @@ template(name='drink_item')
 
 
 template(name='food_item')
-    a.item(href="/food/#{_id}") 
+    a.item.fly_right(href="/food/#{_id}") 
         img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{title}
         each tags
@@ -43,8 +52,8 @@ template(name='food_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
-                    a.ui.icon.button.fly_left(href="/posts")
+                .four.wide.column
+                    a.ui.icon.button.fly_left(href="/menu")
                         i.food.icon
                         |menu
                     if can_edit
@@ -65,56 +74,77 @@ template(name='food_view')
                     div
                     .ui.inline.header 
                         i.clock.icon
-                        small started
+                        small added
                         strong #{when}
                         small by
-                .ten.wide.column
+                        strong #{_author_username}
+                    +i name='tags' cl='ui avatar image'
+                    each tags
+                        .ui.label #{this}
+                    +voting_full
+                    +comments
+                .six.wide.column
                     .ui.header #{title}
+                    .ui.header 
+                        i.business.icon
+                        |#{company}
                     if image_url
                         img.ui.inline.image(src=image_url)
-                    img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    else if image_id
+                        img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                     if in_dev
                         +print_this
-
+                .six.wide.column
+                    .ui.big.fluid.green.button.buy_food 
+                        i.cart.icon
+                        |buy for #{price_dollars}
+                    .ui.header section: #{section}
+                    .ui.header also by #{company}
+                    .ui.header stats
+                    .ui.header orders
 
 template(name='food_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .eight.wide.column
+                .five.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/post/#{_id}/" title='save product')
+                    a.ui.fluid.icon.green.button.fly_up(href="/food/#{_id}/" title='save food')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +text_edit key='model' label='model' icon='database' direct=true
                     +image_link_edit key='image_url' label='image link' icon='image'
+                .five.wide.column
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='calories' label='calories' icon='cheese' direct=true
                     +number_edit key='price_dollars' label='price ($)' icon='money'
-                .eight.wide.column
                     +html_edit key='body' label='body' direct=true
-                    .ui.red.large.icon.button.delete_post(title='delete')
+                    .ui.red.large.icon.button.delete_food(title='delete')
                         i.remove.icon   
                         // | delete
-                
+                .six.wide.column
+                    +link_edit key='link' label='link' icon='link'
+                    
 template(name='drink_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .five.wide.column
                     a.ui.basic.big.button.fly_left(href="/menu")
-                        i.food.icon
+                        // i.food.icon
+                        +i name='food' cl='ui avatar image'
                         |menu
                     if can_edit
                         a.ui.icon.basic.circular.button.fly_down(href="/drink/#{_id}/edit" title='edit product')
                             i.pencil.big.icon
 
                     .ui.inline.header 
-                        +i name='drink' cl='ui avatar image'
+                        +i name='beer' cl='ui avatar image'
+                        strong #{title}
                         |drink
                     // .ui.segment 
                     //     with post_product
@@ -128,10 +158,14 @@ template(name='drink_view')
                     .ui.header #{company}
                     .ui.inline.header 
                         i.clock.icon
-                        small started
+                        small added
                         strong #{when}
                         small by
-                .ten.wide.column
+                    +link_view key='link'
+                    div
+                    +voting_full
+                    +comments
+                .six.wide.column
                     .ui.header #{title}
                     each tags   
                         .ui.basic.big.label #{this}
@@ -140,6 +174,12 @@ template(name='drink_view')
                     img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                     if in_dev
                         +print_this
+                .five.wide.column
+                    .ui.big.fluid.green.button.buy_drink
+                        |buy for #{price_dollars}
+                    .ui.header also by #{company}
+                    .ui.header stats
+                    .ui.header orders
 
 
 
@@ -147,7 +187,7 @@ template(name='drink_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .eight.wide.column
+                .six.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
@@ -161,12 +201,14 @@ template(name='drink_edit')
                     +image_link_edit key='image_url' label='image link' icon='image'
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='price_dollars' label='price ($)' icon='money'
-                .eight.wide.column
+                .five.wide.column
                     +html_edit key='body' label='body' direct=true
                     +number_edit key='calories' label='calories' icon='cheese'
                     +float_edit key='abv' label='abv' icon='beer'
                     +text_edit key='city' label='city' icon='marker'
                     +text_edit key='state' label='state' icon='marker'
+                .five.wide.column
+                    +link_edit key='link' label='link' icon='link'
                     .ui.red.large.icon.button.delete_post(title='delete')
                         i.remove.icon   
                         // | delete
