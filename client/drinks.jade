@@ -1,0 +1,26 @@
+template(name='drinks')
+    if drink_docs.count
+        a.ui.big.inline.header(href="/drinks")
+            // i.beer.icon
+            +i name='beer'
+            |#{drink_docs.count} drinks
+        +search_input model='food' field='title'
+            
+        +session_set key='drink_view_filter' value='gluten free' icon='no-gluten'
+        +session_set key='drink_view_filter' value='sour' icon='sour'
+        +session_set key='drink_view_filter' value='dark/boozy' icon='guiness-beer'
+        +session_set key='drink_view_filter' value='hoppy' icon='hops'
+        +session_set key='drink_view_filter' value='light/malty' icon='beer-glass'
+        +session_set key='drink_view_filter' value='belgian style/brett' icon='pint'
+            
+        .ui.selection.link.big.animated.list.smallscrll
+            each drink_docs
+                +drink_item
+                    
+            
+template(name='drink_item')
+    a.item.fly_right(href="/drink/#{_id}") 
+        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        |#{title}
+        each tags
+            .ui.basic.small.label #{this}

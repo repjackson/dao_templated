@@ -1,53 +1,30 @@
-template(name='food')            
-    // if food_docs.count
-    .ui.big.inline.header 
-        // i.food.icon
-        +i name='food'
-        |#{food_docs.count} products
-    +search_input model='food' field='title'
-    +session_set key='food_view_filter' value='appetizers' icon='nachos'
-    +session_set key='food_view_filter' value='soup' icon='soup-plate'
-    +session_set key='food_view_filter' value='salad' icon='salad'
-    +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
-    +session_set key='food_view_filter' value='pizza' icon='pizza'
-    .ui.selection.link.big.animated.list.smallcroll
-        each food_docs
-            +food_item
-template(name='drinks')
-    if drink_docs.count
-        a.ui.big.inline.header(href="/drinks")
-            // i.beer.icon
-            +i name='beer'
-            |#{drink_docs.count} drinks
-        +search_input model='food' field='title'
-            
-        +session_set key='drink_view_filter' value='gluten free' icon='no-gluten'
-        +session_set key='drink_view_filter' value='sour' icon='sour'
-        +session_set key='drink_view_filter' value='dark/boozy' icon='guiness-beer'
-        +session_set key='drink_view_filter' value='hoppy' icon='hops'
-        +session_set key='drink_view_filter' value='light/malty' icon='beer-glass'
-        +session_set key='drink_view_filter' value='belgian style/brett' icon='pint'
-            
-        .ui.selection.link.big.animated.list.smallscrll
-            each drink_docs
-                +drink_item
-                    
-            
-template(name='drink_item')
-    a.item.fly_right(href="/drink/#{_id}") 
-        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-        |#{title}
-        each tags
-            .ui.basic.small.label #{this}
+template(name='food')     
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            // if food_docs.count
+            .ui.big.inline.header 
+                // i.food.icon
+                +i name='food'
+                |#{food_docs.count} products
+            +search_input model='food' field='title'
+            +session_set key='food_view_filter' value='appetizers' icon='nachos'
+            +session_set key='food_view_filter' value='soup' icon='soup-plate'
+            +session_set key='food_view_filter' value='salad' icon='salad'
+            +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
+            +session_set key='food_view_filter' value='pizza' icon='pizza'
+            .ui.doubling.cards.scrolling
+                each food_docs
+                    +food_item
 
 
 template(name='food_item')
-    a.item.fly_right(href="/food/#{_id}") 
-        img.ui.mini.rounded.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-        |#{title}
-        .ui.large.label #{section}
-        each tags
-            .ui.basic.small.label #{this}
+    a.card.fly_right(href="/food/#{_id}") 
+        img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .content
+            .header #{title}
+            .ui.large.label #{section}
+            each tags
+                .ui.basic.small.label #{this}
 
 template(name='food_view')
     with current_doc
@@ -89,9 +66,9 @@ template(name='food_view')
                     .ui.header 
                         i.business.icon
                         |#{company}
-                    if image_url
-                        img.ui.inline.image(src=image_url)
-                    else if image_id
+                    // if image_url
+                    //     img.ui.inline.image(src=image_url)
+                    if image_id
                         img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                     if in_dev
                         +print_this
@@ -135,7 +112,12 @@ template(name='food_edit')
                 .six.wide.column
                     +link_edit key='link' label='link' icon='link'
                     +text_edit key='section' label='menu section' icon='beer-recipe'
-                    
+                    +key_value_set key='section' value='appetizers' icon='nachos'
+                    +key_value_set key='section' value='soup' icon='soup-plate'
+                    +key_value_set key='section' value='salad' icon='salad'
+                    +key_value_set key='section' value='sandwiches' icon='sandwich'
+                    +key_value_set key='section' value='pizza' icon='pizza'
+
 template(name='drink_view')
     with current_doc
         .ui.stackable.padded.grid
@@ -215,6 +197,14 @@ template(name='drink_edit')
                     +text_edit key='city' label='city' icon='marker'
                     +text_edit key='state' label='state' icon='marker'
                 .five.wide.column
+                    +text_edit key='section' label='menu section'
+                    +key_value_set key='section' value='gluten free' icon='no-gluten'
+                    +key_value_set key='section' value='sour' icon='sour'
+                    +key_value_set key='section' value='dark/boozy' icon='guiness-beer'
+                    +key_value_set key='section' value='hoppy' icon='hops'
+                    +key_value_set key='section' value='light/malty' icon='beer-glass'
+                    +key_value_set key='section' value='belgian style/brett' icon='pint'
+
                     +link_edit key='link' label='link' icon='link'
                     .ui.red.large.icon.button.delete_post(title='delete')
                         i.remove.icon   

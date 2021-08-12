@@ -22,7 +22,10 @@ Template.youtube_edit.events
                 $set:"#{@key}":val
 
 
-
+Template.key_value_set.events
+    'click .set_value': ->
+        Docs.update Router.current().params.doc_id,
+            $set:"#{@key}":@value
 
 Template.html_edit.onRendered ->
     @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{
@@ -268,7 +271,7 @@ Template.text_edit.events
         else
             parent = Template.parentData(5)
 
-        doc = Docs.findOne parent._id
+        doc = Docs.findOne Router.current().params.doc_id
         user = Meteor.users.findOne username:Router.current().params.username
         if doc
             Docs.update Router.current().params.doc_id,
