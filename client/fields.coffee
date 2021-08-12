@@ -269,9 +269,9 @@ Template.text_edit.events
             parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
+        user = Meteor.users.findOne username:Router.current().params.username
         if doc
-            Docs.update parent._id,
+            Docs.update Router.current().params.doc_id,
                 $set:"#{@key}":val
         else if user
             Meteor.users.update parent._id,

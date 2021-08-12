@@ -344,7 +344,7 @@ img, .button{
 } 
 
 .card {
-    /* border-radius:10px !important; */
+     border-radius:10px !important; 
 }
 
 /*.image:not(.flat), img {*/
@@ -353,11 +353,12 @@ img, .button{
 /*}*/
 
 /*}*/
-.button:hover {
+/*.button:hover {*/
+/*    background-color: navy !important;*/
     transition: transform 1s; /* Animation */
     transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
     /*box-shadow: inset 0px 0px 10px 10px rgba(250,250,250,0.8);*/
-}
+/*}*/
 .zoomer:hover {
     /*box-shadow: inset 0px 0px 10px 10px rgba(250,250,250,0.8);*/
     transition: transform 1s; /* Animation */
@@ -667,13 +668,13 @@ input.username_search{
     /* transform: translate(0, 4px); */
 }
 
-.button:hover {
+/*.button:hover {*/
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     /* box-shadow: 0 0px 2px 1px rgba(50, 50, 100, 0.2) !important; */
     /* background-color: rgba(43, 33, 0, .9) !important; */
     /* color: white !important; */
     /* transform: translate(0, 4px); */
-}
+/*}*/
 
 
 /* .button:active {
@@ -1228,13 +1229,13 @@ input.username_search{
     /* transform: translate(0, 4px); */
 }
 
-.button:hover {
-    background-color: rgba(200, 200, 200, 0.5) !important;
+/*.button:hover {*/
+/*    background-color: rgba(200, 200, 200, 0.5) !important;*/
     /* box-shadow: 0 0px 2px 1px rgba(50, 50, 100, 0.2) !important; */
     /* background-color: rgba(43, 33, 0, .9) !important; */
     /* color: white !important; */
-    transform: translate(1px, 1px);
-}
+/*    transform: translate(1px, 1px);*/
+/*}*/
 
 
 .button:active {

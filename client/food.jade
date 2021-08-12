@@ -1,41 +1,32 @@
 template(name='food')            
-    if food_docs.count
-        .ui.big.inline.header 
-            // i.food.icon
-            +i name='food'
-            |#{food_docs.count} products
-        +session_set key='food_view_filter' value='appetizers' icon='nachos'
-        +session_set key='food_view_filter' value='soup' icon='soup-plate'
-        +session_set key='food_view_filter' value='salad' icon='salad'
-        +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
-        +session_set key='food_view_filter' value='pizza' icon='pizza'
-        .ui.selection.link.big.animated.list.smallcroll
-            each food_docs
-                +food_item
+    // if food_docs.count
+    .ui.big.inline.header 
+        // i.food.icon
+        +i name='food'
+        |#{food_docs.count} products
+    +search_input model='food' field='title'
+    +session_set key='food_view_filter' value='appetizers' icon='nachos'
+    +session_set key='food_view_filter' value='soup' icon='soup-plate'
+    +session_set key='food_view_filter' value='salad' icon='salad'
+    +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
+    +session_set key='food_view_filter' value='pizza' icon='pizza'
+    .ui.selection.link.big.animated.list.smallcroll
+        each food_docs
+            +food_item
 template(name='drinks')
     if drink_docs.count
         a.ui.big.inline.header(href="/drinks")
             // i.beer.icon
             +i name='beer'
             |#{drink_docs.count} drinks
-        .ui.basic.circular.big.compact.button.set_gf
-            +i name='no-gluten' cl='ui avatar image'
-            |gluten free
-        .ui.basic.circular.big.compact.button.set_sour
-            +i name='sour' cl='ui avatar image'
-            |sour
-        .ui.basic.circular.big.compact.button.set_dark
-            +i name='guinness-beer' cl='ui avatar image'
-            |dark/boozy
-        .ui.basic.circular.big.compact.button.set_hoppy
-            +i name='hops' cl='ui avatar image'
-            |hoppy
-        .ui.basic.circular.big.compact.button.set_hoppy
-            +i name='beer-glass' cl='ui avatar image'
-            |light/malty
-        .ui.basic.circular.big.compact.button.set_hoppy
-            +i name='pint' cl='ui avatar image'
-            |belgian style/brett
+        +search_input model='food' field='title'
+            
+        +session_set key='drink_view_filter' value='gluten free' icon='no-gluten'
+        +session_set key='drink_view_filter' value='sour' icon='sour'
+        +session_set key='drink_view_filter' value='dark/boozy' icon='guiness-beer'
+        +session_set key='drink_view_filter' value='hoppy' icon='hops'
+        +session_set key='drink_view_filter' value='light/malty' icon='beer-glass'
+        +session_set key='drink_view_filter' value='belgian style/brett' icon='pint'
             
         .ui.selection.link.big.animated.list.smallscrll
             each drink_docs
@@ -52,8 +43,9 @@ template(name='drink_item')
 
 template(name='food_item')
     a.item.fly_right(href="/food/#{_id}") 
-        img.ui.tiny.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        img.ui.mini.rounded.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         |#{title}
+        .ui.large.label #{section}
         each tags
             .ui.basic.small.label #{this}
 
@@ -131,7 +123,7 @@ template(name='food_edit')
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     +text_edit key='model' label='model' icon='database' direct=true
-                    +image_link_edit key='image_url' label='image link' icon='image'
+                    // +image_link_edit key='image_url' label='image link' icon='image'
                 .five.wide.column
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='calories' label='calories' icon='cheese' direct=true
@@ -142,6 +134,7 @@ template(name='food_edit')
                         // | delete
                 .six.wide.column
                     +link_edit key='link' label='link' icon='link'
+                    +text_edit key='section' label='menu section' icon='beer-recipe'
                     
 template(name='drink_view')
     with current_doc

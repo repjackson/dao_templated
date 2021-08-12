@@ -30,6 +30,8 @@ if Meteor.isClient
     Template.food.onCreated ->
         @autorun -> Meteor.subscribe 'food',
             Session.get('food_title_filter')
+            Session.get('food_view_filter')
+            
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
@@ -147,12 +149,12 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'food', (title_filter, status)->
+    Meteor.publish 'food', (title_filter, section)->
         # food = Docs.findOne food_id
         match = {model:'food'}
         match.app = 'bc'
-        if status 
-            match.status = status
+        if section 
+            match.section = section
         if title_filter and title_filter.length > 1
             match.title = {$regex:title_filter, $options:'i'}
 
