@@ -12,20 +12,30 @@ template(name='food')
             +session_set key='food_view_filter' value='salad' icon='salad'
             +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
             +session_set key='food_view_filter' value='pizza' icon='pizza'
-            .ui.doubling.centered.cards.scrolling
+            +session_set key='food_sort' value='views' icon='eye'
+            +session_set key='food_sort' value='price_dollars' icon='money'
+            +session_set key='food_sort_direction' value=1 icon='chevron up'
+            +session_set key='food_sort_direction' value=-1 icon='chevron down'
+            .ui.hidden.divider
+            .ui.doubling.centered.five.cards.scrolling
                 each food_docs
                     +food_item
 
 
 template(name='food_item')
-    a.card.fly_right.zoomer(href="/food/#{_id}") 
+    a.card.zoom_in_card.zoomer(href="/food/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
             .ui.large.label #{section}
             each tags
                 +flat_tag_picker
+            span(title='views')
+                |#{views}
+                i.grey.eye.icon
                 // .ui.basic.small.label #{this}
+            .ui.fluid.big.green.button.buy
+                |$#{price_dollars}
 
 template(name='food_view')
     with current_doc
@@ -84,9 +94,8 @@ template(name='food_view')
                     // .ui.header also by #{company}
                     .ui.header ratings
                     +rating icon='pizza slice' value='3'
-                    
-                    
                     .ui.header orders
+                    .ui.header #{views} views
 template(name='rating')
     .ui.yellow.massive.rating(data-icon=icon data-rating=value)
 
