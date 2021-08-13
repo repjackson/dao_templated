@@ -1,5 +1,5 @@
 template(name='items')
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .sixteen.wide.column.scrolling
             a.ui.header(href="/items")
                 // i.list.icon
@@ -15,7 +15,7 @@ template(name='items')
 
 template(name='item_edit')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .four.wide.column
                     .ui.inline.header
@@ -40,7 +40,7 @@ template(name='item_edit')
         
 template(name='item_view')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .six.wide.column
                     a.ui.icon.large.basic.button.fly_left(href="/items")

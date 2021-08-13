@@ -1,5 +1,4 @@
 if Meteor.isClient
-    Router.route '/drinks', -> @render 'drinks'
     
     Template.rating.onRendered ->
         Meteor.setTimeout =>
@@ -46,16 +45,6 @@ if Meteor.isClient
         @render 'food_view'
         ), name:'food_view'
 
-    Router.route '/drink/:doc_id', (->
-        @layout 'layout'
-        @render 'drink_view'
-        ), name:'drink_view'
-
-
-    Template.drink_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
-    Template.drink_view.onRendered ->
-        Meteor.call 'log_view', Router.current().params.doc_id, ->
     Template.food_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
     Template.drink_edit.onCreated ->
@@ -157,16 +146,6 @@ if Meteor.isServer
         Docs.find match,
             sort:"#{sort_key}":sort_direction
             limit:20
-    Meteor.publish 'drinks', (title_filter, status)->
-        # food = Docs.findOne food_id
-        match = {model:'drink'}
-        match.app = 'bc'
-        if status 
-            match.status = status
-        if title_filter and title_filter.length > 1
-            match.title = {$regex:title_filter, $options:'i'}
-
-        Docs.find match
         
     Meteor.publish 'review_from_food_id', (food_id)->
         # food = Docs.findOne food_id

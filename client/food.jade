@@ -1,5 +1,5 @@
 template(name='food')     
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .sixteen.wide.column
             // if food_docs.count
             .ui.big.inline.header 
@@ -12,6 +12,8 @@ template(name='food')
             +session_set key='food_view_filter' value='salad' icon='salad'
             +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
             +session_set key='food_view_filter' value='pizza' icon='pizza'
+            +session_set key='food_view_filter' value='burger' icon='hamburger'
+            +session_set key='food_view_filter' value='dessert' icon='dessert'
             +session_set key='food_sort' value='views' icon='eye'
             +session_set key='food_sort' value='price_dollars' icon='money'
             +session_set key='food_sort_direction' value=1 icon='chevron up'
@@ -23,7 +25,7 @@ template(name='food')
 
 
 template(name='food_item')
-    a.card.zoom_in_card.zoomer(href="/food/#{_id}") 
+    a.card.fly_right.zoomer(href="/food/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
@@ -34,12 +36,12 @@ template(name='food_item')
                 |#{views}
                 i.grey.eye.icon
                 // .ui.basic.small.label #{this}
-            .ui.fluid.big.green.button.buy
-                |$#{price_dollars}
+        .ui.fluid.big.green.button.buy
+            |$#{price_dollars}
 
 template(name='food_view')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .five.wide.column
                     a.ui.basic.large.button.fly_left(href="/food")
@@ -53,6 +55,9 @@ template(name='food_view')
                     .ui.inline.header 
                         +i name='food' cl='ui avatar image'
                         |food
+                        a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
+                            i.grey.search.icon
+    
                     // .ui.segment 
                     //     with post_product
                     //         a(href="/product/#{_id}")
@@ -101,7 +106,7 @@ template(name='rating')
 
 template(name='food_edit')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .five.wide.column
                     .ui.inline.header

@@ -1,5 +1,5 @@
 template(name='badges')
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
                 .four.wide.column
@@ -30,7 +30,7 @@ template(name='user_badges')
     .ui.header user badges
 template(name='badge_edit')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .four.wide.column
                     .ui.inline.header
@@ -52,7 +52,7 @@ template(name='badge_edit')
         
 template(name='badge_view')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .six.wide.column
                     a.ui.icon.button.fly_left(href="/badges")

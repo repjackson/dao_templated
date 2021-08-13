@@ -3,7 +3,9 @@ template(name='home')
         .ui.center.aligned.basic.segment
             i.huge.loading.pizza.grey.icon
     else
-        .ui.padded.stackable.two.column.grid
+        .ui.stackable.two.column.padded.grid
+            .column
+                +specials
             .column
                 .ui.header money earned yesterday
                 .ui.header money earned last week
@@ -56,6 +58,16 @@ template(name='home')
             .column
                 +orders
                 
+
+template(name='specials')
+    .ui.header
+        i.exclamation.icon
+        |specials
+        if is_admin
+            i.plus.link.icon.add_special
+    each specials
+        .ui.header #{title}
+
 
 template(name='unpick_tag')                        
     a.ui.black.large.image.circular.label.zoomer.unpick_tag

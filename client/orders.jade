@@ -1,5 +1,5 @@
 // template(name='orders')
-//     .ui.stackable.padded.grid
+//     .ui.stackable.grid
 //         .sixteen.wide.column.scrolling
 //             .ui.stackable.grid 
 //                 .four.wide.column
@@ -34,7 +34,7 @@
 //                             +order_item
 //                             .ui.divider
 template(name='orders')
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .sixteen.wide.column
             .ui.header 
                 i.money.icon
@@ -85,7 +85,7 @@ template(name='order_item')
 
 template(name='order_view')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .four.wide.column
                     a.ui.icon.button.fly_left(href="/orders")
@@ -386,7 +386,7 @@ template(name='user_order_item')
 
 template(name='order_edit')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row
                 .four.wide.column
                     .ui.inline.header

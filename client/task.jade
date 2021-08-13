@@ -1,5 +1,5 @@
 template(name='tasks')
-    .ui.stackable.padded.grid
+    .ui.stackable.grid
         .row
             .four.wide.column
                 .ui.header 
@@ -162,7 +162,7 @@ template(name='subscriptions')
 
 template(name='task_view')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row 
                 .five.wide.column
                     .ui.large.button.goto_tasks
@@ -297,7 +297,7 @@ template(name='task_view')
 
 template(name='task_edit')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.grid
             .row 
                 .four.wide.column
                     a.ui.fluid.large.button(href="/task/#{_id}/view") 
