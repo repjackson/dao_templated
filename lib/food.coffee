@@ -144,6 +144,7 @@ if Meteor.isServer
         title_filter
         section
         sort_key
+        sort_direction=-1
         )->
         # food = Docs.findOne food_id
         match = {model:'food'}
@@ -154,7 +155,8 @@ if Meteor.isServer
             match.title = {$regex:title_filter, $options:'i'}
 
         Docs.find match,
-            sort:"#{sort_key}":-1
+            sort:"#{sort_key}":sort_direction
+            limit:20
     Meteor.publish 'drinks', (title_filter, status)->
         # food = Docs.findOne food_id
         match = {model:'drink'}
