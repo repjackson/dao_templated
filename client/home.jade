@@ -130,10 +130,11 @@ template(name='home_item')
                 
 
 template(name='flat_tag_picker')
-    .ui.image.link.basic.circular.big.label.flat_tag_pick.zoomer.pointer
+    .ui.image.link.basic.large.tertiary.label.flat_tag_pick.zoomer.pointer
         with ref_doc_flat
             if image_url
-                +image_link_view key='image_url' direct=true
+                img(src=image_url)
+                // +image_link_view key='image_url' direct=true
             else if image_id
                 // +image_view key='image_id' direct=true
                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")

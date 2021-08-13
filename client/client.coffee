@@ -28,19 +28,19 @@ $.cloudinary.config
         
 Template.body.events
     'click .zoom_in_card': (e,t)->
-        $(e.currentTarget).closest('.column').transition('drop', 1000)
+        $(e.currentTarget).closest('.column').transition('drop', 500)
     'click .zoom_out': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('scale', 1000)
+        $(e.currentTarget).closest('.grid').transition('scale', 500)
     'click .fly_up': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly up', 1000)
+        $(e.currentTarget).closest('.grid').transition('fly up', 500)
     'click .cards_up': (e,t)->
-        $(e.currentTarget).closest('.cards').transition('fly up', 1000)
+        $(e.currentTarget).closest('.cards').transition('fly up', 500)
     'click .fly_down': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly down', 1000)
+        $(e.currentTarget).closest('.grid').transition('fly down', 500)
     'click .fly_right': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly right', 1000)
+        $(e.currentTarget).closest('.grid').transition('fly right', 500)
     'click .fly_left': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly left', 1000)
+        $(e.currentTarget).closest('.grid').transition('fly left', 500)
 
 
     "click a:not('.no_blink')": ->

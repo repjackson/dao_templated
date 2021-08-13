@@ -55,7 +55,7 @@ template(name='layout')
             //     +admin_footer
       
 template(name='nav')
-    #topnav.ui.fluid.inverted.attached.big.borderless.blue.menu.topnav
+    #topnav.ui.fluid.inverted.attached.big.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -80,18 +80,18 @@ template(name='nav')
             //     a.icon.item.init_global_search(title='search')
             //         i.search.large.icon
                 
-            a.icon.item.mobile.hidden.zoomer(href='/events' class="{{isActiveRoute regex='events'}}" title='events')
-                i.large.calendar.icon
-                // |events
-            a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
-                i.large.database.icon
-                // |items
+            // a.icon.item.mobile.hidden.zoomer(href='/events' class="{{isActiveRoute regex='events'}}" title='events')
+            //     i.large.calendar.icon
+            //     // |events
             a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
                 i.large.food.icon
                 // |menu
             a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
                 i.large.beer.icon
                 // |menu
+            a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
+                i.large.database.icon
+                // |items
             a.icon.item.mobile.hidden.zoomer(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
                 i.large.money.icon
                 // |orders
@@ -187,24 +187,29 @@ template(name='not_found')
 //         +user_credit
         
 template(name='left_sidebar')
-    .ui.left.sidebar.vertical.big.inverted.labaled.icon.blue.menu
+    .ui.left.sidebar.vertical.big.inverted.labaled.icon.borderless.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
         //     .ui.icon.transparent.input
         //         i.search.icon
         //         input.search_global(type='text')
-        a.item.toggle_leftbar(href='/food' class="{{isActivePath '/food'}}" title='food')
-            i.large.food.icon
+        a.item.toggle_leftbar(href='/food' class="{{isActivePath '/food'}}")
+            // i.large.food.icon
+            // i.icon
+            +i name='food' cl='ui centered image'
             | food
         a.item.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
-            i.large.beer.icon
+            +i name='beer' cl='ui centered image'
+            // i.large.beer.icon
             | drinks
         a.item.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
-            i.large.list.icon
-            | #{items.count} items
+            +i name='beer-recipe' cl='ui centered image'
+            // i.large.list.icon
+            | #{items.count} inventory
         a.item.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
-            i.large.tasks.icon
+            +i name='tasks' cl='ui centered image'
+            // i.large.tasks.icon
             | #{tasks.count} tasks
         a.item.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
             i.large.certificate.icon
@@ -249,7 +254,7 @@ template(name='left_sidebar')
 
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
-    .ui.right.sidebar.vertical.inverted.big.borderless.labeled.icon.blue.menu.rightbar
+    .ui.right.sidebar.vertical.inverted.big.borderless.labeled.icon.menu.rightbar
         a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
             img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
             |#{currentUser.name}
