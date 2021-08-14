@@ -7,6 +7,8 @@ template(name='home')
             .column
                 +specials
             .column
+                +soup_small
+            .column
                 .ui.header money earned yesterday
                 .ui.header money earned last week
                 .ui.header payroll yesterday
@@ -45,19 +47,39 @@ template(name='home')
                         .ui.stackable.centered.cards.scrolling
                             each home_items
                                 +home_item
-            .column
-                +items
+            // .column
+            //     +items
             .column
                 +checkins
             .column
                 +losses
-            .column
-                +food
-            .column
-                +drinks
+            // .column
+            //     +food
+            // .column
+            //     +drinks
             .column
                 +orders
                 
+template(name='soup')
+    .ui.stackable.padded.grid 
+        .sixteen.wide.column
+            .ui.header 
+                +i name='soup-plate'
+                |soup
+            each model_docs_helper 'soup'
+                .ui.header #{title}
+            
+                
+template(name='soup_small')
+    a.ui.header(href="/soup") 
+        +i name='soup-plate'
+        |soup of the day
+    
+    with soup_doc
+        .ui.header #{title}
+        each ingredients
+            .ui.large.label
+                |#{this}
 
 template(name='specials')
     .ui.header

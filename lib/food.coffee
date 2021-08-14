@@ -38,6 +38,13 @@ if Meteor.isClient
                 sort: 
                     "#{Session.get('food_sort')}":Session.get('food_sort_direction')
 
+    Template.food.events
+        'click .add_food': ->
+            new_id = 
+                Docs.insert 
+                    model:'food'
+            Router.go "/food/#{new_id}/edit"
+            
 
 if Meteor.isClient
     Router.route '/food/:doc_id', (->

@@ -1,6 +1,25 @@
 if Meteor.isClient
-    Template.home.onCreated ->
-        @autorun => @subscribe 'model_docs', 'order', ->
+    # Template.home.onCreated ->
+    #     @autorun => @subscribe 'model_docs', 'order', ->
+    Router.route '/soup', (->
+        @render 'soup'
+        ), name:'soup'
+
+    Template.soup.onCreated ->
+        @autorun => @subscribe 'soup', ->
+            
+            
+    Template.soup.helpers
+        soups: ->
+            Docs.find 
+                model:'food'
+                section:'soup'
+        soup_of_the_day: ->
+            Docs.findOne
+                model:'food'
+                section:'soup'
+                soup_of_the_day:true
+            
     Template.orders.onCreated ->
         @autorun => @subscribe 'model_docs', 'order', ->
     Template.losses.onCreated ->
@@ -214,4 +233,8 @@ if Meteor.isServer
         Docs.find 
             model:'checkin'
             
+    Meteor.publish 'soup', ->
+        Docs.find 
+            model:'food'
+            section:'soup'
             

@@ -4,11 +4,8 @@ template(name='user_layout')
         // +topbar
         +left_sidebar
         +right_sidebar
-        // +cartbar
-        // +walletbar
-        // +secnav
         with user_from_username_param
-            .ui.stackable.grid.global_conainer.pusher
+            .ui.stackable.padded.grid.global_conainer.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column
@@ -143,10 +140,11 @@ template(name='user_dashboard')
                 .ui.header roles #{role}
                 .ui.header badges #{role}
                 
-            unless is_current_user
-                .ui.button.send_points
-                    |send points
-            +user_requests
+            .column
+                unless is_current_user
+                    .ui.button.send_points
+                        |send points
+                +user_requests
             .column
                 .ui.header chat 
                 .ui.input 

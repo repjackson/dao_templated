@@ -4,6 +4,9 @@ template(name='drinks')
         // i.beer.icon
         +i name='beer'
         |#{drink_docs.count} drinks
+    if currentUser
+        .ui.circular.icon.button.add_drink
+            i.plus.icon
     +search_input model='food' field='title'
         
     +session_set key='drink_view_filter' value='gluten free' icon='no-gluten'

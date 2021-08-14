@@ -22,6 +22,14 @@ if Meteor.isClient
             Session.get('drink_sort_direction')
     # Template.food.onCreated ->
     #     @autorun => @subscribe 'model_docs', 'food', ->
+    Template.drinks.events
+        'click .add_drink': ->
+            new_id = 
+                Docs.insert 
+                    model:'drink'
+            Router.go "/drink/#{new_id}/edit"
+            
+            
     Template.drinks.helpers
         drink_docs: ->
             Docs.find {

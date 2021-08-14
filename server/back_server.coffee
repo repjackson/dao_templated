@@ -47,10 +47,10 @@ Meteor.publish 'doc_by_id', (doc_id)->
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'model_docs', (model)->
-    Docs.find 
+    Docs.find {
         model:model
         app:'bc'
-    
+    }, limit:20
 
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()

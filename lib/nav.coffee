@@ -2,7 +2,7 @@ if Meteor.isClient
     Template.nav.onCreated ->
         Session.setDefault('is_global_searching')
         @autorun => Meteor.subscribe 'me'
-        @autorun => Meteor.subscribe 'current_group'
+        # @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'
         # @autorun => Meteor.subscribe 'my_unread_messages'
         # @autorun => Meteor.subscribe 'global_stats'
@@ -269,9 +269,9 @@ if Meteor.isClient
         #         Router.go '/'
 
 
-if Meteor.isServer
-    Meteor.publish 'current_group', ->
-        if Meteor.user()
-            Docs.find
-                model:'group'
-                _id:Meteor.user().current_group_id
+# if Meteor.isServer
+#     Meteor.publish 'current_group', ->
+#         if Meteor.user()
+#             Docs.find
+#                 model:'group'
+#                 _id:Meteor.user().current_group_id

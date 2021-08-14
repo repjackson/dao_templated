@@ -1,11 +1,16 @@
 template(name='food')     
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .sixteen.wide.column
             // if food_docs.count
             .ui.big.inline.header 
                 // i.food.icon
                 +i name='food'
-                |#{food_docs.count} products
+                |#{food_docs.count} items
+            if currentUser 
+                .ui.circular.icon.button.add_food
+                    i.plus.icon
+
+            
             +search_input model='food' field='title'
             +session_set key='food_view_filter' value='appetizers' icon='nachos'
             +session_set key='food_view_filter' value='soup' icon='soup-plate'
@@ -41,7 +46,7 @@ template(name='food_item')
 
 template(name='food_view')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .five.wide.column
                     a.ui.basic.large.button.fly_left(href="/food")
@@ -106,7 +111,7 @@ template(name='rating')
 
 template(name='food_edit')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .five.wide.column
                     .ui.inline.header
