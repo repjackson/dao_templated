@@ -212,28 +212,35 @@ template(name='left_sidebar')
             // i.large.tasks.icon
             | #{tasks.count} tasks
         a.item.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
-            i.large.certificate.icon
+            +i name='warranty' cl='ui centered image'
+            // i.large.certificate.icon
             | #{badges.count} badges
         a.item.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
-            i.large.money.icon
+            // i.large.money.icon
+            +i name='order-history' cl='ui centered image'
             | #{orders.count} orders
         a.item.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
-            i.large.newspaper.icon
+            +i name='blog' cl='ui centered image'
+            // i.large.newspaper.icon
             | #{posts.count} posts
         a.item.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
-            i.large.shield.icon
+            +i name='shield' cl='ui centered image'
+            // i.large.shield.icon
             | #{posts.count} roles
         // a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
         //     i.large.marker.icon
         //     |locations
         a.item.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            i.large.user.friends.icon
+            // i.large.user.friends.icon
+            +i name='groups' cl='ui centered image'
             | #{users.count} users
         a.item.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            i.large.fire.icon
+            +i name='campfire' cl='ui centered image'
+            // i.large.fire.icon
             | #{users.count} groups
         a.item.toggle_leftbar.zoomer(href='/ingredients' class="{{isActivePath '/ingredients'}}")
-            i.large.food.icon
+            // i.large.food.icon
+            +i name='ingredients' cl='ui centered image'
             | ingredients
         // if is_in_admin
         //     a.icon.item.toggle_admin.toggle_leftbar.no_blink
@@ -261,48 +268,61 @@ template(name='right_sidebar')
             small (#{currentUser.username})
         with currentUser
             a.item.zoomer.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
-                i.dashboard.icon
+                // i.dashboard.icon
+                +i name='dashboard' cl='ui centered image'
                 |dashboard
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute regex='user_checkins'}}")
-                i.smile.icon
+                // i.smile.icon
+                +i name='satisfaction' cl='ui centered image'
                 |checkins
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
-                i.coins.icon
+                // i.coins.icon
+                +i name='coins' cl='ui centered image'
                 |points
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
-                i.tasks.icon
+                // i.tasks.icon
+                +i name='tasks' cl='ui centered image'
                 |tasks
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
-                i.chat.icon
+                // i.chat.icon
+                +i name='chat' cl='ui centered image'
                 |chat
-            a.item.zoomer.toggle_rightbar(href="/user/#{username}/badges" class="{{isActiveRoute regex='user_badges'}}")
-                i.certificate.icon
-                |badges
+            // a.item.zoomer.toggle_rightbar(href="/user/#{username}/badges" class="{{isActiveRoute regex='user_badges'}}")
+            //     i.certificate.icon
+            //     |badges
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
-                i.clock.icon
+                // i.clock.icon
+                +i name='clock' cl='ui centered image'
                 |timeclock
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/scheduling" class="{{isActiveRoute regex='user_scheduling'}}")
-                i.calendar.icon
+                // i.calendar.icon
+                +i name='calendar' cl='ui centered image'
                 |scheduling
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/payroll" class="{{isActiveRoute regex='user_payroll'}}")
-                i.money.icon
+                +i name='money' cl='ui centered image'
+                // i.money.icon
                 |payroll
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
-                i.money.icon
+                +i name='order-history' cl='ui centered image'
+                // i.money.icon
                 |orders
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
-                i.users.icon
+                +i name='friends' cl='ui centered image'
+                // i.users.icon
                 |friends
             a.item.zoomer.toggle_rightbar(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
-                i.fire.icon
+                +i name='campfire' cl='ui centered image'
+                // i.fire.icon
                 |groups
             a.item.zoomer.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit account')
-                i.cog.icon
+                // i.cog.icon
+                +i name='settings' cl='ui centered image'
                 |settings
             a.item.zoomer.logout.toggle_rightbar
                 if is_logging_out
                     i.refresh.loading.icon
                 else
-                    i.sign.out.icon
+                    +i name='exit' cl='ui centered image'
+                    // i.sign.out.icon
                 |logout
             

@@ -61,7 +61,8 @@ template(name='home')
 
 template(name='specials')
     .ui.header
-        i.exclamation.icon
+        // i.exclamation.icon
+        +i name='discount'
         |specials
         if is_admin
             i.plus.link.icon.add_special
