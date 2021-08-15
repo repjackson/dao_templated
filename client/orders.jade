@@ -85,12 +85,14 @@ template(name='order_item')
 
 template(name='order_view')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     a.ui.icon.button.fly_left(href="/orders")
                         i.chevron.left.icon
                         |orders
+                    if kve order_product.model 'food'
+                        .ui.header food
                     a.ui.icon.button.fly_left(href="/product/#{product_id}" title='product')
                         i.chevron.left.icon
                         |#{product_doc.title}
@@ -386,7 +388,7 @@ template(name='user_order_item')
 
 template(name='order_edit')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     .ui.inline.header
@@ -423,8 +425,14 @@ template(name='order_edit')
 template(name='linked_product')
     .ui.segment
         with linked_product_doc
-            a.zoomer.fly_right(href="/product/#{_id}")
-                img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-                .ui.header
-                    |#{title}
+            if kve 'model' 'food'
+                a.zoomer.fly_right(href="/food/#{_id}")
+                    img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .ui.header
+                        |#{title}
+            else 
+                a.zoomer.fly_right(href="/product/#{_id}")
+                    img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .ui.header
+                        |#{title}
             

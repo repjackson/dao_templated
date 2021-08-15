@@ -30,10 +30,23 @@ Template.registerHelper 'pathname_root', () ->
 #     # console.log window.location.pathname.split('/')[1]
 #     Router.current().location.get().path
     
+Template.registerHelper 'order_product', () ->
+    
+    found = Docs.findOne @product_id
+    console.log found 
+    console.log @
+    found
+    
+    
+    
 Template.registerHelper 'active_path', (metric) ->
     false
 
 Template.registerHelper 'kve', (key,value) ->
+    console.log 'key', key
+    console.log 'value', value
+    console.log @
+    
     @["#{key}"] is value
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'

@@ -22,10 +22,10 @@ template(name='food')
             // +session_set key='food_view_filter' value='' icon='cancel'
             +session_set key='food_sort' value='views' icon='eye'
             +session_set key='food_sort' value='price_dollars' icon='money'
-            +session_set key='food_sort_direction' value=1 icon='chevron up'
-            +session_set key='food_sort_direction' value=-1 icon='chevron down'
+            // +session_set key='food_sort_direction' value=1 icon='chevron up'
+            // +session_set key='food_sort_direction' value=-1 icon='chevron down'
             .ui.hidden.divider
-            .ui.doubling.centered.five.cards.scrolling
+            .ui.doubling.centered.four.cards.scrolling
                 each food_docs
                     +food_item
 
@@ -36,6 +36,7 @@ template(name='food_item')
         .content
             .header #{title}
             .ui.large.label #{section}
+            .ui.small.inline.header #{calories}cals
             each tags
                 +flat_tag_picker
             span(title='views')
@@ -97,7 +98,7 @@ template(name='food_view')
                     if in_dev
                         +print_this
                 .five.wide.column
-                    .ui.big.fluid.green.button.buy_food 
+                    .ui.big.fluid.green.button.order_food 
                         i.cart.big.icon
                         .ui.inline.inverted.header
                             |buy for $#{price_dollars}
@@ -105,8 +106,25 @@ template(name='food_view')
                     // .ui.header also by #{company}
                     .ui.header ratings
                     +rating icon='pizza slice' value='3'
-                    .ui.header orders
+                    +product_orders
+                    
                     .ui.header #{views} views
+                    .ui.header #{calories}cals
+                    if youtube_id
+                        +youtube_view key='youtube_id' value='youtube id' icon='youtube'
+
+template(name='product_orders')
+    .ui.inline.header 
+        +i name='order-history'
+        |orders
+    if currentUser
+        i.plus.link.icon.add_order
+        
+    .ui.large.selection.list
+        each order_docs
+            .item #{when} #{_author_username}
+                    
+                    
 template(name='rating')
     .ui.yellow.massive.rating(data-icon=icon data-rating=value)
 
@@ -144,4 +162,5 @@ template(name='food_edit')
                     +key_value_set key='section' value='pizza' icon='pizza'
                     +key_value_set key='section' value='burger' icon='hamburger'
                     +key_value_set key='section' value='dessert' icon='dessert'
+                    +youtube_edit key='youtube_id' value='youtube id' icon='youtube'
 

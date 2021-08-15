@@ -1,8 +1,8 @@
 @picked_tags = new ReactiveArray []
 
 
-Router.configure
-	progressSpinner : false
+# Router.configure
+# 	progressSpinner : false
 
 Router.route '/', (->
     @render 'home'
@@ -36,11 +36,11 @@ Template.body.events
     'click .cards_up': (e,t)->
         $(e.currentTarget).closest('.cards').transition('swing up', 500)
     'click .fly_down': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('swing down', 500)
+        $(e.currentTarget).closest('.grid').transition('fly down', 500)
     'click .fly_right': (e,t)->
-        $(e.currentTarget).closest('.card').transition('swing right', 500)
+        $(e.currentTarget).closest('.card').transition('fly right', 500)
     'click .fly_left': (e,t)->
-        $(e.currentTarget).closest('.card').transition('swing left', 500)
+        $(e.currentTarget).closest('.card').transition('fly left', 500)
 
 
     "click a:not('.no_blink')": ->

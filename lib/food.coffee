@@ -111,6 +111,18 @@ if Meteor.isClient
                 $set:
                     rating:-1
 
+        'click .order_food': ->
+            product = Docs.findOne Router.current().params.doc_id
+            new_order_id = 
+                Docs.insert 
+                    model:'order'
+                    parent_id:product._id
+                    product_id:product._id
+                    purchase_amount:product.price_dollars*100
+                    product_title:product.title
+            Router.go "/order/#{new_order_id}/edit"
+
+
     Template.food_view.helpers
         food_review: ->
             Docs.findOne 
