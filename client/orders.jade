@@ -351,7 +351,7 @@ template(name='user_orders')
     .ui.button 
         |delivery
     .scrolling
-        each orders
+        each model_docs_helper 'order'
             +user_order_item
 
 template(name='user_order_item')

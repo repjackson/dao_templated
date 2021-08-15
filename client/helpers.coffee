@@ -46,7 +46,6 @@ Template.registerHelper 'kve', (key,value) ->
     console.log 'key', key
     console.log 'value', value
     console.log @
-    
     @["#{key}"] is value
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'

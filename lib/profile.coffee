@@ -97,7 +97,7 @@ if Meteor.isClient
     
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
-        @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
+        # @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
         @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username
 
     Template.user_layout.onRendered ->
@@ -120,19 +120,13 @@ if Meteor.isClient
                     
             
     Template.user_friends.helpers
-        user_friends: ->
-            
-            Meteor.users.findOne username:Router.current().params.username
+        user_friends: -> Meteor.users.findOne username:Router.current().params.username
     Template.user_layout.helpers
-        user_from_username_param: ->
-            Meteor.users.findOne username:Router.current().params.username
-
-        user: ->
-            Meteor.users.findOne username:Router.current().params.username
+        user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
+        user: -> Meteor.users.findOne username:Router.current().params.username
 
     Template.user_layout.events
-        'click .logout_other_clients': ->
-            Meteor.logoutOtherClients()
+        'click .logout_other_clients': -> Meteor.logoutOtherClients()
 
         'click .logout': (e,t)->
             $(e.currentTarget).closest('.grid').transition('fly right', 1000)
