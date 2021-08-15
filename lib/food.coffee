@@ -152,7 +152,7 @@ if Meteor.isServer
 
         Docs.find match,
             sort:"#{sort_key}":sort_direction
-            limit:20
+            limit:42
         
     Meteor.publish 'review_from_food_id', (food_id)->
         # food = Docs.findOne food_id
@@ -214,7 +214,7 @@ if Meteor.isServer
             model:'food'
             _author_id: user._id
         }, 
-            limit:20
+            limit:42
             sort:_timestamp:-1
             
     Meteor.publish 'product_from_food_id', (food_id)->

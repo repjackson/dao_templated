@@ -76,7 +76,7 @@ if Meteor.isServer
     #     Meteor.users.find(match,limit:limit)
     Meteor.publish 'users', ()->
         Meteor.users.find({app:'bc'},
-            limit:20)
+            limit:42)
 
 
     Meteor.publish 'user_search', (username, role)->
@@ -86,25 +86,25 @@ if Meteor.isServer
                     app:'bc'
                     username: {$regex:"#{username}", $options: 'i'}
                     # roles:$in:[role]
-                },{ limit:20})
+                },{ limit:42})
             else
                 Meteor.users.find({
                     app:'bc'
                     # roles:$in:[role]
-                },{ limit:20})
+                },{ limit:42})
         else
             if username
                 Meteor.users.find({
                     username: {$regex:"#{username}", $options: 'i'}
                     app:'bc'
                     # roles:$in:[role]
-                },{ limit:20})
+                },{ limit:42})
             else
                 Meteor.users.find({
                     app:'bc'
                     # roles:$in:[role]
-                },{ limit:20})
+                },{ limit:42})
             Meteor.users.find({
                 app:'bc'
                 username: {$regex:"#{username}", $options: 'i'}
-            },{ limit:20})
+            },{ limit:42})

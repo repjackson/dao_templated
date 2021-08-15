@@ -9,27 +9,27 @@ template(name='user_layout')
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column
-                        a.item.mobile.hidden.zoomer(href="/user/#{username}")
+                        a.item.zoomer(href="/user/#{username}")
                             img.ui.centered.rounded.inline.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         // .spacer
                         a.ui.inline.header(href="/user/#{username}")
                             | #{username}
-                        a.ui.inline.tiny.statistic.zoomer(href="/users")
-                            .value
+                        a.ui.inline.small.header.zoomer(href="/users")
+                            strong
                                 |#{current_user.points}
-                            .label
+                            small
                                 |current pts
                                 span(title='rank') (##{current_user.point_rank})
-                        .ui.inline.tiny.statistic
-                            .value
+                        .ui.inline.small.header
+                            strong
                                 |#{current_user.total_earned_credits}
-                            .label
+                            small
                                 |pts earned
                                 span(title='rank') (##{current_user.total_earned_credit_rank})
-                        .ui.inline.tiny.statistic
-                            .value
+                        .ui.inline.small.header
+                            strong
                                 |#{current_user.total_bought_credits}
-                            .label
+                            small
                                 |pts bought
                                 span(title='rank') (##{current_user.total_bought_credit_rank})
                         .ui.large.label app: #{app}

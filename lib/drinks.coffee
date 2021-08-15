@@ -50,6 +50,7 @@ if Meteor.isServer
         match.app = 'bc'
         if section_filter
             match.section = section_filter
+        # match.section = $exists:false
         if title_filter and title_filter.length > 1
             match.title = {$regex:title_filter, $options:'i'}
 

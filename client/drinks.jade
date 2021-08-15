@@ -27,6 +27,7 @@ template(name='drink_item')
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
+            .ui.basic.label #{section}
             each tags
                 +flat_tag_picker
 
