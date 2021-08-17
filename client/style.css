@@ -15,7 +15,9 @@ body {
      /*background: #0e0e44 !important; */
 }
 
-
+.filled {
+    background-color: white !important;
+}
 .card:hover {
     filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
 }
