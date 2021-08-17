@@ -1,0 +1,180 @@
+template(name='transfers')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column.scrolling
+            .ui.stackable.grid 
+                .four.wide.column
+                    .ui.header 
+                        +i name='blog'
+                        |transfers
+                    |view
+                    // +session_set key='transfer_sort_filter' value='open'               
+                    +session_set key='transfer_sort_filter' value='now'               
+                    +session_set key='transfer_sort_filter' value='later'   
+                    +session_set key='transfer_sort_filter' value=null label='all'
+                    |delivery
+                    +session_set key='transfer_delivery_filter' value='pickup'   
+                    +session_set key='transfer_delivery_filter' value='delivery'   
+                    +session_set key='transfer_delivery_filter' value=null label='all'   
+                    +session_set key='transfer_status_filter' value='cart' label='cart' icon='cart'   
+                    +session_set key='transfer_status_filter' value=null label='all status' icon='cart'   
+                    div
+                    |sort by
+                    +session_set key='transfer_sort_key' value='price'               
+                .twelve.wide.column
+                    a.ui.center.aligned.header(href="/transfers")
+                        +i name='clock' cl='ui tiny inline image'
+                        | transfers
+                    .ui.button today
+                    .ui.button now
+                    .ui.button later
+                    .ui.button sort transfer
+                    .ui.button sort by
+                    .scrolling
+                        each transfer_docs
+                            +transfer_item
+                            .ui.divider
+            
+            
+template(name='transfer_item')
+    a.ui.item(href="/transfer/#{_id}")
+        .content
+            .ui.header #{title}
+            a.ui.icon.big.button(href="/transfer/#{_id}")
+                i.right.chevron.large.icon
+            if in_dev 
+                +print_this
+            |#{when}, #{_author_username} 
+
+template(name='transfer_view')
+    with current_doc
+        .ui.stackable.grid
+            .row
+                .eight.wide.column
+                    a.ui.icon.button.fly_left(href="/transfers")
+                        i.chevron.left.icon
+                        |transfers
+                    .ui.inline.header 
+                        +i name='invoice' cl='ui avatar image'
+                        |transfer
+                    // .ui.segment 
+                    //     with transfer_product
+                    //         a(href="/product/#{_id}")
+                    //             img.ui.rounded.image(src="{{c.url image_id width=400 height=400}}")
+                    //         a.ui.header(href="/product/#{_id}") #{title}
+                    //         // - .ui.header #{cook_tip} cook tip
+                    //         // .ui.header $#{transfer_total_transaction_amount} 
+                    //         //     small total transaction amount
+                    div
+                    .ui.inline.header 
+                        i.clock.icon
+                        small started
+                        strong #{when}
+                        small by
+                        strong #{_author_username}
+                    with buyer
+                        +user_card
+                    if is_admin
+                        +print_this
+                    .ui.grey.header 
+                        i.eye.icon
+                        |viewers
+                    .ui.small.button.mark_viewed
+                        |mark viewed
+                    each view_events
+                        .item 
+                            |#{username} {{from_now view_timestamp}}
+                    .ui.header model: #{model}
+                .eight.wide.column
+                    if image_url
+                        +image_link_view key='image_url' direct=true
+                    if image_id
+                        +image_view key='image_id' direct=true 
+                    if youtube_id
+                        +youtube_view key='image_id' direct=true
+                
+                    if is_admin
+                        .ui.small.compact.button.delete_transfer
+                            i.remove.icon
+                            |delete
+                    .ui.hidden.divider
+                    if can_edit
+                        a.ui.icon.large.basic.button(href="/transfer/#{_id}/edit")
+                            i.pencil.large.icon
+                    +comments
+                    +print_this
+                    
+                    
+                    
+
+template(name='user_transfers')
+    .ui.inline.header #{transfers.count} 
+        +i name='invoice'
+        |transfers
+    .ui.button
+        |view complete
+    |sort by
+    .ui.button
+        |price
+    .ui.button
+        |time
+    .ui.button 
+        |delivery
+    .scrolling
+        each transfers
+            +user_transfer_item
+
+template(name='user_transfer_item')
+    .ui.segment
+        // each transfer_items
+        img.ui.avatar.image(src="{{c.url product_doc.image_id width=200 height=200 gravity='face' crop='fill'}}")
+        a.ui.inline.header(href="/transfer/#{_id}")
+            | #{product_doc.title}
+            // |#{subtitle}c
+        .ui.inline.header
+            |status: 
+            if is status 'pending'
+                i.large.yellow.clock.icon
+            else if is status 'ready'
+                i.large.green.clock.icon
+            else if is status 'complete'
+                i.large.green.checkmark.icon
+            |#{status}
+            if product_doc.has_calories
+                .ui.label 
+                    |#{product_doc.calories}cals
+            // .ui.inline.header product_id: #{product_id}
+            
+        a.ui.icon.big.button(href="/transfer/#{_id}")
+            i.right.chevron.large.icon
+        |#{status}
+        i.clock.icon
+        |#{when}
+        if is_admin 
+            +print_this
+            +remove_button
+
+
+
+template(name='transfer_edit')
+    with current_doc
+        .ui.stackable.grid
+            .row
+                .eight.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                    a.ui.fluid.icon.green.button.fly_up(href="/transfer/#{_id}/" title='save product')
+                        i.checkmark.big.icon
+                    // a.ui.big.circular.icon.green.button.save_this(title='save')
+                    +text_edit key='title' label='title' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +text_edit key='model' label='model' icon='database' direct=true
+                    +image_link_edit key='image_url' label='image link' icon='image'
+                    +image_edit key='image_id' label='image' icon='image'
+                    +number_edit key='price_dollars' label='price ($)' icon='money'
+                .eight.wide.column
+                    +html_edit key='body' label='body' direct=true
+                    .ui.red.large.icon.button.delete_transfer(title='delete')
+                        i.remove.icon   
+                        // | delete
+                

@@ -163,8 +163,12 @@ template(name='user_dashboard')
     
 template(name='user_sent')
     .ui.header user sent
-    each point_transfers
+    .ui.big.button.send_points
+        i.chevron.right.icon
+        |send points
+    each user_sent_docs
         .ui.header #{when}
+        +print_this
     
     
 template(name='friend_button')
