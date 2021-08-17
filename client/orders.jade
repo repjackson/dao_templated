@@ -39,16 +39,20 @@ template(name='orders')
             .ui.header 
                 i.money.icon
                 |orders
-            .ui.list
+            .ui.selection.animated.list
                 each order_docs
-                    .item #{title} #{when} #{_author_username}
+                    +order_item
+                    // a.item.fly_right(href="/order/#{_id}")
+                    //     .content 
+                    //         .header #{product_title}
+                    //         |#{when} #{_author_username}
             
             
                         
 
             
 template(name='order_item')
-    a.ui.grid(href="/order/#{_id}")
+    a.ui.grid.fly_right(href="/order/#{_id}")
         .row
             // .four.wide.column.zoomer
             //     with order_product
