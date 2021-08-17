@@ -34,14 +34,14 @@
 //                             +order_item
 //                             .ui.divider
 template(name='orders')
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.header 
                 i.money.icon
                 |orders
             .ui.list
                 each order_docs
-                    .item #{title}
+                    .item #{title} #{when} #{_author_username}
             
             
                         

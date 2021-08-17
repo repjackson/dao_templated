@@ -20,8 +20,6 @@ if Meteor.isClient
                 section:'soup'
                 soup_of_the_day:true
             
-    Template.orders.onCreated ->
-        @autorun => @subscribe 'model_docs', 'order', ->
     Template.losses.onCreated ->
         @autorun => @subscribe 'model_docs', 'loss', ->
     Template.losses.helpers

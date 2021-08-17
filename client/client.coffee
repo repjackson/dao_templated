@@ -12,7 +12,15 @@ Template.right_sidebar.events
     'click .log_out': ->
         Meteor.logout()
 
+Template.admin_footer.onCreated ->
+    # @subscribe => 
+    
+Template.admin_footer.helpers
+    docs: ->
+        Docs.find()
 
+    users: ->
+        Meteor.users.find()
 
 
 Router.configure

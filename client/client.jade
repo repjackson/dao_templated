@@ -51,8 +51,24 @@ template(name='layout')
                 unless connected
                     +status
                 +yield
-            // if in_role 'admin'
-            //     +admin_footer
+        if in_dev
+            +admin_footer
+      
+template(name='admin_footer')
+    .ui.fluid.segment
+        .ui.header 
+            i.shield.icon
+            |admin footer
+        .ui.header #{docs.count} docs
+        .ui.header #{users.count} users
+        .ui.small.list.smallscroll
+            each docs
+                .item 
+                    .content 
+                        .header
+                            |#{title} 
+                        |#{model} #{when} #{_author_username} 
+                        .ui.label #{app}
       
 template(name='nav')
     #topnav.ui.fluid.inverted.attached.big.borderless.menu.topnav

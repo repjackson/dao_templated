@@ -10,8 +10,8 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
     Template.orders.helpers
-        orders: ->
-            match = {model:'order'}
+        order_docs: ->
+            match = {model:'order', app:'bc'}
             if Session.get('order_status_filter')
                 match.status = Session.get('order_status_filter')
             if Session.get('order_delivery_filter')
@@ -141,9 +141,9 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'orders', (order_id, status)->
         # order = Docs.findOne order_id
-        match = {model:'order'}
-        if status 
-            match.status = status
+        match = {model:'order', app:'bc'}
+        # if status 
+        #     match.status = status
 
         Docs.find match
         

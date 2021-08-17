@@ -13,6 +13,10 @@ Template.registerHelper 'included_ingredients', () ->
         model:'ingredient'
         _id: $in:@ingredient_ids
 
+Template.registerHelper 'is_current_user', () ->
+    Meteor.user().username is Router.current().params.username
+
+
 Template.registerHelper 'ingredient_products', () ->
     Docs.find   
         model:'product'

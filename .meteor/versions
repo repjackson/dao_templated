@@ -1,14 +1,10 @@
 accounts-base@1.9.0
 accounts-password@1.7.1
 aldeed:simple-schema@1.3.3
-aldeed:template-extension@4.1.0
 allow-deny@1.1.0
 autoupdate@1.7.0
 babel-compiler@7.6.2
 babel-runtime@1.5.0
-babrahams:constellation@0.4.16
-babrahams:editable-json@0.6.7
-babrahams:temple@0.5.3
 base64@1.0.12
 binary-heap@1.0.11
 blaze@2.5.0
@@ -21,15 +17,7 @@ callback-hook@1.3.0
 cfs:http-methods@0.0.32
 check@1.3.1
 coffeescript@1.0.17
-constellation:autopublish@0.4.10
-constellation:console@1.4.10
-constellation:plugins@0.4.12
-constellation:position@0.4.11
-constellation:session@0.4.10
-constellation:subscriptions@0.4.10
-constellation:tiny@0.4.10
 dburles:collection-helpers@1.1.0
-dburles:mongo-collection-instances@0.3.5
 ddp@1.4.0
 ddp-client@2.4.1
 ddp-common@1.4.0
@@ -48,8 +36,6 @@ es5-shim@4.8.0
 fetch@0.1.1
 francocatena:status@1.5.3
 geojson-utils@1.0.10
-gwendall:body-events@0.1.7
-gwendall:session-json@0.1.7
 hot-code-push@1.0.4
 html-tools@1.1.2
 htmljs@1.1.1
@@ -65,7 +51,6 @@ iron:middleware-stack@1.1.0
 iron:router@1.0.13
 iron:url@1.0.11
 jquery@1.11.11
-lai:collection-extensions@0.2.1_1
 launch-screen@1.2.1
 lepozepo:cloudinary@4.2.6
 less@2.5.7
