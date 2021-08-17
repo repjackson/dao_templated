@@ -10,7 +10,7 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
     Template.posts.helpers
-        posts: ->
+        post_docs: ->
             match = {model:'post'}
             if Session.get('post_status_filter')
                 match.status = Session.get('post_status_filter')
@@ -141,11 +141,12 @@ if Meteor.isClient
 if Meteor.isServer
     Meteor.publish 'posts', (post_id, status)->
         # post = Docs.findOne post_id
-        match = {model:'post'}
+        match = {model:'post', app:'bc'}
         if status 
             match.status = status
 
-        Docs.find match
+        Docs.find match, 
+            limit:20
         
     Meteor.publish 'review_from_post_id', (post_id)->
         # post = Docs.findOne post_id

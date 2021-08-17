@@ -307,10 +307,11 @@ Template.float_edit.events
         #     parent = Template.parentData()
         # else
         #     parent = Template.parentData(5)
-        val = parseFloat t.$('.edit_float').val()
+        val = parseFloat(t.$('.edit_float').val())
+        console.log 'float', val
         doc = Docs.findOne Router.current().params.doc_id
         if doc
-            Docs.update parent._id,
+            Docs.update doc._id,
                 $set:"#{@key}":val
 
 

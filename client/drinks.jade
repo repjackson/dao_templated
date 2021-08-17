@@ -78,7 +78,7 @@ template(name='drink_view')
                         .ui.basic.big.label #{this}
                     if image_url
                         img.ui.inline.image(src=image_url)
-                    img.ui.inline.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+                    img.ui.fluid.image(src="{{c.url image_id }}")
                     if in_dev
                         +print_this
                 .five.wide.column
@@ -88,6 +88,8 @@ template(name='drink_view')
                     .ui.header also by #{company}
                     .ui.header #{calories} calories
                     .ui.header #{views} views
+                    .ui.header #{ibu} ibu
+                    .ui.header #{abv}% abv
                     .ui.header orders
                     .ui.basic.circular.icon.button.add_order
                         i.plus.icon
@@ -116,6 +118,7 @@ template(name='drink_edit')
                     +html_edit key='body' label='body' direct=true
                     +number_edit key='calories' label='calories' icon='cheese'
                     +float_edit key='abv' label='abv' icon='beer'
+                    +number_edit key='ibu' label='ibu' icon='guinness'
                     +text_edit key='city' label='city' icon='marker'
                     +text_edit key='state' label='state' icon='marker'
                 .five.wide.column

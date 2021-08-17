@@ -61,14 +61,25 @@ template(name='admin_footer')
             |admin footer
         .ui.inline.header #{docs.count} docs
         .ui.inline.header #{users.count} users
-        .ui.small.inverted.list.smallscroll
-            each docs
-                .item 
-                    .content 
-                        .header
-                            |#{title} 
-                        |#{model} #{when} #{_author_username} 
-                        .ui.label #{app}
+        .ui.stackable.padded.grid
+            .eight.wide.column
+                .ui.small.inverted.list.smallscroll
+                    each docs
+                        .item 
+                            .content 
+                                .header
+                                    |#{title} 
+                                |#{model} #{when} #{_author_username} 
+                                .ui.label #{app}
+                                +print_this
+            .eight.wide.column
+                .ui.small.inverted.list.smallscroll
+                    each users
+                        .item 
+                            .content 
+                                .header
+                                    |#{username} 
+                                +print_this
       
 template(name='nav')
     #topnav.ui.fluid.inverted.attached.big.borderless.menu.topnav
@@ -218,7 +229,7 @@ template(name='left_sidebar')
             // i.icon
             +i name='food' cl='ui centered image'
             | food
-        a.item.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
+        a.item.zoomer.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
             +i name='beer' cl='ui centered image'
             // i.large.beer.icon
             | drinks

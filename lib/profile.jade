@@ -32,6 +32,9 @@ template(name='user_layout')
                             small
                                 |pts bought
                                 span(title='rank') (##{current_user.total_bought_credit_rank})
+                        if untappd_username
+                            a.ui.inline.small.header(href="https://untappd.com/user/#{untappd_username}" target="_window")
+                                |untappd profile: #{untappd.username}
                         .ui.large.label app: #{app}
                         div
                         .ui.inline.header roles:
