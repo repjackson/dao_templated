@@ -37,8 +37,8 @@ Template.registerHelper 'pathname_root', () ->
 Template.registerHelper 'order_product', () ->
     
     found = Docs.findOne @product_id
-    console.log found 
-    console.log @
+    # console.log found 
+    # console.log @
     found
     
     
