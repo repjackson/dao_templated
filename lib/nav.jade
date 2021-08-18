@@ -109,7 +109,7 @@ template(name='not_found')
         +ibig name='spill'
         .ui.header 
             // i.question.icon
-            '#{current_route}'
+            |'#{current_route}'
             |not found
         .ui.big.basic.ciruclar.button.browser_back
             i.undo.icon
@@ -154,23 +154,10 @@ template(name='left_sidebar')
         //     .ui.icon.transparent.input
         //         i.search.icon
         //         input.search_global(type='text')
-        a.ui.compact.basic.button.toggle_leftbar(href='/food' class="{{isActivePath '/food'}}")
-            // i.large.food.icon
-            // i.icon
-            +i name='food' cl='ui mini centered image'
-            | food
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
-            +i name='beer' cl='ui mini centered image'
-            // i.large.beer.icon
-            | drinks
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
-            +i name='beer-recipe' cl='ui mini centered image'
-            // i.large.list.icon
-            | #{items.count} inventory
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
-            +i name='tasks' cl='ui mini centered image'
-            // i.large.tasks.icon
-            | #{tasks.count} tasks
+        +leftbar_nav_item label='food' icon='food' route='food'
+        +leftbar_nav_item label='beer' icon='beer' route='drinks'
+        +leftbar_nav_item label='inventory' icon='beer-recipe' route='items'
+        +leftbar_nav_item label='tasks' icon='tasks' route='tasks'
         a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
             +i name='warranty' cl='ui mini centered image'
             // i.large.certificate.icon
@@ -218,6 +205,12 @@ template(name='left_sidebar')
                 i.large.list.icon
                 | orders
 
+template(name='leftbar_nav_item')
+    a.ui.basic.compact.button.toggle_leftbar(href="/#{route}" class="{{isActiveRoute regex=route}}")
+        +i name=icon cl='ui avatar image'
+        | #{label}
+
+
 
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
@@ -231,7 +224,7 @@ template(name='right_sidebar')
                 +i name='dashboard' cl='ui avatar image'
                 | dashboard
             +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
-            +rightbar_nav_item label='posts' icon='newspaper' route='posts'
+            +rightbar_nav_item label='posts' icon='blog' route='posts'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
             +rightbar_nav_item label='work' icon='services' route='work'
             +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
@@ -239,27 +232,13 @@ template(name='right_sidebar')
             +rightbar_nav_item label='badges' icon='prize' route='badges'
             +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
             +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/payroll" class="{{isActiveRoute regex='user_payroll'}}")
-                +i name='money' cl='ui avatar image'
-                |payroll
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
-                +i name='order-history' cl='ui avatar image'
-                |orders
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute 'user_points'}}")
-                +i name='coins' cl='ui avatar image'
-                |points
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
-                +i name='campfire' cl='ui avatar image'
-                |groups
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute 'user_checkins'}}")
-                +i name='checked-2' cl='ui avatar image'
-                |checkins
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
-                +i name='sent' cl='ui avatar image'
-                |sent
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/topups" class="{{isActiveRoute 'user_topups'}}")
-                +i name='donation' cl='ui avatar image'
-                |topups
+            +rightbar_nav_item label='payroll' icon='money' route='payroll'
+            +rightbar_nav_item label='orders' icon='order-history' route='orders'
+            +rightbar_nav_item label='points' icon='coins' route='points'
+            +rightbar_nav_item label='groups' icon='campfire' route='groups'
+            +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
+            +rightbar_nav_item label='sent' icon='sent' route='sent'
+            +rightbar_nav_item label='topups' icon='donation' route='topups'
             a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
                 +i name='groups' cl='ui avatar image'
                 |friends

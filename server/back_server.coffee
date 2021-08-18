@@ -154,6 +154,13 @@ Meteor.publish 'flat_ref_doc', (title)->
         },
             sort:
                 views:1
+            fields:
+                title:1
+                model:1
+                app:1
+                # metadata:1
+                image_id:1
+                image_url:1
             limit:1
             
             
