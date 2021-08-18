@@ -7,6 +7,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_dashboard'
         ), name:'user_dashboard'
+    Router.route '/inbox', (->
+        @layout 'user_layout'
+        @render 'inbox'
+        ), name:'inbox'
     Router.route '/user/:username/requests', (->
         @layout 'user_layout'
         @render 'user_requests'
@@ -15,6 +19,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_orders'
         ), name:'user_orders'
+    Router.route '/user/:username/checkins', (->
+        @layout 'user_layout'
+        @render 'user_checkins'
+        ), name:'user_checkins'
     Router.route '/user/:username/rewards', (->
         @layout 'user_layout'
         @render 'user_rewards'

@@ -1,7 +1,7 @@
 template(name='user_layout')
     +nav
     .ui.bottom.attached.pushable.segment
-        // +topbar
+        +topbar
         +left_sidebar
         +right_sidebar
         with user_from_username_param
@@ -73,6 +73,10 @@ template(name='user_layout')
                             // i.users.icon
                             +i name='campfire' cl='ui avatar image'
                             |groups
+                        a.ui.basic.compact.button(href="/user/#{username}/checkins" class="{{isActiveRoute 'user_checkins'}}")
+                            // i.users.icon
+                            +i name='campfire' cl='ui avatar image'
+                            |checkins
                         a.ui.basic.compact.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             // i.send.icon
                             +i name='sent' cl='ui avatar image'
@@ -115,6 +119,8 @@ template(name='user_layout')
         // if in_role 'admin'
         //     +admin_footer
 
+template(name='inbox')
+    .ui.header inbox
 template(name='user_stats')
     
     .ui.header

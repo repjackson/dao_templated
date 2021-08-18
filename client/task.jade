@@ -119,25 +119,26 @@ template(name='task_card_template')
 
 
 template(name='picked_task')
-    if editing_task 
-        +text_edit key='title' direct=true
-        +array_edit key='tags' direct=true
-        div
-        .ui.icon.large.button.save_task(title='save task') 
-            i.checkmark.green.large.icon
-        .ui.icon.small.button.delete_task(title='delete task') 
-            i.remove.icon
-    else 
-        .ui.small.header #{title}
-        !{description}
-        +array_view key='tags' direct=true
-        div
-        .ui.icon.large.button.edit_task(title='edit task') 
-            +i name='pencil'
-        .ui.icon.large.button.goto_task(title='view task') 
-            +i name='chevron-right'
-        div
-        +voting_full
+    // if editing_task 
+    //     +text_edit key='title' direct=true
+    //     +array_edit key='tags' direct=true
+    //     div
+    //     .ui.icon.large.button.save_task(title='save task') 
+    //         i.checkmark.green.large.icon
+    //     .ui.icon.small.button.delete_task(title='delete task') 
+    //         i.remove.icon
+    // else 
+    .ui.small.header #{title}
+    !{description}
+    +array_view key='tags' direct=true
+    div
+    // .ui.icon.large.button.edit_task(title='edit task') 
+    a.ui.icon.large.button(href="/task/#{_id}/edit" title='edit task') 
+        +i name='pencil' cl='ui avatar image'
+    .ui.icon.large.button.goto_task(title='view task') 
+        +i name='chevron-right'
+    div
+    +voting_full
 
 
 template(name='subscriptions')
