@@ -16,32 +16,32 @@ if Meteor.isClient
             $('.ui.left.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
-                    mobileTransition:'overlay'
+                    transition:'push'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:200
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_leftbar')
-        , 2000
+        , 1000
         Meteor.setTimeout ->
             $('.ui.rightbar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
-                    mobileTransition:'overlay'
+                    transition:'push'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:200
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_rightbar')
-        , 2000
+        , 1000
         Meteor.setTimeout ->
             $('.ui.topbar.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'overlay'
-                    mobileTransition:'overlay'
+                    transition:'push'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:200
                     scrollLock:true
