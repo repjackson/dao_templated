@@ -13,14 +13,6 @@ template(name='shop')
 
             
             +search_input model='shop' field='title'
-            +session_set key='shop_view_filter' value='appetizers' icon='nachos'
-            +session_set key='shop_view_filter' value='soup' icon='soup-plate'
-            +session_set key='shop_view_filter' value='salad' icon='salad'
-            +session_set key='shop_view_filter' value='sandwiches' icon='sandwich'
-            +session_set key='shop_view_filter' value='pizza' icon='pizza'
-            +session_set key='shop_view_filter' value='burger' icon='hamburger'
-            +session_set key='shop_view_filter' value='dessert' icon='dessert'
-            // +session_set key='shop_view_filter' value='' icon='cancel'
             +session_set key='shop_sort' value='views' icon='eye'
             +session_set key='shop_sort' value='price_dollars' icon='money'
             // +session_set key='shop_sort_direction' value=1 icon='chevron up'
@@ -36,8 +28,6 @@ template(name='shop_item')
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
-            .ui.large.label #{section}
-            .ui.small.inline.header #{calories}cals
             each tags
                 +flat_tag_picker
             span(title='views')
@@ -45,7 +35,7 @@ template(name='shop_item')
                 i.grey.eye.icon
                 // .ui.basic.small.label #{this}
         .ui.fluid.big.green.button.buy
-            |$#{price_dollars}
+            |$#{price_points}
 
 template(name='shop_view')
     with current_doc
@@ -102,13 +92,13 @@ template(name='shop_view')
                     .ui.big.fluid.green.button.order_shop 
                         i.cart.big.icon
                         .ui.inline.inverted.header
-                            |buy for $#{price_dollars}
+                            |buy for #{price_points}pts
                     .ui.header section: #{section}
                     // .ui.header also by #{company}
                     .ui.header ratings
                     +rating icon='pizza slice' value='3'
                     +product_orders
-                    
+                    .ui.header #{price_points}pts
                     .ui.header #{views} views
                     .ui.header #{calories}cals
                     if youtube_id
@@ -130,35 +120,25 @@ template(name='shop_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .five.wide.column
+                .eight.wide.column
                     .ui.inline.header
                         i.pencil.icon
+                        |small edit community shop item
                         | #{title}
                     a.ui.fluid.icon.green.button.fly_up(href="/shop/#{_id}/" title='save shop')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
-                    +text_edit key='model' label='model' icon='database' direct=true
+                    // +text_edit key='model' label='model' icon='database' direct=true
                     // +image_link_edit key='image_url' label='image link' icon='image'
-                .five.wide.column
+                .eight.wide.column
                     +image_edit key='image_id' label='image' icon='image'
-                    +number_edit key='calories' label='calories' icon='cheese' direct=true
                     div
-                    +number_edit key='price_dollars' label='price ($)' icon='money'
+                    // +number_edit key='price_dollars' label='price ($)' icon='money'
+                    +number_edit key='price_points' label='price (points)' icon='coins'
                     +html_edit key='body' label='body' direct=true
                     .ui.red.large.icon.button.delete_shop(title='delete')
                         i.remove.icon   
                         // | delete
-                .six.wide.column
-                    +link_edit key='link' label='link' icon='link'
-                    +text_edit key='section' label='menu section' icon='beer-recipe'
-                    +key_value_set key='section' value='appetizers' icon='nachos'
-                    +key_value_set key='section' value='soup' icon='soup-plate'
-                    +key_value_set key='section' value='salad' icon='salad'
-                    +key_value_set key='section' value='sandwiches' icon='sandwich'
-                    +key_value_set key='section' value='pizza' icon='pizza'
-                    +key_value_set key='section' value='burger' icon='hamburger'
-                    +key_value_set key='section' value='dessert' icon='dessert'
-                    +youtube_edit key='youtube_id' value='youtube id' icon='youtube'
 
