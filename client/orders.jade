@@ -346,7 +346,7 @@ template(name='product_delivery')
 
 
 template(name='user_orders')
-    .ui.inline.header #{orders.count} 
+    a.ui.inline.header(href="/user/#{current_username}/orders") #{orders.count} 
         +i name='invoice'
         |orders
     .ui.button

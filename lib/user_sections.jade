@@ -1,15 +1,15 @@
 template(name='user_points')
     .ui.stackable.two.column.grid
         // if is_current_user
-        .column
+        .column.smallscroll
             +user_topups
-        .column
+        .column.smallscroll
             +user_work
-        .column
+        .column.smallscroll
             +user_orders
 
 template(name='user_topups')
-    .ui.inline.header
+    a.ui.inline.header(href="/user/#{current_username}/topups")
         i.wallet.icon
         |#{user_topups.count}
         |topups
@@ -20,6 +20,7 @@ template(name='user_topups')
             a.item(href="/topup/#{_id}" title='view topup') #{topup_amount} #{when}
 template(name='user_work')
     .ui.inline.header
+    a.ui.inline.header(href="/user/#{current_username}/work")
         i.wrench.icon
         |#{user_work.count}
         |jobs 

@@ -5,6 +5,7 @@ Template.registerHelper 'parent', () -> Template.parentData()
 Template.registerHelper 'parent_doc', () ->
     Docs.findOne @parent_id
     # Template.parentData()
+Template.registerHelper 'current_username', () -> Router.current().params.username
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
