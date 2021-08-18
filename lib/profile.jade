@@ -41,12 +41,6 @@ template(name='user_layout')
                         each roles
                             .ui.basic.label #{this}
                         
-                        .ui.two.column.middle.aligned.grid.mobile.only
-                            .column
-                                img.ui.small.inline.image.mobile.only(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
-                            .column
-                                .ui.inline.header
-                                    strong #{username}
                         if is_current_user
                             a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                                 i.cog.large.icon
@@ -187,6 +181,14 @@ template(name='user_timeclock')
         |#{when}
         
         
+template(name='user_tasks')
+    .ui.header 
+        +i name='tasks'
+        |tasks
+template(name='user_schedule')
+    .ui.header 
+        +i name='calendar'
+        |schedule
 template(name='user_chat')
     .ui.header 
         i.chat

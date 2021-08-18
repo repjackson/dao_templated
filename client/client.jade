@@ -227,34 +227,34 @@ template(name='left_sidebar')
         a.ui.button.toggle_leftbar(href='/food' class="{{isActivePath '/food'}}")
             // i.large.food.icon
             // i.icon
-            +i name='food' cl='ui mini image'
+            +i name='food' cl='ui mini centered image'
             | food
         a.ui.button.zoomer.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
-            +i name='beer' cl='ui mini image'
+            +i name='beer' cl='ui mini centered image'
             // i.large.beer.icon
             | drinks
         a.ui.button.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
-            +i name='beer-recipe' cl='ui mini image'
+            +i name='beer-recipe' cl='ui mini centered image'
             // i.large.list.icon
             | #{items.count} inventory
         a.ui.button.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
-            +i name='tasks' cl='ui mini image'
+            +i name='tasks' cl='ui mini centered image'
             // i.large.tasks.icon
             | #{tasks.count} tasks
         a.ui.button.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
-            +i name='warranty' cl='ui mini image'
+            +i name='warranty' cl='ui mini centered image'
             // i.large.certificate.icon
             | #{badges.count} badges
         a.ui.button.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
             // i.large.money.icon
-            +i name='order-history' cl='ui mini image'
+            +i name='order-history' cl='ui mini centered image'
             | #{orders.count} orders
         a.ui.button.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
-            +i name='blog' cl='ui mini image'
+            +i name='blog' cl='ui mini centered image'
             // i.large.newspaper.icon
             | #{posts.count} posts
         a.ui.button.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
-            +i name='shield' cl='ui mini image'
+            +i name='shield' cl='ui mini centered image'
             // i.large.shield.icon
             | #{posts.count} roles
         // a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
@@ -262,15 +262,15 @@ template(name='left_sidebar')
         //     |locations
         a.ui.button.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             // i.large.user.friends.icon
-            +i name='groups' cl='ui mini image'
+            +i name='groups' cl='ui mini centered image'
             | #{users.count} users
         a.ui.button.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            +i name='campfire' cl='ui mini image'
+            +i name='campfire' cl='ui mini centered image'
             // i.large.fire.icon
             | #{users.count} groups
         a.ui.button.toggle_leftbar.zoomer(href='/ingredients' class="{{isActivePath '/ingredients'}}")
             // i.large.food.icon
-            +i name='ingredients' cl='ui mini image'
+            +i name='ingredients' cl='ui mini centered image'
             | ingredients
         // if is_in_admin
         //     a.icon.item.toggle_admin.toggle_leftbar.no_blink
@@ -299,68 +299,68 @@ template(name='right_sidebar')
                 small (#{currentUser.username})
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
                 // i.dashboard.icon
-                +i name='dashboard' cl='ui mini image'
+                +i name='dashboard' cl='ui mini centered image'
                 .ui.inline.small.header dashboard
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute regex='user_checkins'}}")
                 // i.smile.icon
-                +i name='satisfaction' cl='ui mini image'
+                +i name='satisfaction' cl='ui mini centered image'
                 .ui.inline.small.header checkins
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/topups" class="{{isActiveRoute regex='user_topups'}}")
                 // i.coins.icon
-                +i name='coins' cl='ui mini image'
+                +i name='coins' cl='ui mini centered image'
                 .ui.inline.small.header topups
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/work" class="{{isActiveRoute regex='user_work'}}")
                 // i.coins.icon
-                +i name='services' cl='ui mini image'
+                +i name='services' cl='ui mini centered image'
                 .ui.inline.small.header work
             // a.ui.basic.button.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
             //     // i.coins.icon
-            //     +i name='coins' cl='ui mini image'
+            //     +i name='coins' cl='ui mini centered image'
             //     .ui.inline.small.header points
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
                 // i.tasks.icon
-                +i name='tasks' cl='ui mini image'
+                +i name='tasks' cl='ui mini centered image'
                 .ui.inline.small.header tasks
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                 // i.chat.icon
-                +i name='chat' cl='ui mini image'
+                +i name='chat' cl='ui mini centered image'
                 |chat
             // a.segment.toggle_rightbar(href="/user/#{username}/badges" class="{{isActiveRoute regex='user_badges'}}")
             //     i.certificate.icon
             //     |badges
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
                 // i.clock.icon
-                +i name='clock' cl='ui mini image'
+                +i name='clock' cl='ui mini centered image'
                 |timeclock
-            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/scheduling" class="{{isActiveRoute regex='user_scheduling'}}")
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/schedule" class="{{isActiveRoute regex='user_schedule'}}")
                 // i.calendar.icon
-                +i name='calendar' cl='ui mini image'
-                |scheduling
+                +i name='calendar' cl='ui mini centered image'
+                |schedule
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/payroll" class="{{isActiveRoute regex='user_payroll'}}")
-                +i name='money' cl='ui mini image'
+                +i name='money' cl='ui mini centered image'
                 // i.money.icon
                 |payroll
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
-                +i name='order-history' cl='ui mini image'
+                +i name='order-history' cl='ui mini centered image'
                 // i.money.icon
                 |orders
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
-                +i name='friends' cl='ui mini image'
+                +i name='friends' cl='ui mini centered image'
                 // i.users.icon
                 |friends
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
-                +i name='campfire' cl='ui mini image'
+                +i name='campfire' cl='ui mini centered image'
                 // i.fire.icon
                 |groups
             a.ui.button.toggle_rightbar.no_blink(href="/user/#{username}/edit" title='edit account')
                 // i.cog.icon
-                +i name='settings' cl='ui mini image'
+                +i name='settings' cl='ui mini centered image'
                 |settings
             a.ui.button.logout.toggle_rightbar
                 if is_logging_out
                     i.refresh.loading.icon
                 else
-                    +i name='exit' cl='ui mini image'
+                    +i name='exit' cl='ui mini centered image'
                     // i.sign.out.icon
                 |logout
             
