@@ -106,25 +106,6 @@ if Meteor.isClient
         , 2000
 
 
-    Template.user_sent.onCreated ->
-        @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
-            
-            
-    Template.user_sent.events
-        'click .send_points': ->
-            new_id = 
-                Docs.insert 
-                    model:'transfer'
-            Router.go "/transfer/#{new_id}/edit"
-    Template.user_sent.helpers
-        user_sent_docs: ->
-            user = Meteor.users.findOne username:username
-        
-            Docs.find 
-                model:'transfer'
-                _author_username: username
-                
-            
 if Meteor.isServer
     Meteor.publish 'user_sent', (username)->
         user = Meteor.users.findOne username:username

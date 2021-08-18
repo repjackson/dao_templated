@@ -1,4 +1,24 @@
 if Meteor.isClient
+    Template.user_sent.onCreated ->
+        @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
+            
+            
+    Template.user_sent.events
+        'click .send_points': ->
+            new_id = 
+                Docs.insert 
+                    model:'transfer'
+            Router.go "/transfer/#{new_id}/edit"
+    Template.user_sent.helpers
+        user_sent_docs: ->
+            user = Meteor.users.findOne username:Router.current().params.username
+        
+            Docs.find 
+                model:'transfer'
+                _author_username: user.username
+                
+            
+    
     Router.route '/transfers', (->
         @render 'transfers'
         ), name:'transfers'
@@ -69,28 +89,6 @@ if Meteor.isClient
                     arrived: true
                     arrived_timestamp: Date.now()
                     status: 'arrived' 
-        
-        'click .mark_delivering': ->
-            # if confirm 'mark delivering?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    delivering: true
-                    delivering_timestamp: Date.now()
-                    status: 'delivering' 
-      
-        'click .mark_delivered': ->
-            # if confirm 'mark delivered?'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    delivered: true
-                    delivered_timestamp: Date.now()
-                    status: 'delivered' 
-      
-        'click .delete_transfer': ->
-            thing_count = Docs.find(model:'thing').count()
-            if confirm "delete? #{thing_count} things still"
-                Docs.remove @_id
-                Router.go "/transfers"
     
         'click .mark_ready': ->
             if confirm 'mark ready?'

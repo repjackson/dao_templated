@@ -178,3 +178,17 @@ template(name='transfer_edit')
                         i.remove.icon   
                         // | delete
                 
+
+
+template(name='user_sent')
+    .ui.header user sent
+    .ui.big.button.send_points
+        i.chevron.right.icon
+        |send points
+    .ui.large.link.selection.animated.list 
+        each user_sent_docs
+            a.item(href="/transfer/#{_id}")
+                .ui.header #{title} #{when}
+                +print_this
+                .ui.header #{amount}p
+    
