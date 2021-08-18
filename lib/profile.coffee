@@ -142,14 +142,29 @@ if Meteor.isServer
 if Meteor.isClient
     Template.user_friends.events    
         'keyup .add_friend_by_username': (e,t)->
-            if e.which is '13'
-                val = $('.add_friend_by_username').va()
-                Meteor.call 'search_by_username', (val, err, res)->
-                    console.log res
-                    
+            if e.which is 13
+                val = $('.add_friend_by_username').val()
+                console.log val
+                # Meteor.call 'search_by_username', (val, err, res)->
+                #     console.log res
+                
+                Meteor.call 'add_friend_by_username', val, ->
+            
+        'click .remove_friend': (e,t)->
+            if confirm 'delete friend?'
+                console.log @
+                # Meteor.call 'search_by_username', (val, err, res)->
+                #     console.log res
+                
+                Meteor.call 'remove_friend_by_username', @valueOf(), ->
             
     Template.user_friends.helpers
-        user_friends: -> Meteor.users.findOne username:Router.current().params.username
+        user_friend_docs: -> 
+            user = Meteor.users.findOne username:Router.current().params.username
+            if user.friend_ids
+                Meteor.users.find 
+                    _id: $in:user.friend_ids
+            
     Template.user_layout.helpers
         user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
         user: -> Meteor.users.findOne username:Router.current().params.username
@@ -241,6 +256,21 @@ if Meteor.isServer
             _id:$in:user.membership_group_ids
             
     Meteor.methods 
+        remove_friend_by_username: (username)->
+            found = Meteor.users.findOne username:username
+            Meteor.users.update Meteor.userId(),
+                $pull:
+                    friend_ids:found._id
+                    friend_usernames:found.username
+        
+        add_friend_by_username: (username)->
+            console.log 'adding username', username
+            found = Meteor.users.findOne username:username
+            if found 
+                Meteor.users.update Meteor.userId(),
+                    $addToSet:
+                        friend_ids:found._id
+                        friend_usernames:found.username
         search_by_username: (username)->
             found = Meteor.users.findOne 
                 username:username

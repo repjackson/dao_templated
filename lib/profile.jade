@@ -129,7 +129,15 @@ template(name='user_friends')
         |user friends
     .ui.input
         input.add_friend_by_username(type='text' placeholder='add user by friend')
-    each user_friends
+    .ui.header friend ids
+    each currentUser.friend_ids 
+        .ui.label #{this}
+    .ui.header friend usernames
+    each currentUser.friend_usernames 
+        .ui.big.basic.label 
+            i.remove.link.icon.remove_friend
+            |#{this}
+    each user_friend_docs
         .ui.big.button(href="/user/#{username}") #{username}
 
 

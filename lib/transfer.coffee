@@ -8,7 +8,15 @@ if Meteor.isClient
             new_id = 
                 Docs.insert 
                     model:'transfer'
+            user = Meteor.users.findOne username:Router.current().params.username
+                    
+            unless Meteor.user().username is Router.current().params.username
+                Docs.update new_id, 
+                    $set:
+                        target_username:Router.current().params.username
+                        target_user_id:user._id
             Router.go "/transfer/#{new_id}/edit"
+                    
     Template.user_sent.helpers
         user_sent_docs: ->
             user = Meteor.users.findOne username:Router.current().params.username

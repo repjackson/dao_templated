@@ -185,6 +185,9 @@ template(name='user_sent')
     .ui.big.button.send_points
         i.chevron.right.icon
         |send points
+    .ui.big.basic.button.quick_5
+        i.lightning.icon
+        |quick 5
     .ui.large.link.selection.animated.list 
         each user_sent_docs
             a.item(href="/transfer/#{_id}")

@@ -17,7 +17,10 @@ template(name='user_topups')
         |topup
     .ui.link.selection.list.scrolling
         each user_topup_docs
-            a.item(href="/topup/#{_id}" title='view topup') #{topup_amount} #{when}
+            a.item(href="/topup/#{_id}" title='view topup') 
+                |#{topup_amount} #{when}
+                if in_dev
+                    +delete_button
 template(name='user_work')
     .ui.inline.header
     a.ui.inline.header(href="/user/#{current_username}/work")
