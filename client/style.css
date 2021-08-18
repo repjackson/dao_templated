@@ -37,7 +37,7 @@ body {
 
 .button {
   margin:.1em !important;
-  border-radius: 10px !important;
+  border-radius: 20px !important;
 }
 .button:hover {
   transition: transform .5s; /* Animation */

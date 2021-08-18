@@ -37,16 +37,20 @@ template(name='user_layout')
                                 |untappd profile: #{untappd.username}
                         .ui.large.label app: #{app}
                         div
-                        .ui.inline.header roles:
+                        .ui.inline.header 
+                            +i name='shield' cl='ui avatar image'
+                            |roles:
                         each roles
                             .ui.basic.label #{this}
-                        
+                        div
                         if is_current_user
                             a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                                i.cog.large.icon
+                                // i.cog.large.icon
+                                +i name='settings'
                         if is_current_user
                             .ui.basic.icon.button.logout.fly_down(title='log out')
-                                i.sign.out.alternate.large.icon
+                                // i.sign.out.alternate.large.icon
+                                +i name='exit'
                         unless is_current_user
                             +friend_button
                         if checkedin
@@ -55,7 +59,8 @@ template(name='user_layout')
                             .ui.small.button.check_out
                                 |checkout
                         else 
-                            .ui.button.check_in
+                            .ui.basic.button.check_in
+                                +i name='internal' cl='ui avatar image'
                                 |check in
                         // .twelve.wide.column
                         // a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
@@ -75,7 +80,7 @@ template(name='user_layout')
                             |groups
                         a.ui.basic.compact.button(href="/user/#{username}/checkins" class="{{isActiveRoute 'user_checkins'}}")
                             // i.users.icon
-                            +i name='campfire' cl='ui avatar image'
+                            +i name='checked-2' cl='ui avatar image'
                             |checkins
                         a.ui.basic.compact.button(href="/user/#{username}/sent" class="{{isActiveRoute 'user_sent'}}")
                             // i.send.icon
@@ -98,7 +103,7 @@ template(name='user_layout')
                             // i.user.friends.icon
                             |friends
                         a.ui.basic.compact.button(href="/user/#{username}/rewards" class="{{isActiveRoute 'user_rewards'}}")
-                            +i name='groups' cl='ui avatar image'
+                            +i name='prize' cl='ui avatar image'
                             // i.user.rewards.icon
                             |rewards
                         a.ui.basic.compact.button(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
@@ -179,7 +184,7 @@ template(name='user_dashboard')
         .ui.two.column.stackable.grid
             .column
                 .ui.header 
-                    i.fire.icon
+                    +i name='campfire' cl='ui avatar image'
                     |groups
                 .ui.link.selection.list
                     each member_groups
@@ -187,13 +192,15 @@ template(name='user_dashboard')
                             img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                             |#{title}
             .column
-                .ui.header #{points} points
+                .ui.header
+                    +i name='coins' cl='ui avatar image'
+                    |#{points} points
                 .ui.inline.header 
                     +i name='shield'
                     |roles
                 each roles
                     .ui.label #{this}
-                .ui.header 
+                a.ui.header(href="/badges") 
                     +i name='certificate'
                     |badges
                 each user_badges
@@ -202,13 +209,16 @@ template(name='user_dashboard')
             .column
                 unless is_current_user
                     .ui.button.send_points
+                        +i name='donation'
                         |send points
                 +user_requests
+                +user_messages
             .column
             
             
     
-    
+template(name='user_messages')
+    .ui.header user messages
     
 template(name='friend_button')
     if is_friend
@@ -279,10 +289,10 @@ template(name='user_chat')
         
 template(name='user_requests')  
     .ui.header
-        i.bullhorn.icon
+        +i name='request-service'
         |#{user_from_username_param.name} requests
 template(name='user_groups')  
     .ui.header 
-        i.fire.icon
+        +i name='campfire'
         |#{user_from_username_param.name} groups
     

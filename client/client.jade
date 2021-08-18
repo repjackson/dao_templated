@@ -41,7 +41,7 @@ template(name='layout')
         +right_sidebar
         +topbar
         // +cartbar
-        // +walletbar
+        +walletbar
         // +secnav
         if logging_in
             .ui.center.aligned.basic.segment
@@ -127,10 +127,10 @@ template(name='nav')
                 +i name='money' cl='ui mini image'
                 // i.large.money.icon
                 // |orders
-            a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
-                +i name='loss' cl='ui mini image'
-                // i.large.frown.icon
-                // |losses
+            // a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
+            //     +i name='loss' cl='ui mini image'
+            //     // i.large.frown.icon
+            //     // |losses
             a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
                 // i.large.checkmark.icon
                 +i name='checkmark' cl='ui mini image'
@@ -202,22 +202,21 @@ template(name='not_found')
 template(name='topbar')
     .ui.fluid.attached.segment.topbar.top.sidebar
         .ui.middle.aligned.divided.list
-        .ui.list
             each recent_alerts
                 +recent_alert
-        a.ui.basic.button.item.close_topbar(href="/inbox")
+        a.ui.basic.button.item.close_topbar(href="/user/#{currentUser.username}/inbox")
             i.inbox.icon
             |inbox
         
-// template(name='recent_alert')        
-//     .item.alert
-//         .right.floated.content
-//             i.eye.link.icon.mark_read(title='mark read')
-//         img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-//         .content
-//             .header
-//                 |#{description} 
-//             .description #{author.name} #{when}
+template(name='recent_alert')        
+    .item.alert
+        .right.floated.content
+            i.eye.link.icon.mark_read(title='mark read')
+        img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+        .content
+            .header
+                |#{description} 
+            .description #{author.name} #{when}
             
             
             
@@ -226,9 +225,9 @@ template(name='topbar')
 //     .ui.right.wide.sidebar.cartbar
 //         +cart
         
-// template(name='walletbar')
-//     .ui.right.sidebar.walletbar
-//         +user_credit
+template(name='walletbar')
+    .ui.right.sidebar.walletbar
+        +user_points
         
 template(name='left_sidebar')
     .ui.left.sidebar.filled
@@ -314,19 +313,19 @@ template(name='right_sidebar')
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
                 // i.dashboard.icon
                 +i name='dashboard' cl='ui mini centered image'
-                .ui.inline.small.header dashboard
+                | dashboard
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute regex='user_checkins'}}")
                 // i.smile.icon
                 +i name='satisfaction' cl='ui mini centered image'
-                .ui.inline.small.header checkins
+                | checkins
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/topups" class="{{isActiveRoute regex='user_topups'}}")
                 // i.coins.icon
                 +i name='coins' cl='ui mini centered image'
-                .ui.inline.small.header topups
+                | topups
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/work" class="{{isActiveRoute regex='user_work'}}")
                 // i.coins.icon
                 +i name='services' cl='ui mini centered image'
-                .ui.inline.small.header work
+                | work
             // a.ui.basic.button.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
             //     // i.coins.icon
             //     +i name='coins' cl='ui mini centered image'

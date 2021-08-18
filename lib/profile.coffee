@@ -7,7 +7,7 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_dashboard'
         ), name:'user_dashboard'
-    Router.route '/inbox', (->
+    Router.route '/user/:username/inbox', (->
         @layout 'user_layout'
         @render 'inbox'
         ), name:'inbox'

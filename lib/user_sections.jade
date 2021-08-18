@@ -16,10 +16,11 @@ template(name='user_topups')
     .ui.green.basic.button.top_up
         +i name='donate' cl='ui avatar image'
         |topup
-    .ui.link.selection.list.scrolling
+    .ui.link.selection.animated.list.scrolling
         each user_topup_docs
             .item
-                |#{topup_amount} #{when}
+                .ui.inline.header 
+                    |#{topup_amount} #{when}
                 a.ui.big.icon.basic.button(href="/topup/#{_id}" title='view topup') 
                     i.chevron.right.icon
                 if in_dev
