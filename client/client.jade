@@ -189,11 +189,14 @@ template(name='nav')
 
 template(name='not_found')
     .ui.center.aligned.basic.segment
+        +ibig name='spill'
         .ui.header 
-            i.question.icon
+            // i.question.icon
             '#{current_route}'
             |not found
-            
+        .ui.big.basic.ciruclar.button.browser_back
+            i.undo.icon
+            |back
             
             
 template(name='topbar')

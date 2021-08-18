@@ -17,15 +17,25 @@ if Meteor.isClient
     Template.tasks.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'task'
         @autorun -> Meteor.subscribe('tasks',
+            Session.get('view_complete')
+            Session.get('assigned_to')
             picked_tags.array()
-            # Session.get('view_complete')
-            # Session.get('view_incomplete')
+            Session.get('task_view_key')
+            Session.get('task_view_direction')
+            
             )
-        @autorun => Meteor.subscribe 'model_docs', 'task'
+        # @autorun => Meteor.subscribe 'model_docs', 'task'
         # @autorun => Meteor.subscribe 'model_docs', 'tasks_stats'
-        @autorun => Meteor.subscribe 'current_tasks'
+        # @autorun => Meteor.subscribe 'current_tasks'
         
     Template.tasks.events
+        'click .clear_filter': ->
+            Session.set('view_complete', null)
+            Session.set('assigned_to', null)
+        
+        'click .your_incomplete': ->
+            Session.set('view_complete', false)
+            Session.set('assigned_to', Meteor.user().username)
         'click .toggle_complete': ->
             Session.set('view_complete', !Session.get('view_complete'))
         'click .new_task': (e,t)->
@@ -174,16 +184,22 @@ if Meteor.isServer
             # .ui.small.header predicted payback duration
             # .ui.small.header predicted payback date
     Meteor.publish 'tasks', (
-        picked_tags
-        # view_complete
+        view_complete=false
+        assigned_to=null
+        picked_tags=[]
+        task_sort_key='_timestamp'
+        task_sort_direction=-1
         )->
         # user = Meteor.users.findOne @userId
         # console.log picked_tags
         # console.log filter
         self = @
         match = {}
-        # if view_complete
-        #     match.complete = true
+        if view_complete
+            match.complete = true
+        if assigned_to
+            match.assigned_to_usernames = $in: [assigned_to]
+            
         # if Meteor.user()
         #     unless Meteor.user().roles and 'dev' in Meteor.user().roles
         #         match.view_roles = $in:Meteor.user().roles
@@ -195,8 +211,11 @@ if Meteor.isServer
         # if picked_tags.length > 0 then match.tags = $all: picked_tags
         # if filter then match.model = filter
         match.model = 'task'
-
-        Docs.find match, sort:_timestamp:-1
+        match.app = 'bc'
+        console.log 'task match', match
+        Docs.find match, 
+            sort:
+                "#{task_sort_key}": task_sort_direction
         
         
         

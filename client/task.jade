@@ -9,7 +9,11 @@ template(name='tasks')
                 .ui.icon.large.button.new_task
                     i.green.plus.icon
                 +task_cloud
+                i.remove.circular.link.icon.clear_filter(title='clear filters')
                 with currentUser
+                    .ui.button.your_incomplete
+                        i.large.circle.outline.icon
+                        |your incomplete tasks
                     .ui.basic.label(title='hours today')
                         i.sun.icon
                         i.clock.icon
@@ -80,6 +84,7 @@ template(name='task_card_template')
     .ui.segment.pointer.select_task(class=task_segment_class)
         // .ui.header.goto_task #{title}
         .ui.header #{title}
+        |!{description}
         div
         .ui.horizontal.list 
             .item(title='views')
@@ -96,7 +101,6 @@ template(name='task_card_template')
                 i.grey.tags.icon 
                 each five_tags
                     .ui.small.label #{this}
-        div
         if weight 
             .ui.small.inline.header #{weight} weight
         if assigned_by
@@ -131,13 +135,14 @@ template(name='picked_task')
     .ui.small.header #{title}
     !{description}
     +array_view key='tags' direct=true
-    div
+    // div
     // .ui.icon.large.button.edit_task(title='edit task') 
-    a.ui.icon.large.button(href="/task/#{_id}/edit" title='edit task') 
-        +i name='pencil' cl='ui avatar image'
+    if can_edit 
+        a.ui.icon.large.button(href="/task/#{_id}/edit" title='edit task') 
+            +i name='pencil' cl='ui avatar image'
     .ui.icon.large.button.goto_task(title='view task') 
         +i name='chevron-right'
-    div
+    // div
     +voting_full
 
 
@@ -163,18 +168,20 @@ template(name='task_view')
         .ui.stackable.padded.grid
             .row 
                 .five.wide.column
-                    .ui.large.button.goto_tasks
-                        i.left.chevron.icon
+                    .ui.big.basic.button.goto_tasks
+                        // i.left.chevron.icon
+                        +i name='tasks' cl='ui avatar image'
                         |tasks
+                    .ui.header #{title}
                     if parent_dependents
                         .ui.small.header parent dependents
                         each parent_dependents
                             a.ui.button(href="/task/#{_id}")
                                 i.left.chevron.icon
                                 |#{title}
-                    
-                    a.ui.icon.button(href="/task/#{_id}/edit" title='edit') 
-                        i.pencil.grey.icon
+                    if can_edit 
+                        a.ui.icon.button(href="/task/#{_id}/edit" title='edit') 
+                            i.pencil.grey.icon
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     div
                     +subscriptions
@@ -317,7 +324,7 @@ template(name='task_edit')
                     div 
                     +array_edit key='tags' label='tags' direct=true
                 .four.wide.column
-                    +text_edit key='parent_id' label='parent id' direct=true
+                    // +text_edit key='parent_id' label='parent id' direct=true
                     //- if task_list_id 
                     //-     with task_list
                     //-         .ui.segment

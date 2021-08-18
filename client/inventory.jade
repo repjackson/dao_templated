@@ -1,21 +1,24 @@
 template(name='items')
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             a.ui.header(href="/items")
                 // i.list.icon
                 +i name='scan-stock'
                 |inventory
-            .ui.four.stackable.cards.smallscroll
+            .ui.five.stackable.cards.smallscrol
                 each item_docs
                     a.card.zoomer.fly_left(href="/item/#{_id}")
                         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                         .content
                             .ui.inline.header #{title}
+                            each tags 
+                                +flat_tag_picker
+                                // .ui.basic.label #{this}
         
 
 template(name='item_edit')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     .ui.inline.header
@@ -40,7 +43,7 @@ template(name='item_edit')
         
 template(name='item_view')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .six.wide.column
                     a.ui.icon.large.basic.button.fly_left(href="/items")

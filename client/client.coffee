@@ -12,6 +12,10 @@ Template.right_sidebar.events
     'click .log_out': ->
         Meteor.logout()
 
+Template.not_found.events
+    'click .browser_back': ->
+        window.history.back();
+
 Template.admin_footer.onCreated ->
     # @subscribe => 
     
