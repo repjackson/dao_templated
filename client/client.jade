@@ -292,30 +292,30 @@ template(name='left_sidebar')
 template(name='right_sidebar')
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
     .ui.right.sidebar.rightbar
-        .ui.two.column.grid.filled
-            .column
+        .ui.two.column.padded.grid.filled
+            .center.aligned.column
                 a.item.toggle_rightbar.no_blink(href="/user/#{currentUser.username}" class="{{isActiveRoute 'user_layout'}}")
                     img.ui.avatar.compact.image(src="{{c.url currentUser.image_id height=200 width=200 gravity='face' crop='fill'}}")
                     |#{currentUser.name}
                     small (#{currentUser.username})
                 with currentUser
-                    a.segment.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
+                    a.ui.basic.center.aligned.link.segment.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
                         // i.dashboard.icon
                         +i name='dashboard' cl='ui centered image'
-                        |dashboard
-                    a.segment.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute regex='user_checkins'}}")
+                        .ui.center.aligned.header dashboard
+                    a.ui.basic.center.aligned.link.segment.toggle_rightbar(href="/user/#{username}/checkins" class="{{isActiveRoute regex='user_checkins'}}")
                         // i.smile.icon
                         +i name='satisfaction' cl='ui centered image'
-                        |checkins
-                    a.segment.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
+                        .ui.center.aligned.header checkins
+                    a.ui.basic.center.aligned.link.segment.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
                         // i.coins.icon
                         +i name='coins' cl='ui centered image'
-                        |points
-                    a.segment.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
+                        .ui.center.aligned.header points
+                    a.ui.basic.center.aligned.link.segment.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
                         // i.tasks.icon
                         +i name='tasks' cl='ui centered image'
-                        |tasks
-            .column
+                        .ui.center.aligned.header tasks
+            .center.aligned.column
                 a.segment.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
                     // i.chat.icon
                     +i name='chat' cl='ui centered image'
