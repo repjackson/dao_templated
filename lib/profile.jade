@@ -93,6 +93,10 @@ template(name='user_layout')
                             +i name='groups' cl='ui avatar image'
                             // i.user.friends.icon
                             |friends
+                        a.ui.basic.compact.button(href="/user/#{username}/rewards" class="{{isActiveRoute 'user_rewards'}}")
+                            +i name='groups' cl='ui avatar image'
+                            // i.user.rewards.icon
+                            |rewards
                         a.ui.basic.compact.button(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
                             // i.money.icon
                             +i name='money' cl='ui avatar image'
@@ -140,6 +144,29 @@ template(name='user_friends')
     each user_friend_docs
         .ui.big.button(href="/user/#{username}") #{username}
 
+template(name='user_rewards')
+    .ui.header 
+        +i name='award'
+        |user rewards
+    each won_rewards
+        .ui.card 
+            .content
+                if icon
+                    i.massive.icon(class=icon)
+                a.header(href="/reward/#{_id}")
+                    i.green.checkmark.icon
+                    |#{title}
+                
+    .ui.header non won rewards
+    .ui.centered.cards
+        each nonwon_rewards
+            .ui.card 
+                .content
+                    if icon
+                        i.massive.icon(class=icon)
+                    a.header(href="/reward/#{_id}")
+                        |#{title}
+                
 
 template(name='user_dashboard')
     with current_user

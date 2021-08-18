@@ -39,7 +39,7 @@ template(name='layout')
     .ui.bottom.attached.pushable.segment.scrolling
         +left_sidebar
         +right_sidebar
-        // +topbar
+        +topbar
         // +cartbar
         // +walletbar
         // +secnav
@@ -162,11 +162,11 @@ template(name='nav')
                         .icon.item
                             i.large.food.loading.icon
                     else
-                        // if in_role 'admin'
-                        //     a.icon.item(href='/admin' title='admin')
-                        //         i.large.shield.icon
-                        // a.icon.item.toggle_topbar(title='alerts')
-                        //     i.bell.outline.large.icon
+                        if in_role 'admin'
+                            a.icon.item(href='/admin' title='admin')
+                                i.large.shield.icon
+                        a.icon.item.toggle_topbar(title='alerts')
+                            i.bell.outline.large.icon
                         a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                             // i.wallet.icon
                             strong {{int currentUser.points}}p
@@ -195,15 +195,15 @@ template(name='not_found')
             
             
             
-// template(name='topbar')
-//     .ui.fluid.attached.segment.topbar.top.sidebar
-//         .ui.middle.aligned.divided.list
-//         .ui.list
-//             each recent_alerts
-//                 +recent_alert
-//         a.ui.basic.button.item.close_topbar(href="/inbox")
-//             i.inbox.icon
-//             |inbox
+template(name='topbar')
+    .ui.fluid.attached.segment.topbar.top.sidebar
+        .ui.middle.aligned.divided.list
+        .ui.list
+            each recent_alerts
+                +recent_alert
+        a.ui.basic.button.item.close_topbar(href="/inbox")
+            i.inbox.icon
+            |inbox
         
 // template(name='recent_alert')        
 //     .item.alert

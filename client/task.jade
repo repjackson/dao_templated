@@ -1,7 +1,7 @@
 template(name='tasks')
     .ui.stackable.padded.grid
         .row
-            .four.wide.column
+            .three.wide.column
                 .ui.header 
                     i.tasks.icon
                     |#{tasks.count}
@@ -10,23 +10,22 @@ template(name='tasks')
                     i.green.plus.icon
                 +task_cloud
                 with currentUser
-                    .ui.list
-                        .item(title='hours today')
-                            i.sun.icon
-                            i.clock.icon
-                            | #{daily_hours}hrs
-                        .item(title='weekly hours')
-                            i.calendar.icon
-                            i.clock.icon
-                            | #{weekly_hours}hrs
-                        .item(title='sessions today')
-                            i.sun.icon
-                            i.business.time.icon
-                            | #{daily_sessions} sessions
-                        .item(title='weekly sessions')
-                            i.calendar.icon
-                            i.business.time.icon
-                            | #{weekly_sessions} sessions
+                    .ui.basic.label(title='hours today')
+                        i.sun.icon
+                        i.clock.icon
+                        | #{daily_hours}hrs
+                    .ui.basic.label(title='weekly hours')
+                        i.calendar.icon
+                        i.clock.icon
+                        | #{weekly_hours}hrs
+                    .ui.basic.label(title='sessions today')
+                        i.sun.icon
+                        i.business.time.icon
+                        | #{daily_sessions} sessions
+                    .ui.basic.label(title='weekly sessions')
+                        i.calendar.icon
+                        i.business.time.icon
+                        | #{weekly_sessions} sessions
             .six.wide.column
                 //- with top_task
                 //-     +task_card_template
@@ -59,9 +58,6 @@ template(name='tasks')
                         .ui.small.grey.header #{week_tasks_count} tasks this week
                         .ui.small.grey.header #{day_tasks_count} tasks today
                     
-                    
-                    
-
 template(name='task_cloud')
     //- #task_cloud
         //- .ui.left.icon.input
@@ -80,11 +76,10 @@ template(name='task_cloud')
             strong #{this.name}
 
 
-
-
 template(name='task_card_template')
     .ui.segment.pointer.select_task(class=task_segment_class)
-        .ui.header.goto_task #{title}
+        // .ui.header.goto_task #{title}
+        .ui.header #{title}
         div
         .ui.horizontal.list 
             .item(title='views')
@@ -134,19 +129,21 @@ template(name='picked_task')
             i.remove.icon
     else 
         .ui.small.header #{title}
+        !{description}
         +array_view key='tags' direct=true
         div
         .ui.icon.large.button.edit_task(title='edit task') 
-            i.pencil.blue.icon
+            +i name='pencil'
         .ui.icon.large.button.goto_task(title='view task') 
-            i.right.chevron.large.icon
+            +i name='chevron-right'
         div
         +voting_full
 
 
 template(name='subscriptions')
     .ui.inline.grey.header 
-        i.newspaper.small.icon
+        // i.newspaper.small.icon
+        +i name='newspaper'
         |subscriptions
     if subscribed 
         .ui.icon.button.unsubscribe(title='unsubscribe')

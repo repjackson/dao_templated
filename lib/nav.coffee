@@ -36,18 +36,18 @@ if Meteor.isClient
                 })
                 .sidebar('attach events', '.toggle_rightbar')
         , 2000
-        # Meteor.setTimeout ->
-        #     $('.ui.topbar.sidebar')
-        #         .sidebar({
-        #             context: $('.bottom.segment')
-        #             transition:'overlay'
-        #             mobileTransition:'overlay'
-        #             exclusive:true
-        #             duration:200
-        #             scrollLock:true
-        #         })
-        #         .sidebar('attach events', '.toggle_topbar')
-        # , 2000
+        Meteor.setTimeout ->
+            $('.ui.topbar.sidebar')
+                .sidebar({
+                    context: $('.bottom.segment')
+                    transition:'overlay'
+                    mobileTransition:'overlay'
+                    exclusive:true
+                    duration:200
+                    scrollLock:true
+                })
+                .sidebar('attach events', '.toggle_topbar')
+        , 2000
         # Meteor.setTimeout ->
         #     $('.ui.secnav.sidebar')
         #         .sidebar({
