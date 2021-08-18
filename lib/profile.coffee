@@ -43,6 +43,22 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_schedule'
         ), name:'user_schedule'
+    Router.route '/user/:username/work', (->
+        @layout 'user_layout'
+        @render 'user_work'
+        ), name:'user_work'
+    Router.route '/user/:username/tasks', (->
+        @layout 'user_layout'
+        @render 'user_tasks'
+        ), name:'user_tasks'
+    Router.route '/user/:username/topups', (->
+        @layout 'user_layout'
+        @render 'user_topups'
+        ), name:'user_topups'
+    Router.route '/user/:username/chat', (->
+        @layout 'user_layout'
+        @render 'user_chat'
+        ), name:'user_chat'
     Router.route '/user/:username/roles', (->
         @layout 'user_layout'
         @render 'user_roles'

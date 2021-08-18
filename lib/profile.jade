@@ -152,12 +152,7 @@ template(name='user_dashboard')
                         |send points
                 +user_requests
             .column
-                .ui.header chat 
-                .ui.input 
-                    input.new_user_message(type='text' placeholder='new message...')
-                .ui.list
-                    each user_chats
-                        .item #{body} by #{_author_username} #{when}
+            
             
     
     
@@ -193,6 +188,15 @@ template(name='user_timeclock')
         
         
 template(name='user_chat')
+    .ui.header 
+        i.chat
+        |chat 
+    .ui.input 
+        input.new_user_message(type='text' placeholder='new message...')
+    .ui.list
+        each user_chats
+            .item #{body} by #{_author_username} #{when}
+            
     .ui.header
         i.chat.outline.icon
         |chat

@@ -305,54 +305,62 @@ template(name='right_sidebar')
                 // i.smile.icon
                 +i name='satisfaction' cl='ui mini image'
                 .ui.inline.small.header checkins
-            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/topups" class="{{isActiveRoute regex='user_topups'}}")
                 // i.coins.icon
                 +i name='coins' cl='ui mini image'
-                .ui.inline.small.header points
+                .ui.inline.small.header topups
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/work" class="{{isActiveRoute regex='user_work'}}")
+                // i.coins.icon
+                +i name='services' cl='ui mini image'
+                .ui.inline.small.header work
+            // a.ui.basic.button.toggle_rightbar(href="/user/#{username}/points" class="{{isActiveRoute regex='user_points'}}")
+            //     // i.coins.icon
+            //     +i name='coins' cl='ui mini image'
+            //     .ui.inline.small.header points
             a.ui.basic.button.toggle_rightbar(href="/user/#{username}/tasks" class="{{isActiveRoute regex='user_tasks'}}")
                 // i.tasks.icon
                 +i name='tasks' cl='ui mini image'
                 .ui.inline.small.header tasks
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
-            // i.chat.icon
-            +i name='chat' cl='ui mini image'
-            |chat
-        // a.segment.toggle_rightbar(href="/user/#{username}/badges" class="{{isActiveRoute regex='user_badges'}}")
-        //     i.certificate.icon
-        //     |badges
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
-            // i.clock.icon
-            +i name='clock' cl='ui mini image'
-            |timeclock
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/scheduling" class="{{isActiveRoute regex='user_scheduling'}}")
-            // i.calendar.icon
-            +i name='calendar' cl='ui mini image'
-            |scheduling
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/payroll" class="{{isActiveRoute regex='user_payroll'}}")
-            +i name='money' cl='ui mini image'
-            // i.money.icon
-            |payroll
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
-            +i name='order-history' cl='ui mini image'
-            // i.money.icon
-            |orders
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
-            +i name='friends' cl='ui mini image'
-            // i.users.icon
-            |friends
-        a.ui.basic.button.toggle_rightbar(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
-            +i name='campfire' cl='ui mini image'
-            // i.fire.icon
-            |groups
-        a.ui.button.toggle_rightbar.no_blink(href="/user/#{currentUser.username}/edit" title='edit account')
-            // i.cog.icon
-            +i name='settings' cl='ui mini image'
-            |settings
-        a.ui.button.logout.toggle_rightbar
-            if is_logging_out
-                i.refresh.loading.icon
-            else
-                +i name='exit' cl='ui mini image'
-                // i.sign.out.icon
-            |logout
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/chat" class="{{isActiveRoute regex='user_chat'}}")
+                // i.chat.icon
+                +i name='chat' cl='ui mini image'
+                |chat
+            // a.segment.toggle_rightbar(href="/user/#{username}/badges" class="{{isActiveRoute regex='user_badges'}}")
+            //     i.certificate.icon
+            //     |badges
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/timeclock" class="{{isActiveRoute regex='user_timeclock'}}")
+                // i.clock.icon
+                +i name='clock' cl='ui mini image'
+                |timeclock
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/scheduling" class="{{isActiveRoute regex='user_scheduling'}}")
+                // i.calendar.icon
+                +i name='calendar' cl='ui mini image'
+                |scheduling
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/payroll" class="{{isActiveRoute regex='user_payroll'}}")
+                +i name='money' cl='ui mini image'
+                // i.money.icon
+                |payroll
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
+                +i name='order-history' cl='ui mini image'
+                // i.money.icon
+                |orders
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
+                +i name='friends' cl='ui mini image'
+                // i.users.icon
+                |friends
+            a.ui.basic.button.toggle_rightbar(href="/user/#{username}/groups" class="{{isActiveRoute 'user_groups'}}")
+                +i name='campfire' cl='ui mini image'
+                // i.fire.icon
+                |groups
+            a.ui.button.toggle_rightbar.no_blink(href="/user/#{username}/edit" title='edit account')
+                // i.cog.icon
+                +i name='settings' cl='ui mini image'
+                |settings
+            a.ui.button.logout.toggle_rightbar
+                if is_logging_out
+                    i.refresh.loading.icon
+                else
+                    +i name='exit' cl='ui mini image'
+                    // i.sign.out.icon
+                |logout
             
