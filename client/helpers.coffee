@@ -31,9 +31,9 @@ Template.registerHelper 'lowered', (input)-> input.toLowerCase()
 
 Template.registerHelper 'pathname_root', () ->
     window.location.pathname.split('/')[1]
-# Template.registerHelper 'current_route', () ->
-#     # console.log window.location.pathname.split('/')[1]
-#     Router.current().location.get().path
+Template.registerHelper 'current_route', () ->
+    # console.log window.location.pathname.split('/')[1]
+    Router.current().location.get().path
     
 Template.registerHelper 'order_product', () ->
     
