@@ -7,7 +7,7 @@ if Meteor.isClient
         @layout 'layout'
         @render 'task_edit'
         ), name:'task_edit'
-    Router.route '/task/:doc_id/view', (->
+    Router.route '/task/:doc_id', (->
         @layout 'layout'
         @render 'task_view'
         ), name:'task_view'
@@ -70,7 +70,7 @@ if Meteor.isClient
             console.log @
             $(e.currentTarget).closest('.grid').transition('fade right', 500)
             Meteor.setTimeout =>
-                Router.go "/task/#{@_id}/view"
+                Router.go "/task/#{@_id}/"
             , 500
 
     Template.picked_task.helpers
@@ -112,6 +112,9 @@ if Meteor.isClient
 
 
     Template.task_card_template.events
+        'dblclick .select_task': (e,t)->
+            $(e.currentTarget).closest('.item').transition('fly right', 500)
+            Router.go "/task/#{@_id}/"
         'click .select_task': ->
             if Session.equals('picked_task_id',@_id)
                 Session.set 'picked_task_id', null
@@ -121,7 +124,7 @@ if Meteor.isClient
             console.log @
             $(e.currentTarget).closest('.grid').transition('fade right', 500)
             Meteor.setTimeout =>
-                Router.go "/task/#{@_id}/view"
+                Router.go "/task/#{@_id}/"
             , 500
 
 

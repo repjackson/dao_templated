@@ -1,37 +1,38 @@
-template(name='food')     
+template(name='shop')     
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            // if food_docs.count
+            // if shop_docs.count
             .ui.big.inline.header 
-                // i.food.icon
-                +i name='food'
-                |#{food_docs.count} items
+                // i.shop.icon
+                +i name='shop'
+                |#{shop_docs.count} community shop items
+                
             if currentUser 
-                .ui.circular.icon.button.add_food
+                .ui.circular.icon.button.add_shop
                     i.plus.icon
 
             
-            +search_input model='food' field='title'
-            +session_set key='food_view_filter' value='appetizers' icon='nachos'
-            +session_set key='food_view_filter' value='soup' icon='soup-plate'
-            +session_set key='food_view_filter' value='salad' icon='salad'
-            +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
-            +session_set key='food_view_filter' value='pizza' icon='pizza'
-            +session_set key='food_view_filter' value='burger' icon='hamburger'
-            +session_set key='food_view_filter' value='dessert' icon='dessert'
-            // +session_set key='food_view_filter' value='' icon='cancel'
-            +session_set key='food_sort' value='views' icon='eye'
-            +session_set key='food_sort' value='price_dollars' icon='money'
-            // +session_set key='food_sort_direction' value=1 icon='chevron up'
-            // +session_set key='food_sort_direction' value=-1 icon='chevron down'
+            +search_input model='shop' field='title'
+            +session_set key='shop_view_filter' value='appetizers' icon='nachos'
+            +session_set key='shop_view_filter' value='soup' icon='soup-plate'
+            +session_set key='shop_view_filter' value='salad' icon='salad'
+            +session_set key='shop_view_filter' value='sandwiches' icon='sandwich'
+            +session_set key='shop_view_filter' value='pizza' icon='pizza'
+            +session_set key='shop_view_filter' value='burger' icon='hamburger'
+            +session_set key='shop_view_filter' value='dessert' icon='dessert'
+            // +session_set key='shop_view_filter' value='' icon='cancel'
+            +session_set key='shop_sort' value='views' icon='eye'
+            +session_set key='shop_sort' value='price_dollars' icon='money'
+            // +session_set key='shop_sort_direction' value=1 icon='chevron up'
+            // +session_set key='shop_sort_direction' value=-1 icon='chevron down'
             .ui.hidden.divider
             .ui.doubling.centered.four.cards.scrolling
-                each food_docs
-                    +food_item
+                each shop_docs
+                    +shop_item
 
 
-template(name='food_item')
-    a.card.fly_right.zoomer(href="/food/#{_id}") 
+template(name='shop_item')
+    a.card.fly_right.zoomer(href="/shop/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
@@ -46,22 +47,22 @@ template(name='food_item')
         .ui.fluid.big.green.button.buy
             |$#{price_dollars}
 
-template(name='food_view')
+template(name='shop_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/food")
+                    a.ui.basic.large.button.fly_left(href="/shop")
                         i.chevron.left.icon
-                        i.large.food.icon
-                        |food
+                        i.large.shop.icon
+                        |shop
                     if can_edit
-                        a.ui.icon.basic.button.fly_down(href="/food/#{_id}/edit" title='edit product')
+                        a.ui.icon.basic.button.fly_down(href="/shop/#{_id}/edit" title='edit product')
                             i.pencil.icon
 
                     .ui.inline.header 
-                        +i name='food' cl='ui avatar image'
-                        |food
+                        +i name='shop' cl='ui avatar image'
+                        |shop
                         a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
                             i.grey.search.icon
     
@@ -98,7 +99,7 @@ template(name='food_view')
                     if in_dev
                         +print_this
                 .five.wide.column
-                    .ui.big.fluid.green.button.order_food 
+                    .ui.big.fluid.green.button.order_shop 
                         i.cart.big.icon
                         .ui.inline.inverted.header
                             |buy for $#{price_dollars}
@@ -113,22 +114,19 @@ template(name='food_view')
                     if youtube_id
                         +youtube_view key='youtube_id' value='youtube id' icon='youtube'
 
-// template(name='product_orders')
-//     .ui.inline.header 
-//         +i name='order-history'
-//         |orders
-//     if currentUser
-//         i.plus.link.icon.add_order
+template(name='product_orders')
+    .ui.inline.header 
+        +i name='order-history'
+        |orders
+    if currentUser
+        i.plus.link.icon.add_order
         
-//     .ui.large.selection.list
-//         each order_docs
-//             .item #{when} #{_author_username}
+    .ui.large.selection.list
+        each order_docs
+            .item #{when} #{_author_username}
                     
                     
-template(name='rating')
-    .ui.yellow.massive.rating(data-icon=icon data-rating=value)
-
-template(name='food_edit')
+template(name='shop_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
@@ -136,7 +134,7 @@ template(name='food_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/food/#{_id}/" title='save food')
+                    a.ui.fluid.icon.green.button.fly_up(href="/shop/#{_id}/" title='save shop')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
@@ -149,7 +147,7 @@ template(name='food_edit')
                     div
                     +number_edit key='price_dollars' label='price ($)' icon='money'
                     +html_edit key='body' label='body' direct=true
-                    .ui.red.large.icon.button.delete_food(title='delete')
+                    .ui.red.large.icon.button.delete_shop(title='delete')
                         i.remove.icon   
                         // | delete
                 .six.wide.column

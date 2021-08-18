@@ -48,8 +48,8 @@ template(name='layout')
                 i.massive.loading.yin.yang.grey.icon
         else
             .global_conainer.pusher
-                unless connected
-                    +status
+                // unless connected
+                //     +status
                 +yield
         if in_dev
             +admin_footer
@@ -87,9 +87,10 @@ template(name='nav')
             .item 
                 +status
         if connected
-            if is_loading
+            unless subs_ready
                 .icon.item
-                    i.big.loading.grey.food.icon.cancel
+                    +i name='pizza' cl='spinning'
+                    // i.big.loading.grey.food.icon
             else 
                 a.icon.item.toggle_leftbar.no_blink
                    i.bars.large.icon 
@@ -112,38 +113,38 @@ template(name='nav')
             //     // |events
             a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
                 // i.large.food.icon
-                +i name='food' cl='ui avatar image'
+                +i name='food' cl='ui mini image'
                 // |menu
             a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
-                +i name='beer' cl='ui avatar image'
+                +i name='beer' cl='ui mini image'
                 // i.large.beer.icon
                 // |menu
             a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
-                +i name='database' cl='ui avatar image'
+                +i name='database' cl='ui mini image'
                 // i.large.database.icon
                 // |items
             a.icon.item.mobile.hidden.zoomer(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
-                +i name='money' cl='ui avatar image'
+                +i name='money' cl='ui mini image'
                 // i.large.money.icon
                 // |orders
             a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
-                +i name='loss' cl='ui avatar image'
+                +i name='loss' cl='ui mini image'
                 // i.large.frown.icon
                 // |losses
             a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
                 // i.large.checkmark.icon
-                +i name='checkmark' cl='ui avatar image'
+                +i name='checkmark' cl='ui mini image'
                 // |check ins
             a.icon.item.mobile.hidden.zoomer(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
-                +i name='groups' cl='ui avatar image'
+                +i name='groups' cl='ui mini image'
                 // i.large.users.icon
                 // |users
             a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
-                +i name='tasks' cl='ui avatar image'
+                +i name='tasks' cl='ui mini image'
                 // i.large.tasks.icon
                 // |users
             a.icon.item.mobile.hidden.zoomer(href='/shop' class="{{isActiveRoute regex='shop'}}" title='shop')
-                +i name='shopping-cart' cl='ui avatar image'
+                +i name='shopping-cart' cl='ui mini image'
                 // i.large.cart.icon
                 // |users
             .right.menu
@@ -226,7 +227,7 @@ template(name='not_found')
 //         +user_credit
         
 template(name='left_sidebar')
-    .ui.left.sidebar
+    .ui.left.sidebar.filled
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
