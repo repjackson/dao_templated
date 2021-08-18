@@ -10,17 +10,20 @@ template(name='user_points')
 
 template(name='user_topups')
     a.ui.inline.header(href="/user/#{current_username}/topups")
-        i.wallet.icon
-        |#{user_topups.count}
+        +i name='wallet'
+        |#{user_topup_docs.count}
         |topups
-    .ui.button.top_up
+    .ui.green.basic.button.top_up
+        +i name='donate' cl='ui avatar image'
         |topup
     .ui.link.selection.list.scrolling
         each user_topup_docs
-            a.item(href="/topup/#{_id}" title='view topup') 
+            .item
                 |#{topup_amount} #{when}
+                a.ui.big.icon.basic.button(href="/topup/#{_id}" title='view topup') 
+                    i.chevron.right.icon
                 if in_dev
-                    +delete_button
+                    +remove_button
 template(name='user_work')
     .ui.inline.header
     a.ui.inline.header(href="/user/#{current_username}/work")

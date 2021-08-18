@@ -139,6 +139,8 @@ if Meteor.isClient
 
 
 
+    Template.user_topups.onCreated ->
+        @autorun => Meteor.subscribe 'user_topups', Router.current().params.username
     Template.user_dashboard.onCreated ->
         # @autorun => Meteor.subscribe 'user_current_reservations', Router.current().params.username
     Template.user_dashboard.helpers
@@ -160,5 +162,5 @@ if Meteor.isServer
         Docs.find({
             model:'topup'
             _author_username:username
-        }, limit:20)
+        }, limit:200)
             

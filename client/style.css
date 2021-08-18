@@ -253,6 +253,10 @@ img, .button{
     text-transform: capitalize !important;
 }
 
+.rightbar {
+    text-align: right !important;
+}
+
 .italic {
     font-style: italic !important;
 }
