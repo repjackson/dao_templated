@@ -39,8 +39,10 @@ template(name='post_item')
     a.ui.item(href="/post/#{_id}")
         .content
             .ui.header #{title}
+            |!{description}
             a.ui.icon.big.button(href="/post/#{_id}")
                 i.right.chevron.large.icon
+            |#{points}points
             if in_dev 
                 +print_this
             |#{when}, #{_author_username} 
@@ -85,6 +87,7 @@ template(name='post_view')
                             |#{username} {{from_now view_timestamp}}
                     .ui.header model: #{model}
                 .eight.wide.column
+                    |!{description}
                     if image_url
                         +image_link_view key='image_url' direct=true
                     if image_id
