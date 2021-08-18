@@ -82,7 +82,7 @@ template(name='admin_footer')
                                 +print_this
       
 template(name='nav')
-    #topnav.ui.fluid.inverted.attached.big.borderless.menu.topnav
+    #topnav.ui.fluid.attached.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -111,31 +111,40 @@ template(name='nav')
             //     i.large.calendar.icon
             //     // |events
             a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
-                i.large.food.icon
+                // i.large.food.icon
+                +i name='food' cl='ui avatar image'
                 // |menu
             a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
-                i.large.beer.icon
+                +i name='beer' cl='ui avatar image'
+                // i.large.beer.icon
                 // |menu
             a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
-                i.large.database.icon
+                +i name='database' cl='ui avatar image'
+                // i.large.database.icon
                 // |items
             a.icon.item.mobile.hidden.zoomer(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
-                i.large.money.icon
+                +i name='money' cl='ui avatar image'
+                // i.large.money.icon
                 // |orders
             a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
-                i.large.frown.icon
+                +i name='loss' cl='ui avatar image'
+                // i.large.frown.icon
                 // |losses
             a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
-                i.large.checkmark.icon
+                // i.large.checkmark.icon
+                +i name='checkmark' cl='ui avatar image'
                 // |check ins
             a.icon.item.mobile.hidden.zoomer(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
-                i.large.users.icon
+                +i name='groups' cl='ui avatar image'
+                // i.large.users.icon
                 // |users
             a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
-                i.large.tasks.icon
+                +i name='tasks' cl='ui avatar image'
+                // i.large.tasks.icon
                 // |users
             a.icon.item.mobile.hidden.zoomer(href='/shop' class="{{isActiveRoute regex='shop'}}" title='shop')
-                i.large.cart.icon
+                +i name='shopping-cart' cl='ui avatar image'
+                // i.large.cart.icon
                 // |users
             .right.menu
                 // if currentUser
@@ -224,51 +233,51 @@ template(name='left_sidebar')
         //     .ui.icon.transparent.input
         //         i.search.icon
         //         input.search_global(type='text')
-        a.ui.button.toggle_leftbar(href='/food' class="{{isActivePath '/food'}}")
+        a.ui.compact.basic.button.toggle_leftbar(href='/food' class="{{isActivePath '/food'}}")
             // i.large.food.icon
             // i.icon
             +i name='food' cl='ui mini centered image'
             | food
-        a.ui.button.zoomer.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/drinks' class="{{isActivePath '/drinks'}}" title='drinks')
             +i name='beer' cl='ui mini centered image'
             // i.large.beer.icon
             | drinks
-        a.ui.button.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/items' class="{{isActivePath '/items'}}")
             +i name='beer-recipe' cl='ui mini centered image'
             // i.large.list.icon
             | #{items.count} inventory
-        a.ui.button.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/tasks' class="{{isActivePath '/tasks'}}")
             +i name='tasks' cl='ui mini centered image'
             // i.large.tasks.icon
             | #{tasks.count} tasks
-        a.ui.button.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
             +i name='warranty' cl='ui mini centered image'
             // i.large.certificate.icon
             | #{badges.count} badges
-        a.ui.button.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
             // i.large.money.icon
             +i name='order-history' cl='ui mini centered image'
             | #{orders.count} orders
-        a.ui.button.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
             +i name='blog' cl='ui mini centered image'
             // i.large.newspaper.icon
             | #{posts.count} posts
-        a.ui.button.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
+        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
             +i name='shield' cl='ui mini centered image'
             // i.large.shield.icon
             | #{posts.count} roles
         // a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
         //     i.large.marker.icon
         //     |locations
-        a.ui.button.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
+        a.ui.compact.basic.button.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
             // i.large.user.friends.icon
             +i name='groups' cl='ui mini centered image'
             | #{users.count} users
-        a.ui.button.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
+        a.ui.compact.basic.button.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
             +i name='campfire' cl='ui mini centered image'
             // i.large.fire.icon
             | #{users.count} groups
-        a.ui.button.toggle_leftbar.zoomer(href='/ingredients' class="{{isActivePath '/ingredients'}}")
+        a.ui.compact.basic.button.toggle_leftbar.zoomer(href='/ingredients' class="{{isActivePath '/ingredients'}}")
             // i.large.food.icon
             +i name='ingredients' cl='ui mini centered image'
             | ingredients
