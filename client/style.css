@@ -810,10 +810,7 @@ input.username_search{
   }
 }
 
-.secnav {
-	overflow-x:scroll;
-}
-.secnav {
+.hscroll {
     opacity: .9 !important;
     max-width: 100% !important;
 	overflow-y:hidden;
@@ -821,6 +818,9 @@ input.username_search{
     /* margin-left: .3em !important;
     margin-right: .3em !important; */
 }
+.hscroll::-webkit-scrollbar {
+    width: 0px !important;
+    height: 1px !important;
 
 /* .button {
     margin: 2em !important;

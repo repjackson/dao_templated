@@ -77,7 +77,6 @@ if Meteor.isClient
         'click .edit_task': ->
             Session.set('editing_task', true)
         'click .goto_task': (e,t)->
-            console.log @
             $(e.currentTarget).closest('.grid').transition('fade right', 500)
             Meteor.setTimeout =>
                 Router.go "/task/#{@_id}/"
@@ -115,7 +114,6 @@ if Meteor.isClient
                 classes += ' inverted blue'
             classes
         task_list: ->
-            # console.log @
             Docs.findOne
                 model:'task_list'
                 _id: @task_list_id
@@ -131,7 +129,6 @@ if Meteor.isClient
             else
                 Session.set 'picked_task_id', @_id
         'click .goto_task': (e,t)->
-            console.log @
             $(e.currentTarget).closest('.grid').transition('fade right', 500)
             Meteor.setTimeout =>
                 Router.go "/task/#{@_id}/"
@@ -147,7 +144,6 @@ if Meteor.isServer
     Meteor.methods
         refresh_task_stats: (task_id)->
             task = Docs.findOne task_id
-            # console.log task
             reservations = Docs.find({model:'reservation', task_id:task_id})
             reservation_count = reservations.count()
             total_earnings = 0
@@ -191,8 +187,6 @@ if Meteor.isServer
         task_sort_direction=-1
         )->
         # user = Meteor.users.findOne @userId
-        # console.log picked_tags
-        # console.log filter
         self = @
         match = {}
         if view_complete
@@ -212,7 +206,6 @@ if Meteor.isServer
         # if filter then match.model = filter
         match.model = 'task'
         match.app = 'bc'
-        console.log 'task match', match
         Docs.find match, 
             sort:
                 "#{task_sort_key}": task_sort_direction
@@ -282,16 +275,13 @@ if Meteor.isClient
                 model:'log_event'
                 parent_id: Router.current().params.doc_id
         can_accept: ->
-            # console.log @
             my_answer_session =
                 Docs.findOne
                     model:'answer_session'
                     task_id: Router.current().params.doc_id
             if my_answer_session
-                # console.log 'false'
                 false
             else
-                # console.log 'true'
                 true
 
     Template.task_view.events
@@ -372,7 +362,6 @@ if Meteor.isClient
 
         picked_tags: ->
             # model = 'event'
-            # console.log "selected_#{model}_tags"
             picked_tags.array()
 
 
@@ -399,7 +388,6 @@ if Meteor.isClient
                         picked_tags.pop()
 
         'autocompleteselect #search': (event, template, doc) ->
-            # console.log 'selected ', doc
             picked_tags.push doc.name
             $('#search').val ''
 
@@ -433,8 +421,6 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 
-        # console.log 'filter: ', filter
-        # console.log 'cloud: ', cloud
 
         cloud.forEach (tag, i) ->
             self.added 'tags', Random.id(),

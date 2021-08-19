@@ -470,7 +470,7 @@ template(name='alert_this')
 template(name='session_set')
     // .ui.circular.icon.compact.button.set_value(class=session_set_class title=value)
     // a.set_value(class=session_set_class title=value)
-    a.ui.compact.button.set_value(title=value class=session_set_class)
+    a.large.item.set_value(title=value class=session_set_class)
         if icon
             +i name=icon cl='ui avatar image'
             // i.big.link.icon(class="#{icon} #{session_set_class}")
@@ -481,10 +481,11 @@ template(name='session_set')
 
                  
 template(name='search_input')
-    .ui.icon.large.input
-        if current_filter
-            i.red.large.link.remove.icon.clear_query
-        else
-            i.search.icon
-        input.search_field(type='text' placeholder='title...' value=current_filter)
+    .item
+        .ui.icon.input
+            if current_filter
+                i.red.large.link.remove.icon.clear_query
+            else
+                i.search.icon
+            input.search_field(type='text' placeholder='title...' value=current_filter)
 

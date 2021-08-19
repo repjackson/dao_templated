@@ -11,6 +11,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'inbox'
         ), name:'inbox'
+    Router.route '/user/:username/posts', (->
+        @layout 'user_layout'
+        @render 'user_posts'
+        ), name:'user_posts'
     Router.route '/user/:username/requests', (->
         @layout 'user_layout'
         @render 'user_requests'

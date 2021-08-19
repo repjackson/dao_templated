@@ -1,27 +1,31 @@
 template(name='drinks')
     // if drink_docs.count
-    a.ui.big.inline.header(href="/drinks")
-        // i.beer.icon
-        +i name='beer'
-        |#{drink_docs.count} drinks
-    a(href="https://backcountrypizzaandtaphouse.info/pages/backcountry-pizza-and-tap-house-beer-menu" target="_window")
-        i.large.external.icon
-    if currentUser
-        .ui.circular.icon.button.add_drink
-            i.plus.icon
-    +search_input model='food' field='title'
-        
-    +session_set key='drink_view_filter' value='gluten free' icon='no-gluten'
-    +session_set key='drink_view_filter' value='sour' icon='sour'
-    +session_set key='drink_view_filter' value='dark/boozy' icon='guinness-beer'
-    +session_set key='drink_view_filter' value='hoppy' icon='hops'
-    +session_set key='drink_view_filter' value='light/malty' icon='beer-glass'
-    +session_set key='drink_view_filter' value='belgian style/brett' icon='pint'
-        
-    // .ui.selection.link.big.animated.list.smallscrll
-    .ui.five.doubling.centered.cards
-        each drink_docs
-            +drink_item
+    .ui.top.attached.fluid.borderless.menu.hscroll
+        .item
+            a.ui.big.inline.header(href="/drinks")
+                // i.beer.icon
+                +i name='beer' cl='ui avatar image'
+                |#{drink_docs.count} drinks
+        +session_set key='drink_view_filter' value='gluten free' icon='no-gluten'
+        +session_set key='drink_view_filter' value='sour' icon='sour'
+        +session_set key='drink_view_filter' value='dark/boozy' icon='guinness-beer'
+        +session_set key='drink_view_filter' value='hoppy' icon='hops'
+        +session_set key='drink_view_filter' value='light/malty' icon='beer-glass'
+        +session_set key='drink_view_filter' value='belgian style/brett' icon='pint'
+        +search_input model='food' field='title'
+        if currentUser
+            a.icon.item.add_drink
+                i.plus.large.icon
+        .item
+            a(href="https://backcountrypizzaandtaphouse.info/pages/backcountry-pizza-and-tap-house-beer-menu" target="_window")
+                i.large.external.icon
+            
+    .scrolling
+            
+        // .ui.selection.link.big.animated.list.smallscrll
+        .ui.five.doubling.centered.cards
+            each drink_docs
+                +drink_item
                     
             
 template(name='drink_item')
