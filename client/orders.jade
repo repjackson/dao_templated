@@ -37,7 +37,7 @@ template(name='orders')
     .ui.stackable.padded.grid
         .sixteen.wide.column
             .ui.header 
-                i.money.icon
+                +i name='order-history'
                 |orders
             unless subs_ready
                 i.massive.money.loading.icon
