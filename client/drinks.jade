@@ -40,9 +40,17 @@ template(name='drink_item')
 
 template(name='drink_view')
     with current_doc
-        .ui.stackable.padded.grid
+        .ui.stackable.padded.grid.scrolling
             .row
                 .five.wide.column
+                    .ui.header 
+                        +i name='beer' cl='ui avatar image'
+                        strong #{title}
+                        a(href="https://www.google.com/search?q=#{title}" target='_blank' title='search')
+                            i.grey.google.icon
+                    +i name='tags'
+                    each tags   
+                        .ui.basic.big.label #{this}
                     a.ui.basic.big.button.fly_left(href="/drinks")
                         // i.drinks.icon
                         +i name='beer' cl='ui avatar image'
@@ -51,12 +59,6 @@ template(name='drink_view')
                         a.ui.icon.basic.circular.button.fly_down(href="/drink/#{_id}/edit" title='edit product')
                             i.pencil.big.icon
 
-                    .ui.inline.header 
-                        +i name='beer' cl='ui avatar image'
-                        strong #{title}
-                        |drink
-                        a(href="https://www.google.com/search?q=#{title}" target='_blank' title='search')
-                            i.grey.google.icon
                     // .ui.segment 
                     //     with post_product
                     //         a(href="/product/#{_id}")
@@ -77,9 +79,6 @@ template(name='drink_view')
                     +voting_full
                     +comments
                 .six.wide.column
-                    .ui.header #{title}
-                    each tags   
-                        .ui.basic.big.label #{this}
                     if image_url
                         img.ui.inline.image(src=image_url)
                     img.ui.fluid.image(src="{{c.url image_id }}")
@@ -89,15 +88,30 @@ template(name='drink_view')
                     .ui.big.fluid.green.button.buy_drink
                         |buy for $#{price_dollars}
                         i.chevron.right.icon
-                    .ui.header also by #{company}
-                    .ui.header #{calories} calories
-                    .ui.header #{views} views
-                    .ui.header #{ibu} ibu
+                    .ui.header 
+                        +i name='business'
+                        |also by #{company}
+                    .ui.header 
+                        +i name='caloric-energy'
+                        |#{calories} calories
+                    .ui.header
+                        +i name='visible'
+                        |#{views} views
+                    .ui.header
+                        +i name='guinness-beer'
+                        |#{ibu} ibu
                     .ui.header #{abv}% abv
                     +product_orders
                     +product_fans
+                    +product_images
+                    +reviews
+                    
                     .ui.basic.circular.icon.button.add_order
                         i.plus.icon
+
+
+
+
 
 
 template(name='drink_edit')

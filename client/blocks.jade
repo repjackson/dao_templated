@@ -13,6 +13,21 @@ template(name='doc_array_togggle')
         //- each list_users
         //-     +user_info
         
+template(name='product_images')
+    .ui.header
+        +i name='image'
+        |#{product_order_docs.count} #{parent.title} orders
+
+    .ui.stackable.cards
+        each product_image_docs
+            .card
+                img.ui.tiny.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+            
+                .ui.header
+                    |#{title}
+            
+
+
 template(name='product_orders')
     .ui.header
         +i name='order-history'
@@ -25,7 +40,7 @@ template(name='product_orders')
 
 
 template(name='product_fans')
-    .ui.header 
+    .ui.inline.header 
         +i name='flag-filled'
         |fans
     if is_fan
