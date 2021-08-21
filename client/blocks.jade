@@ -13,6 +13,32 @@ template(name='doc_array_togggle')
         //- each list_users
         //-     +user_info
         
+template(name='product_orders')
+    .ui.header
+        +i name='order-history'
+        |#{product_order_docs.count} #{parent.title} orders
+
+    .ui.selection.list
+        each product_order_docs
+            .ui.header #{title}
+
+
+
+template(name='product_fans')
+    .ui.header 
+        +i name='flag-filled'
+        |fans
+    if is_fan
+        i.remove.icon.unfan(title='unfan')
+    else
+        .ui.small.compact.button.fans
+            i.plus.icon
+            |become fan
+    each product_fans
+        a.ui.header(href="/user/#{username}/")
+            |#{username}
+
+
 template(name='session_toggle') 
     .ui.icon.button.toggle_session_var(class=session_toggle_class title=key)
         i.large.icon(class=icon)

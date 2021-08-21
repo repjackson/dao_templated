@@ -34,6 +34,34 @@
 //                             +order_item
 //                             .ui.divider
      
+template(name='checkin_small')
+    .ui.one.column.stackable.grid
+        .column
+            .ui.inline.header 
+                +i name='health-checkup'
+                // i.checkmark.icon
+                |todays checkins
+            if currentUser.checkedin
+                .ui.red.basic.inverted.small.compact.button.checkout
+                    +i name='exit-sign' cl='ui avatar image'
+                    |check out
+            else 
+                .ui.button.checkin
+                    |checkin
+            .ui.large.link.selection.list.smallscroll
+                each checkin_docs
+                    a.item.fly_left(href="/checkin/#{_id}") 
+                        .content
+                            if checkin_vote
+                                i.green.thumbs.up.icon
+                                each tags
+                                    .ui.large.green.label #{this}
+                            else 
+                                i.red.thumbs.down.icon
+                                each tags
+                                    .ui.large.red.label #{this}
+                            if anon 
+                                i.mask.icon
 template(name='checkins')
     .ui.one.column.stackable.grid
         .column
@@ -207,7 +235,7 @@ template(name='user_checkin_item')
 
 template(name='checkin_edit')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     .ui.inline.header
@@ -224,7 +252,7 @@ template(name='checkin_edit')
                     // +image_edit key='image_id' label='image' direct=true
                     +array_edit key='tags' label='emotion tags' icon='tags' direct=true
                     // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +textarea_edit key='notes' label='notes' direct=true
+                    +html_edit key='notes' label='notes' direct=true
                     if in_dev
                         +print_this
                 .four.wide.column

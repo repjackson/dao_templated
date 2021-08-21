@@ -94,7 +94,8 @@ template(name='drink_view')
                     .ui.header #{views} views
                     .ui.header #{ibu} ibu
                     .ui.header #{abv}% abv
-                    .ui.header orders
+                    +product_orders
+                    +product_fans
                     .ui.basic.circular.icon.button.add_order
                         i.plus.icon
 

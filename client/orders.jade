@@ -56,6 +56,29 @@ template(name='orders')
                         
 
             
+template(name='order_small')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.header 
+                +i name='order-history'
+                |orders
+            unless subs_ready
+                i.massive.money.loading.icon
+                // .ui.center.aligned.basic.segment
+                //     +ibig name='pizza' cl='spinning'
+            else 
+                .ui.selection.animated.list
+                    each order_docs
+                        +order_item
+                        // a.item.fly_right(href="/order/#{_id}")
+                    //     .content 
+                    //         .header #{product_title}
+                    //         |#{when} #{_author_username}
+            
+            
+                        
+
+            
 template(name='order_item')
     a.ui.item.fly_right(href="/order/#{_id}")
         .content

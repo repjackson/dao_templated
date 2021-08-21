@@ -8,6 +8,24 @@ if Meteor.isClient
     Template.session_edit_button.helpers
     
     
+    
+    Template.product_fans.events
+        'click .become_fan': ->
+            Docs.update @_id, 
+                $addToSet:
+                    fan_ids: Meteor.userId()
+                    
+        'click .unfan': ->
+            Docs.update @_id, 
+                $pull:
+                    fan_ids: Meteor.userId()
+                    
+        
+    
+    
+    
+    
+    
     Template.session_toggle.events
         'click .toggle_session_var': ->
             Session.set(@key, !Session.get(@key))

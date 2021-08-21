@@ -301,6 +301,20 @@ Template.registerHelper 'order_things',->
     Docs.find 
         model:'thing'
         order_id:@_id
+
+
+Template.registerHelper 'soup_of_the_day',->
+    Docs.findOne 
+        model:'food'
+        soup_of_the_day:true
+
+
+Template.registerHelper 'specials',->
+    Docs.findOne 
+        model:'food'
+        special:true
+    
+    
 Template.registerHelper 'product_doc',-> 
     # console.log @
     # console.log 'product doc'

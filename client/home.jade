@@ -3,16 +3,23 @@ template(name='home')
         .ui.center.aligned.basic.segment
             i.huge.loading.pizza.grey.icon
     else
-        .ui.stackable.two.column.padded.grid
-            .ui.header Backcountry Pizza & Pubhouse
+        .ui.stackable.three.column.padded.grid
+            .column
+                .ui.header Backcountry Pizza & Pubhouse
             .column
                 +specials
             .column
                 +soup_small
             .column
-                .ui.header money earned yesterday
-                .ui.header money earned last week
-                .ui.header payroll yesterday
+                .ui.header 
+                    +i name='money'
+                    |money earned yesterday
+                .ui.header 
+                    +i name='week'
+                    |money earned last week
+                .ui.header 
+                    +i name='week'
+                    |payroll yesterday
             .column
                 .ui.inline.header 
                     +i name='blog'
@@ -51,7 +58,7 @@ template(name='home')
             // .column
             //     +items
             .column
-                +checkins
+                +checkin_small
             // .column
             //     +loss_summary
                 // +losses
@@ -60,7 +67,7 @@ template(name='home')
             // .column
             //     +drinks
             .column
-                +orders
+                +order_small
                 
 template(name='soup')
     .ui.stackable.padded.grid 
@@ -68,8 +75,8 @@ template(name='soup')
             .ui.header 
                 +i name='soup-plate'
                 |soup
-            each model_docs_helper 'soup'
-                .ui.header #{title}
+            with soup_of_the_day
+                a.ui.header(href="/soup/#{_id}") #{title}
             
                 
 template(name='soup_small')
@@ -84,8 +91,7 @@ template(name='soup_small')
                 |#{this}
 
 template(name='specials')
-    .ui.header
-        // i.exclamation.icon
+    a.ui.header(href="/specials")
         +i name='discount'
         |specials
         if is_admin
