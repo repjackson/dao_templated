@@ -1,8 +1,8 @@
 if Meteor.isClient
-    Router.route '/ingredients', (->
+    Router.route '/deliveries', (->
         @layout 'layout'
-        @render 'ingredients'
-        ), name:'ingredients'
+        @render 'deliveries'
+        ), name:'deliveries'
     Router.route '/ingredient/:doc_id/edit', (->
         @layout 'layout'
         @render 'ingredient_edit'
@@ -14,9 +14,9 @@ if Meteor.isClient
 
 
 
-    Template.ingredients.onCreated ->
+    Template.deliveries.onCreated ->
         # @autorun => Meteor.subscribe 'model_docs', 'ingredient'
-        @autorun -> Meteor.subscribe('ingredients',
+        @autorun -> Meteor.subscribe('deliveries',
             Session.get('view_complete')
             Session.get('assigned_to')
             picked_tags.array()
@@ -25,10 +25,10 @@ if Meteor.isClient
             
             )
         # @autorun => Meteor.subscribe 'model_docs', 'ingredient'
-        # @autorun => Meteor.subscribe 'model_docs', 'ingredients_stats'
-        # @autorun => Meteor.subscribe 'current_ingredients'
+        # @autorun => Meteor.subscribe 'model_docs', 'deliveries_stats'
+        # @autorun => Meteor.subscribe 'current_deliveries'
         
-    Template.ingredients.events
+    Template.deliveries.events
         'click .clear_filter': ->
             Session.set('view_complete', null)
             Session.set('assigned_to', null)
@@ -44,46 +44,46 @@ if Meteor.isClient
                     model:'ingredient'
             Session.set('editing_ingredient', true)
             Session.set('picked_ingredient_id', new_ingredient_id)
-            Router.go "/ingredient/#{new_ingredient_id}/edit"
-        'click .unselect_ingredient': ->
-            Session.set('picked_ingredient_id', null)
+            Router.go "/delivery/#{new_delivery_id}/edit"
+        'click .unselect_delivery': ->
+            Session.set('picked_delivery_id', null)
 
-    Template.ingredients.helpers
+    Template.deliveries.helpers
         view_complete_class: ->
             if Session.get('view_complete') then 'blue' else ''
-        picked_ingredient_doc: ->
-            Docs.findOne Session.get('picked_ingredient_id')
-        current_ingredients: ->
+        picked_delivery_doc: ->
+            Docs.findOne Session.get('picked_delivery_id')
+        current_deliveries: ->
             Docs.find
-                model:'ingredient'
+                model:'delivery'
                 # current:true
-        ingredients_stats_doc: ->
+        deliveries_stats_doc: ->
             Docs.findOne
-                model:'ingredients_stats'
-        ingredients: ->
+                model:'deliveries_stats'
+        deliveries: ->
             Docs.find
-                model:'ingredient'
+                model:'delivery'
 
 
 
 
-    Template.picked_ingredient.events
-        'click .delete_ingredient': ->
-            if confirm 'delete ingredient?'
+    Template.picked_delivery.events
+        'click .delete_delivery': ->
+            if confirm 'delete delivery?'
                 Docs.remove @_id
-                Session.set('picked_ingredient_id', null)
-        'click .save_ingredient': ->
-            Session.set('editing_ingredient', false)
-        'click .edit_ingredient': ->
-            Session.set('editing_ingredient', true)
-        'click .goto_ingredient': (e,t)->
+                Session.set('picked_delivery_id', null)
+        'click .save_delivery': ->
+            Session.set('editing_delivery', false)
+        'click .edit_delivery': ->
+            Session.set('editing_delivery', true)
+        'click .goto_delivery': (e,t)->
             $(e.currentTarget).closest('.grid').transition('fly right', 500)
             Meteor.setTimeout =>
-                Router.go "/ingredient/#{@_id}/"
+                Router.go "/delivery/#{@_id}/"
             , 500
 
-    Template.picked_ingredient.helpers
-        editing_ingredient: -> Session.get('editing_ingredient')
+    Template.picked_delivery.helpers
+        editing_delivery: -> Session.get('editing_delivery')
 
 
 
@@ -94,44 +94,44 @@ if Meteor.isClient
 
 
 
-    Template.ingredient_card_template.onRendered ->
+    Template.delivery_card_template.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
-    Template.ingredient_card_template.onCreated ->
+    Template.delivery_card_template.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'log_events'
-    Template.ingredient_card_template.events
-        'click .add_ingredient_item': ->
+    Template.delivery_card_template.events
+        'click .add_delivery_item': ->
             new_mi_id = Docs.insert
-                model:'ingredient_item'
-            Router.go "/ingredient/#{_id}/edit"
-    Template.ingredient_card_template.helpers
-        ingredient_segment_class: ->
+                model:'delivery_item'
+            Router.go "/delivery/#{_id}/edit"
+    Template.delivery_card_template.helpers
+        delivery_segment_class: ->
             classes=''
             if @complete
                 classes += ' green'
-            if Session.equals('picked_ingredient_id', @_id)
+            if Session.equals('picked_delivery_id', @_id)
                 classes += ' inverted blue'
             classes
-        ingredient_list: ->
+        delivery_list: ->
             Docs.findOne
-                model:'ingredient_list'
-                _id: @ingredient_list_id
+                model:'delivery_list'
+                _id: @delivery_list_id
 
 
-    Template.ingredient_card_template.events
-        'dblclick .select_ingredient': (e,t)->
+    Template.delivery_card_template.events
+        'dblclick .select_delivery': (e,t)->
             $(e.currentTarget).closest('.item').transition('fly right', 500)
-            Router.go "/ingredient/#{@_id}/"
-        'click .select_ingredient': ->
-            if Session.equals('picked_ingredient_id',@_id)
-                Session.set 'picked_ingredient_id', null
+            Router.go "/delivery/#{@_id}/"
+        'click .select_delivery': ->
+            if Session.equals('picked_delivery_id',@_id)
+                Session.set 'picked_delivery_id', null
             else
-                Session.set 'picked_ingredient_id', @_id
-        'click .goto_ingredient': (e,t)->
+                Session.set 'picked_delivery_id', @_id
+        'click .goto_delivery': (e,t)->
             $(e.currentTarget).closest('.grid').transition('fade right', 500)
             Meteor.setTimeout =>
-                Router.go "/ingredient/#{@_id}/"
+                Router.go "/delivery/#{@_id}/"
             , 500
 
 
@@ -142,13 +142,13 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
-        refresh_ingredient_stats: (ingredient_id)->
-            ingredient = Docs.findOne ingredient_id
-            reservations = Docs.find({model:'reservation', ingredient_id:ingredient_id})
+        refresh_delivery_stats: (delivery_id)->
+            delivery = Docs.findOne delivery_id
+            reservations = Docs.find({model:'reservation', delivery_id:delivery_id})
             reservation_count = reservations.count()
             total_earnings = 0
-            total_ingredient_hours = 0
-            average_ingredient_duration = 0
+            total_delivery_hours = 0
+            average_delivery_duration = 0
 
             # shoringredient_reservation =
             # longest_reservation =
@@ -179,7 +179,7 @@ if Meteor.isServer
             # .ui.small.header biggest renter
             # .ui.small.header predicted payback duration
             # .ui.small.header predicted payback date
-    Meteor.publish 'ingredients', (
+    Meteor.publish 'deliveries', (
         view_complete=false
         assigned_to=null
         picked_tags=[]
@@ -261,7 +261,7 @@ if Meteor.isClient
             Docs.find
                 model:'time_session'
                 ingredient_id:Router.current().params.doc_id
-        subingredients: ->
+        subdeliveries: ->
             Docs.find
                 model:'ingredient'
                 parent_id:Router.current().params.doc_id
@@ -313,10 +313,10 @@ if Meteor.isClient
                 text:"#{Meteor.user().username} marked ingredient incomplete"
 
 
-        'click .goto_ingredients': (e,t)->
+        'click .goto_deliveries': (e,t)->
             $(e.currentTarget).closest('.grid').transition('fade left', 500)
             Meteor.setTimeout =>
-                Router.go "/ingredients"
+                Router.go "/deliveries"
             , 500
 
 

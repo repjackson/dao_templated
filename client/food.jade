@@ -1,6 +1,6 @@
 template(name='food')     
     .ui.stackable.padded.grid
-        .sixteen.wide.column
+        .four.wide.column
             // if food_docs.count
             .ui.big.inline.header 
                 // i.food.icon
@@ -25,7 +25,8 @@ template(name='food')
             // +session_set key='food_sort_direction' value=1 icon='chevron up'
             // +session_set key='food_sort_direction' value=-1 icon='chevron down'
             .ui.hidden.divider
-            .ui.doubling.centered.five.cards.scrolling
+        .twelve.wide.column
+            .ui.doubling.centered.four.cards.scrolling
                 each food_docs
                     +food_item
 
@@ -38,7 +39,7 @@ template(name='food_item')
             .ui.large.label #{section}
             .ui.small.inline.header #{calories}cals
             each tags
-                +flat_tag_picker
+                +flat_tag_avatar
             span(title='views')
                 |#{views}
                 i.grey.eye.icon
@@ -53,7 +54,7 @@ template(name='food_view')
                 .five.wide.column
                     a.ui.basic.large.button.fly_left(href="/food")
                         i.chevron.left.icon
-                        i.large.food.icon
+                        +i name='food' cl='ui avatar image'
                         |food
                     if can_edit
                         a.ui.icon.basic.button.fly_down(href="/food/#{_id}/edit" title='edit product')

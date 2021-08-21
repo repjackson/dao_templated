@@ -182,3 +182,18 @@ template(name='flat_tag_picker')
                 // +image_view key='image_id' direct=true
                 img.ui.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
         |#{this}
+        
+template(name='flat_tag_avatar')
+    // .ui.image.flat_tag_pick.zoomer.pointer
+    with ref_doc_flat
+        // if image_url
+        //     img(src=image_url)
+        //     // +image_link_view key='image_url' direct=true
+        // else if image_id
+        //     // +image_view key='image_id' direct=true
+        if image_id
+            img.ui.mini.rounded.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+        // |#{this}
+        
+        
+        

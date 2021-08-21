@@ -3,7 +3,7 @@ template(name='ingredients')
         .row
             .three.wide.column
                 .ui.header 
-                    i.ingredients.icon
+                    +i name='ingredients'
                     |#{ingredients.count}
                     |ingredients
                 .ui.icon.large.button.new_ingredient

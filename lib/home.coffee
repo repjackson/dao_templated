@@ -34,8 +34,9 @@ if Meteor.isClient
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->
         @autorun => @subscribe 'flat_ref_doc', @data, ->
-    Template.flat_tag_picker.onCreated ->
-        @autorun => @subscribe 'flat_ref_doc', @data, ->
+            
+            
+            
     Template.home.onCreated ->
         @autorun => @subscribe('doc_by_id',Session.get('viewing_post_id'))
         @autorun => @subscribe 'post_docs',
@@ -85,13 +86,17 @@ if Meteor.isClient
             count is 2
             
             
-    Template.flat_tag_picker.events
+            
+    Template.flat_tag_avatar.onCreated ->
+        @autorun => @subscribe 'flat_ref_doc', @data, ->
+            
+    Template.flat_tag_avatar.events
         'click .flat_tag_pick': ->
             # console.log @
             picked_tags.clear()
             picked_tags.push @valueOf()
             Session.set('viewing_post_id',null)
-    Template.flat_tag_picker.helpers
+    Template.flat_tag_avatar.helpers
         ref_doc_flat: ->
             # console.log @valueOf()
             found = Docs.findOne 
