@@ -54,6 +54,27 @@ template(name='layout')
         if in_dev
             +admin_footer
       
+template(name='add')
+    .ui.padded.grid
+        .ui.one.column.row 
+            .column
+                .ui.center.aligned.big.header 
+                    i.plus.icon
+                    |add document
+        .ui.four.column.row 
+            +add_column label='post' model='post' icon='blog'
+            +add_column label='event' model='event' icon='calendar'
+            +add_column label='review' model='review' icon='chat'
+            +add_column label='picture' model='picture' icon='image'
+        
+template(name='add_column')
+    .column
+        a.ui.icon.header.add_doc
+            +i name=icon
+            |#{label}
+
+
+      
 template(name='admin_footer')
     .ui.fluid.inverted.segment
         .ui.inline.header 

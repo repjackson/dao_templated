@@ -7,6 +7,9 @@
 Router.route '/', (->
     @render 'home'
     ), name:'home'
+Router.route '/add', (->
+    @render 'add'
+    ), name:'add'
 
 Template.right_sidebar.events
     'click .log_out': ->
@@ -15,6 +18,16 @@ Template.right_sidebar.events
 Template.not_found.events
     'click .browser_back': ->
         window.history.back();
+
+
+Template.add_column.events
+    'click .add_doc': ->
+        console.log @
+        new_id = 
+            Docs.insert 
+                model:@model
+        Router.go "/#{@model}/#{new_id}/edit"
+
 
 Template.admin_footer.onCreated ->
     # @subscribe => 
