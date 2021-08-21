@@ -60,11 +60,6 @@ template(name='food_view')
                         a.ui.icon.basic.button.fly_down(href="/food/#{_id}/edit" title='edit product')
                             i.pencil.icon
 
-                    .ui.inline.header 
-                        +i name='food' cl='ui avatar image'
-                        |food
-                        a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
-                            i.grey.search.icon
     
                     // .ui.segment 
                     //     with post_product
@@ -75,9 +70,8 @@ template(name='food_view')
                     //         // .ui.header $#{post_total_transaction_amount} 
                     //         //     small total transaction amount
                     div
-                    .ui.header 
-                        i.clock.icon
-                        small added
+                    .ui.inline.header 
+                        i.clock.grey.icon
                         strong #{when}
                         small by
                         strong #{_author_username}
@@ -88,7 +82,9 @@ template(name='food_view')
                     +voting_full
                     +comments
                 .six.wide.column
-                    h1.ui.center.aligned.big.header #{title}
+                    h1.ui.center.aligned.big.inline.header #{title}
+                    a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
+                        i.grey.search.icon
                     .ui.header 
                         i.business.icon
                         |#{company}
@@ -111,6 +107,8 @@ template(name='food_view')
                     
                     .ui.header #{views} views
                     .ui.header #{calories}cals
+                    +product_images
+                    +reviews
                     if youtube_id
                         +youtube_view key='youtube_id' value='youtube id' icon='youtube'
 

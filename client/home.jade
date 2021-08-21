@@ -192,7 +192,7 @@ template(name='flat_tag_avatar')
         // else if image_id
         //     // +image_view key='image_id' direct=true
         if image_id
-            img.ui.mini.rounded.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+            img.ui.mini.rounded.inline.image.zoomer(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}" title=title)
         // |#{this}
         
         
