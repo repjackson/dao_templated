@@ -1,19 +1,19 @@
-template(name='ingredients')
+template(name='questions')
     .ui.stackable.padded.grid
         .row
             .three.wide.column
                 .ui.header 
-                    +i name='ingredients'
-                    |#{ingredients.count}
-                    |ingredients
-                .ui.icon.large.button.new_ingredient
+                    i.questions.icon
+                    |#{questions.count}
+                    |questions
+                .ui.icon.large.button.new_question
                     i.green.plus.icon
-                +ingredient_cloud
+                +question_cloud
                 i.remove.circular.link.icon.clear_filter(title='clear filters')
                 with currentUser
                     .ui.button.your_incomplete
                         i.large.circle.outline.icon
-                        |your incomplete ingredients
+                        |your incomplete questions
                     .ui.basic.label(title='hours today')
                         i.sun.icon
                         i.clock.icon
@@ -31,8 +31,8 @@ template(name='ingredients')
                         i.business.time.icon
                         | #{weekly_sessions} sessions
             .six.wide.column
-                //- with top_ingredient
-                //-     +ingredient_card_template
+                //- with top_question
+                //-     +question_card_template
                 i.link.refresh.icon.refresh_my_time_stats
                 .ui.small.compact.icon.button.toggle_complete(title='view complete' class=view_complete_class)
                     i.checkmark.icon
@@ -44,26 +44,26 @@ template(name='ingredients')
                 .ui.small.compact.button priority
             
                 .largescroll.ui.segments
-                    each ingredients 
-                        +ingredient_card_template
+                    each questions 
+                        +question_card_template
             .six.wide.column
-                if picked_ingredient_doc
-                    .ui.icon.right.floated.button.unselect_ingredient
+                if picked_question_doc
+                    .ui.icon.right.floated.button.unselect_question
                         i.remove.icon
-                    with picked_ingredient_doc
-                        +picked_ingredient
+                    with picked_question_doc
+                        +picked_question
                 else 
-                    // .ui.icon.basic.button.new_ingredient 
+                    // .ui.icon.basic.button.new_question 
                     //     i.plus.icon
-                    //     // |new ingredient 
-                    i.refresh.link.icon.refresh_ingredients_stats
-                    with ingredients_stats_doc
-                        .ui.small.grey.header #{total_ingredients} total ingredients 
-                        .ui.small.grey.header #{week_ingredients_count} ingredients this week
-                        .ui.small.grey.header #{day_ingredients_count} ingredients today
+                    //     // |new question 
+                    i.refresh.link.icon.refresh_questions_stats
+                    with questions_stats_doc
+                        .ui.small.grey.header #{total_questions} total questions 
+                        .ui.small.grey.header #{week_questions_count} questions this week
+                        .ui.small.grey.header #{day_questions_count} questions today
                     
-template(name='ingredient_cloud')
-    //- #ingredient_cloud
+template(name='question_cloud')
+    //- #question_cloud
         //- .ui.left.icon.input
         //-     i.search.icon
         //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
@@ -76,13 +76,13 @@ template(name='ingredient_cloud')
             .unselect_tag.ui.active.compact.button
                 strong #{this}
     each all_tags
-        .ui.compact.small.button.select_tag(class=ingredient_cloud_tag_class) 
+        .ui.compact.small.button.select_tag(class=question_cloud_tag_class) 
             strong #{this.name}
 
 
-template(name='ingredient_card_template')
-    .ui.segment.pointer.select_ingredient(class=ingredient_segment_class)
-        // .ui.header.goto_ingredient #{title}
+template(name='question_card_template')
+    .ui.segment.pointer.select_question(class=question_segment_class)
+        // .ui.header.goto_question #{title}
         .ui.header #{title}
         |!{description}
         div
@@ -93,10 +93,10 @@ template(name='ingredient_card_template')
             .item(title='points')
                 i.thumbs.up.outline.icon
                 |#{points}
-            if ingredient_list_id 
-                .item(title='ingredient list')
+            if question_list_id 
+                .item(title='question list')
                     i.list.icon 
-                    |#{ingredient_list.title}
+                    |#{question_list.title}
             .item
                 i.grey.tags.icon 
                 each five_tags
@@ -122,50 +122,48 @@ template(name='ingredient_card_template')
 
 
 
-template(name='picked_ingredient')
-    // if editing_ingredient 
+template(name='picked_question')
+    // if editing_question 
     //     +text_edit key='title' direct=true
     //     +array_edit key='tags' direct=true
     //     div
-    //     .ui.icon.large.button.save_ingredient(title='save ingredient') 
+    //     .ui.icon.large.button.save_question(title='save question') 
     //         i.checkmark.green.large.icon
-    //     .ui.icon.small.button.delete_ingredient(title='delete ingredient') 
+    //     .ui.icon.small.button.delete_question(title='delete question') 
     //         i.remove.icon
     // else 
     .ui.small.header #{title}
     |o!{description}
     +array_view key='tags' direct=true
     // div
-    // .ui.icon.large.button.edit_ingredient(title='edit ingredient') 
+    // .ui.icon.large.button.edit_question(title='edit question') 
     if can_edit 
-        a.ui.icon.large.button(href="/ingredient/#{_id}/edit" title='edit ingredient') 
+        a.ui.icon.large.button(href="/question/#{_id}/edit" title='edit question') 
             +i name='pencil' cl='ui avatar image'
-    .ui.icon.large.button.goto_ingredient(title='view ingredient') 
+    .ui.icon.large.button.goto_question(title='view question') 
         +i name='chevron-right'
     // div
     +voting_full
 
 
-
-
-template(name='ingredient_view')
+template(name='question_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
                 .five.wide.column
-                    .ui.big.basic.button.goto_ingredients
+                    .ui.big.basic.button.goto_questions
                         // i.left.chevron.icon
-                        +i name='ingredients' cl='ui avatar image'
-                        |ingredients
+                        +i name='questions' cl='ui avatar image'
+                        |questions
                     .ui.header #{title}
                     if parent_dependents
                         .ui.small.header parent dependents
                         each parent_dependents
-                            a.ui.button(href="/ingredient/#{_id}")
+                            a.ui.button(href="/question/#{_id}")
                                 i.left.chevron.icon
                                 |#{title}
                     if can_edit 
-                        a.ui.icon.button(href="/ingredient/#{_id}/edit" title='edit') 
+                        a.ui.icon.button(href="/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     div
@@ -177,11 +175,11 @@ template(name='ingredient_view')
                     .ui.grey.inline.header 
                         i.clock.small.icon
                         |time tracking
-                    .ui.compact.icon.button.new_ingredient
+                    .ui.compact.icon.button.new_question
                         i.plus.icon
                     .ui.link.list
-                        each ingredients 
-                            a.item(href="/ingredient/#{_id}")
+                        each questions 
+                            a.item(href="/question/#{_id}")
                                 |{{long_time start_datetime}}-{{long_time end_datetime}}
                                 small by #{_author_username}
                     .ui.small.grey.header total time #{total_time}
@@ -191,7 +189,7 @@ template(name='ingredient_view')
                     +voting_full
                 .seven.wide.column
                     if parent_id
-                        a.ui.fluid.button(href="/ingredient/#{parent_id}")
+                        a.ui.fluid.button(href="/question/#{parent_id}")
                             i.up.chevron.icon
                             |#{parent_doc.title}
                     
@@ -201,21 +199,21 @@ template(name='ingredient_view')
                     +comments
                     .ui.grey.inline.header 
                         i.small.fork.icon
-                        |sub ingredients 
-                    i.plus.link.icon.new_subingredient
+                        |sub questions 
+                    i.plus.link.icon.new_subquestion
                     div
-                    each subingredients 
+                    each subquestions 
                         .ui.segment
                             +text_edit key='title' direct=true
                             +text_edit key='assigned_to' direct=true
-                            a.ui.icon.button(href="/ingredient/#{_id}")
+                            a.ui.icon.button(href="/question/#{_id}")
                                 i.right.chevron.icon
                             +remove_button
                 .four.wide.column
                     if child_dependents
                         .ui.small.header child dependents
                         each child_dependents
-                            a.ui.fluid.small.button(href="/ingredient/#{_id}")
+                            a.ui.fluid.small.button(href="/question/#{_id}")
                                 i.right.chevron.icon
                                 |#{title}
                     if group_id
@@ -285,12 +283,12 @@ template(name='ingredient_view')
 
 
 
-template(name='ingredient_edit')
+template(name='question_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column
-                    a.ui.fluid.large.button(href="/ingredient/#{_id}") 
+                    a.ui.fluid.large.button(href="/question/#{_id}") 
                         i.checkmark.icon
                         |save
                     +remove_button
@@ -310,19 +308,19 @@ template(name='ingredient_edit')
                     +array_edit key='tags' label='tags' direct=true
                 .four.wide.column
                     // +text_edit key='parent_id' label='parent id' direct=true
-                    //- if ingredient_list_id 
-                    //-     with ingredient_list
+                    //- if question_list_id 
+                    //-     with question_list
                     //-         .ui.segment
                     //-             i.grey.list.icon
-                    //-             a.ui.inline.header(href="/ingredient_list/#{_id}/view" title='view ingredient list') #{title}
-                    //-             i.small.link.grey.remove.icon.clear_ingredient_list(title='remove from list')
-                    //- +ingredient_list_lookup key='ingredient_list_id' label='ingredient list' direct=true
-                    //- if ingredient_list_id 
-                    //-     with ingredient_list
+                    //-             a.ui.inline.header(href="/question_list/#{_id}/view" title='view task list') #{title}
+                    //-             i.small.link.grey.remove.icon.clear_task_list(title='remove from list')
+                    //- +task_list_lookup key='task_list_id' label='task list' direct=true
+                    //- if task_list_id 
+                    //-     with task_list
                     //-         .ui.segment
                     //-             i.grey.list.icon
-                    //-             a.ui.inline.header(href="/ingredient_list/#{_id}/view" title='view ingredient list') #{title}
-                    //-             i.small.link.grey.remove.icon.clear_ingredient_list(title='remove from list')
+                    //-             a.ui.inline.header(href="/task_list/#{_id}/view" title='view task list') #{title}
+                    //-             i.small.link.grey.remove.icon.clear_task_list(title='remove from list')
                     +single_user_edit key='assigned_by' label='assigned by' direct=true
                     if assigned_by
                         +text_view key='assigned_by' direct=true

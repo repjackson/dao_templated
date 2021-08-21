@@ -1181,6 +1181,9 @@ input.username_search{
 
 
 
+.item:active, .icon:active {
+    transform: translate(0, 4px) !important; 
+}
 .button.active {
     /* background-color: rgba(150, 150, 150, 1) !important; */
     /*background-co/lor: rgba(17, 2, 100, 0.7) !important;*/
@@ -1252,10 +1255,6 @@ input.username_search{
         0px 10px 2px 0px rgba(128,128,128,.6);
 }
 
-.button:active{
-    -webkit-transform: translate(0, 2px) !important; /* depth of button press */
-    transform: translate(0, 2px) !important; /* depth of button press */
-}
 
 
 

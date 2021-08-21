@@ -11,6 +11,8 @@ template(name='home')
             .column
                 +soup_small
             .column
+                +daily_question
+            .column
                 .ui.header 
                     +i name='money'
                     |money earned yesterday
@@ -68,6 +70,11 @@ template(name='home')
             //     +drinks
             .column
                 +order_small
+        
+template(name='daily_question')
+    .ui.header 
+        |daily question
+        
                 
 template(name='soup')
     .ui.stackable.padded.grid 
