@@ -61,15 +61,22 @@ template(name='add')
                 .ui.center.aligned.big.header 
                     i.plus.icon
                     |add document
-        .ui.four.column.row 
+        .ui.four.column.centered.row 
             +add_column label='post' model='post' icon='blog'
             +add_column label='event' model='event' icon='calendar'
             +add_column label='review' model='review' icon='chat'
             +add_column label='picture' model='picture' icon='image'
+            +add_column label='food' model='food' icon='food'
+            +add_column label='drink' model='drink' icon='beer'
+            +add_column label='user' model='user' icon='user'
+            +add_column label='ingredient' model='ingredient' icon='ingredients'
+            +add_column label='checkin' model='checkin' icon='checkmark'
+            +add_column label='transfer' model='transfer' icon='donation'
+            +add_column label='topup' model='topup' icon='donation'
         
 template(name='add_column')
-    .column
-        a.ui.icon.header.add_doc
+    a.center.aligned.column.zoomer.add_doc.pointer
+        a.ui.icon.header
             +i name=icon
             |#{label}
 
