@@ -65,7 +65,9 @@ template(name='nav')
                 // i.large.cart.icon
                 // |users
             .right.menu
-                // if currentUser
+                if currentUser
+                    a.icon.item(href="/add")
+                        i.plus.icon
                 //     a.item.log_out(title='sign out')
                 //         i.sign.out.icon
                 //         |sign out
@@ -158,41 +160,14 @@ template(name='left_sidebar')
         +leftbar_nav_item label='beer' icon='beer' route='drinks'
         +leftbar_nav_item label='inventory' icon='beer-recipe' route='items'
         +leftbar_nav_item label='tasks' icon='tasks' route='tasks'
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/badges' class="{{isActivePath '/badges'}}")
-            +i name='warranty' cl='ui mini centered image'
-            // i.large.certificate.icon
-            | #{badges.count} badges
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/orders' class="{{isActivePath '/orders'}}")
-            // i.large.money.icon
-            +i name='order-history' cl='ui mini centered image'
-            | #{orders.count} orders
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/posts' class="{{isActivePath '/posts'}}")
-            +i name='blog' cl='ui mini centered image'
-            // i.large.newspaper.icon
-            | #{posts.count} posts
-        a.ui.compact.basic.button.zoomer.toggle_leftbar(href='/roles' class="{{isActivePath '/roles'}}")
-            +i name='shield' cl='ui mini centered image'
-            // i.large.shield.icon
-            | #{posts.count} roles
-        // a.icon.item.zoomer.toggle_leftbar(href='/locations' class="{{isActivePath '/locations'}}")
-        //     i.large.marker.icon
-        //     |locations
-        a.ui.compact.basic.button.toggle_leftbar.zoomer(href='/users' class="{{isActivePath '/users'}}")
-            // i.large.user.friends.icon
-            +i name='groups' cl='ui mini centered image'
-            | #{users.count} users
-        a.ui.compact.basic.button.toggle_leftbar.zoomer(href='/groups' class="{{isActivePath '/groups'}}")
-            +i name='campfire' cl='ui mini centered image'
-            // i.large.fire.icon
-            | #{users.count} groups
-        a.ui.compact.basic.button.toggle_leftbar.zoomer(href='/ingredients' class="{{isActivePath '/ingredients'}}")
-            // i.large.food.icon
-            +i name='ingredients' cl='ui mini centered image'
-            | ingredients
-        // if is_in_admin
-        //     a.icon.item.toggle_admin.toggle_leftbar.no_blink
-        //         |toggle admin
-        //         i.shield.icon
+        +leftbar_nav_item label='reviews' icon='reviews' route='reviews'
+        +leftbar_nav_item label='badges' icon='warranty' route='badges'
+        +leftbar_nav_item label='orders' icon='order-history' route='orders'
+        +leftbar_nav_item label='posts' icon='blog' route='posts'
+        +leftbar_nav_item label='roles' icon='shield' route='roles'
+        +leftbar_nav_item label='users' icon='groups' route='users'
+        +leftbar_nav_item label='groups' icon='campfire' route='groups'
+        +leftbar_nav_item label='ingredients' icon='ingredients' route='ingredients'
         if is_admin
             .divider
             a.ui.button.set_model.toggle_leftbar.no_blink(href="/m/model" class="{{isActivePath '/m/model'}}")

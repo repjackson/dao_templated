@@ -3,36 +3,33 @@ template(name='posts')
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
                 .four.wide.column
-                    .ui.header 
+                    a.ui.inline.header(href="/posts")
                         +i name='blog'
                         |posts
-                    |view
+                    if currentUser 
+                        .ui.icon.basic.button.new_post(title='new post, -1p')
+                            i.plus.icon
+                    // |view
                     // +session_set key='post_sort_filter' value='open'               
-                    +session_set key='post_sort_filter' value='now'               
-                    +session_set key='post_sort_filter' value='later'   
-                    +session_set key='post_sort_filter' value=null label='all'
-                    |delivery
-                    +session_set key='post_delivery_filter' value='pickup'   
-                    +session_set key='post_delivery_filter' value='delivery'   
-                    +session_set key='post_delivery_filter' value=null label='all'   
-                    +session_set key='post_status_filter' value='cart' label='cart' icon='cart'   
-                    +session_set key='post_status_filter' value=null label='all status' icon='cart'   
-                    div
-                    |sort by
-                    +session_set key='post_sort_key' value='price'               
-                .twelve.wide.column
-                    a.ui.center.aligned.header(href="/posts")
-                        +i name='clock' cl='ui tiny inline image'
-                        | posts
-                    .ui.button today
-                    .ui.button now
-                    .ui.button later
-                    .ui.button sort post
-                    .ui.button sort by
-                    .scrolling
+                    // +session_set key='post_sort_filter' value='now'               
+                    // +session_set key='post_sort_filter' value='later'   
+                    // +session_set key='post_sort_filter' value=null label='all'
+                    // |delivery
+                    // +session_set key='post_delivery_filter' value='pickup'   
+                    // +session_set key='post_delivery_filter' value='delivery'   
+                    // +session_set key='post_delivery_filter' value=null label='all'   
+                    // +session_set key='post_status_filter' value='cart' label='cart' icon='cart'   
+                    // +session_set key='post_status_filter' value=null label='all status' icon='cart'   
+                    // div
+                    // |sort by
+                .twelve.wide.column.scrolling
+                    +session_set key='post_sort_key' value='_timestamp' icon='clock'               
+                    +session_set key='post_sort_key' value='points' icon='coins'               
+                    
+                    .ui.divided.items.scrolling
                         each post_docs
                             +post_item
-                            .ui.divider
+                        // .ui.divider
             
             
 template(name='post_item')
@@ -53,13 +50,12 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .eight.wide.column
-                    a.ui.icon.button.fly_left(href="/posts")
+                .six.wide.column
+                    .ui.header #{title}
+                    a.ui.basic.large.button.fly_left(href="/posts")
                         i.chevron.left.icon
-                        |posts
-                    .ui.inline.header 
                         +i name='invoice' cl='ui avatar image'
-                        |post
+                        |posts
                     // .ui.segment 
                     //     with post_product
                     //         a(href="/product/#{_id}")
@@ -88,9 +84,10 @@ template(name='post_view')
                         .item 
                             |#{username} {{from_now view_timestamp}}
                     .ui.header model: #{model}
-                .eight.wide.column
-                    |!{description}
-                    |!{body}
+                .ten.wide.column
+                    .f12
+                        |!{description}
+                        |!{body}
                     if image_url
                         +image_link_view key='image_url' direct=true
                     if image_id
@@ -108,8 +105,20 @@ template(name='post_view')
                             i.pencil.large.icon
                     +comments
                     +print_this
+                    +voting_full
+                    +tips
                     
                     
+                    
+template(name='tips')
+    .ui.header 
+        +i name='donation'
+        |tips
+    each doc_tips
+        .ui.header #{when}
+        +author_info
+    // i.massive.brown.loading.poo.icon
+    // +ibig name='elephant' cl='spinning'
                     
 
 template(name='user_posts')
@@ -165,7 +174,7 @@ template(name='post_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .eight.wide.column
+                .six.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
@@ -178,7 +187,7 @@ template(name='post_edit')
                     +image_link_edit key='image_url' label='image link' icon='image'
                     +image_edit key='image_id' label='image' icon='image'
                     +number_edit key='price_dollars' label='price ($)' icon='money'
-                .eight.wide.column
+                .ten.wide.column
                     +html_edit key='body' label='body' direct=true
                     .ui.red.large.icon.button.delete_post(title='delete')
                         i.remove.icon   

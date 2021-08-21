@@ -9,6 +9,14 @@ if Meteor.isClient
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
+    Template.posts.events
+        'click .new_post': ->
+            new_id = 
+                Docs.insert 
+                    model:'post'
+                    published:false
+            Router.go "/post/#{new_id}/edit"
+                
     Template.posts.helpers
         post_docs: ->
             match = {model:'post'}
