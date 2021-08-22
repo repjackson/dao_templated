@@ -7,6 +7,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'question_edit'
         ), name:'question_edit'
+    Router.route '/answer/:doc_id/edit', (->
+        @layout 'layout'
+        @render 'answer_edit'
+        ), name:'answer_edit'
     Router.route '/question/:doc_id', (->
         @layout 'layout'
         @render 'question_view'
@@ -201,20 +205,23 @@ if Meteor.isClient
             Docs.insert
                 model:'question_choice'
                 parent_id:Router.current().params.doc_id
-    Template.question_view.helpers
-        choice_docs: ->
-            Docs.find 
-                model:'question_choice'
-                parent_id:Router.current().params.doc_id
     Template.question_edit.helpers
         choice_docs: ->
             Docs.find 
                 model:'question_choice'
                 parent_id:Router.current().params.doc_id
-    Template.question_edit.events
         
         
-        
+    Template.question_view.events
+        'click .new_answer': ->
+            question = Docs.findOne Router.current().params.doc_id
+            new_id = Docs.insert
+                model:'answer'
+                question_id: Router.current().params.doc_id
+                question_title:question.title
+            Router.go "/answer/#{new_id}/edit"
+            
+    
         
         
 if Meteor.isClient
@@ -224,10 +231,10 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'question_choice'
     Template.question_view.onRendered ->
-        Meteor.call 'increment_view', Router.current().params.doc_id, ->
-        Meteor.setTimeout ->
-            $('.progress').progress()
-        , 1000
+        # Meteor.call 'increment_view', Router.current().params.doc_id, ->
+        # Meteor.setTimeout ->
+        #     $('.progress').progress()
+        # , 1000
 
     Template.question_view.helpers
         time_sessions: ->
@@ -257,27 +264,38 @@ if Meteor.isClient
             else
                 true
 
-    Template.question_view.events
-        'click .new_answer': ->
-            new_id = Docs.insert
-                model:'answer'
-                question_id: Router.current().params.doc_id
-            Router.go "/answer/#{new_id}/edit"
             
             
+            
+    Template.answer_edit.helpers
+        choice_docs: ->
+            Docs.find   
+                model:'question_choice'
+        users: ->
+            Meteor.users.find   
+                app:'bc'
     Template.answer_edit.events
+        'click .cancel_answer': ->
+            Docs.remove @_id
+            Router.go "/question/#{@question_id}"
+        
         'click .choose_answer': ->
             Docs.update Router.current().params.doc_id,
-                answer_choice_id: @_id
-                answer_choice_title: @title
+                $set:
+                    answer_choice_id: @_id
+                    answer_choice_title: @title
         'click .choose_user': ->
             Docs.update Router.current().params.doc_id,
-                answer_user_id: @_id
-                answer_username: @username
+                $set:
+                    answer_user_id: @_id
+                    answer_username: @username
             
     Template.answer_edit.onCreated ->
         @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'bc_users'
 
 
 if Meteor.isServer
@@ -314,6 +332,9 @@ if Meteor.isServer
 
         self.ready()
         
+    Meteor.publish 'bc_users', ()->
+        Meteor.users.find 
+            app:'bc'            
     Meteor.publish 'question_from_answer_id', (answer_id)->
         answer = Docs.findOne answer_id
         question = 
