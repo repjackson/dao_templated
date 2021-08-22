@@ -66,34 +66,6 @@ if Meteor.isClient
 
 
 
-
-    Template.picked_question.events
-        'click .delete_question': ->
-            if confirm 'delete question?'
-                Docs.remove @_id
-                Session.set('picked_question_id', null)
-        'click .save_question': ->
-            Session.set('editing_question', false)
-        'click .edit_question': ->
-            Session.set('editing_question', true)
-        'click .goto_question': (e,t)->
-            $(e.currentTarget).closest('.grid').transition('fade right', 500)
-            Meteor.setTimeout =>
-                Router.go "/question/#{@_id}/"
-            , 500
-
-    Template.picked_question.helpers
-        editing_question: -> Session.get('editing_question')
-
-
-
-
-
-
-
-
-
-
     Template.question_card_template.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
@@ -216,26 +188,24 @@ if Meteor.isServer
 if Meteor.isClient
     Template.question_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'question_list'
+        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'child_docs', Router.current().params.doc_id
+
     Template.question_edit.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
     Template.question_edit.events
-        'click .clear_question_list': ->
+        'click .add_choice': ->
             question = Docs.findOne Router.current().params.doc_id
-            Docs.update question._id,
-                $unset:question_list_id:1
+            Docs.insert
+                model:'question_choice'
+                parent_id:Router.current().params.doc_id
     Template.question_edit.helpers
-        question_list: ->
-            question = Docs.findOne Router.current().params.doc_id
-            Docs.findOne
-                _id: question.question_list_id
-                model:'question_list'
-        choices: ->
-            Docs.find
-                model:'choice'
-                question_id:@_id
+        choice_docs: ->
+            Docs.find 
+                model:'question_choice'
+                parent_id:Router.current().params.doc_id
     Template.question_edit.events
         
         
@@ -245,11 +215,9 @@ if Meteor.isClient
 if Meteor.isClient
     Template.question_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'log_event'
-        @autorun => Meteor.subscribe 'model_docs', 'question_list'
         @autorun => Meteor.subscribe 'child_docs', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'time_session'
+        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
     Template.question_view.onRendered ->
         Meteor.call 'increment_view', Router.current().params.doc_id, ->
         Meteor.setTimeout ->
@@ -318,82 +286,6 @@ if Meteor.isClient
             Meteor.setTimeout =>
                 Router.go "/questions"
             , 500
-
-
-
-if Meteor.isClient
-    @picked_tags = new ReactiveArray []
-
-    Template.question_cloud.onCreated ->
-        @autorun -> Meteor.subscribe('question_tags',
-            picked_tags.array()
-            Session.get('view_complete')
-            Session.get('view_incomplete')
-
-            )
-
-    Template.question_cloud.helpers
-        all_tags: ->
-            doc_count = Docs.find().count()
-            if 0 < doc_count < 3 then Results.find { count: $lt: doc_count } else Results.find()
-
-        tag_cloud_class: ->
-            button_class = switch
-                when @index <= 10 then 'big'
-                when @index <= 20 then 'large'
-                when @index <= 30 then ''
-                when @index <= 40 then 'small'
-                when @index <= 50 then 'tiny'
-            return button_class
-
-        settings: -> {
-            position: 'bottom'
-            limit: 10
-            rules: [
-                {
-                    collection: Results
-                    field: 'name'
-                    matchAll: true
-                    template: Template.tag_result
-                }
-                ]
-        }
-
-
-        picked_tags: ->
-            # model = 'event'
-            picked_tags.array()
-
-
-    Template.question_cloud.events
-        'click .select_tag': -> picked_tags.push @name
-        'click .unselect_tag': -> picked_tags.remove @valueOf()
-        'click #clear_tags': -> picked_tags.clear()
-
-        'keyup #search': (e,t)->
-            e.preventDefault()
-            val = $('#search').val().toLowerCase().trim()
-            switch e.which
-                when 13 #enter
-                    switch val
-                        when 'clear'
-                            picked_tags.clear()
-                            $('#search').val ''
-                        else
-                            unless val.length is 0
-                                picked_tags.push val.toString()
-                                $('#search').val ''
-                when 8
-                    if val.length is 0
-                        picked_tags.pop()
-
-        'autocompleteselect #search': (event, template, doc) ->
-            picked_tags.push doc.name
-            $('#search').val ''
-
-        'click #add': ->
-            Meteor.call 'add', (err,id)->
-                Router.go "/edit/#{id}"
 
 
 if Meteor.isServer

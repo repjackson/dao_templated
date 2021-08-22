@@ -271,14 +271,22 @@ Template.text_edit.events
         else
             parent = Template.parentData(5)
 
-        doc = Docs.findOne Router.current().params.doc_id
+        doc = Docs.findOne parent._id
         user = Meteor.users.findOne username:Router.current().params.username
         if doc
-            Docs.update Router.current().params.doc_id,
+            Docs.update parent._id,
                 $set:"#{@key}":val
         else if user
             Meteor.users.update parent._id,
                 $set:"#{@key}":val
+        $('body').toast(
+            message: "'#{val}' saved"
+            showIcon: 'checkmark'
+            showProgress: 'bottom'
+            class: 'success'
+            displayTime: 'auto',
+            position: "bottom right"
+        )
 
 
 
