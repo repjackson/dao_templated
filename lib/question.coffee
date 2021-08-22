@@ -205,11 +205,6 @@ if Meteor.isClient
             Docs.insert
                 model:'question_choice'
                 parent_id:Router.current().params.doc_id
-    Template.question_edit.helpers
-        choice_docs: ->
-            Docs.find 
-                model:'question_choice'
-                parent_id:Router.current().params.doc_id
         
         
     Template.question_view.events
@@ -269,9 +264,11 @@ if Meteor.isClient
             
             
     Template.answer_edit.helpers
-        choice_docs: ->
+        answer_choice_docs: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
             Docs.find   
                 model:'question_choice'
+                parent_id:current_answer.question_id
         users: ->
             Meteor.users.find   
                 app:'bc'

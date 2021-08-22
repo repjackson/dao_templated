@@ -282,9 +282,9 @@ Template.text_edit.events
         $('body').toast(
             message: "'#{val}' saved"
             showIcon: 'checkmark'
-            showProgress: 'bottom'
+            # showProgress: 'bottom'
             class: 'success'
-            displayTime: 'auto',
+            # displayTime: 'auto',
             position: "bottom right"
         )
 

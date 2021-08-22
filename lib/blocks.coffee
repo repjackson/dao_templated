@@ -308,7 +308,7 @@ if Meteor.isClient
 
     Template.remove_button.events
         'click .remove_doc': (e,t)->
-            if confirm "remove #{@model}?"
+            if confirm "remove #{@model}: #{@title}?"
                 if $(e.currentTarget).closest('.card')
                     $(e.currentTarget).closest('.card').transition('fly right', 1000)
                 else

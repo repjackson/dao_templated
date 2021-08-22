@@ -16,74 +16,36 @@ template(name='questions')
             .six.wide.column
                 .ui.small.compact.icon.button.toggle_complete(title='view complete' class=view_complete_class)
                     i.checkmark.icon
-                .largescroll.ui.segments
+                .ui.centered.cards
                     each questions 
                         +question_card_template
-            .six.wide.column
-                if picked_question_doc
-                    .ui.icon.right.floated.button.unselect_question
-                        i.remove.icon
-                    with picked_question_doc
-                        +picked_question
-                else 
-                    // .ui.icon.basic.button.new_question 
-                    //     i.plus.icon
-                    //     // |new question 
-                    i.refresh.link.icon.refresh_questions_stats
-                    with questions_stats_doc
-                        .ui.small.grey.header #{total_questions} total questions 
-                        .ui.small.grey.header #{week_questions_count} questions this week
-                        .ui.small.grey.header #{day_questions_count} questions today
                     
 
 template(name='question_card_template')
-    .ui.segment.pointer.select_question(class=question_segment_class)
+    a.ui.card.pointer.select_question(href="/question/#{_id}")
         // .ui.header.goto_question #{title}
-        .ui.header #{title}
-        |!{description}
-        div
-        .ui.horizontal.list 
-            .item(title='views')
-                i.eye.icon 
-                |#{views}
-            .item
-                i.grey.tags.icon 
-                each five_tags
-                    .ui.small.label #{this}
-        // unless complete
-        //     if percent_complete
-        //         .rounded(style="height:5px;width:{{percent_complete}}%;background-color:grey" title="{{percent_complete}}% complete")
-        //             //- 
-        //             //- .ui.bottom.attached.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
-        //             //-     .bar
-        //                 //- .progress
-        //             //- .label complete
-    // .spacer
-
-
-
-template(name='picked_question')
-    // if editing_question 
-    //     +text_edit key='title' direct=true
-    //     +array_edit key='tags' direct=true
-    //     div
-    //     .ui.icon.large.button.save_question(title='save question') 
-    //         i.checkmark.green.large.icon
-    //     .ui.icon.small.button.delete_question(title='delete question') 
-    //         i.remove.icon
-    // else 
-    .ui.small.header #{title}
-    |o!{description}
-    +array_view key='tags' direct=true
-    // div
-    // .ui.icon.large.button.edit_question(title='edit question') 
-    if can_edit 
-        a.ui.icon.large.button(href="/question/#{_id}/edit" title='edit question') 
-            +i name='pencil' cl='ui avatar image'
-    .ui.icon.large.button.goto_question(title='view question') 
-        +i name='chevron-right'
-    // div
-    +voting_full
+        .content
+            .ui.header #{title}
+            |!{description}
+            div
+            .ui.horizontal.list 
+                .item(title='views')
+                    i.eye.icon 
+                    |#{views}
+                .item
+                    i.grey.tags.icon 
+                    each five_tags
+                        .ui.small.label #{this}
+            |!{description}
+            +array_view key='tags' direct=true
+            // div
+            // .ui.icon.large.button.edit_question(title='edit question') 
+            if can_edit 
+                a.ui.icon.large.button(href="/question/#{_id}/edit" title='edit question') 
+                    +i name='pencil' cl='ui avatar image'
+            .ui.icon.large.button.goto_question(title='view question') 
+                +i name='chevron-right'
+            // div
 
 
 template(name='question_view')
@@ -91,7 +53,8 @@ template(name='question_view')
         .ui.stackable.padded.grid
             .row 
                 .five.wide.column
-                    .ui.big.basic.button.goto_questions
+                    a.ui.big.basic.button.fly_left(href="/questions")
+                        i.chevron.left.icon
                         +i name='questions' cl='ui avatar image'
                         |questions
                     .ui.header #{title}
@@ -106,33 +69,28 @@ template(name='question_view')
                     div
                     .ui.small.grey.header total time #{total_time}
                     div
-                    +viewing
+                    | !{description}
+                    // +viewing
                     div
                     +voting_full
                 .seven.wide.column
-                    | !{description}
-                    div
-                    +comments
-                    each choice_docs
-                        .ui.header #{title}
+                    .ui.header choices
+                    .ui.cards
+                        each choice_docs
+                            .card(class=color)
+                                .content
+                                    .ui.header #{title}
                 .four.wide.column
                     .ui.big.fluid.blue.button.new_answer
                         |answer
+                        i.right.chevron.large.icon
                     .ui.header answers 
-                    each answer_docs
-                        .ui.header #{_author_username} #{when}
-                        |#{answer_choice_title} #{answer_username}
-                    if percent_complete
-                        .ui.disabled.indicating.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
-                            .bar
-                                .progress
-                            .label complete
-                        .ui.hidden.divider
-                    if weight
-                        .ui.disabled.indicating.progress(data-percent="{{weight}}" title="{{weight}} weight")
-                            .bar
-                                .progress
-                            .label weight
+                    .ui.large.list
+                        each answer_docs
+                            .item
+                                .ui.header #{answer_choice_title} #{answer_username}
+                                | #{_author_username} #{when}
+                    +comments
 
 
 
@@ -143,18 +101,21 @@ template(name='question_edit')
                 .six.wide.column
                     a.ui.icon.fluid.big.green.button(href="/question/#{_id}") 
                         i.checkmark.large.icon
-                    +remove_button
-                .ten.wide.column
                     +text_edit key='title' label='title' direct=true
                     +html_edit key='description' label='description' direct=true
-                    div 
                     +array_edit key='tags' label='tags' direct=true
+                    +remove_button
+                .ten.wide.column
+                    div 
                     .ui.inline.header 
                         |possible answers
-                        i.plus.link.circular.icon.add_choice
+                    i.plus.link.circular.large.icon.add_choice
                     each choice_docs
-                        .ui.segment 
+                        .ui.segment(class=color)
                             +text_edit key='title' direct=true
+                            +text_edit key='color' direct=true
+                            +remove_button
+                            
                             
                             
                             
@@ -162,21 +123,23 @@ template(name='answer_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row 
-                .six.wide.column
+                .four.wide.column
                     a.ui.icon.fluid.big.red.button.cancel_answer
                         i.remove.icon
                         
-                .ten.wide.column
+                .twelve.wide.column
                     .ui.header 
                         |#{question_title}
-                    each choice_docs
-                        .ui.big.button.choose_answer
-                            |#{title}
+                    if answer_user_id 
+                        .ui.big.fluid.icon.green.button.complete_answer
+                            i.big.checkmark.icon
                     if answer_choice_id
                         .ui.header pick user
                         each users 
                             .ui.big.button.choose_user
                                 |#{username}
-                    if answer_user_id 
-                        .ui.big.fluid.icon.green.button.complete_answer
-                            i.big.checkmark.icon
+                    .ui.header pick choice
+                    each answer_choice_docs
+                        .ui.massive.fluid.button.choose_answer(class=color)
+                            |#{title}
+                        .ui.hidden.divider
