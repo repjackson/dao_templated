@@ -1,32 +1,29 @@
 template(name='questions')
     .ui.stackable.padded.grid
         .row
-            .three.wide.column
+            .four.wide.column
                 .ui.header 
                     i.questions.icon
                     |#{questions.count}
                     |questions
                 .ui.icon.large.button.new_question
                     i.green.plus.icon
-                i.remove.circular.link.icon.clear_filter(title='clear filters')
-                with currentUser
-                    .ui.button.your_unanswered
-                        i.large.circle.outline.icon
-                        |your unanswered questions
-            .six.wide.column
-                .ui.small.compact.icon.button.toggle_complete(title='view complete' class=view_complete_class)
-                    i.checkmark.icon
+                // i.remove.circular.link.icon.clear_filter(title='clear filters')
+            .twelve.wide.column
                 .ui.centered.cards
                     each questions 
                         +question_card_template
                     
 
 template(name='question_card_template')
-    a.ui.card.pointer.select_question(href="/question/#{_id}")
+    a.card.select_question(href="/question/#{_id}")
         // .ui.header.goto_question #{title}
         .content
             .ui.header #{title}
             |!{description}
+            each question_choice_docs
+                .ui.big.label(class=color)
+                    |#{title}
             div
             .ui.horizontal.list 
                 .item(title='views')
@@ -36,16 +33,9 @@ template(name='question_card_template')
                     i.grey.tags.icon 
                     each five_tags
                         .ui.small.label #{this}
-            |!{description}
-            +array_view key='tags' direct=true
+            // +array_view key='tags' direct=true
             // div
             // .ui.icon.large.button.edit_question(title='edit question') 
-            if can_edit 
-                a.ui.icon.large.button(href="/question/#{_id}/edit" title='edit question') 
-                    +i name='pencil' cl='ui avatar image'
-            .ui.icon.large.button.goto_question(title='view question') 
-                +i name='chevron-right'
-            // div
 
 
 template(name='question_view')
@@ -112,8 +102,11 @@ template(name='question_edit')
                     i.plus.link.circular.large.icon.add_choice
                     each choice_docs
                         .ui.segment(class=color)
+                            if image_id
+                                img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                             +text_edit key='title' direct=true
                             +text_edit key='color' direct=true
+                            +image_edit key='image_id' direct=true
                             +remove_button
                             
                             

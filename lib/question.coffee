@@ -19,7 +19,7 @@ if Meteor.isClient
 
 
     Template.questions.onCreated ->
-        # @autorun => Meteor.subscribe 'model_docs', 'question'
+        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
         @autorun -> Meteor.subscribe('questions',
             Session.get('view_complete')
             Session.get('assigned_to')
@@ -89,10 +89,10 @@ if Meteor.isClient
             if Session.equals('picked_question_id', @_id)
                 classes += ' inverted blue'
             classes
-        question_list: ->
-            Docs.findOne
-                model:'question_list'
-                _id: @question_list_id
+        question_choice_docs: ->
+            Docs.find
+                model:'question_choice'
+                parent_id:@_id
 
 
     Template.question_card_template.events
