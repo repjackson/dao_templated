@@ -1,5 +1,5 @@
 template(name='nav')
-    #topnav.ui.fluid.attached.borderless.menu.topnav
+    #topnav.ui.fluid.attached.borderless.menu.topnav.hscroll
         unless connected
             .item 
                 +status
@@ -81,9 +81,9 @@ template(name='nav')
                         .icon.item
                             i.large.food.loading.icon
                     else
-                        if in_role 'admin'
-                            a.icon.item(href='/admin' title='admin')
-                                i.large.shield.icon
+                        // if in_role 'admin'
+                        //     a.icon.item(href='/admin' title='admin')
+                        //         i.large.shield.icon
                         a.icon.item.toggle_topbar(title='alerts')
                             i.bell.outline.large.icon
                         a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")

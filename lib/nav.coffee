@@ -16,8 +16,8 @@ if Meteor.isClient
             $('.ui.left.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'push'
-                    mobileTransition:'push'
+                    transition:'overlay'
+                    mobileTransition:'overlay'
                     exclusive:true
                     duration:200
                     scrollLock:true
@@ -28,8 +28,8 @@ if Meteor.isClient
             $('.ui.rightbar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'push'
-                    mobileTransition:'push'
+                    transition:'overlay'
+                    mobileTransition:'overlay'
                     exclusive:true
                     duration:200
                     scrollLock:true
@@ -40,8 +40,8 @@ if Meteor.isClient
             $('.ui.topbar.sidebar')
                 .sidebar({
                     context: $('.bottom.segment')
-                    transition:'push'
-                    mobileTransition:'push'
+                    transition:'overlay'
+                    mobileTransition:'overlay'
                     exclusive:true
                     duration:200
                     scrollLock:true
@@ -115,7 +115,7 @@ if Meteor.isClient
             if e.which is 13
                 search = $('.global_search').val().trim().toLowerCase()
                 if search.length > 0
-                    picked_tags.push search
+                    picked_tags.overlay search
                     console.log 'search', search
                     # Meteor.call 'log_term', search, ->
                     $('.global_search').val('')
@@ -233,7 +233,7 @@ if Meteor.isClient
     Template.left_sidebar.events
         # 'click .toggle_leftbar': ->
         #     $('.ui.sidebar')
-        #         .sidebar('setting', 'transition', 'push')
+        #         .sidebar('setting', 'transition', 'overlay')
         #         .sidebar('toggle')
         'click .toggle_admin': ->
             if 'admin' in Meteor.user().roles
