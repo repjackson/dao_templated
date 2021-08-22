@@ -92,64 +92,36 @@ template(name='question_view')
             .row 
                 .five.wide.column
                     .ui.big.basic.button.goto_questions
-                        // i.left.chevron.icon
                         +i name='questions' cl='ui avatar image'
                         |questions
                     .ui.header #{title}
-                    if parent_dependents
-                        .ui.small.header parent dependents
-                        each parent_dependents
-                            a.ui.button(href="/question/#{_id}")
-                                i.left.chevron.icon
-                                |#{title}
                     if can_edit 
                         a.ui.icon.button(href="/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     div
-                    +subscriptions
                     div
                     +author_info
                     +creation_info
                     div
-                    .ui.grey.inline.header 
-                        i.clock.small.icon
-                        |time tracking
-                    .ui.compact.icon.button.new_question
-                        i.plus.icon
-                    .ui.link.list
-                        each questions 
-                            a.item(href="/question/#{_id}")
-                                |{{long_time start_datetime}}-{{long_time end_datetime}}
-                                small by #{_author_username}
                     .ui.small.grey.header total time #{total_time}
                     div
                     +viewing
                     div
                     +voting_full
                 .seven.wide.column
-                    if parent_id
-                        a.ui.fluid.button(href="/question/#{parent_id}")
-                            i.up.chevron.icon
-                            |#{parent_doc.title}
-                    
-                    .ui.header #{title}
                     | !{description}
                     div
                     +comments
-                    .ui.grey.inline.header 
-                        i.small.fork.icon
-                        |sub questions 
-                    i.plus.link.icon.new_subquestion
-                    div
-                    each subquestions 
-                        .ui.segment
-                            +text_edit key='title' direct=true
-                            +text_edit key='assigned_to' direct=true
-                            a.ui.icon.button(href="/question/#{_id}")
-                                i.right.chevron.icon
-                            +remove_button
+                    each choice_docs
+                        .ui.header #{title}
                 .four.wide.column
+                    .ui.big.fluid.blue.button.new_answer
+                        |answer
+                    .ui.header answers 
+                    each answers 
+                        .ui.header #{username} #{when}
+
                     if percent_complete
                         .ui.disabled.indicating.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
                             .bar
@@ -169,9 +141,8 @@ template(name='question_edit')
         .ui.stackable.padded.grid
             .row 
                 .six.wide.column
-                    a.ui.fluid.large.button(href="/question/#{_id}") 
-                        i.checkmark.icon
-                        |save
+                    a.ui.icon.fluid.big.green.button(href="/question/#{_id}") 
+                        i.checkmark.large.icon
                     +remove_button
                 .ten.wide.column
                     +text_edit key='title' label='title' direct=true
@@ -184,3 +155,27 @@ template(name='question_edit')
                     each choice_docs
                         .ui.segment 
                             +text_edit key='title' direct=true
+                            
+                            
+                            
+template(name='answer_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row 
+                .six.wide.column
+                    a.ui.icon.fluid.big.green.button(href="/question/#{_id}") 
+                        i.checkmark.large.icon
+                        
+                .ten.wide.column
+                    .ui.header 
+                        |#{question_title}
+                    each choice_docs
+                        .ui.big.button.choose_answer
+                            |#{title}
+                    if choice_id
+                        each users 
+                            .ui.button
+                                |#{username}
+                    if user_id 
+                        .ui.big.fluid.icon.button 
+                            i.big.checkmark.icon

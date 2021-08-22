@@ -201,6 +201,11 @@ if Meteor.isClient
             Docs.insert
                 model:'question_choice'
                 parent_id:Router.current().params.doc_id
+    Template.question_view.helpers
+        choice_docs: ->
+            Docs.find 
+                model:'question_choice'
+                parent_id:Router.current().params.doc_id
     Template.question_edit.helpers
         choice_docs: ->
             Docs.find 
@@ -253,39 +258,26 @@ if Meteor.isClient
                 true
 
     Template.question_view.events
-        'click .new_time_session': ->
+        'click .new_answer': ->
             new_id = Docs.insert
-                model:'time_session'
+                model:'answer'
                 question_id: Router.current().params.doc_id
-            Router.go "/m/time_session/#{new_id}/edit"
-        'click .new_subquestion': ->
-            Docs.insert
-                model:'question'
-                parent_id: Router.current().params.doc_id
-        'click .mark_complete': ->
+            Router.go "/answer/#{new_id}/edit"
+            
+            
+    Template.answer_edit.events
+        'click .choose_answer': ->
             Docs.update Router.current().params.doc_id,
-                $set:
-                    complete:true
-            Docs.insert
-                model:'log_event'
-                parent_id: Router.current().params.doc_id
-                text:"#{Meteor.user().username} marked question complete"
-
-        'click .mark_incomplete': ->
+                answer_choice_id: @_id
+                answer_choice_title: @title
+        'click .choose_user': ->
             Docs.update Router.current().params.doc_id,
-                $set:
-                    complete:false
-            Docs.insert
-                model:'log_event'
-                parent_id: Router.current().params.doc_id
-                text:"#{Meteor.user().username} marked question incomplete"
-
-
-        'click .goto_questions': (e,t)->
-            $(e.currentTarget).closest('.grid').transition('fade left', 500)
-            Meteor.setTimeout =>
-                Router.go "/questions"
-            , 500
+                answer_user_id: @_id
+                answer_username: @username
+            
+    Template.answer_edit.onCreated ->
+        @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
 
 
 if Meteor.isServer
@@ -322,3 +314,23 @@ if Meteor.isServer
 
         self.ready()
         
+    Meteor.publish 'question_from_answer_id', (answer_id)->
+        answer = Docs.findOne answer_id
+        question = 
+            Docs.find 
+                model:'question'
+                _id:answer.question_id
+                
+    Meteor.publish 'question_choices_from_answer_id', (answer_id)->
+        answer = Docs.findOne answer_id
+        question = 
+            Docs.findOne
+                model:'question'
+                _id:answer.question_id
+        choices = 
+            Docs.find
+                model:'question_choice'
+                question_id:answer.question_id
+                
+                
+                

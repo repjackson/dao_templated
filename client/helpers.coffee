@@ -22,6 +22,10 @@ Template.registerHelper 'ingredient_products', () ->
     Docs.find   
         model:'product'
         ingredient_ids:$in:[@_id]
+Template.registerHelper 'choice_docs', () ->
+    Docs.find 
+        model:'question_choice'
+        parent_id:Router.current().params.doc_id
 
 
 Template.registerHelper 'is_editing_this', (input)-> 
