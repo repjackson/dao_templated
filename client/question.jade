@@ -119,9 +119,9 @@ template(name='question_view')
                     .ui.big.fluid.blue.button.new_answer
                         |answer
                     .ui.header answers 
-                    each answers 
-                        .ui.header #{username} #{when}
-
+                    each answer_docs
+                        .ui.header #{_author_username} #{when}
+                        |#{answer_choice_title} #{answer_username}
                     if percent_complete
                         .ui.disabled.indicating.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
                             .bar
@@ -178,5 +178,5 @@ template(name='answer_edit')
                             .ui.big.button.choose_user
                                 |#{username}
                     if answer_user_id 
-                        .ui.big.fluid.icon.button 
+                        .ui.big.fluid.icon.green.button.complete_answer
                             i.big.checkmark.icon

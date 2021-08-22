@@ -230,6 +230,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'child_docs', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'model_docs', 'answer'
     Template.question_view.onRendered ->
         # Meteor.call 'increment_view', Router.current().params.doc_id, ->
         # Meteor.setTimeout ->
@@ -237,9 +238,9 @@ if Meteor.isClient
         # , 1000
 
     Template.question_view.helpers
-        time_sessions: ->
+        answer_docs: ->
             Docs.find
-                model:'time_session'
+                model:'answer'
                 question_id:Router.current().params.doc_id
         subquestions: ->
             Docs.find
@@ -290,6 +291,11 @@ if Meteor.isClient
                     answer_user_id: @_id
                     answer_username: @username
             
+        'click .complete_answer': ->
+            Docs.update Router.current().params.doc_id,
+                $set:
+                    complete:true
+            Router.go "/question/#{@question_id}"
     Template.answer_edit.onCreated ->
         @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
