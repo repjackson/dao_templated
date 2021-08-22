@@ -78,8 +78,13 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'log_events'
     Template.question_card_template.events
         'click .add_question_item': ->
-            new_mi_id = Docs.insert
+            ob = {
                 model:'question_item'
+            }
+            new_id = Meteor.call 'insert_doc', ob
+            console.log new_id
+            # new_mi_id = Docs.insert
+            #     model:'question_item'
             Router.go "/question/#{_id}/edit"
     Template.question_card_template.helpers
         question_segment_class: ->
@@ -202,10 +207,13 @@ if Meteor.isClient
     Template.question_edit.events
         'click .add_choice': ->
             question = Docs.findOne Router.current().params.doc_id
-            Docs.insert
+            ob = {
                 model:'question_choice'
                 parent_id:Router.current().params.doc_id
-        
+            }
+            new_id = Meteor.call 'insert_doc', ob
+            console.log new_id
+
         
     Template.question_view.events
         'click .new_answer': ->
