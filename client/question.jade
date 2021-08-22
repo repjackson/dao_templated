@@ -42,7 +42,7 @@ template(name='question_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
-                .five.wide.column
+                .six.wide.column
                     a.ui.big.basic.button.fly_left(href="/questions")
                         i.chevron.left.icon
                         +i name='questions' cl='ui avatar image'
@@ -57,20 +57,10 @@ template(name='question_view')
                     +author_info
                     +creation_info
                     div
-                    .ui.small.grey.header total time #{total_time}
-                    div
                     | !{description}
                     // +viewing
                     div
-                    +voting_full
-                .seven.wide.column
-                    .ui.header choices
-                    .ui.cards
-                        each choice_docs
-                            .card(class=color)
-                                .content
-                                    .ui.header #{title}
-                .four.wide.column
+                    // +voting_full
                     .ui.big.fluid.blue.button.new_answer
                         |answer
                         i.right.chevron.large.icon
@@ -81,6 +71,16 @@ template(name='question_view')
                                 .ui.header #{answer_choice_title} #{answer_username}
                                 | #{_author_username} #{when}
                     +comments
+                .ten.wide.column
+                    .ui.header choices
+                    .ui.cards
+                        each choice_docs
+                            .card(class=color)
+                                if image_id
+                                    img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            
+                                .content
+                                    .ui.header #{title}
 
 
 
@@ -102,8 +102,8 @@ template(name='question_edit')
                     i.plus.link.circular.large.icon.add_choice
                     each choice_docs
                         .ui.segment(class=color)
-                            if image_id
-                                img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            // if image_id
+                            //     img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
                             +text_edit key='title' direct=true
                             +text_edit key='color' direct=true
                             +image_edit key='image_id' direct=true
@@ -132,7 +132,11 @@ template(name='answer_edit')
                             .ui.big.button.choose_user
                                 |#{username}
                     .ui.header pick choice
-                    each answer_choice_docs
-                        .ui.massive.fluid.button.choose_answer(class=color)
-                            |#{title}
-                        .ui.hidden.divider
+                    .ui.centered.cards
+                        each answer_choice_docs
+                            a.ui.card.choose_answer(class=color)
+                                if image_id
+                                    img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                .content
+                                    .header
+                                        |#{title}
