@@ -96,9 +96,9 @@ body {
 }
 
 
-.ui.image:not(.avatar2), .label, img:not(.avatar2) {
+/*.ui.image:not(.avatar2), .label, img:not(.avatar2) {*/
     /*border-radius: 10px !important;*/
-} 
+/*} */
 
 
 /*.scrolling{*/
@@ -108,13 +108,13 @@ body {
 /*	padding-top: 1em;*/
 /*	padding-left: 1em;*/
 /*}*/
-/*.smallscroll{*/
-/*	overflow-y:scroll;*/
-/*	overflow-x:hidden;*/
-/*	max-height:500px;*/
-/*	padding-top: 1em;*/
-/*	padding-left: 1em;*/
-/*}*/
+.smallscroll{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:500px;
+	padding-top: 1em;
+	padding-left: 1em;
+}
 
 /*.scrolling::-webkit-scrollbar {*/
 ::-webkit-scrollbar {
