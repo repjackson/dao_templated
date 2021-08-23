@@ -35,8 +35,8 @@ Docs.helpers
 
 Meteor.users.helpers
     name: ->
-        if @nickname
-            "#{@nickname}"
+        if @display_name
+            "#{@display_name}"
         else if @first_name and @last_name
             "#{@first_name} #{@last_name}"
         else

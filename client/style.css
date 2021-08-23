@@ -101,13 +101,13 @@ body {
 /*} */
 
 
-/*.scrolling{*/
-/*	overflow-y:scroll;*/
-/*	overflow-x:hidden;*/
-/*	max-height:85vh;*/
-/*	padding-top: 1em;*/
-/*	padding-left: 1em;*/
-/*}*/
+.scrolling{
+	overflow-y:scroll;
+	overflow-x:hidden;
+	max-height:85vh;
+	padding-top: 1em;
+	padding-left: 1em;
+}
 .smallscroll{
 	overflow-y:scroll;
 	overflow-x:hidden;

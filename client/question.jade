@@ -16,7 +16,7 @@ template(name='questions')
             
                     // i.remove.circular.link.icon.clear_filter(title='clear filters')
             .twelve.wide.column
-                .ui.centered.cards
+                .ui.centered.four.cards
                     each questions 
                         +question_card_template
                     
@@ -32,16 +32,19 @@ template(name='question_card_template')
             each question_choice_docs
                 .ui.big.label(class=color)
                     |#{title}
-            .ui.inline.green.header +#{points_per_answer}pts
+            if points_per_answer
+                .ui.inline.green.header +#{points_per_answer}pts
 
-            .ui.horizontal.list 
-                .item(title='views')
-                    i.eye.icon 
-                    |#{views}
-                .item
-                    i.grey.tags.icon 
-                    each five_tags
-                        .ui.small.label #{this}
+            span(title='views')
+                i.eye.icon
+                |#{views}
+            span(title='views')
+                i.reply.icon 
+                |#{answer_count}
+            if tags
+                i.grey.tags.icon 
+                each tags
+                    .ui.small.basic.label #{this}
             // +array_view key='tags' direct=true
             // div
             // .ui.icon.large.button.edit_question(title='edit question') 
@@ -66,6 +69,7 @@ template(name='question_view')
 
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     +author_info
+                    .ui.header #{views} views
                     .ui.header question type: #{question_type}
                     +creation_info
                     div

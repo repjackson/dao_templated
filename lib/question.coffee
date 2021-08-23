@@ -228,7 +228,8 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'question_choices', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'question_answers', Router.current().params.doc_id
-        
+    Template.question_view.onRendered ->
+        Meteor.call 'log_view', Router.current().params.doc_id, ->
         
 if Meteor.isServer
     Meteor.publish 'question_choices', (question_id)->
