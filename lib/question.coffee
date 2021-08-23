@@ -45,7 +45,7 @@ if Meteor.isClient
         'click .new_question': (e,t)->
             Meteor.call('insert_doc', {model:'question'},(err,res)=>
                 if res
-                    console.log res, 'res'
+                    # console.log res, 'res'
                     # console.log new_id
                     Session.set('editing_question', true)
                     Session.set('picked_question_id', res)
@@ -285,8 +285,21 @@ if Meteor.isClient
 
             
             
+    Template.pick_rating.onRendered ->
+        Meteor.setTimeout =>
+            $('.ui.rating').rating(
+                # icon: 'pizza slice',
+                # initialRating: 3,
+                maxRating: 10
+            )
+        , 1000
             
     Template.answer_edit.helpers
+        question_doc: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            Docs.findOne 
+                model:'question'
+                _id:current_answer.question_id
         answer_choice_docs: ->
             current_answer = Docs.findOne Router.current().params.doc_id
             Docs.find   

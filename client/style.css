@@ -126,8 +126,8 @@ body {
   display:inline !important;
 }
 
-body, p, header {
-  font-family: "Ubuntu","Montserrat",sans-serif;
+body, p, .header {
+  font-family: "Ubuntu","Montserrat",sans-serif !important;
   /*font-family: "Benne",sans-serif;*/
 }
 

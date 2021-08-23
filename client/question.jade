@@ -55,16 +55,18 @@ template(name='question_view')
                     .ui.big.header #{title}
                     a.ui.big.basic.button.fly_left(href="/questions")
                         i.chevron.left.icon
-                        +i name='questions' cl='ui avatar image'
+                        +i name='what' cl='ui avatar image'
                         |questions
                     if can_edit 
-                        a.ui.icon.button(href="/question/#{_id}/edit" title='edit') 
+                        a.ui.basic.button(href="/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
+                            |edit
                     .ui.header #{points_per_answer} points earned per answer
                     .ui.header #{total_points_available} total points available
 
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     +author_info
+                    .ui.header question type: #{question_type}
                     +creation_info
                     div
                     | !{description}
@@ -181,11 +183,26 @@ template(name='answer_edit')
                             .ui.massive.button.choose_user.f12(class=user_picker_class)
                                 .f16 #{username}
                                 
-                    .ui.header pick choice
-                    each answer_choice_docs
-                        a.ui.massive.button.choose_answer(class=choice_class)
-                            if image_id
-                                img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
-                            .content
-                                .header
-                                    |#{title}
+                    with question_doc
+                        if key_value_is 'question_type' 'boolean'
+                            .ui.massive.button.yes
+                                |yes
+                            .ui.massive.button.no
+                                |no
+                        else if key_value_is 'question_type' 'multiple_choice'
+                            .ui.inline.header pick choice
+                            each answer_choice_docs
+                                a.ui.massive.button.choose_answer(class=choice_class)
+                                    if image_id
+                                        img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
+                                    .content
+                                        .header
+                                            |#{title}
+                        else if key_value_is 'question_type' 'rating'
+                            .ui.header rating
+                            +pick_rating
+                            
+                            
+                            
+template(name='pick_rating')
+    .ui.yellow.massive.rating(data-icon=icon data-rating=value)
