@@ -13,10 +13,22 @@ template(name='questions')
                 .ui.header total points earned
                 .ui.header recent questions
                 .ui.header recent answers
+                .ui.selection.animated.list
+                    each recent_answers
+                        a.item(href="/question/#{question_id}") #{answer_title} #{when}
             
                     // i.remove.circular.link.icon.clear_filter(title='clear filters')
             .twelve.wide.column
-                .ui.centered.four.cards
+                |view
+                +session_set key='question_sort_filter' value='answered'               
+                +session_set key='question_sort_filter' value='unanswered'
+                |sort by
+                +session_set key='question_sort_key' value='_timestamp' label='when' icon='clock'   
+                +session_set key='question_sort_key' value='points_per_answer' label='pts' icon='coins'   
+                div
+                |sort by
+                .ui.hidden.divider
+                .ui.centered.four.cards.scrolling
                     each questions 
                         +question_card_template
                     

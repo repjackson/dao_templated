@@ -20,6 +20,7 @@ if Meteor.isClient
 
     Template.questions.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'recent_answers'
         @autorun -> Meteor.subscribe('questions',
             Session.get('view_complete')
             Session.get('assigned_to')
@@ -70,6 +71,11 @@ if Meteor.isClient
             Docs.find
                 model:'question'
 
+        recent_answers: ->
+            Docs.find {
+                model:'answer'
+            }, 
+                sort:_timestamp:1
 
 
     Template.question_card_template.onRendered ->
@@ -162,6 +168,12 @@ if Meteor.isServer
             # .ui.small.header biggest renter
             # .ui.small.header predicted payback duration
             # .ui.small.header predicted payback date
+    Meteor.publish 'recent_answers', ->
+        Docs.find {
+            model:'answer'
+        }, 
+            sort:_timestamp:1
+            limit:10
     Meteor.publish 'questions', (
         view_complete=false
         assigned_to=null
