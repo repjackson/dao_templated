@@ -2,13 +2,18 @@ template(name='questions')
     .ui.stackable.padded.grid
         .row
             .four.wide.column
-                .ui.header 
-                    i.questions.icon
+                .ui.big.inline.header 
+                    +i name='what'
                     |#{questions.count}
                     |questions
                 if currentUser
-                    .ui.icon.large.button.new_question
-                        i.green.plus.icon
+                    i.green.plus.circular.green.link.icon.new_question.zoomer
+                .ui.header total answers        
+                .ui.header total questions        
+                .ui.header total points earned
+                .ui.header recent questions
+                .ui.header recent answers
+            
                     // i.remove.circular.link.icon.clear_filter(title='clear filters')
             .twelve.wide.column
                 .ui.centered.cards
@@ -27,7 +32,8 @@ template(name='question_card_template')
             each question_choice_docs
                 .ui.big.label(class=color)
                     |#{title}
-            div
+            .ui.inline.green.header +#{points_per_answer}pts
+
             .ui.horizontal.list 
                 .item(title='views')
                     i.eye.icon 
@@ -46,7 +52,7 @@ template(name='question_view')
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column
-                    .ui.header #{title}
+                    .ui.big.header #{title}
                     a.ui.big.basic.button.fly_left(href="/questions")
                         i.chevron.left.icon
                         +i name='questions' cl='ui avatar image'
@@ -54,6 +60,9 @@ template(name='question_view')
                     if can_edit 
                         a.ui.icon.button(href="/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
+                    .ui.header #{points_per_answer} points earned per answer
+                    .ui.header #{total_points_available} total points available
+
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     +author_info
                     +creation_info
@@ -67,7 +76,7 @@ template(name='question_view')
                     +comments
                 .six.wide.column
                     .ui.header choices
-                    .ui.cards
+                    .ui.doubling.two.cards.smallscroll
                         each choice_docs
                             .card(class=color)
                                 if image_id
@@ -79,7 +88,9 @@ template(name='question_view')
                     .ui.big.fluid.blue.button.new_answer
                         |answer
                         i.right.chevron.large.icon
-                    .ui.header answers 
+                    .ui.header 
+                        |#{answer_docs.count}
+                        |answers 
                     .ui.list
                         each answer_docs
                             .item
@@ -107,6 +118,9 @@ template(name='question_edit')
                     +remove_button
                 .ten.wide.column
                     div 
+                    +number_edit key='points_per_answer' value='points earned per answer'
+                    +number_edit key='total_points_available' value='total points available'
+                    .ui.header #{answers_funded} answers funded
                     +key_value_set key='question_type' value='boolean' icon='switch-on'
                     +key_value_set key='question_type' value='multiple_choice' icon='list'
                     +key_value_set key='question_type' value='rating' icon='star'
@@ -130,14 +144,16 @@ template(name='question_edit')
                                 |possible answers
                             i.plus.link.circular.large.icon.add_choice
                             div
-                            each choice_docs
-                                .ui.segment(class=color)
-                                    // if image_id
-                                    //     img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                    +text_edit key='title' direct=true
-                                    +text_edit key='color' direct=true
-                                    +image_edit key='image_id' direct=true
-                                    +remove_button
+                            .ui.two.doubling.cards
+                                each choice_docs
+                                    .ui.card(class=color)
+                                        .content
+                                            // if image_id
+                                            //     img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                            +text_edit key='title' direct=true
+                                            +text_edit key='color' direct=true
+                                            +image_edit key='image_id' direct=true
+                                            +remove_button
                                 
                             
                             
@@ -169,7 +185,7 @@ template(name='answer_edit')
                     each answer_choice_docs
                         a.ui.massive.button.choose_answer(class=choice_class)
                             if image_id
-                                img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
                             .content
                                 .header
                                     |#{title}

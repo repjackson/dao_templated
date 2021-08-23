@@ -24,8 +24,8 @@ Template.youtube_edit.events
 
 Template.key_value_set.helpers
     key_value_class: ->
-        console.log @
-        console.log Template.parentData()
+        # console.log @
+        # console.log Template.parentData()
         if Template.parentData()[@key] is @value then 'teal' else 'basic'
 Template.key_value_set.events
     'click .set_value': ->

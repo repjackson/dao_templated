@@ -43,11 +43,14 @@ if Meteor.isClient
         'click .toggle_complete': ->
             Session.set('view_complete', !Session.get('view_complete'))
         'click .new_question': (e,t)->
-            new_id = Meteor.call('insert_doc', {model:'question'})
-            console.log new_id
-            Session.set('editing_question', true)
-            Session.set('picked_question_id', new_id)
-            Router.go "/question/#{new_id}/edit"
+            Meteor.call('insert_doc', {model:'question'},(err,res)=>
+                if res
+                    console.log res, 'res'
+                    # console.log new_id
+                    Session.set('editing_question', true)
+                    Session.set('picked_question_id', res)
+                    Router.go "/question/#{res}/edit"
+                )
         'click .unselect_question': ->
             Session.set('picked_question_id', null)
 
