@@ -295,7 +295,7 @@ if Meteor.isClient
             found_answers = 
                 Docs.find(
                     model:'answer'
-                    quetion_id:Router.current().params.doc_id
+                    question_id:Router.current().params.doc_id
                 ).fetch()
             answered_users = []
             for answer in found_answers
@@ -335,9 +335,9 @@ if Meteor.isClient
     Template.answer_edit.onCreated ->
         @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'bc_users'
+        # @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'unanswered_users', Router.current().params.doc_id, ->
 
 
 if Meteor.isServer
@@ -374,9 +374,25 @@ if Meteor.isServer
 
         self.ready()
         
-    Meteor.publish 'bc_users', ()->
-        Meteor.users.find 
-            app:'bc'            
+    Meteor.publish 'unanswered_users', (answer_id)->
+        current_answer = Docs.findOne answer_id
+        question = Docs.findOne current_answer.question_id
+        found_answers = 
+            Docs.find(
+                model:'answer'
+                question_id:current_answer.question_id
+            ).fetch()
+        answered_users = []
+        for answer in found_answers
+            console.log 'answer', answer
+            if answer.answer_username
+                console.log 'answer', answer.answer_username
+                answered_users.push answer.answer_username
+        console.log answered_users
+        Meteor.users.find
+            username:$nin:answered_users
+            app:'bc'
+
     Meteor.publish 'question_from_answer_id', (answer_id)->
         answer = Docs.findOne answer_id
         question = 
@@ -393,7 +409,7 @@ if Meteor.isServer
         choices = 
             Docs.find
                 model:'question_choice'
-                question_id:answer.question_id
+                parent_id:answer.question_id
                 
                 
                 
