@@ -29,41 +29,27 @@ template(name='nav')
             //     i.large.calendar.icon
             //     // |events
             a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
-                // i.large.food.icon
                 +i name='food' cl='ui mini image'
-                // |menu
+            a.icon.item.mobile.hidden.zoomer(href="/questions" class="{{isActiveRoute regex='questions'}}" title='questions')
+                +i name='question' cl='ui mini image'
             a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
                 +i name='beer' cl='ui mini image'
-                // i.large.beer.icon
-                // |menu
             a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
                 +i name='grocery-shelf' cl='ui mini image'
-                // i.large.database.icon
-                // |items
             a.icon.item.mobile.hidden.zoomer(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
                 +i name='money' cl='ui mini image'
-                // i.large.money.icon
-                // |orders
             // a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
             //     +i name='loss' cl='ui mini image'
             //     // i.large.frown.icon
             //     // |losses
             a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
-                // i.large.checkmark.icon
                 +i name='checkmark' cl='ui mini image'
-                // |check ins
             a.icon.item.mobile.hidden.zoomer(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
                 +i name='groups' cl='ui mini image'
-                // i.large.users.icon
-                // |users
             a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
                 +i name='tasks' cl='ui mini image'
-                // i.large.tasks.icon
-                // |users
             a.icon.item.mobile.hidden.zoomer(href='/shop' class="{{isActiveRoute regex='shop'}}" title='shop')
                 +i name='shopping-cart' cl='ui mini image'
-                // i.large.cart.icon
-                // |users
             .right.menu
                 if currentUser
                     a.icon.item(href="/add")

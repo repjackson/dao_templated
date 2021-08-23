@@ -277,9 +277,27 @@ if Meteor.isClient
             Docs.find   
                 model:'question_choice'
                 parent_id:current_answer.question_id
-        users: ->
-            Meteor.users.find   
+        unanswered_users: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            found_answers = 
+                Docs.find(
+                    model:'answer'
+                    quetion_id:Router.current().params.doc_id
+                ).fetch()
+            answered_users = []
+            for answer in found_answers
+                console.log 'answer', answer
+                if answer.answer_username
+                    console.log 'answer', answer.answer_username
+                    answered_users.push answer.answer_username
+            console.log answered_users
+            Meteor.users.find
+                username:$nin:answered_users
                 app:'bc'
+                
+        user_picker_class: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            if current_answer.answer_username is @username then 'black' else 'basic'
     Template.answer_edit.events
         'click .cancel_answer': ->
             Docs.remove @_id
