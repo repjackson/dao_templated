@@ -65,6 +65,7 @@ Template.body.events
     'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 500)
     'click .fly_left': (e,t)->
+        console.log @, 'hi'
         $(e.currentTarget).closest('.grid').transition('fly left', 500)
 
 

@@ -9,7 +9,7 @@ template(name='youtube_edit')
         iframe.invert(width='100%' height='500px' src="https://www.youtube.com/embed/#{field_value}" frameborder='0' allow='accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture' allowfullscreen='')
 
 template(name='key_value_set')
-    .ui.basic.compact.button.set_value
+    .ui.compact.button.set_value(class=key_value_class)
         +i name=icon cl='ui avatar image'
         |#{value}
 

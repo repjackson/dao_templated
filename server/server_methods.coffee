@@ -127,7 +127,7 @@ Meteor.methods
         
 Meteor.methods
     insert_doc: (doc)->
-        console.log 'inserting object', doc
+        # console.log 'inserting object', doc
         # Docs.insert 
         #     doc
         
@@ -164,7 +164,7 @@ Meteor.methods
         # doc.upvoters = []
         # return
         new_id = Docs.insert doc
-        console.log 'new id', new_id
+        # console.log 'new id', new_id
         new_id
         
 

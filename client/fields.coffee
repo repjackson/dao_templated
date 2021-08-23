@@ -22,6 +22,11 @@ Template.youtube_edit.events
                 $set:"#{@key}":val
 
 
+Template.key_value_set.helpers
+    key_value_class: ->
+        console.log @
+        console.log Template.parentData()
+        if Template.parentData()[@key] is @value then 'teal' else 'basic'
 Template.key_value_set.events
     'click .set_value': ->
         Docs.update Router.current().params.doc_id,

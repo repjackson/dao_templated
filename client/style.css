@@ -396,31 +396,31 @@ img, .button{
 }
 
 
-.upload-btn-wrapper {
-  position: relative;
-  overflow: hidden;
-  display: inline-block;
-}
+/*.upload-btn-wrapper {*/
+/*  position: relative;*/
+/*  overflow: hidden;*/
+/*  display: inline-block;*/
+/*}*/
 
-.btn {
-  border: 2px solid gray;
-  color: green;
-  background-color: white;
-  padding: 30px 30px;
+/*.btn {*/
+/*  border: 2px solid gray;*/
+/*  color: green;*/
+/*  background-color: white;*/
+/*  padding: 30px 30px;*/
   /* border-radius: 10px; */
-  font-size: 30px;
-  line-height: 130%;
-  font-weight: bold;
-}
+/*  font-size: 30px;*/
+/*  line-height: 130%;*/
+/*  font-weight: bold;*/
+/*}*/
 
-.upload-btn-wrapper input[type=file] {
-  font-size: 100px;
-  height: 100% !important;
-  position: absolute;
-  left: 0;
-  top: 0;
-  opacity: 0;
-}
+/*.upload-btn-wrapper input[type=file] {*/
+/*  font-size: 100px;*/
+/*  height: 100% !important;*/
+/*  position: absolute;*/
+/*  left: 0;*/
+/*  top: 0;*/
+/*  opacity: 0;*/
+/*}*/
 
 
 
@@ -616,9 +616,9 @@ input.username_search{
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
     margin:2px !important;
-    font-weight: bold !important;
-    text-size: bold !important;
-    font-size: 110% !important;
+    /*font-weight: bold !important;*/
+    /*text-size: bold !important;*/
+    /*font-size: 110% !important;*/
 
     /* background-color: rgba(250,250,250,1) !important; */
     /*border-radius: 10px !important;*/
@@ -946,14 +946,14 @@ input.username_search{
   font-size: 800% !important;
   padding: 20px;
 }
-.large {
-  font-size: 130%;
-  line-height: 130%;
-}
-.big {
-  font-size: 200%;
-  line-height: 120%;
-}
+/*.large {*/
+/*  font-size: 130%;*/
+/*  line-height: 130%;*/
+/*}*/
+/*.big {*/
+/*  font-size: 200%;*/
+/*  line-height: 120%;*/
+/*}*/
 .center {
   text-align: center;
 }

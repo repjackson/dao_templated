@@ -322,7 +322,7 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'ingredient_tags', (
+    Meteor.publish 'delivery_tags', (
         picked_tags
         view_complete
         view_incomplete
@@ -331,7 +331,7 @@ if Meteor.isServer
         match = {}
         if picked_tags.length > 0 then match.tags = $all: picked_tags
         # if filter then match.model = filter
-        match.model = 'ingredient'
+        match.model = 'delivery'
         if view_complete
             match.complete = true
 

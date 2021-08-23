@@ -43,12 +43,11 @@ if Meteor.isClient
         'click .toggle_complete': ->
             Session.set('view_complete', !Session.get('view_complete'))
         'click .new_question': (e,t)->
-            new_question_id =
-                Docs.insert
-                    model:'question'
+            new_id = Meteor.call('insert_doc', {model:'question'})
+            console.log new_id
             Session.set('editing_question', true)
-            Session.set('picked_question_id', new_question_id)
-            Router.go "/question/#{new_question_id}/edit"
+            Session.set('picked_question_id', new_id)
+            Router.go "/question/#{new_id}/edit"
         'click .unselect_question': ->
             Session.set('picked_question_id', null)
 
@@ -311,6 +310,9 @@ if Meteor.isClient
         user_picker_class: ->
             current_answer = Docs.findOne Router.current().params.doc_id
             if current_answer.answer_username is @username then 'black' else 'basic'
+        choice_class: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            if current_answer.answer_choice_id is @_id then 'black' else 'basic'
     Template.answer_edit.events
         'click .cancel_answer': ->
             Docs.remove @_id

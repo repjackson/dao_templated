@@ -6,9 +6,10 @@ template(name='questions')
                     i.questions.icon
                     |#{questions.count}
                     |questions
-                .ui.icon.large.button.new_question
-                    i.green.plus.icon
-                // i.remove.circular.link.icon.clear_filter(title='clear filters')
+                if currentUser
+                    .ui.icon.large.button.new_question
+                        i.green.plus.icon
+                    // i.remove.circular.link.icon.clear_filter(title='clear filters')
             .twelve.wide.column
                 .ui.centered.cards
                     each questions 
@@ -16,8 +17,10 @@ template(name='questions')
                     
 
 template(name='question_card_template')
-    a.card.select_question(href="/question/#{_id}")
+    a.card.fly_left(href="/question/#{_id}")
         // .ui.header.goto_question #{title}
+        if image_id 
+            +image_view key='image_id'
         .content
             .ui.header #{title}
             |!{description}
@@ -42,7 +45,7 @@ template(name='question_view')
     with current_doc
         .ui.stackable.padded.grid
             .row 
-                .six.wide.column
+                .four.wide.column
                     .ui.header #{title}
                     a.ui.big.basic.button.fly_left(href="/questions")
                         i.chevron.left.icon
@@ -56,14 +59,13 @@ template(name='question_view')
                     +creation_info
                     div
                     | !{description}
+                    if image_id
+                        +image_view key='image_id' direct=true
                     // +viewing
                     div
                     // +voting_full
-                    .ui.big.fluid.blue.button.new_answer
-                        |answer
-                        i.right.chevron.large.icon
                     +comments
-                .ten.wide.column
+                .six.wide.column
                     .ui.header choices
                     .ui.cards
                         each choice_docs
@@ -73,6 +75,10 @@ template(name='question_view')
                             
                                 .content
                                     .ui.header #{title}
+                .six.wide.column    
+                    .ui.big.fluid.blue.button.new_answer
+                        |answer
+                        i.right.chevron.large.icon
                     .ui.header answers 
                     .ui.list
                         each answer_docs
@@ -82,6 +88,8 @@ template(name='question_view')
                                     i.user.icon 
                                     |#{answer_username}
                                     | #{when}
+                                    if in_dev
+                                        +remove_button
 
 
 
@@ -95,6 +103,7 @@ template(name='question_edit')
                     +text_edit key='title' label='title' direct=true
                     +html_edit key='description' label='description' direct=true
                     +array_edit key='tags' label='tags' direct=true
+                    +image_edit key='image_id' label='image'
                     +remove_button
                 .ten.wide.column
                     div 
@@ -111,18 +120,25 @@ template(name='question_edit')
                     if key_value_is 'question_type' 'rating'
                         +number_edit key='max_rating' direct=true
                     if key_value_is 'question_type' 'multiple_choice'
-                        .ui.inline.header 
-                            |possible answers
-                        i.plus.link.circular.large.icon.add_choice
-                        each choice_docs
-                            .ui.segment(class=color)
-                                // if image_id
-                                //     img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                +text_edit key='title' direct=true
-                                +text_edit key='color' direct=true
-                                +image_edit key='image_id' direct=true
-                                +remove_button
-                            
+                        .ui.header multiple choice
+                        +key_value_set key='multiple_choice_type' value='user_choice' icon='groups'
+                        +key_value_set key='multiple_choice_type' value='doc_choice' icon='database'
+                        +key_value_set key='multiple_choice_type' value='custom' icon='database'
+
+                        if key_value_is 'multiple_choice_type' 'custom'
+                            .ui.inline.header 
+                                |possible answers
+                            i.plus.link.circular.large.icon.add_choice
+                            div
+                            each choice_docs
+                                .ui.segment(class=color)
+                                    // if image_id
+                                    //     img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    +text_edit key='title' direct=true
+                                    +text_edit key='color' direct=true
+                                    +image_edit key='image_id' direct=true
+                                    +remove_button
+                                
                             
                             
                             
@@ -150,11 +166,10 @@ template(name='answer_edit')
                                 .f16 #{username}
                                 
                     .ui.header pick choice
-                    .ui.centered.cards
-                        each answer_choice_docs
-                            a.ui.card.choose_answer(class=color)
-                                if image_id
-                                    img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                                .content
-                                    .header
-                                        |#{title}
+                    each answer_choice_docs
+                        a.ui.massive.button.choose_answer(class=choice_class)
+                            if image_id
+                                img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                            .content
+                                .header
+                                    |#{title}
