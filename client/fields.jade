@@ -145,6 +145,7 @@ template(name='image_view')
     //- +call_visual
     
 template(name='image_edit')
+    
     .ui.form
         if icon
             i.icon(class=icon)
@@ -156,7 +157,9 @@ template(name='image_edit')
         //     else if key
         //         |#{key}
         //     else
-        //         |#{this}            
+        //         |#{this}  
+        a(href="https://www.google.com/search?tbm=isch&q=#{current_doc.title}" target='_window')
+            i.google.link.large.icon
         .field
             if field_value
                 //- label Image
