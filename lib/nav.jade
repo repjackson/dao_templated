@@ -13,7 +13,7 @@ template(name='nav')
                    i.bars.large.icon 
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute regex='home'}}")
                 img.ui.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
-                span.mobile.hidden Backcountry
+                span.mobile.hidden backcountry
             // if session_is 'is_global_searching' true
             //     .ui.icon.transparent.input.global_search_input
             //         i.link.large.remove.white.icon.clear_search.zoomer(title='clear search')
@@ -31,7 +31,7 @@ template(name='nav')
             a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
                 +i name='food' cl='ui mini image'
             a.icon.item.mobile.hidden.zoomer(href="/questions" class="{{isActiveRoute regex='questions'}}" title='questions')
-                +i name='question' cl='ui mini image'
+                +i name='chat' cl='ui mini image'
             a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
                 +i name='beer' cl='ui mini image'
             a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')

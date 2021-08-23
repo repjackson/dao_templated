@@ -92,14 +92,13 @@ template(name='bookmark_button')
         //-     +user_info
 
 template(name='comments')
-    .ui.grey.header
-        i.chat.outline.icon
-        |comments
-    div
+    // .ui.grey.header
+    //     i.chat.outline.icon
+    //     |comments
     if currentUser
         .ui.fluid.icon.large.input
-            i.plus.icon
-            input.add_comment(model='text' placeholder='add')
+            i.large.chat.outline.icon
+            input.add_comment(model='text' placeholder='comment...')
     .ui.comments
         each doc_comments
             .comment
@@ -341,7 +340,7 @@ template(name='role_editor')
 
 template(name='author_info')
     with author
-        a.ui.compact.button(href="/user/#{username}")
+        a.ui.compact.basic.button(href="/user/#{username}")
             if kiosk_photo
                 img.ui.avatar.image(src="{{c.url kiosk_photo width=100 height=100 gravity='face' crop='fill'}}")
             else if image_id

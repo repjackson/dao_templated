@@ -215,14 +215,6 @@ if Meteor.isClient
             console.log new_id
 
         
-    Template.question_view.events
-        'click .new_answer': ->
-            question = Docs.findOne Router.current().params.doc_id
-            new_id = Docs.insert
-                model:'answer'
-                question_id: Router.current().params.doc_id
-                question_title:question.title
-            Router.go "/answer/#{new_id}/edit"
             
     
         
@@ -232,14 +224,35 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'child_docs', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
-        @autorun => Meteor.subscribe 'model_docs', 'answer'
+        @autorun => Meteor.subscribe 'question_choices', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'question_answers', Router.current().params.doc_id
+        
+        
+if Meteor.isServer
+    Meteor.publish 'question_choices', (question_id)->
+        Docs.find   
+            model:'question_choice'
+            parent_id:question_id
+    Meteor.publish 'question_answers', (question_id)->
+        Docs.find   
+            model:'answer'
+            question_id:question_id
+        
+if Meteor.isClient        
     Template.question_view.onRendered ->
         # Meteor.call 'increment_view', Router.current().params.doc_id, ->
         # Meteor.setTimeout ->
         #     $('.progress').progress()
         # , 1000
 
+    Template.question_view.events
+        'click .new_answer': ->
+            question = Docs.findOne Router.current().params.doc_id
+            new_id = Docs.insert
+                model:'answer'
+                question_id: Router.current().params.doc_id
+                question_title:question.title
+            Router.go "/answer/#{new_id}/edit"
     Template.question_view.helpers
         answer_docs: ->
             Docs.find

@@ -43,17 +43,15 @@ template(name='question_view')
         .ui.stackable.padded.grid
             .row 
                 .six.wide.column
+                    .ui.header #{title}
                     a.ui.big.basic.button.fly_left(href="/questions")
                         i.chevron.left.icon
                         +i name='questions' cl='ui avatar image'
                         |questions
-                    .ui.header #{title}
                     if can_edit 
                         a.ui.icon.button(href="/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
-                    div
-                    div
                     +author_info
                     +creation_info
                     div
@@ -64,12 +62,6 @@ template(name='question_view')
                     .ui.big.fluid.blue.button.new_answer
                         |answer
                         i.right.chevron.large.icon
-                    .ui.header answers 
-                    .ui.large.list
-                        each answer_docs
-                            .item
-                                .ui.header #{answer_choice_title} #{answer_username}
-                                | #{_author_username} #{when}
                     +comments
                 .ten.wide.column
                     .ui.header choices
@@ -81,6 +73,15 @@ template(name='question_view')
                             
                                 .content
                                     .ui.header #{title}
+                    .ui.header answers 
+                    .ui.list
+                        each answer_docs
+                            .item
+                                .content
+                                    .ui.header #{answer_choice_title}
+                                    i.user.icon 
+                                    |#{answer_username}
+                                    | #{when}
 
 
 
