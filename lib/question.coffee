@@ -295,6 +295,12 @@ if Meteor.isClient
             )
         , 1000
             
+    Template.answer_edit.onCreated ->
+        @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'unanswered_users', Router.current().params.doc_id, ->
     Template.answer_edit.helpers
         question_doc: ->
             current_answer = Docs.findOne Router.current().params.doc_id
@@ -330,6 +336,12 @@ if Meteor.isClient
         choice_class: ->
             current_answer = Docs.findOne Router.current().params.doc_id
             if current_answer.answer_choice_id is @_id then 'black' else 'basic'
+        yes_class: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            if current_answer.answer_title is 'yes' then 'green' else 'basic'
+        no_class: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            if current_answer.answer_title is 'no' then 'red' else 'basic'
     Template.answer_edit.events
         'click .cancel_answer': ->
             Docs.remove @_id
@@ -339,7 +351,17 @@ if Meteor.isClient
             Docs.update Router.current().params.doc_id,
                 $set:
                     answer_choice_id: @_id
-                    answer_choice_title: @title
+                    answer_title: @title
+        'click .yes': ->
+            Docs.update Router.current().params.doc_id,
+                $set:
+                    answer_boolean: true
+                    answer_title: 'yes'
+        'click .no': ->
+            Docs.update Router.current().params.doc_id,
+                $set:
+                    answer_boolean: false
+                    answer_title: 'no'
         'click .choose_user': ->
             Docs.update Router.current().params.doc_id,
                 $set:
@@ -351,12 +373,6 @@ if Meteor.isClient
                 $set:
                     complete:true
             Router.go "/question/#{@question_id}"
-    Template.answer_edit.onCreated ->
-        @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'model_docs', 'question_choice'
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'unanswered_users', Router.current().params.doc_id, ->
 
 
 if Meteor.isServer
