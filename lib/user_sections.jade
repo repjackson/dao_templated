@@ -1,3 +1,9 @@
+template(name='user_comparison')
+    .ui.header user comparison
+    each bc_users
+        .ui.button.pick_user
+            |#{username}
+
 template(name='user_points')
     .ui.stackable.two.column.grid
         // if is_current_user

@@ -299,6 +299,7 @@ Template.registerHelper 'connected', () ->
     if Meteor.status().status is 'connected' then true else false
 
 Template.registerHelper 'subs_ready', () -> 
+    console.log Template.instance().subscriptionsReady()
     Template.instance().subscriptionsReady()
 
 Template.registerHelper 'order_things',-> 

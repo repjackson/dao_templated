@@ -309,6 +309,7 @@ if Meteor.isClient
                     console.log Router.current().params.doc_id
                     Docs.update Router.current().params.doc_id,
                         $set:answer_rating:val
+                        
             )
         , 1000
             

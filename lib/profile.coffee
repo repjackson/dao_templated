@@ -47,10 +47,10 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_jobs'
         ), name:'user_jobs'
-    # Router.route '/user/:username/chat', (->
-    #     @layout 'user_layout'
-    #     @render 'user_chat'
-    #     ), name:'user_chat'
+    Router.route '/user/:username/comparison', (->
+        @layout 'user_layout'
+        @render 'user_comparison'
+        ), name:'user_comparison'
     Router.route '/user/:username/timeclock', (->
         @layout 'user_layout'
         @render 'user_timeclock'
@@ -131,10 +131,23 @@ if Meteor.isClient
         #     # });
         
     
+    Template.user_comparison.onCreated ->
+        @autorun -> Meteor.subscribe 'bc_users', Router.current().params.username, ->
+        @autorun -> Meteor.subscribe('users')
+
+    Template.user_comparison.helpers    
+        bc_users: ->
+            Meteor.users.find 
+                app:'bc'
+                _id:$ne:Meteor.userId()
+    
+    
+    
+    
     Template.user_layout.onCreated ->
         @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
         # @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
-        @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username
+        @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username, ->
 
     Template.user_layout.onRendered ->
         Meteor.setTimeout ->

@@ -74,8 +74,8 @@ template(name='user_layout')
                             .spacer
                             +yield
 
-        // if in_role 'admin'
-        //     +admin_footer
+        if in_role 'admin'
+            +admin_footer
 
 template(name='inbox')
     .ui.header 

@@ -188,6 +188,7 @@ template(name='right_sidebar')
             a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
                 +i name='dashboard' cl='ui avatar image'
                 | dashboard
+            +rightbar_nav_item label='comparison' icon='exchange' route='comparison'
             +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
             +rightbar_nav_item label='posts' icon='blog' route='posts'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
@@ -204,14 +205,9 @@ template(name='right_sidebar')
             +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
             +rightbar_nav_item label='sent' icon='sent' route='sent'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
-                +i name='groups' cl='ui avatar image'
-                |friends
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/rewards" class="{{isActiveRoute 'user_rewards'}}")
-                +i name='prize' cl='ui avatar image'
-                |rewards
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
-                +i name='money' cl='ui avatar image'
+            +rightbar_nav_item label='friends' icon='groups' route='friends'
+            +rightbar_nav_item label='rewards' icon='prize' route='rewards'
+            +rightbar_nav_item label='orders' icon='order-history' route='orders'
                 |orders
             a.ui.basic.compact.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
                 +i name='line-chart' cl='ui avatar image'
