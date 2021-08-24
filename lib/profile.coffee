@@ -47,10 +47,14 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_jobs'
         ), name:'user_jobs'
-    Router.route '/user/:username/comparison', (->
+    Router.route '/user/:username/compare', (->
         @layout 'user_layout'
-        @render 'user_comparison'
-        ), name:'user_comparison'
+        @render 'user_compare'
+        ), name:'user_compare'
+    Router.route '/user/:username/compare/:compare_username', (->
+        @layout 'user_layout'
+        @render 'user_compare'
+        ), name:'user_compare_person'
     Router.route '/user/:username/timeclock', (->
         @layout 'user_layout'
         @render 'user_timeclock'
@@ -131,11 +135,11 @@ if Meteor.isClient
         #     # });
         
     
-    Template.user_comparison.onCreated ->
+    Template.user_compare.onCreated ->
         @autorun -> Meteor.subscribe 'bc_users', Router.current().params.username, ->
         @autorun -> Meteor.subscribe('users')
 
-    Template.user_comparison.helpers    
+    Template.user_compare.helpers    
         bc_users: ->
             Meteor.users.find 
                 app:'bc'

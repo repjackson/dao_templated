@@ -1,7 +1,10 @@
-template(name='user_comparison')
-    .ui.header user comparison
+template(name='user_compare')
+    .ui.header 
+        +i name='compare-heights'
+        |user compare
+    
     each bc_users
-        .ui.button.pick_user
+        a.ui.button.pick_user(href="/user/#{current_username}/compare/#{username}")
             |#{username}
 
 template(name='user_points')

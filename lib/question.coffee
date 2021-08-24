@@ -269,6 +269,9 @@ if Meteor.isClient
                 question_title:question.title
             Router.go "/answer/#{new_id}/edit"
     Template.question_view.helpers
+        rating_num: ->
+            console.log @answer_rating, typeof(@answer_rating)
+            parseInt(@answer_rating)
         answer_docs: ->
             Docs.find
                 model:'answer'
@@ -309,6 +312,22 @@ if Meteor.isClient
                     console.log Router.current().params.doc_id
                     Docs.update Router.current().params.doc_id,
                         $set:answer_rating:val
+                        
+            )
+        , 1000
+    Template.rating_read.onRendered ->
+        Meteor.setTimeout =>
+            $('.ui.rating').rating(
+                # icon: 'pizza slice',
+                # initialRating: 3
+                interactive:false
+                disabled:true
+                maxRating: 10
+                # onRate:(val)->
+                #     console.log val
+                #     console.log Router.current().params.doc_id
+                #     Docs.update Router.current().params.doc_id,
+                #         $set:answer_rating:val
                         
             )
         , 1000

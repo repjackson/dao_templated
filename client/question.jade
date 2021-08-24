@@ -100,8 +100,13 @@ template(name='question_view')
                     div
                     // +voting_full
                     +comments
-                .six.wide.column
-                    .ui.header choices
+                .twelve.wide.column
+                    if key_value_is 'question_type' 'rating'
+                        .ui.header rating
+                    if key_value_is 'question_type' 'multiple_choice'
+                        .ui.header rating
+                    if key_value_is 'question_type' 'boolean'
+                        .ui.header boolean
                     .ui.doubling.two.cards.smallscroll
                         each choice_docs
                             .card(class=color)
@@ -110,7 +115,6 @@ template(name='question_view')
                             
                                 .content
                                     .ui.header #{title}
-                .six.wide.column    
                     .ui.big.fluid.blue.button.new_answer
                         |answer
                         i.right.chevron.large.icon
@@ -126,7 +130,10 @@ template(name='question_view')
                                             |#{answer_choice_title}
                                         if answer_rating
                                             |#{answer_rating}
-                                            i.yellow.star.icon
+                                            // i.yellow.star.icon
+                                        // each val in answer_rating
+                                        //     .ui.header hi
+                                        +rating_read amount=answer_rating
                                     i.user.icon 
                                     |#{answer_username}
                                     | #{when}
@@ -242,8 +249,11 @@ template(name='answer_edit')
                                 if answer_user_id
                                     .ui.big.fluid.icon.green.button.complete_answer
                                         i.big.checkmark.icon
-
+                    if in_dev
+                        +print_this
                             
                             
 template(name='pick_rating')
     .ui.yellow.massive.rating(data-icon=icon data-rating=value)
+template(name='rating_read')
+    .ui.yellow.massive.rating(data-icon=icon data-rating=amount)
