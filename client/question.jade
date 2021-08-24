@@ -25,13 +25,21 @@ template(name='questions')
                 |sort by
                 +session_set key='question_sort_key' value='_timestamp' label='when' icon='clock'   
                 +session_set key='question_sort_key' value='points_per_answer' label='pts' icon='coins'   
-                div
-                |sort by
                 .ui.hidden.divider
-                .ui.centered.four.cards.scrolling
-                    each questions 
-                        +question_card_template
-                    
+                if subs_ready
+                    .ui.centered.four.cards.scrolling
+                        each questions 
+                            +question_card_template
+                else 
+                    .ui.raised.segment
+                        .ui.placeholder 
+                            .image.header 
+                                .line
+                                .line 
+                            .paragraph
+                                .medium.line
+                                .short.line
+
 
 template(name='question_card_template')
     a.card.fly_left(href="/question/#{_id}")
@@ -218,7 +226,17 @@ template(name='answer_edit')
                         else if key_value_is 'question_type' 'rating'
                             .ui.header rating
                             +pick_rating
-                            
+                            if current_doc.answer_rating
+                                if answer_user_id
+                                    .ui.big.fluid.icon.green.button.complete_answer
+                                        i.big.checkmark.icon
+                                .ui.inline.header
+                                    i.user.icon
+                                    |pick user
+                                each unanswered_users 
+                                    .ui.massive.button.choose_user.f12(class=user_picker_class)
+                                        .f16 #{username}
+
                             
                             
 template(name='pick_rating')

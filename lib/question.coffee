@@ -304,6 +304,11 @@ if Meteor.isClient
                 # icon: 'pizza slice',
                 # initialRating: 3,
                 maxRating: 10
+                onRate:(val)->
+                    console.log val
+                    console.log Router.current().params.doc_id
+                    Docs.update Router.current().params.doc_id,
+                        $set:answer_rating:val
             )
         , 1000
             
