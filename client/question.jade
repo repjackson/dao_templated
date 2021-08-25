@@ -8,6 +8,9 @@ template(name='questions')
                     |questions
                 if currentUser
                     i.green.plus.circular.green.link.icon.new_question.zoomer
+                i.tag.icon
+                each question_tags
+                    .ui.label #{title}
                 .ui.header total answers        
                 .ui.header total questions        
                 .ui.header total points earned

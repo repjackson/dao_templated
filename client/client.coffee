@@ -56,6 +56,8 @@ Template.admin_footer.helpers
 
     users: ->
         Meteor.users.find()
+    results: ->
+        Results.find()
 
 
 Router.configure

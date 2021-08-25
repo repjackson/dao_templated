@@ -90,7 +90,7 @@ template(name='admin_footer')
         .ui.inline.header #{docs.count} docs
         .ui.inline.header #{users.count} users
         .ui.stackable.padded.grid
-            .eight.wide.column
+            .five.wide.column
                 .ui.small.inverted.list.smallscroll
                     each docs
                         .item 
@@ -100,12 +100,22 @@ template(name='admin_footer')
                                 |#{model} #{when} #{_author_username} 
                                 .ui.label #{app}
                                 +print_this
-            .eight.wide.column
+            .five.wide.column
                 .ui.small.inverted.list.smallscroll
                     each users
                         .item 
                             .content 
                                 .header
                                     |#{username} 
+                                +print_this
+            .five.wide.column
+                .ui.inline.header #{results.count} results
+                .ui.small.inverted.list.smallscroll
+                    each results
+                        .item 
+                            .content 
+                                .header
+                                    |#{title} 
+                                .ui.label model:#{model}
                                 +print_this
       

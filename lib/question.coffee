@@ -19,9 +19,16 @@ if Meteor.isClient
 
 
     Template.questions.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
-        @autorun => Meteor.subscribe 'recent_answers'
+        # @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        # @autorun => Meteor.subscribe 'recent_answers'
         @autorun -> Meteor.subscribe('questions',
+            Session.get('question_sort_filter')
+            picked_tags.array()
+            Session.get('question_view_key')
+            Session.get('question_view_direction')
+            
+            )
+        @autorun -> Meteor.subscribe('question_tags',
             Session.get('question_sort_filter')
             picked_tags.array()
             Session.get('question_view_key')
@@ -67,6 +74,9 @@ if Meteor.isClient
         questions: ->
             Docs.find
                 model:'question'
+        
+        question_tags: ->
+            Results.find()
 
         recent_answers: ->
             Docs.find {
@@ -184,18 +194,24 @@ if Meteor.isServer
             limit:10
     Meteor.publish 'questions', (
         question_sort_filter='answered'
+        picked_tags
         assigned_to=null
-        picked_tags=[]
         question_sort_key='_timestamp'
         question_sort_direction=-1
         )->
         # user = Meteor.users.findOne @userId
         self = @
-        match = {}
+        match = {app:'bc'}
+        match.model = 'question'
         if question_sort_filter is 'answered'
             match.answer_usernames = $in: [Meteor.user().username]
         else if question_sort_filter is 'unanswered'
             match.answer_usernames = $nin: [Meteor.user().username]
+        # match = {}
+        if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    
+        # if title_filter and title_filter.length > 1
+        #     match.title = {$regex:title_filter, $options:'i'}
         # if view_complete
         #     match.complete = true
         # if assigned_to
@@ -218,6 +234,57 @@ if Meteor.isServer
                 "#{question_sort_key}": question_sort_direction
         
         
+
+    
+    Meteor.publish 'question_tags', (
+        question_sort_filter='answered'
+        picked_tags
+        assigned_to=null
+        question_sort_key='_timestamp'
+        question_sort_direction=-1
+        )->
+        # user = Meteor.users.findOne @userId
+        self = @
+        match = {app:'bc'}
+        match.model = 'question'
+        if question_sort_filter is 'answered'
+            match.answer_usernames = $in: [Meteor.user().username]
+        else if question_sort_filter is 'unanswered'
+            match.answer_usernames = $nin: [Meteor.user().username]
+        # match = {}
+        if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    
+        # if title_filter and title_filter.length > 1
+        #     match.title = {$regex:title_filter, $options:'i'}
+    
+        result_count = Docs.find(match).count()
+        console.log result_count
+    
+        tag_cloud = Docs.aggregate [
+            { $match: match }
+            { $project: "tags": 1 }
+            { $unwind: "$tags" }
+            { $group: _id: "$tags", count: $sum: 1 }
+            { $match: _id: $nin: picked_tags }
+            { $match: count: $lt: result_count }
+            # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 11 }
+            { $project: _id: 0, title: '$_id', count: 1 }
+        ], {
+            allowDiskUse: true
+        }
+        
+        tag_cloud.forEach (tag, i) =>
+            self.added 'results', Random.id(),
+                title: tag.title
+                count: tag.count
+                model:'question_tag'
+                # category:key
+                # index: i
+    
+        self.ready()
+            
         
         
 if Meteor.isClient
@@ -324,39 +391,6 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'question_tags', (
-        picked_tags
-        view_complete
-        view_incomplete
-        )->
-        self = @
-        match = {}
-        if picked_tags.length > 0 then match.tags = $all: picked_tags
-        # if filter then match.model = filter
-        match.model = 'question'
-        if view_complete
-            match.complete = true
-
-        cloud = Docs.aggregate [
-            { $match: match }
-            { $project: "tags": 1 }
-            { $unwind: "$tags" }
-            { $group: _id: "$tags", count: $sum: 1 }
-            { $match: _id: $nin: picked_tags }
-            { $sort: count: -1, _id: 1 }
-            { $limit: 20 }
-            { $project: _id: 0, name: '$_id', count: 1 }
-            ]
-
-
-        cloud.forEach (tag, i) ->
-            self.added 'tags', Random.id(),
-                name: tag.name
-                count: tag.count
-                index: i
-
-        self.ready()
-        
     Meteor.publish 'unanswered_users', (answer_id)->
         current_answer = Docs.findOne answer_id
         question = Docs.findOne current_answer.question_id
