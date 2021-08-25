@@ -142,10 +142,10 @@ body, p, {
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }
-@keyframes fadein {
-  from { opacity: 0}
-  to   { opacity: 1}
-}
+/*@keyframes fadein {*/
+/*  from { opacity: 0}*/
+/*  to   { opacity: 1}*/
+/*}*/
 @keyframes slide {
   from { width: 0%}
   /*to   { width: 100%}*/
@@ -742,10 +742,10 @@ input.username_search{
     }
 }
 
-@keyframes fadein {
-  from { opacity: 0}
-  to   { opacity: 1}
-}
+/*@keyframes fadein {*/
+/*  from { opacity: 0}*/
+/*  to   { opacity: 1}*/
+/*}*/
 
 @keyframes fadeout {
   from { opacity: 1}

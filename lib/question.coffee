@@ -22,8 +22,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'model_docs', 'question_choice'
         @autorun => Meteor.subscribe 'recent_answers'
         @autorun -> Meteor.subscribe('questions',
-            Session.get('view_complete')
-            Session.get('assigned_to')
+            Session.get('question_sort_filter')
             picked_tags.array()
             Session.get('question_view_key')
             Session.get('question_view_direction')
@@ -184,7 +183,7 @@ if Meteor.isServer
             sort:_timestamp:1
             limit:10
     Meteor.publish 'questions', (
-        view_complete=false
+        question_sort_filter='answered'
         assigned_to=null
         picked_tags=[]
         question_sort_key='_timestamp'
@@ -193,10 +192,14 @@ if Meteor.isServer
         # user = Meteor.users.findOne @userId
         self = @
         match = {}
-        if view_complete
-            match.complete = true
-        if assigned_to
-            match.assigned_to_usernames = $in: [assigned_to]
+        if question_sort_filter is 'answered'
+            match.answer_usernames = $in: [Meteor.user().username]
+        else if question_sort_filter is 'unanswered'
+            match.answer_usernames = $nin: [Meteor.user().username]
+        # if view_complete
+        #     match.complete = true
+        # if assigned_to
+        #     match.assigned_to_usernames = $in: [assigned_to]
             
         # if Meteor.user()
         #     unless Meteor.user().roles and 'dev' in Meteor.user().roles
