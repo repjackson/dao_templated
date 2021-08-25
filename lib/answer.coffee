@@ -60,7 +60,7 @@ if Meteor.isClient
                 if answer.answer_username
                     console.log 'answer', answer.answer_username
                     answered_users.push answer.answer_username
-            console.log answered_users
+            # console.log answered_users
             Meteor.users.find
                 username:$nin:answered_users
                 app:'bc'

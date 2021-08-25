@@ -64,6 +64,12 @@ template(name='question_card_template')
                 i.grey.tags.icon 
                 each tags
                     .ui.small.basic.label #{this}
+            if answer_usernames
+                span(title='answered by')    
+                    i.user.icon
+                    each answer_usernames
+                        .ui.basic.label #{this}
+
             // +array_view key='tags' direct=true
             // div
             // .ui.icon.large.button.edit_question(title='edit question') 
@@ -114,7 +120,7 @@ template(name='question_view')
                                         .ui.header #{title}
                     .ui.button.create_child
                         |create child question
-                    .ui.header answered by
+                    .ui.header answered by #{answer_user_count} (#{bc_user_count} users, {{abs_percent percent_answered}}%)
                     each answer_usernames
                         a.ui.large.basic.button(href="/user/#{this}") #{this}
                 .eight.wide.column

@@ -148,10 +148,19 @@ if Meteor.isServer
             # average_question_cost = total_earnings/answer_count
             # average_question_duration = total_question_hours/answer_count
 
+            bc_user_count = Meteor.users.find(app:'bc').count()
+            answer_user_count = answer_usernames.length
+            
+            percent_answered = answer_user_count/bc_user_count
+                
+
             Docs.update question_id,
                 $set:
                     answer_count: answer_count
                     answer_usernames:answer_usernames
+                    bc_user_count:bc_user_count
+                    answer_user_count: answer_user_count
+                    percent_answered: percent_answered
                     # total_earnings: total_earnings.toFixed(0)
                     # total_question_hours: total_question_hours.toFixed(0)
                     # average_question_cost: average_question_cost.toFixed(0)
