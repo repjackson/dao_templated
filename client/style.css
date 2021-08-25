@@ -112,8 +112,8 @@ body {
 	overflow-y:scroll;
 	overflow-x:hidden;
 	max-height:500px;
-	padding-top: 1em;
-	padding-left: 1em;
+	/*padding-top: 1em;*/
+	padding: 1em;
 }
 
 /*.scrolling::-webkit-scrollbar {*/

@@ -19,7 +19,7 @@ if Meteor.isClient
 
 
     Template.questions.onCreated ->
-        # @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
         # @autorun => Meteor.subscribe 'recent_answers'
         @autorun -> Meteor.subscribe('questions',
             Session.get('question_sort_filter')
