@@ -6,8 +6,8 @@ if Meteor.isClient
                 # initialRating: 3,
                 maxRating: 10
                 onRate:(val)->
-                    console.log val
-                    console.log Router.current().params.doc_id
+                    # console.log val
+                    # console.log Router.current().params.doc_id
                     Docs.update Router.current().params.doc_id,
                         $set:answer_rating:val
                         
@@ -114,3 +114,11 @@ if Meteor.isClient
                     complete:true
             Router.go "/question/#{@question_id}"
             Meteor.call 'calc_question_stats', @question_id, ->
+            $('body').toast(
+                message: "'#{@points_per_answer} points to #{@answer_username}"
+                showIcon: 'checkmark'
+                # showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "top right"
+            )
