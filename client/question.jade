@@ -175,10 +175,19 @@ template(name='question_edit')
                     // +number_edit key='total_points_available' value='total points available'
                     // .ui.header #{answers_funded} answers funded
                     +key_value_set key='question_type' value='boolean' icon='switch-on'
-                    +key_value_set key='question_type' value='multiple_choice' icon='list'
                     +key_value_set key='question_type' value='rating' icon='star'
                     +key_value_set key='question_type' value='written' icon='list'
+                    +key_value_set key='question_type' value='multiple_choice' icon='list'
+                    +key_value_set key='question_type' value='number' icon='hashtag'
                     .ui.hidden.divider
+                    if key_value_is 'question_type' 'number'
+                        +key_value_set key='number_type' value='float' icon='float'
+                        +key_value_set key='number_type' value='integer' icon='integer'
+                        
+                    if key_value_is 'question_type' 'written'
+                        +key_value_set key='number_type' value='short' icon='line'
+                        +key_value_set key='number_type' value='long' icon='paragraph'
+                        
                     if key_value_is 'question_type' 'boolean'
                         +key_value_set key='boolean_type' value='yes/no' icon='thumbs-up'
                         +key_value_set key='boolean_type' value='true/false' icon='switch-on'
@@ -211,64 +220,3 @@ template(name='question_edit')
                             
                             
                             
-template(name='answer_edit')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row 
-                .four.wide.column
-                    a.ui.icon.fluid.big.red.button.cancel_answer
-                        i.remove.icon
-                        
-                .twelve.wide.column
-                    .ui.header 
-                        |#{question_title}
-                    if answer_user_id 
-                        .ui.big.fluid.icon.green.button.complete_answer
-                            i.big.checkmark.icon
-                    .ui.hidden.divider
-                    if answer_title
-                        .ui.inline.header
-                            i.user.icon
-                            |pick user
-                        each unanswered_users 
-                            .ui.massive.button.choose_user.f12(class=user_picker_class)
-                                .f16 #{username}
-                                
-                    with question_doc
-                        if key_value_is 'question_type' 'boolean'
-                            .ui.header pick answer
-                            .ui.massive.button.yes(class=yes_class)
-                                |yes
-                            .ui.massive.button.no(class=no_class)
-                                |no
-                        else if key_value_is 'question_type' 'multiple_choice'
-                            .ui.header pick choice
-                            each answer_choice_docs
-                                a.ui.massive.button.choose_answer(class=choice_class)
-                                    if image_id
-                                        img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
-                                    .content
-                                        .header
-                                            |#{title}
-                        else if key_value_is 'question_type' 'rating'
-                            .ui.header rating
-                            +pick_rating
-                            if current_doc.answer_rating
-                                div
-                                .ui.inline.header
-                                    i.user.icon
-                                    |pick user
-                                each unanswered_users 
-                                    .ui.massive.button.choose_user.f12(class=user_picker_class)
-                                        .f16 #{username}
-                                if answer_user_id
-                                    .ui.big.fluid.icon.green.button.complete_answer
-                                        i.big.checkmark.icon
-                    if in_dev
-                        +print_this
-                            
-                            
-template(name='pick_rating')
-    .ui.yellow.massive.rating(data-icon=icon data-rating=value)
-template(name='rating_read')
-    .ui.yellow.massive.rating(data-icon=icon data-rating=amount)
