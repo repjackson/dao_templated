@@ -30,13 +30,22 @@ template(name='answer_edit')
                                 |no
                         else if key_value_is 'question_type' 'multiple_choice'
                             .ui.header pick choice
-                            each answer_choice_docs
-                                a.ui.massive.button.choose_answer(class=choice_class)
-                                    if image_id
-                                        img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
-                                    .content
-                                        .header
-                                            |#{title}
+                            if key_value_is 'multiple_choice_type' 'user_choice'
+                                each answer_choice_users
+                                    a.ui.massive.button.choose_user(class=choice_class)
+                                        if image_id
+                                            img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
+                                        .content
+                                            .header
+                                                |#{username}
+                            else if key_value_is 'multiple_choice_type' 'custom'
+                                each answer_choice_docs
+                                    a.ui.massive.button.choose_answer(class=choice_class)
+                                        if image_id
+                                            img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
+                                        .content
+                                            .header
+                                                |#{title}
                         else if key_value_is 'question_type' 'rating'
                             .ui.header rating
                             +pick_rating

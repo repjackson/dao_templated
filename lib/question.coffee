@@ -87,7 +87,7 @@ if Meteor.isClient
 
     Template.question_card_template.onRendered ->
         Meteor.setTimeout ->
-            $('.accordion').accordion()
+            $('.progress').progress()
         , 1000
     Template.question_card_template.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'log_events'
@@ -102,6 +102,10 @@ if Meteor.isClient
             #     model:'question_item'
             Router.go "/question/#{_id}/edit"
     Template.question_card_template.helpers
+        int_percent: ->
+            parseInt(Math.abs(@percent_answered*100))
+
+        
         question_segment_class: ->
             classes=''
             if @complete

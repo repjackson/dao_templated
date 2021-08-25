@@ -33,7 +33,7 @@ if Meteor.isClient
     Template.answer_edit.onCreated ->
         @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'question_choices_from_answer_id', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+        @autorun => Meteor.subscribe 'bc_users'
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'unanswered_users', Router.current().params.doc_id, ->
     Template.answer_edit.helpers
@@ -47,6 +47,11 @@ if Meteor.isClient
             Docs.find   
                 model:'question_choice'
                 parent_id:current_answer.question_id
+        answer_choice_users: ->
+            current_answer = Docs.findOne Router.current().params.doc_id
+            Meteor.users.find
+                app:'bc'
+                # parent_id:current_answer.question_id
         unanswered_users: ->
             current_answer = Docs.findOne Router.current().params.doc_id
             found_answers = 

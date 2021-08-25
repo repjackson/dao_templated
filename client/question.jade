@@ -11,17 +11,17 @@ template(name='questions')
                 i.tag.icon
                 each question_tags
                     .ui.label #{title}
-                .ui.header 
+                .ui.small.header 
                     +i name='reply'
                     |total answers        
-                .ui.header total questions        
-                .ui.header 
+                .ui.small.header total questions        
+                .ui.small.header 
                     +i name='coins'
                     |total points earned
-                .ui.header  
+                .ui.small.header  
                     +i name='order-history'
                     |recent questions
-                .ui.header 
+                .ui.small.header 
                     +i name='clock'
                     |recent answers
                 .ui.selection.animated.list
@@ -80,7 +80,10 @@ template(name='question_card_template')
                     i.user.icon
                     each answer_usernames
                         .ui.basic.label #{this}
-
+            .ui.small.inline.header {{int_percent}}% answered
+        .ui.bottom.attached.indicating.big.progress(data-percent=int_percent)
+            .bar
+                .progress
             // +array_view key='tags' direct=true
             // div
             // .ui.icon.large.button.edit_question(title='edit question') 
@@ -102,12 +105,18 @@ template(name='question_view')
                         a.ui.basic.button(href="/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
                             |edit
-                    .ui.header #{points_per_answer} points earned per answer
-                    .ui.header #{total_points_available} total points available
+                    .ui.small.header 
+                        +i name='donation'
+                        |#{points_per_answer} points earned per answer
+                    .ui.small.header 
+                        +i name='coins'
+                        |#{total_points_available} total points available
 
                     //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
                     +author_info
-                    .ui.header #{views} views
+                    .ui.small.header 
+                        +i name='visible'
+                        |#{views} views
                     .ui.header question type: #{question_type}
                     +creation_info
                     div
