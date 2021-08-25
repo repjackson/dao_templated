@@ -1,6 +1,7 @@
 if Meteor.isClient
     Template.nav.onCreated ->
         Session.setDefault('is_global_searching')
+        Session.setDefault('bars_ready', false)
         @autorun => Meteor.subscribe 'me'
         # @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'
@@ -10,6 +11,9 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'my_cart_products'
 
     Template.nav.onRendered ->
+        Meteor.setTimeout ->
+            Session.set('bars_ready', true)
+        , 2100
         Meteor.setTimeout ->
             $('.menu .item')
                 .popup()
@@ -23,7 +27,7 @@ if Meteor.isClient
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_leftbar')
-        , 1500
+        , 2000
         Meteor.setTimeout ->
             $('.ui.rightbar')
                 .sidebar({
@@ -35,7 +39,7 @@ if Meteor.isClient
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_rightbar')
-        , 1500
+        , 2000
         Meteor.setTimeout ->
             $('.ui.topbar.sidebar')
                 .sidebar({
@@ -95,8 +99,8 @@ if Meteor.isClient
     
     
     Template.nav.helpers
-        current_search: ->
-            Session.get('global_search')
+        current_search: -> Session.get('global_search')
+        bars_ready: -> Session.get('bars_ready')
         
     Template.nav.events
         'keyup .global_search': _.throttle((e,t)->

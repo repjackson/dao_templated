@@ -108,3 +108,4 @@ if Meteor.isClient
                 $set:
                     complete:true
             Router.go "/question/#{@question_id}"
+            Meteor.call 'calc_question_stats', @question_id, ->

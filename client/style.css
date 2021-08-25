@@ -37,7 +37,7 @@ body {
 
 .button {
   margin:.1em !important;
-  border-radius: 10px !important;
+  /*border-radius: 10px !important;*/
 }
 .button:hover {
   transition: transform .5s; /* Animation */
@@ -126,7 +126,7 @@ body {
   display:inline !important;
 }
 
-body, p, .header {
+body, p, {
   font-family: "Ubuntu","Montserrat",sans-serif !important;
   /*font-family: "Benne",sans-serif;*/
 }
@@ -352,9 +352,9 @@ img, .button{
     transition: all .5s ease !important;
 } 
 
-.card {
-     border-radius:10px !important; 
-}
+/*.card {*/
+/*     border-radius:10px !important; */
+/*}*/
 
 /*.image:not(.flat), img {*/
     /*border-radius:10px !important; */
@@ -762,7 +762,7 @@ input.username_search{
 
 .ui.header{
      /*font-family: 'Ubuntu', sans-serif !important; */
-    /* font-family: 'Roboto', sans-serif !important; */
+     font-family: 'Roboto', sans-serif !important; 
      /*font-family: 'Benne' !important; */
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/
 }

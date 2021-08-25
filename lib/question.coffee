@@ -129,34 +129,36 @@ if Meteor.isClient
 
 if Meteor.isServer
     Meteor.methods
-        refresh_question_stats: (question_id)->
+        calc_question_stats: (question_id)->
             question = Docs.findOne question_id
-            reservations = Docs.find({model:'reservation', question_id:question_id})
-            reservation_count = reservations.count()
-            total_earnings = 0
-            total_question_hours = 0
-            average_question_duration = 0
+            answers = Docs.find({model:'answer', question_id:question_id})
+            answer_count = answers.count()
+            # total_earnings = 0
+            # total_question_hours = 0
+            # average_question_duration = 0
 
-            # shorquestion_reservation =
-            # longest_reservation =
-
-            for res in reservations.fetch()
-                total_earnings += parseFloat(res.cost)
-                total_question_hours += parseFloat(res.hour_duration)
-
-            average_question_cost = total_earnings/reservation_count
-            average_question_duration = total_question_hours/reservation_count
+            # shorquestion_answer =
+            # longest_answer =
+            answer_usernames = []
+            
+            for res in answers.fetch()
+                # total_earnings += parseFloat(res.cost)
+                # total_question_hours += parseFloat(res.hour_duration)
+                answer_usernames.push res.answer_username
+            # average_question_cost = total_earnings/answer_count
+            # average_question_duration = total_question_hours/answer_count
 
             Docs.update question_id,
                 $set:
-                    reservation_count: reservation_count
-                    total_earnings: total_earnings.toFixed(0)
-                    total_question_hours: total_question_hours.toFixed(0)
-                    average_question_cost: average_question_cost.toFixed(0)
-                    average_question_duration: average_question_duration.toFixed(0)
+                    answer_count: answer_count
+                    answer_usernames:answer_usernames
+                    # total_earnings: total_earnings.toFixed(0)
+                    # total_question_hours: total_question_hours.toFixed(0)
+                    # average_question_cost: average_question_cost.toFixed(0)
+                    # average_question_duration: average_question_duration.toFixed(0)
 
             # .ui.small.header total earnings
-            # .ui.small.header question ranking #reservations
+            # .ui.small.header question ranking #answers
             # .ui.small.header question ranking $ earned
             # .ui.small.header # different renters
             # .ui.small.header avg question time
