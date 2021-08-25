@@ -42,6 +42,11 @@ Meteor.methods
             $inc:views:1
 
 
+Meteor.publish 'parent_doc', (doc_id)->
+    found = Docs.findOne doc_id
+    Docs.find
+        _id:found.parent_id
+        
 Meteor.publish 'doc_by_id', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'doc', (doc_id)->

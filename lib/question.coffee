@@ -32,7 +32,6 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'model_docs', 'question'
         # @autorun => Meteor.subscribe 'model_docs', 'questions_stats'
         # @autorun => Meteor.subscribe 'current_questions'
-        
     Template.questions.events
         'click .clear_filter': ->
             Session.set('view_complete', null)
@@ -54,7 +53,6 @@ if Meteor.isClient
                 )
         'click .unselect_question': ->
             Session.set('picked_question_id', null)
-
     Template.questions.helpers
         view_complete_class: ->
             if Session.get('view_complete') then 'blue' else ''
@@ -235,11 +233,11 @@ if Meteor.isClient
         
 if Meteor.isClient
     Template.question_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'child_docs', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'question_choices', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'question_answers', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'parent_doc', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'child_docs', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'question_choices', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'question_answers', Router.current().params.doc_id, ->
     Template.question_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
         
@@ -268,6 +266,14 @@ if Meteor.isClient
                 question_id: Router.current().params.doc_id
                 question_title:question.title
             Router.go "/answer/#{new_id}/edit"
+        'click .create_child': ->
+            question = Docs.findOne Router.current().params.doc_id
+            new_id = Docs.insert
+                model:'question'
+                parent_id: Router.current().params.doc_id
+                parent_title:question.title
+            Router.go "/question/#{new_id}/edit"
+            
     Template.question_view.helpers
         rating_num: ->
             console.log @answer_rating, typeof(@answer_rating)
@@ -330,7 +336,7 @@ if Meteor.isClient
                 #         $set:answer_rating:val
                         
             )
-        , 1000
+        , 2000
             
     Template.answer_edit.onCreated ->
         @autorun => Meteor.subscribe 'question_from_answer_id', Router.current().params.doc_id

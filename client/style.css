@@ -819,7 +819,7 @@ input.username_search{
 }
 .hscroll::-webkit-scrollbar {
     width: 0px !important;
-    height: 1px !important;
+    height: 0px !important;
 
 /* .button {
     margin: 2em !important;

@@ -40,7 +40,6 @@ template(name='questions')
                 //             .medium.line
                 //             .short.line
 
-
 template(name='question_card_template')
     a.card.fly_left(href="/question/#{_id}")
         // .ui.header.goto_question #{title}
@@ -68,7 +67,6 @@ template(name='question_card_template')
             // +array_view key='tags' direct=true
             // div
             // .ui.icon.large.button.edit_question(title='edit question') 
-
 
 template(name='question_view')
     with current_doc
@@ -100,21 +98,23 @@ template(name='question_view')
                     div
                     // +voting_full
                     +comments
-                .twelve.wide.column
+                .four.wide.column
                     if key_value_is 'question_type' 'rating'
-                        .ui.header rating
-                    if key_value_is 'question_type' 'multiple_choice'
                         .ui.header rating
                     if key_value_is 'question_type' 'boolean'
                         .ui.header boolean
-                    .ui.doubling.two.cards.smallscroll
-                        each choice_docs
-                            .card(class=color)
-                                if image_id
-                                    img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
-                            
-                                .content
-                                    .ui.header #{title}
+                    if key_value_is 'question_type' 'multiple_choice'
+                        .ui.header choices:
+                        .ui.doubling.two.cards.smallscroll
+                            each choice_docs
+                                .ui.card(class=color)
+                                    if image_id
+                                        img.ui.inline.image(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}")
+                                    .content
+                                        .ui.header #{title}
+                    .ui.button.create_child
+                        |create child question
+                .eight.wide.column
                     .ui.big.fluid.blue.button.new_answer
                         |answer
                         i.right.chevron.large.icon
@@ -130,10 +130,10 @@ template(name='question_view')
                                             |#{answer_choice_title}
                                         if answer_rating
                                             |#{answer_rating}
-                                            // i.yellow.star.icon
-                                        // each val in answer_rating
-                                        //     .ui.header hi
-                                        +rating_read amount=answer_rating
+                                            // i.yelslow.star.icon
+                                            // each val in answer_rating
+                                            //     .ui.header hi
+                                            +rating_read amount=answer_rating
                                     i.user.icon 
                                     |#{answer_username}
                                     | #{when}
@@ -153,10 +153,25 @@ template(name='question_edit')
                     +html_edit key='description' label='description' direct=true
                     +array_edit key='tags' label='tags' direct=true
                     +image_edit key='image_id' label='image'
+                    +number_edit key='points_per_answer' label='points earned per answer'
                     +remove_button
                 .ten.wide.column
+                    .ui.header
+                        +i name='git-fork'
+                        |parent
+                    
+                    if parent_id
+                        a.ui.button(href="/question/#{parent_id}") 
+                            i.chevron.up.icon
+                            // |parent id #{_id}
+                            |parent title: #{parent_doc.title}
+                    else 
+                        .ui.button.create_parent
+                            i.chevron.up.icon
+                            i.plus.icon
+                            |create parent 
+                    
                     div 
-                    +number_edit key='points_per_answer' value='points earned per answer'
                     // +number_edit key='total_points_available' value='total points available'
                     // .ui.header #{answers_funded} answers funded
                     +key_value_set key='question_type' value='boolean' icon='switch-on'
@@ -227,7 +242,7 @@ template(name='answer_edit')
                             .ui.massive.button.no(class=no_class)
                                 |no
                         else if key_value_is 'question_type' 'multiple_choice'
-                            .ui.inline.header pick choice
+                            .ui.header pick choice
                             each answer_choice_docs
                                 a.ui.massive.button.choose_answer(class=choice_class)
                                     if image_id
