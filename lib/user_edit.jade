@@ -99,7 +99,7 @@ template(name='password_edit')
     //-     input#password(type='password', placeholder='old password')
     .ui.fluid.icon.input
         input#new_password(type='password', placeholder='new password')
-    if is_dev
+    if in_dev
         .ui.fluid.button.send_enrollment_email
             |send enrollment email
     if is_admin

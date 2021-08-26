@@ -495,4 +495,32 @@ if Meteor.isClient
     #             # Meteor.call 'unassign_user', page_doc._id, @
     
     
+    Template.key_value_edit.events
+        'click .set_key_value': ->
+            parent = Template.parentData()
+            # console.log 'hi'
+            # parent = Docs.findOne Router.current().params.doc_id
+            Docs.update parent._id,
+                $set: "#{@key}": @value
+
+    Template.key_value_edit.helpers
+        set_key_value_class: ->
+            # parent = Docs.findOne Router.current().params.doc_id
+            parent = Template.parentData()
+            # console.log parent
+            if parent["#{@key}"] is @value then 'active' else 'basic'
     
+    Template.user_key_value_edit.events
+        'click .set_key_value': ->
+            parent = Template.parentData()
+            # console.log 'hi'
+            # parent = Docs.findOne Router.current().params.doc_id
+            Meteor.users.update parent._id,
+                $set: "#{@key}": @value
+
+    Template.user_key_value_edit.helpers
+        set_key_value_class: ->
+            # parent = Docs.findOne Router.current().params.doc_id
+            parent = Template.parentData()
+            # console.log parent
+            if parent["#{@key}"] is @value then 'active' else 'basic'

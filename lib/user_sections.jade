@@ -132,7 +132,7 @@ template(name='food_order_view')
         a.ui.header(href="/m/food_order/#{_id}/view") #{when}
         if charge 
             .ui.header charge
-        if is_dev
+        if in_dev
             |#{charge.result.id}
         .ui.header $#{charge.result.amount}
         if can_edit 
@@ -149,7 +149,7 @@ template(name='food_order_view')
                 .ui.large.label
                     |tiffen type: #{tiffen_type}
                 +boolean_edit key='delivery' label='add delivery' direct=true                    
-        if is_dev
+        if in_dev
             +remove_button
             +print_this
 

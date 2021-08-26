@@ -142,7 +142,7 @@ template(name='viewing')
             .ui.icon.button.mark_read
                 i.eye.icon
         else 
-            if is_dev
+            if in_dev
                 .ui.icon.button.mark_unread
                     i.cancel.icon
     .ui.inline.header viewed by
@@ -214,7 +214,7 @@ template(name='events_column')
                                 |#{body}
                                 .date
                                     |#{when}
-                                if is_dev
+                                if in_dev
                                     +remove_button
 
 
@@ -554,3 +554,11 @@ template(name='key_value_edit')
             else 
                 |#{value}
         
+template(name='user_key_value_edit')
+    .ui.compact.button.set_key_value(class=set_key_value_class)
+        if icon 
+            i.icon(class=icon)
+        if label
+            |#{label}
+        else 
+            |#{value}

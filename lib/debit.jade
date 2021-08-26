@@ -10,7 +10,7 @@ template(name='debit_view')
                 .five.wide.column
                     .ui.huge.center.aligned.header
                         |#{amount}pts
-                    if is_dev
+                    if in_dev
                         +remove_button
                     .f14
                         |#{description}

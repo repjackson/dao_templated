@@ -111,7 +111,7 @@ template(name='field_edit')
                 +icon_edit key='icon' label='icon' direct=true       
                 //- +textarea_edit key='description' label='description' direct=true
                 .spacer
-                if is_dev
+                if in_dev
                     +text_edit key='field_type' label='field type' direct=true
                 +key_value_edit key='field_type' value='text' icon='header'
                 +key_value_edit key='field_type' value='array' icon='list'
@@ -130,7 +130,7 @@ template(name='field_edit')
                 +key_value_edit key='field_type' value='multi_doc' icon='clone'
                 +key_value_edit key='field_type' value='single_user' icon='clone'
                 +key_value_edit key='field_type' value='multi_user' icon='clone'
-                if is_dev
+                if in_dev
                     i.large.code.icon
                     +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true        
                     .spacer

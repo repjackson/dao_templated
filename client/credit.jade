@@ -62,7 +62,7 @@ template(name='user_credit')
                                     .description
                                         |#{transaction_type}
                                         |#{when}
-                                    if is_dev
+                                    if in_dev
                                         +print_this
             .column
                 .ui.segment
@@ -161,7 +161,7 @@ template(name='user_credit')
                                         //-     |4 likes
                                         a.remove
                                             i.grey.undo.icon
-                                        //- if is_dev
+                                        //- if in_dev
                                         //-     +remove_button
                         //- +range_edit                
             if is_admin
