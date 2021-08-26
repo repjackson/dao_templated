@@ -1,19 +1,19 @@
-template(name='items')
-    .ui.stackable.padded.grid
-        .four.wide.column.scrolling
-            a.ui.header(href="/items")
-                +i name='grocery-shelf'
-                |inventory
-        .twelve.wide.column.scrolling
-            .ui.four.stackable.cards.smallscrol
-                each item_docs
-                    a.card.zoomer.fly_left(href="/item/#{_id}")
-                        img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-                        .content
-                            .ui.inline.header #{title}
-                            each tags 
-                                +flat_tag_picker
-                                // .ui.basic.label #{this}
+// template(name='items')
+//     .ui.stackable.padded.grid
+//         .four.wide.column.scrolling
+//             a.ui.header(href="/items")
+//                 +i name='grocery-shelf'
+//                 |inventory
+//         .twelve.wide.column.scrolling
+//             .ui.four.stackable.cards.smallscrol
+//                 each item_docs
+//                     a.card.zoomer.fly_left(href="/item/#{_id}")
+//                         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+//                         .content
+//                             .ui.inline.header #{title}
+//                             each tags 
+//                                 +flat_tag_picker
+//                                 // .ui.basic.label #{this}
         
 
 template(name='item_edit')
@@ -46,7 +46,7 @@ template(name='item_view')
         .ui.stackable.padded.grid
             .row
                 .six.wide.column
-                    a.ui.icon.large.basic.button.fly_left(href="/items")
+                    a.ui.icon.large.basic.button.fly_left(href="/m/item")
                         // i.chevron.left.icon
                         +i name='database' cl='ui avatar image'
                         |inventory
@@ -56,7 +56,7 @@ template(name='item_view')
                         |item
                     .ui.header #{title}
                     if can_edit
-                        a.ui.icon.basic.button(href="/item/#{_id}/edit")
+                        a.ui.icon.basic.button(href="/m/item/#{_id}/edit")
                             i.pencil.large.icon
                     // .ui.segment 
                     //     with item_product

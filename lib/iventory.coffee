@@ -1,27 +1,27 @@
-if Meteor.isClient
-    Template.items.onCreated ->
-        @autorun => @subscribe 'model_docs', 'item', ->
-    Router.route '/items', (->
-        @render 'items'
-        ), name:'items'
+# if Meteor.isClient
+    # Template.items.onCreated ->
+    #     @autorun => @subscribe 'model_docs', 'item', ->
+    # Router.route '/items', (->
+    #     @render 'items'
+    #     ), name:'items'
 
-    Template.items.onCreated ->
-        @autorun -> Meteor.subscribe 'items',
-            Session.get('item_status_filter')
-        # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
-        # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
+    # Template.items.onCreated ->
+    #     @autorun -> Meteor.subscribe 'items',
+    #         Session.get('item_status_filter')
+    #     # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
+    #     # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    Template.items.helpers
-        items: ->
-            match = {model:'item'}
-            if Session.get('item_status_filter')
-                match.status = Session.get('item_status_filter')
-            if Session.get('item_delivery_filter')
-                match.delivery_method = Session.get('item_sort_filter')
-            if Session.get('item_sort_filter')
-                match.delivery_method = Session.get('item_sort_filter')
-            Docs.find match,
-                sort: _timestamp:-1
+    # Template.items.helpers
+    #     items: ->
+    #         match = {model:'item'}
+    #         if Session.get('item_status_filter')
+    #             match.status = Session.get('item_status_filter')
+    #         if Session.get('item_delivery_filter')
+    #             match.delivery_method = Session.get('item_sort_filter')
+    #         if Session.get('item_sort_filter')
+    #             match.delivery_method = Session.get('item_sort_filter')
+    #         Docs.find match,
+    #             sort: _timestamp:-1
 
 
 if Meteor.isClient

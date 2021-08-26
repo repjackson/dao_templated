@@ -2,6 +2,9 @@ if Meteor.isClient
     Router.route '/m/:model_slug/:doc_id', (->
         @render 'model_doc_view'
         ), name:'doc_view'
+    Router.route '/m/:model_slug/:doc_id/view', (->
+        @render 'model_doc_view'
+        ), name:'doc_view_long'
 
     Router.route '/m/:model_slug/:doc_id/edit', (->
         @render 'model_doc_edit'

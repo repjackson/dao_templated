@@ -26,10 +26,6 @@ if Meteor.isClient
         loss_docs: ->
             Docs.find 
                 model:'loss'
-    Template.items.helpers
-        item_docs: ->
-            Docs.find 
-                model:'item'
     Template.tag_picker.onCreated ->
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->
