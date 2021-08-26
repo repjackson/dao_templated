@@ -3,10 +3,15 @@ if Meteor.isClient
         # console.log 'key', key
         delta = Docs.findOne model:'delta'
         # console.log 'value', value
-        delta["#{key}"] is value
+        if delta
+            delta["#{key}"] is value
+        
+        
     Template.registerHelper 'fixed', (input) ->
         if input
             input.toFixed(2)
+            
+            
     Template.registerHelper 'sortable_fields', () ->
         model = Docs.findOne
             model:'model'

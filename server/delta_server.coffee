@@ -1,68 +1,70 @@
 Meteor.methods
     set_facets: (model_slug, force)->
+        console.log 'setting facets', model_slug, force
         if Meteor.userId()
             delta = Docs.findOne
                 model:'delta'
                 _author_id:Meteor.userId()
-        else
-            delta = Docs.findOne
-                model:'delta'
-                _author_id:null
-        # console.log 'delta doc', delta
-        model = Docs.findOne
-            model:'model'
-            slug:model_slug
-
-        # if model_slug is delta.model_filter
-        #     return
         # else
-        fields =
-            Docs.find
-                model:'field'
-                parent_id:model._id
-
-        Docs.update model._id,
-            $inc: views: 1
-
-        # console.log 'fields', fields.fetch()
-
-        Docs.update delta._id,
-            $set:model_filter:model_slug
-
-        # Docs.update delta._id,
-        #     $set:facets:[
-        #         {
-        #             key:'_timestamp_tags'
-        #             filters:[]
-        #             res:[]
-        #         }
-        #     ]
-        Docs.update delta._id,
-            $set:facets:[]
-        for field in fields.fetch()
-            if field.faceted is true
-                # console.log field
-                # if Meteor.user()
-                # console.log _.intersection(Meteor.user().roles,field.view_roles)
-                # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
-                Docs.update delta._id,
-                    $addToSet:
-                        facets: {
-                            title:field.title
-                            icon:field.icon
-                            key:field.key
-                            rank:field.rank
-                            field_type:field.field_type
-                            filters:[]
-                            res:[]
-                        }
-
-        field_ids = _.pluck(fields.fetch(), '_id')
-
-        Docs.update delta._id,
-            $set:
-                viewable_fields: field_ids
-        Meteor.call 'fum', delta._id
+        #     delta = Docs.findOne
+        #         model:'delta'
+        #         _author_id:null
+            # console.log 'delta doc', delta
+            model = Docs.findOne
+                model:'model'
+                slug:model_slug
+    
+            # if model_slug is delta.model_filter
+            #     return
+            # else
+            fields =
+                Docs.find
+                    model:'field'
+                    parent_id:model._id
+    
+            Docs.update model._id,
+                $inc: views: 1
+    
+            # console.log 'fields', fields.fetch()
+    
+            Docs.update delta._id,
+                $set:model_filter:model_slug
+    
+            # Docs.update delta._id,
+            #     $set:facets:[
+            #         {
+            #             key:'_timestamp_tags'
+            #             filters:[]
+            #             res:[]
+            #         }
+            #     ]
+            Docs.update delta._id,
+                $set:facets:[]
+            for field in fields.fetch()
+                if field.faceted is true
+                    # console.log field
+                    # if Meteor.user()
+                    # console.log _.intersection(Meteor.user().roles,field.view_roles)
+                    # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
+                    Docs.update delta._id,
+                        $addToSet:
+                            facets: {
+                                title:field.title
+                                icon:field.icon
+                                key:field.key
+                                rank:field.rank
+                                field_type:field.field_type
+                                filters:[]
+                                res:[]
+                            }
+    
+            field_ids = _.pluck(fields.fetch(), '_id')
+    
+            Docs.update delta._id,
+                $set:
+                    viewable_fields: field_ids
+            console.log 'calling fum', 
+            Meteor.call 'fum', delta._id
 
 
     fum: (delta_id)->
@@ -72,7 +74,7 @@ Meteor.methods
             model:'model'
             slug:delta.model_filter
 
-        # console.log 'running fum,', delta, model
+        console.log 'running fum,', delta, model
         built_query = {}
         if delta.search_query
             if model.collection and model.collection is 'users'
@@ -130,18 +132,19 @@ Meteor.methods
             total = Meteor.users.find(built_query).count()
         else
             total = Docs.find(built_query).count()
-        # console.log 'built query', built_query
+        console.log 'built query', built_query
         # response
-        for facet in delta.facets
-            values = []
-            local_return = []
+        # for facet in delta.facets
+        #     values = []
+        #     local_return = []
 
-            agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
-            # agg_res = Meteor.call 'agg', built_query, facet.key
+        #     agg_res = Meteor.call 'agg', built_query, facet.key, model.collection
+        #     # agg_res = Meteor.call 'agg', built_query, facet.key
 
-            if agg_res
-                Docs.update { _id:delta._id, 'facets.key':facet.key},
-                    { $set: 'facets.$.res': agg_res }
+        #     if agg_res
+        #         Docs.update { _id:delta._id, 'facets.key':facet.key},
+        #             { $set: 'facets.$.res': agg_res }
+        console.log 'run agg'
         if delta.sort_key
             # console.log 'found sort key', delta.sort_key
             sort_by = delta.sort_key
@@ -172,7 +175,7 @@ Meteor.methods
             #     results_cursor = global["#{model.collection}"].find(built_query, modifier)
         else
             results_cursor = Docs.find built_query, modifier
-
+        console.log 'results cursor', built_query, modifier
 
         # if total is 1
         #     result_ids = results_cursor.fetch()

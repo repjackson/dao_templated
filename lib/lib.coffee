@@ -183,6 +183,7 @@ force_loggedin =  ()->
 
 Meteor.methods
     add_facet_filter: (delta_id, key, filter)->
+        console.log 'adding facet filter', delta_id, key, filter
         if key is '_keys'
             new_facet_ob = {
                 key:filter
@@ -198,6 +199,8 @@ Meteor.methods
 
 
     remove_facet_filter: (delta_id, key, filter)->
+        console.log 'adding facet filter', delta_id, key, filter
+        
         if key is '_keys'
             Docs.update { _id:delta_id },
                 $pull:facets: {key:filter}

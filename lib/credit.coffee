@@ -191,11 +191,11 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'user_topups', (username)->
-        current_user = Meteor.users.findOne(username:username)
-        Docs.find
-            model:'topup'
-            _author_id: current_user._id
+    # Meteor.publish 'user_topups', (username)->
+    #     current_user = Meteor.users.findOne(username:username)
+    #     Docs.find
+    #         model:'topup'
+    #         _author_id: current_user._id
     
     Meteor.methods 
         recalc_user_credit: (username)->
