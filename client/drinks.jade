@@ -1,35 +1,35 @@
-template(name='drinks')
-    // if drink_docs.count
-    .ui.top.attached.fluid.borderless.menu.hscroll
-        .item
-            a.ui.big.inline.header(href="/drinks")
-                // i.beer.icon
-                +i name='beer' cl='ui avatar image'
-                |#{drink_docs.count} drinks
-        +session_set key='drink_view_filter' value='gluten free' icon='no-gluten' be_item=true
-        +session_set key='drink_view_filter' value='sour' icon='sour' be_item=true
-        +session_set key='drink_view_filter' value='dark/boozy' icon='guinness-beer' be_item=true
-        +session_set key='drink_view_filter' value='hoppy' icon='hops' be_item=true
-        +session_set key='drink_view_filter' value='light/malty' icon='beer-glass' be_item=true
-        +session_set key='drink_view_filter' value='belgian style/brett' icon='pint' be_item=true
-        +search_input model='food' field='title'
-        if currentUser
-            a.icon.item.add_drink
-                i.plus.large.icon
-        .item
-            a(href="https://backcountrypizzaandtaphouse.info/pages/backcountry-pizza-and-tap-house-beer-menu" target="_window")
-                i.large.external.icon
+// template(name='drinks')
+//     // if drink_docs.count
+//     .ui.top.attached.fluid.borderless.menu.hscroll
+//         .item
+//             a.ui.big.inline.header(href="/drinks")
+//                 // i.beer.icon
+//                 +i name='beer' cl='ui avatar image'
+//                 |#{drink_docs.count} drinks
+//         +session_set key='drink_view_filter' value='gluten free' icon='no-gluten' be_item=true
+//         +session_set key='drink_view_filter' value='sour' icon='sour' be_item=true
+//         +session_set key='drink_view_filter' value='dark/boozy' icon='guinness-beer' be_item=true
+//         +session_set key='drink_view_filter' value='hoppy' icon='hops' be_item=true
+//         +session_set key='drink_view_filter' value='light/malty' icon='beer-glass' be_item=true
+//         +session_set key='drink_view_filter' value='belgian style/brett' icon='pint' be_item=true
+//         +search_input model='food' field='title'
+//         if currentUser
+//             a.icon.item.add_drink
+//                 i.plus.large.icon
+//         .item
+//             a(href="https://backcountrypizzaandtaphouse.info/pages/backcountry-pizza-and-tap-house-beer-menu" target="_window")
+//                 i.large.external.icon
             
-    .scrolling
+//     .scrolling
             
-        // .ui.selection.link.big.animated.list.smallscrll
-        .ui.five.doubling.centered.cards
-            each drink_docs
-                +drink_item
+//         // .ui.selection.link.big.animated.list.smallscrll
+//         .ui.five.doubling.centered.cards
+//             each drink_docs
+//                 +drink_item
                     
             
 template(name='drink_item')
-    a.card.fly_right(href="/drink/#{_id}") 
+    a.card.fly_right(href="/m/drink/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
@@ -51,12 +51,12 @@ template(name='drink_view')
                     +i name='tags'
                     each tags   
                         .ui.basic.big.label #{this}
-                    a.ui.basic.big.button.fly_left(href="/drinks")
+                    a.ui.basic.big.button.fly_left(href="/m/drink")
                         // i.drinks.icon
                         +i name='beer' cl='ui avatar image'
                         |drinks
                     if can_edit
-                        a.ui.icon.basic.circular.button.fly_down(href="/drink/#{_id}/edit" title='edit product')
+                        a.ui.icon.basic.circular.button.fly_down(href="/m/drink/#{_id}/edit" title='edit product')
                             i.pencil.big.icon
 
                     // .ui.segment 
@@ -122,7 +122,7 @@ template(name='drink_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/drink/#{_id}/" title='save product')
+                    a.ui.fluid.icon.green.button.fly_up(href="/m/drink/#{_id}/" title='save product')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true

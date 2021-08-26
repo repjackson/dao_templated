@@ -1186,8 +1186,8 @@ input.username_search{
 .button.active {
     /* background-color: rgba(150, 150, 150, 1) !important; */
     /*background-co/lor: rgba(17, 2, 100, 0.7) !important;*/
-    /*box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;*/
-    /* background-color: rgba(50, 50, 50, .9) !important; */
+    box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important;
+    background-color: rgba(50, 50, 50, .9) !important; 
     /*color: white !important;*/
     transform: translate(0, 4px); 
 }

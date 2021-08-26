@@ -271,10 +271,10 @@ Template.raw_edit.events
 Template.text_edit.events
     'blur .edit_text': (e,t)->
         val = t.$('.edit_text').val()
-        parent = Template.parentData()
-        # if @direct
-        # else
-        #     parent = Template.parentData(5)
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
         user = Meteor.users.findOne username:Router.current().params.username

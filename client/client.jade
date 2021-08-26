@@ -97,7 +97,9 @@ template(name='admin_footer')
                             .content 
                                 .header
                                     |#{title} 
-                                |#{model} #{when} #{_author_username} 
+                                .ui.blue.label
+                                    |#{model}
+                                |#{when} #{_author_username} 
                                 .ui.label #{app}
                                 +print_this
             .five.wide.column

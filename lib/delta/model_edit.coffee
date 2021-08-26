@@ -61,6 +61,9 @@ if Meteor.isClient
         'click .add_field': ->
             Docs.insert
                 model:'field'
+                app:'bc'
+                _timestamp:Date.now()
+                _author_id:Meteor.userId()
                 parent_id: Router.current().params.doc_id
                 view_roles: ['dev', 'admin', 'user', 'public']
                 edit_roles: ['dev', 'admin', 'user']

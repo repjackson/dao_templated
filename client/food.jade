@@ -32,7 +32,7 @@
 
 
 template(name='food_item')
-    a.card.fly_right.zoomer(href="/food/#{_id}") 
+    a.card.fly_right.zoomer(href="/m/food/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
@@ -52,12 +52,12 @@ template(name='food_view')
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/food")
+                    a.ui.basic.large.button.fly_left(href="/m/food")
                         i.chevron.left.icon
                         +i name='food' cl='ui avatar image'
                         |food
                     if can_edit
-                        a.ui.icon.basic.button.fly_down(href="/food/#{_id}/edit" title='edit product')
+                        a.ui.icon.basic.button.fly_down(href="/m/food/#{_id}/edit" title='edit product')
                             i.pencil.icon
 
     
@@ -135,7 +135,7 @@ template(name='food_edit')
                     .ui.inline.header
                         i.pencil.icon
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/food/#{_id}/" title='save food')
+                    a.ui.fluid.icon.green.button.fly_up(href="/m/food/#{_id}/" title='save food')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
