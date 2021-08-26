@@ -173,10 +173,6 @@ Template.registerHelper 'nl2br', (text)->
 Template.registerHelper 'loading_class', () ->
     if Session.get 'loading' then 'disabled' else ''
 
-Template.registerHelper 'current_model', (input) ->
-    Docs.findOne
-        model:'model'
-        slug: Router.current().params.model_slug
 
 Template.registerHelper 'in_list', (key) ->
     if Meteor.userId()

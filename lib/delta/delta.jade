@@ -1,6 +1,7 @@
 template(name='delta')
     .ui.stackable.padded.grid
         with current_model
+            .ui.header hi
             // unless current_model.show_facets
             //     .middle.aligned.row
             //         .sixteen.wide.column
@@ -131,7 +132,7 @@ template(name='delta')
                         +Template.dynamic template=model_stats
         unless current_model
             if subs_ready
-                if is_dev
+                if in_dev
                     .ui.big.button.create_model create model
                 //- else 
                     //- .ui.header model not found
@@ -259,7 +260,5 @@ template(name='toggle_delta_config')
     else
         .ui.icon.button.enable_key(title=label)
             // | #{label}
-            
-            
             
             

@@ -540,3 +540,17 @@ template(name='search_input')
             i.search.icon
         input.search_field(type='text' placeholder='title...' value=current_filter)
 
+
+
+
+template(name='key_value_edit')
+    a.ui.compact.large.circular.button.set_key_value(class=set_key_value_class title=value href='#')
+        if icon
+            // +icon name=icon cl='ui avatar image'
+            i.icon(class=icon)
+        unless icon_only
+            if label
+                |#{label}
+            else 
+                |#{value}
+        
