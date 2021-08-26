@@ -75,7 +75,7 @@ Meteor.methods
             slug:delta.model_filter
 
         console.log 'running fum,', delta, model
-        built_query = {}
+        built_query = {app:'bc'}
         if delta.search_query
             if model.collection and model.collection is 'users'
                 built_query.username = {$regex:"#{delta.search_query}", $options: 'i'}

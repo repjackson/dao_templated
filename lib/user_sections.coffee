@@ -69,7 +69,7 @@ if Meteor.isClient
         ), name:'user_food'
     
     Template.user_food.onCreated ->
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'thought'
+        @autorun => Meteor.subscribe 'docs', picked_tags.array(), 'thought'
 
 
     Template.user_food.onCreated ->
@@ -158,7 +158,7 @@ if Meteor.isClient
         ), name:'user_delivery'
     
     Template.user_delivery.onCreated ->
-        @autorun => Meteor.subscribe 'docs', selected_tags.array(), 'thought'
+        @autorun => Meteor.subscribe 'docs', picked_tags.array(), 'thought'
 
 
     Template.user_delivery.onCreated ->

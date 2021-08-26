@@ -182,7 +182,7 @@ if Meteor.isClient
             if delta
                 if delta.sort_direction is 1 then true
 
-        selected_tags: -> selected_tags.list()
+        picked_tags: -> picked_tags.list()
         view_mode_template: ->
             # console.log @
             delta = Docs.findOne model:'delta'
@@ -235,6 +235,7 @@ if Meteor.isClient
         'click .create_model': ->
             new_model_id = Docs.insert
                 model:'model'
+                app:'bc'
                 slug: Router.current().params.model_slug
             new_model = Docs.findOne new_model_id
             Router.go "/model/edit/#{new_model._id}"
@@ -278,7 +279,7 @@ if Meteor.isClient
             Docs.insert
                 model:'delta'
                 view_mode:'cards'
-                app:'stand'
+                app:'bc'
                 model_filter: Router.current().params.model_slug
 
         'click .print_delta': (e,t)->
@@ -304,6 +305,7 @@ if Meteor.isClient
             model = Docs.findOne
                 model:'model'
                 slug: Router.current().params.model_slug
+                # app:'bc'
             # console.log model
             if model.collection and model.collection is 'users'
                 name = prompt 'first and last name'
@@ -328,10 +330,17 @@ if Meteor.isClient
             else if model.slug is 'model'
                 new_doc_id = Docs.insert
                     model:'model'
+                    _timestamp:Date.now()
+                    _author_id:Meteor.userId()
+                    app:'bc'
+                    
                 Router.go "/model/edit/#{new_doc_id}"
             else
                 console.log model
                 new_doc_id = Docs.insert
+                    _timestamp:Date.now()
+                    _author_id:Meteor.userId()
+                    app:'bc'
                     model:model.slug
                 Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
 
@@ -362,22 +371,22 @@ if Meteor.isClient
         #         else
         #             Session.set 'is_calculating', false
 
-        # 'click .select_tag': -> selected_tags.push @name
-        # 'click .unselect_tag': -> selected_tags.remove @valueOf()
-        # 'click #clear_tags': -> selected_tags.clear()
+        # 'click .select_tag': -> picked_tags.push @name
+        # 'click .unselect_tag': -> picked_tags.remove @valueOf()
+        # 'click #clear_tags': -> picked_tags.clear()
         #
         # 'keyup #search': (e)->
             # switch e.which
             #     when 13
             #         if e.target.value is 'clear'
-            #             selected_tags.clear()
+            #             picked_tags.clear()
             #             $('#search').val('')
             #         else
-            #             selected_tags.push e.target.value.toLowerCase().trim()
+            #             picked_tags.push e.target.value.toLowerCase().trim()
             #             $('#search').val('')
             #     when 8
             #         if e.target.value is ''
-            #             selected_tags.pop()
+            #             picked_tags.pop()
         'keyup #search': _.throttle((e,t)->
             query = $('#search').val()
             Session.set('current_query', query)
@@ -392,7 +401,7 @@ if Meteor.isClient
             if e.which is 13
                 search = $('#search').val().trim().toLowerCase()
                 if search.length > 0
-                    selected_tags.push search
+                    picked_tags.push search
                     console.log 'search', search
                     # Meteor.call 'log_term', search, ->
                     $('#search').val('')

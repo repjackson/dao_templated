@@ -40,7 +40,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => @subscribe 'tag_results',
             # Router.current().params.doc_id
-            selected_tags.array()
+            picked_tags.array()
             Session.get('searching')
             Session.get('current_query')
             Session.get('dummy')
@@ -101,7 +101,7 @@ if Meteor.isClient
                 element_val = t.$('.new_tag').val().toLowerCase().trim()
                 Docs.update Router.current().params.doc_id,
                     $addToSet:tags:element_val
-                selected_tags.push element_val
+                picked_tags.push element_val
                 Meteor.call 'log_term', element_val, ->
                 Session.set('searching', false)
                 Session.set('current_query', '')
@@ -112,7 +112,7 @@ if Meteor.isClient
         'click .remove_element': (e,t)->
             element = @valueOf()
             field = Template.currentData()
-            selected_tags.remove element
+            picked_tags.remove element
             Docs.update Router.current().params.doc_id,
                 $pull:tags:element
             t.$('.new_tag').focus()
@@ -121,10 +121,10 @@ if Meteor.isClient
     
     
         'click .select_term': (e,t)->
-            # selected_tags.push @title
+            # picked_tags.push @title
             Docs.update Router.current().params.doc_id,
                 $addToSet:tags:@title
-            selected_tags.push @title
+            picked_tags.push @title
             $('.new_tag').val('')
             Session.set('current_query', '')
             Session.set('searching', false)
