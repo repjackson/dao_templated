@@ -14,22 +14,6 @@ template(name='groups')
                     .ui.button.your_incomplete
                         i.large.circle.outline.icon
                         |your incomplete groups
-                    .ui.basic.label(title='hours today')
-                        i.sun.icon
-                        i.clock.icon
-                        | #{daily_hours}hrs
-                    .ui.basic.label(title='weekly hours')
-                        i.calendar.icon
-                        i.clock.icon
-                        | #{weekly_hours}hrs
-                    .ui.basic.label(title='sessions today')
-                        i.sun.icon
-                        i.business.time.icon
-                        | #{daily_sessions} sessions
-                    .ui.basic.label(title='weekly sessions')
-                        i.calendar.icon
-                        i.business.time.icon
-                        | #{weekly_sessions} sessions
             .six.wide.column
                 //- with top_group
                 //-     +group_card_template
@@ -39,10 +23,6 @@ template(name='groups')
                 //- .ui.small.compact.icon.button.toggle_incomplete(title='incomplete') 
                 //-     i.circle.outline.icon
                 |sort by 
-                .ui.small.compact.button lucrative
-                .ui.small.compact.button soonest
-                .ui.small.compact.button priority
-            
                 .largescroll.ui.segments
                     each groups 
                         +group_card_template
