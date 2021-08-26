@@ -13,6 +13,13 @@ Template.registerHelper 'included_ingredients', () ->
     Docs.find
         model:'ingredient'
         _id: $in:@ingredient_ids
+        
+        
+Template.registerHelper 'is_admin', () ->
+    # Meteor.users.findOne username:Router.current().params.username
+    if Meteor.user() and Meteor.user().roles
+        if 'admin' in Meteor.user().roles then true else false
+        
 
 Template.registerHelper 'is_current_user', () ->
     Meteor.user().username is Router.current().params.username

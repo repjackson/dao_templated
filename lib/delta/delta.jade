@@ -1,11 +1,10 @@
 template(name='delta')
     .ui.stackable.padded.grid
         with current_model
-            .ui.header hi
-            // unless current_model.show_facets
-            //     .middle.aligned.row
-            //         .sixteen.wide.column
-            //             +model_top
+            unless current_model.show_facets
+                .middle.aligned.row
+                    .sixteen.wide.column
+                        +model_top
             .row
                 if current_model.show_facets
                     .four.wide.column
