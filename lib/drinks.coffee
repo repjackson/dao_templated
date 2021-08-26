@@ -1,15 +1,15 @@
-if Meteor.isClient
+# if Meteor.isClient
     # Router.route '/drinks', -> @render 'drinks'
-    Router.route '/drink/:doc_id', (->
-        @layout 'layout'
-        @render 'drink_view'
-        ), name:'drink_view'
+    # Router.route '/drink/:doc_id', (->
+    #     @layout 'layout'
+    #     @render 'drink_view'
+    #     ), name:'drink_view'
 
 
-    Template.drink_view.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
-    Template.drink_view.onRendered ->
-        Meteor.call 'log_view', Router.current().params.doc_id, ->
+    # Template.drink_view.onCreated ->
+    #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
+    # Template.drink_view.onRendered ->
+    #     Meteor.call 'log_view', Router.current().params.doc_id, ->
 
     # Template.drinks.onCreated ->
     #     Session.setDefault('drink_sort_key', 'views')

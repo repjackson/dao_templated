@@ -15,7 +15,7 @@ if Meteor.isClient
         template_exists: ->
             # false
             current_model = Router.current().params.model_slug
-            console.log "#{current_model}_view"
+            # console.log "#{current_model}_view"
             if Template["#{current_model}_view"]
                 # console.log 'true'
                 return true
@@ -24,7 +24,7 @@ if Meteor.isClient
                 return false
         model_template: ->
             current_model = Router.current().params.model_slug
-            console.log "#{current_model}_view"
+            # console.log "#{current_model}_view"
             "#{current_model}_view"
 
 

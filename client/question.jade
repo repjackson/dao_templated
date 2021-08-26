@@ -1,57 +1,57 @@
-template(name='questions')
-    .ui.stackable.padded.grid
-        .row
-            .four.wide.column
-                .ui.big.inline.header 
-                    +i name='what'
-                    |#{questions.count}
-                    |questions
-                if currentUser
-                    i.green.plus.circular.green.link.icon.new_question.zoomer
-                i.tag.icon
-                each question_tags
-                    .ui.label #{title}
-                .ui.small.header 
-                    +i name='reply'
-                    |total answers        
-                .ui.small.header total questions        
-                .ui.small.header 
-                    +i name='coins'
-                    |total points earned
-                .ui.small.header  
-                    +i name='order-history'
-                    |recent questions
-                .ui.small.header 
-                    +i name='clock'
-                    |recent answers
-                .ui.selection.animated.list
-                    each recent_answers
-                        a.item(href="/question/#{question_id}") #{answer_title} #{when}
+// template(name='questions')
+//     .ui.stackable.padded.grid
+//         .row
+//             .four.wide.column
+//                 .ui.big.inline.header 
+//                     +i name='what'
+//                     |#{questions.count}
+//                     |questions
+//                 if currentUser
+//                     i.green.plus.circular.green.link.icon.new_question.zoomer
+//                 i.tag.icon
+//                 each question_tags
+//                     .ui.label #{title}
+//                 .ui.small.header 
+//                     +i name='reply'
+//                     |total answers        
+//                 .ui.small.header total questions        
+//                 .ui.small.header 
+//                     +i name='coins'
+//                     |total points earned
+//                 .ui.small.header  
+//                     +i name='order-history'
+//                     |recent questions
+//                 .ui.small.header 
+//                     +i name='clock'
+//                     |recent answers
+//                 .ui.selection.animated.list
+//                     each recent_answers
+//                         a.item(href="/question/#{question_id}") #{answer_title} #{when}
             
-                    // i.remove.circular.link.icon.clear_filter(title='clear filters')
-            .twelve.wide.column
-                |view
-                +session_set key='question_sort_filter' value='answered'               
-                +session_set key='question_sort_filter' value='unanswered'
-                |sort by
-                +session_set key='question_sort_key' value='_timestamp' label='when' icon='clock'   
-                +session_set key='question_sort_key' value='points_per_answer' label='pts' icon='coins'   
-                .ui.hidden.divider
-                if subs_ready
-                    .ui.centered.three.cards.scrolling
-                        each questions 
-                            +question_card_template
-                // else 
-                // .ui.raised.segment
-                //     .ui.placeholder 
-                //         .image.header 
-                //             .line
-                //             .line 
-                //         .paragraph
-                //             .medium.line
-                //             .short.line
+//                     // i.remove.circular.link.icon.clear_filter(title='clear filters')
+//             .twelve.wide.column
+//                 |view
+//                 +session_set key='question_sort_filter' value='answered'               
+//                 +session_set key='question_sort_filter' value='unanswered'
+//                 |sort by
+//                 +session_set key='question_sort_key' value='_timestamp' label='when' icon='clock'   
+//                 +session_set key='question_sort_key' value='points_per_answer' label='pts' icon='coins'   
+//                 .ui.hidden.divider
+//                 if subs_ready
+//                     .ui.centered.three.cards.scrolling
+//                         each questions 
+//                             +question_card_template
+//                 // else 
+//                 // .ui.raised.segment
+//                 //     .ui.placeholder 
+//                 //         .image.header 
+//                 //             .line
+//                 //             .line 
+//                 //         .paragraph
+//                 //             .medium.line
+//                 //             .short.line
 
-template(name='question_card_template')
+template(name='question_card')
     a.link.card.fly_left(href="/question/#{_id}")
         // .ui.header.goto_question #{title}
         if image_id 
@@ -97,12 +97,12 @@ template(name='question_view')
                     if image_id
                         +image_view key='image_id' direct=true
                     .ui.hidden.divider
-                    a.ui.compact.basic.button.fly_left(href="/questions")
+                    a.ui.compact.basic.button.fly_left(href="/m/question")
                         i.chevron.left.icon
                         +i name='what' cl='ui avatar image'
                         |questions
                     if can_edit 
-                        a.ui.basic.button(href="/question/#{_id}/edit" title='edit') 
+                        a.ui.basic.button(href="/m/question/#{_id}/edit" title='edit') 
                             i.pencil.grey.icon
                             |edit
                     .ui.small.header 
@@ -179,7 +179,7 @@ template(name='question_edit')
         .ui.stackable.padded.grid
             .row 
                 .six.wide.column
-                    a.ui.icon.fluid.big.green.button(href="/question/#{_id}") 
+                    a.ui.icon.fluid.big.green.button(href="/m/question/#{_id}") 
                         i.checkmark.large.icon
                     +text_edit key='title' label='title' direct=true
                     +html_edit key='description' label='description' direct=true
@@ -193,7 +193,7 @@ template(name='question_edit')
                         |parent
                     
                     if parent_id
-                        a.ui.button(href="/question/#{parent_id}") 
+                        a.ui.button(href="/m/question/#{parent_id}") 
                             i.chevron.up.icon
                             // |parent id #{_id}
                             |parent title: #{parent_doc.title}

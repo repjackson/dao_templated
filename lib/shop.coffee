@@ -43,8 +43,6 @@ if Meteor.isClient
 
     Template.shop_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
-    Template.drink_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
     Template.shop_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
     Template.shop_view.events

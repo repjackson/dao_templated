@@ -28,22 +28,23 @@ template(name='nav')
             // a.icon.item.mobile.hidden.zoomer(href='/events' class="{{isActiveRoute regex='events'}}" title='events')
             //     i.large.calendar.icon
             //     // |events
-            a.icon.item.mobile.hidden.zoomer(href="/food" class="{{isActiveRoute regex='food'}}" title='food')
-                +i name='food' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href="/questions" class="{{isActiveRoute regex='questions'}}" title='questions')
-                +i name='what' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href="/drinks" class="{{isActiveRoute regex='drinks'}}" title='drinks')
-                +i name='beer' cl='ui avatar image'
+            if currentUser
+                a.icon.item.mobile.hidden.zoomer(href="/m/food" class="{{isActiveRoute regex='food'}}" title='food')
+                    +i name='food' cl='ui avatar image'
+                a.icon.item.mobile.hidden.zoomer(href="/m/question" class="{{isActiveRoute regex='questions'}}" title='questions')
+                    +i name='what' cl='ui avatar image'
+                a.icon.item.mobile.hidden.zoomer(href="/m/drink" class="{{isActiveRoute regex='drinks'}}" title='drinks')
+                    +i name='beer' cl='ui avatar image'
             a.icon.item.mobile.hidden.zoomer(href='/items' class="{{isActiveRoute regex='items'}}" title='inventory')
                 +i name='grocery-shelf' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href='/orders' class="{{isActiveRoute regex='orders'}}" title='orders')
+            a.icon.item.mobile.hidden.zoomer(href='/m/order' class="{{isActiveRoute regex='orders'}}" title='orders')
                 +i name='money' cl='ui avatar image'
             // a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
             //     +i name='loss' cl='ui avatar image'
             //     // i.large.frown.icon
             //     // |losses
-            a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
-                +i name='checkmark' cl='ui avatar image'
+            // a.icon.item.mobile.hidden.zoomer(href="/checkins" class="{{isActiveRoute regex='checkins'}}" title='checkins')
+            //     +i name='checkmark' cl='ui avatar image'
             a.icon.item.mobile.hidden.zoomer(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
                 +i name='groups' cl='ui avatar image'
             a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')

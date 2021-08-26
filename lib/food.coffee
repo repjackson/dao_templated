@@ -54,8 +54,8 @@ if Meteor.isClient
 
     Template.food_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
-    Template.drink_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
+    # Template.drink_edit.onCreated ->
+    #     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
     Template.food_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
     Template.food_view.events
@@ -241,10 +241,10 @@ if Meteor.isClient
         @layout 'layout'
         @render 'food_edit'
         ), name:'food_edit'
-    Router.route '/drink/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'drink_edit'
-        ), name:'drink_edit'
+    # Router.route '/drink/:doc_id/edit', (->
+    #     @layout 'layout'
+    #     @render 'drink_edit'
+    #     ), name:'drink_edit'
 
 
 

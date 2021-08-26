@@ -1,8 +1,8 @@
 if Meteor.isClient
-    Router.route '/questions', (->
-        @layout 'layout'
-        @render 'questions'
-        ), name:'questions'
+    # Router.route '/questions', (->
+    #     @layout 'layout'
+    #     @render 'questions'
+    #     ), name:'questions'
     Router.route '/question/:doc_id/edit', (->
         @layout 'layout'
         @render 'question_edit'
@@ -18,80 +18,80 @@ if Meteor.isClient
 
 
 
-    Template.questions.onCreated ->
-        @autorun => Meteor.subscribe 'model_docs', 'question_choice'
-        # @autorun => Meteor.subscribe 'recent_answers'
-        @autorun -> Meteor.subscribe('questions',
-            Session.get('question_sort_filter')
-            picked_tags.array()
-            Session.get('question_view_key')
-            Session.get('question_view_direction')
+    # Template.questions.onCreated ->
+    #     @autorun => Meteor.subscribe 'model_docs', 'question_choice'
+    #     # @autorun => Meteor.subscribe 'recent_answers'
+    #     @autorun -> Meteor.subscribe('questions',
+    #         Session.get('question_sort_filter')
+    #         picked_tags.array()
+    #         Session.get('question_view_key')
+    #         Session.get('question_view_direction')
             
-            )
-        @autorun -> Meteor.subscribe('question_tags',
-            Session.get('question_sort_filter')
-            picked_tags.array()
-            Session.get('question_view_key')
-            Session.get('question_view_direction')
+    #         )
+    #     @autorun -> Meteor.subscribe('question_tags',
+    #         Session.get('question_sort_filter')
+    #         picked_tags.array()
+    #         Session.get('question_view_key')
+    #         Session.get('question_view_direction')
             
-            )
+    #         )
         # @autorun => Meteor.subscribe 'model_docs', 'question'
         # @autorun => Meteor.subscribe 'model_docs', 'questions_stats'
         # @autorun => Meteor.subscribe 'current_questions'
-    Template.questions.events
-        'click .clear_filter': ->
-            Session.set('view_complete', null)
-            Session.set('assigned_to', null)
+    # Template.questions.events
+    #     'click .clear_filter': ->
+    #         Session.set('view_complete', null)
+    #         Session.set('assigned_to', null)
         
-        'click .your_incomplete': ->
-            Session.set('view_complete', false)
-            Session.set('assigned_to', Meteor.user().username)
-        'click .toggle_complete': ->
-            Session.set('view_complete', !Session.get('view_complete'))
-        'click .new_question': (e,t)->
-            Meteor.call('insert_doc', {model:'question'},(err,res)=>
-                if res
-                    # console.log res, 'res'
-                    # console.log new_id
-                    Session.set('editing_question', true)
-                    Session.set('picked_question_id', res)
-                    Router.go "/question/#{res}/edit"
-                )
-        'click .unselect_question': ->
-            Session.set('picked_question_id', null)
-    Template.questions.helpers
-        view_complete_class: ->
-            if Session.get('view_complete') then 'blue' else ''
-        picked_question_doc: ->
-            Docs.findOne Session.get('picked_question_id')
-        current_questions: ->
-            Docs.find
-                model:'question'
-                # current:true
-        questions_stats_doc: ->
-            Docs.findOne
-                model:'questions_stats'
-        questions: ->
-            Docs.find
-                model:'question'
+    #     'click .your_incomplete': ->
+    #         Session.set('view_complete', false)
+    #         Session.set('assigned_to', Meteor.user().username)
+    #     'click .toggle_complete': ->
+    #         Session.set('view_complete', !Session.get('view_complete'))
+    #     'click .new_question': (e,t)->
+    #         Meteor.call('insert_doc', {model:'question'},(err,res)=>
+    #             if res
+    #                 # console.log res, 'res'
+    #                 # console.log new_id
+    #                 Session.set('editing_question', true)
+    #                 Session.set('picked_question_id', res)
+    #                 Router.go "/question/#{res}/edit"
+    #             )
+    #     'click .unselect_question': ->
+    #         Session.set('picked_question_id', null)
+    # Template.questions.helpers
+    #     view_complete_class: ->
+    #         if Session.get('view_complete') then 'blue' else ''
+    #     picked_question_doc: ->
+    #         Docs.findOne Session.get('picked_question_id')
+    #     current_questions: ->
+    #         Docs.find
+    #             model:'question'
+    #             # current:true
+    #     questions_stats_doc: ->
+    #         Docs.findOne
+    #             model:'questions_stats'
+    #     questions: ->
+    #         Docs.find
+    #             model:'question'
         
-        question_tags: ->
-            Results.find()
+    #     question_tags: ->
+    #         Results.find()
 
-        recent_answers: ->
-            Docs.find {
-                model:'answer'
-            }, 
-                sort:_timestamp:1
+    #     recent_answers: ->
+    #         Docs.find {
+    #             model:'answer'
+    #         }, 
+    #             sort:_timestamp:1
 
 
-    Template.question_card_template.onRendered ->
+    Template.question_card.onRendered ->
         Meteor.setTimeout ->
             $('.progress').progress()
         , 1000
-    Template.question_card_template.onCreated ->
+    Template.question_card.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'log_events'
-    Template.question_card_template.events
+    Template.question_card.events
         'click .add_question_item': ->
             ob = {
                 model:'question_item'
@@ -100,8 +100,8 @@ if Meteor.isClient
             console.log new_id
             # new_mi_id = Docs.insert
             #     model:'question_item'
-            Router.go "/question/#{_id}/edit"
-    Template.question_card_template.helpers
+            Router.go "/m/question/#{_id}/edit"
+    Template.question_card.helpers
         int_percent: ->
             parseInt(Math.abs(@percent_answered*100))
 
@@ -119,7 +119,7 @@ if Meteor.isClient
                 parent_id:@_id
 
 
-    Template.question_card_template.events
+    Template.question_card.events
         'dblclick .select_question': (e,t)->
             $(e.currentTarget).closest('.item').transition('fly right', 500)
             Router.go "/question/#{@_id}/"

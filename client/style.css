@@ -1107,8 +1107,8 @@ input.username_search{
 	/* padding: 1em; */
     /* -webkit-mask-image:-webkit-gradient(linear, left top, left bottom, from(rgba(0,0,0,1)), to(rgba(0,0,0,.8))); */
     /* mask-image: linear-gradient(to bottom, rgba(0,0,0,1), rgba(0,0,0,0)); */
-/*}*/
-
+*/
+/**/
 #iron-router-progress {
 	background-color : navy;
 	box-shadow       : 0 0 5px navy;
