@@ -520,7 +520,7 @@ template(name='session_set')
                 |#{value}
     else 
         // a.large.item.set_value(title=value class=session_set_class)
-        .ui.compact.button.set_value(class=session_set_class title=value)
+        .ui.compact.button.spaced.set_value(class=session_set_class title=value)
             if icon
                 +i name=icon cl='ui avatar image'
                 // i.big.link.icon(class="#{icon} #{session_set_class}")

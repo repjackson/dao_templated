@@ -227,7 +227,7 @@ if Meteor.isClient
 
     Template.linked_product.helpers
         linked_product_doc: ->
-            console.log @
+            # console.log @
             Docs.findOne @product_id
             
             

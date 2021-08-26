@@ -95,22 +95,6 @@ template(name='user_stats')
     div(style="width:800px; height:500px;")
         canvas.chart(width="400" height="400")
 
-template(name='user_friends')
-    .ui.header
-        i.user.friends.icon
-        |user friends
-    .ui.input
-        input.add_friend_by_username(type='text' placeholder='add user by friend')
-    .ui.header friend ids
-    each currentUser.friend_ids 
-        .ui.label #{this}
-    .ui.header friend usernames
-    each currentUser.friend_usernames 
-        .ui.big.basic.label 
-            i.remove.link.icon.remove_friend
-            |#{this}
-    each user_friend_docs
-        .ui.big.button(href="/user/#{username}") #{username}
 
 template(name='user_rewards')
     .ui.header 
@@ -189,7 +173,9 @@ template(name='user_dashboard')
                 +user_requests
                 +user_messages
             .column
-            
+                +user_credit
+            .column
+                +user_credits
             
     
 template(name='user_messages')

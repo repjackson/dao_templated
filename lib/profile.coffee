@@ -31,14 +31,6 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_rewards'
         ), name:'user_rewards'
-    Router.route '/user/:username/friends', (->
-        @layout 'user_layout'
-        @render 'user_friends'
-        ), name:'user_friends'
-    Router.route '/user/:username/sent', (->
-        @layout 'user_layout'
-        @render 'user_sent'
-        ), name:'user_sent'
     Router.route '/user/:username/groups', (->
         @layout 'user_layout'
         @render 'user_groups'
