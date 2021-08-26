@@ -146,8 +146,8 @@ template(name='left_sidebar')
         +leftbar_nav_item label='beer' icon='beer' route='drinks'
         +leftbar_nav_item label='inventory' icon='grocery-shelf' route='items'
         +leftbar_nav_item label='tasks' icon='tasks' route='tasks'
-        +leftbar_nav_item label='reviews' icon='feedback' route='reviews'
-        +leftbar_nav_item label='badges' icon='warranty' route='badges'
+        // +leftbar_nav_item label='reviews' icon='feedback' route='reviews'
+        // +leftbar_nav_item label='badges' icon='warranty' route='badges'
         +leftbar_nav_item label='orders' icon='order-history' route='orders'
         +leftbar_nav_item label='posts' icon='blog' route='posts'
         +leftbar_nav_item label='roles' icon='shield' route='roles'
@@ -171,7 +171,7 @@ template(name='left_sidebar')
                 | orders
 
 template(name='leftbar_nav_item')
-    a.ui.basic.big.image.label.spaced.toggle_leftbar(href="/#{route}" class="{{isActiveRoute regex=route}}")
+    a.ui.basic.big.image.label.spaced.toggle_leftbar.zoomer(href="/#{route}" class="{{isActiveRoute regex=route}}")
         +i name=icon cl='ui avatar image'
         | #{label}
 
@@ -195,10 +195,10 @@ template(name='right_sidebar')
             +rightbar_nav_item label='work' icon='services' route='work'
             +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
             +rightbar_nav_item label='chat' icon='chat' route='chat'
-            +rightbar_nav_item label='badges' icon='prize' route='badges'
-            +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
-            +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
-            +rightbar_nav_item label='payroll' icon='money' route='payroll'
+            // +rightbar_nav_item label='badges' icon='prize' route='badges'
+            // +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
+            // +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
+            // +rightbar_nav_item label='payroll' icon='money' route='payroll'
             +rightbar_nav_item label='orders' icon='order-history' route='orders'
             +rightbar_nav_item label='points' icon='coins' route='points'
             +rightbar_nav_item label='groups' icon='campfire' route='groups'
@@ -206,17 +206,17 @@ template(name='right_sidebar')
             +rightbar_nav_item label='sent' icon='sent' route='sent'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
             +rightbar_nav_item label='friends' icon='groups' route='friends'
-            +rightbar_nav_item label='rewards' icon='prize' route='rewards'
-            +rightbar_nav_item label='orders' icon='order-history' route='orders'
+            // +rightbar_nav_item label='rewards' icon='prize' route='rewards'
+            // +rightbar_nav_item label='orders' icon='order-history' route='orders'
                 |orders
-            a.ui.basic.compact.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+            a.ui.basic.compact.image.big.label(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
                 +i name='line-chart' cl='ui avatar image'
                 |stats
                 
-            a.ui.button.toggle_rightbar.no_blink(href="/user/#{username}/edit" title='edit account')
+            a.ui.image.big.label.toggle_rightbar.no_blink(href="/user/#{username}/edit" title='edit account')
                 +i name='settings' cl='ui avatar image'
                 |settings
-            a.ui.button.logout.toggle_rightbar
+            a.ui.image.big.label.logout.toggle_rightbar
                 if is_logging_out
                     i.refresh.loading.icon
                 else
@@ -226,6 +226,6 @@ template(name='right_sidebar')
             
             
 template(name='rightbar_nav_item')
-    a.ui.basic.compact.button.toggle_rightbar(href="/user/#{currentUser.username}/#{route}" class="{{isActiveRoute regex='user_checkins'}}")
+    a.ui.basic.big.image.label.zoomer.spaced.toggle_rightbar(href="/user/#{currentUser.username}/#{route}" class="{{isActiveRoute regex='user_checkins'}}")
         +i name=icon cl='ui avatar image'
         | #{label}

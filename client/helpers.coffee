@@ -52,9 +52,9 @@ Template.registerHelper 'active_path', (metric) ->
     false
 
 Template.registerHelper 'kve', (key,value) ->
-    console.log 'key', key
-    console.log 'value', value
-    console.log @
+    # console.log 'key', key
+    # console.log 'value', value
+    # console.log @
     @["#{key}"] is value
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
@@ -299,7 +299,7 @@ Template.registerHelper 'connected', () ->
     if Meteor.status().status is 'connected' then true else false
 
 Template.registerHelper 'subs_ready', () -> 
-    console.log Template.instance().subscriptionsReady()
+    # console.log Template.instance().subscriptionsReady()
     Template.instance().subscriptionsReady()
 
 Template.registerHelper 'order_things',-> 
