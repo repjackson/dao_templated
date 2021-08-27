@@ -144,21 +144,21 @@ template(name='left_sidebar')
         //         i.search.icon
         //         input.search_global(type='text')
         +leftbar_nav_item label='food' icon='food' route='food'
-        +leftbar_nav_item label='beer' icon='beer' route='drinks'
-        +leftbar_nav_item label='inventory' icon='grocery-shelf' route='items'
-        +leftbar_nav_item label='tasks' icon='tasks' route='tasks'
+        +leftbar_nav_item label='beer' icon='beer' route='drink'
+        +leftbar_nav_item label='inventory' icon='grocery-shelf' route='item'
+        +leftbar_nav_item label='tasks' icon='tasks' route='task'
         // +leftbar_nav_item label='reviews' icon='feedback' route='reviews'
         // +leftbar_nav_item label='badges' icon='warranty' route='badges'
-        +leftbar_nav_item label='orders' icon='order-history' route='orders'
-        +leftbar_nav_item label='posts' icon='blog' route='posts'
-        +leftbar_nav_item label='roles' icon='shield' route='roles'
-        +leftbar_nav_item label='users' icon='groups' route='users'
-        +leftbar_nav_item label='groups' icon='campfire' route='groups'
-        +leftbar_nav_item label='images' icon='image' route='images'
-        +leftbar_nav_item label='deliveries' icon='delivery' route='deliveries'
-        +leftbar_nav_item label='ingredients' icon='ingredients' route='ingredients'
-        +leftbar_nav_item label='recipes' icon='beer-recipe' route='recipes'
-        +leftbar_nav_item label='questions' icon='question' route='questions'
+        +leftbar_nav_item label='orders' icon='order-history' route='order'
+        +leftbar_nav_item label='posts' icon='blog' route='post'
+        +leftbar_nav_item label='roles' icon='shield' route='role'
+        +leftbar_nav_item label='users' icon='groups' route='user'
+        +leftbar_nav_item label='groups' icon='campfire' route='group'
+        +leftbar_nav_item label='images' icon='image' route='image'
+        +leftbar_nav_item label='deliveries' icon='delivery' route='delivery'
+        +leftbar_nav_item label='ingredients' icon='ingredients' route='ingredient'
+        +leftbar_nav_item label='recipes' icon='beer-recipe' route='recipe'
+        +leftbar_nav_item label='questions' icon='question' route='question'
         if is_admin
             .divider
             a.ui.button.set_model.toggle_leftbar.no_blink(href="/m/model" class="{{isActivePath '/m/model'}}")
@@ -172,7 +172,7 @@ template(name='left_sidebar')
                 | orders
 
 template(name='leftbar_nav_item')
-    a.ui.basic.big.image.label.spaced.toggle_leftbar.zoomer(href="/#{route}" class="{{isActiveRoute regex=route}}")
+    a.ui.basic.big.image.label.spaced.toggle_leftbar.zoomer(href="/m/#{route}" class="{{isActiveRoute regex=route}}")
         +i name=icon cl='ui avatar image'
         | #{label}
 
