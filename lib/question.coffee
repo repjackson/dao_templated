@@ -348,6 +348,9 @@ if Meteor.isClient
             question = Docs.findOne Router.current().params.doc_id
             new_id = Docs.insert
                 model:'answer'
+                _timestamp:Date.now()
+                app:'bc'
+                _author_id: Meteor.userId()
                 question_id: Router.current().params.doc_id
                 question_title:question.title
             Router.go "/answer/#{new_id}/edit"

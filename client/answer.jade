@@ -2,24 +2,15 @@ template(name='answer_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row 
-                .four.wide.column
+                .sixteen.wide.column
                     a.ui.icon.fluid.big.red.button.cancel_answer
                         i.remove.icon
-                        
-                .twelve.wide.column
                     .ui.header 
                         |#{question_title}
                     if answer_user_id 
                         .ui.big.fluid.icon.green.button.complete_answer
                             i.big.checkmark.icon
                     .ui.hidden.divider
-                    if answer_title
-                        .ui.inline.header
-                            i.user.icon
-                            |pick user
-                        each unanswered_users 
-                            .ui.massive.button.choose_user.f12(class=user_picker_class)
-                                .f16 #{username}
                                 
                     with question_doc
                         if key_value_is 'question_type' 'boolean'
@@ -29,40 +20,52 @@ template(name='answer_edit')
                             .ui.massive.button.no(class=no_class)
                                 |no
                         else if key_value_is 'question_type' 'multiple_choice'
-                            .ui.header pick choice
-                            if key_value_is 'multiple_choice_type' 'user_choice'
-                                each answer_choice_users
-                                    a.ui.massive.button.choose_user(class=choice_class)
-                                        if image_id
-                                            img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
-                                        .content
-                                            .header
-                                                |#{username}
-                            else if key_value_is 'multiple_choice_type' 'custom'
-                                each answer_choice_docs
-                                    a.ui.massive.button.choose_answer(class=choice_class)
-                                        if image_id
-                                            img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
-                                        .content
-                                            .header
-                                                |#{title}
+                            .ui.grid
+                                .six.wide.column
+                                    // if answer_title
+                                    .ui.inline.header
+                                        i.user.icon
+                                        |pick user
+                                    each unanswered_users 
+                                        .ui.massive.button.choose_user.f12(class=user_picker_class)
+                                            .f16 #{username}
+                                .ten.wide.column
+                                    .ui.header pick choice
+                                    if key_value_is 'multiple_choice_type' 'user_choice'
+                                        each answer_choice_users
+                                            a.ui.massive.button.choose_user(class=choice_class)
+                                                if image_id
+                                                    img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
+                                                .content
+                                                    .header
+                                                        |#{username}
+                                    else if key_value_is 'multiple_choice_type' 'custom'
+                                        each answer_choice_docs
+                                            a.ui.massive.button.choose_answer(class=choice_class)
+                                                if image_id
+                                                    img.ui.inline.small.image(src="{{c.url image_id width=800 height=800 gravity='face' crop='fill'}}")
+                                                .content
+                                                    .header
+                                                        |#{title}
                         else if key_value_is 'question_type' 'rating'
                             .ui.header 
                                 i.large.star.icon
                                 |rating
-                            if current_doc.answer_rating
-                                div
-                                .ui.inline.header
-                                    i.user.icon
-                                    |pick user
-                                each unanswered_users 
-                                    .ui.massive.button.choose_user.f12(class=user_picker_class)
-                                        .f16 #{username}
-                                if answer_user_id
-                                    .ui.big.fluid.icon.green.button.complete_answer
-                                        i.big.checkmark.icon
-                            .ui.basic.segment
-                                +pick_rating
+                            .ui.two.column.grid
+                                .column
+                                    // if current_doc.answer_rating
+                                    .ui.inline.header
+                                        i.user.icon
+                                        |pick user
+                                    each unanswered_users 
+                                        .ui.massive.button.choose_user.f12(class=user_picker_class)
+                                            .f16 #{username}
+                                    if answer_user_id
+                                        .ui.big.fluid.icon.green.button.complete_answer
+                                            i.big.checkmark.icon
+                                .column
+                                    .ui.basic.segment
+                                        +pick_rating
                     if in_dev
                         +print_this
                             
