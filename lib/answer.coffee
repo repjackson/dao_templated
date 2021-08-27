@@ -12,7 +12,7 @@ if Meteor.isClient
                         $set:answer_rating:val
                         
             )
-        , 1000
+        , 2000
     Template.rating_read.onRendered ->
         Meteor.setTimeout =>
             $('.ui.rating').rating(

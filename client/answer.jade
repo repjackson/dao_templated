@@ -47,8 +47,9 @@ template(name='answer_edit')
                                             .header
                                                 |#{title}
                         else if key_value_is 'question_type' 'rating'
-                            .ui.header rating
-                            +pick_rating
+                            .ui.header 
+                                i.large.star.icon
+                                |rating
                             if current_doc.answer_rating
                                 div
                                 .ui.inline.header
@@ -60,6 +61,8 @@ template(name='answer_edit')
                                 if answer_user_id
                                     .ui.big.fluid.icon.green.button.complete_answer
                                         i.big.checkmark.icon
+                            .ui.basic.segment
+                                +pick_rating
                     if in_dev
                         +print_this
                             
