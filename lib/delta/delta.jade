@@ -94,7 +94,7 @@ template(name='delta')
                         //- each current_delta.result_ids
                         //-     .ui.header #{this}
                         if delta_key_value_is 'view_mode' 'cards'
-                            .ui.stackable.cards
+                            .ui.doubling.cards
                                 if is_loading
                                     each current_delta.result_ids
                                         .ui.card

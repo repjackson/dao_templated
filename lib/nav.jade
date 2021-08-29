@@ -35,10 +35,12 @@ template(name='nav')
                     +i name='what' cl='ui avatar image'
                 a.icon.item.mobile.hidden.zoomer(href="/m/drink" class="{{isActiveRoute regex='drinks'}}" title='drinks')
                     +i name='beer' cl='ui avatar image'
+            a.icon.item.mobile.hidden.zoomer(href='/quiz' class="{{isActiveRoute regex='quiz'}}" title='quiz')
+                +i name='what' cl='ui avatar image'
             a.icon.item.mobile.hidden.zoomer(href='/m/item' class="{{isActiveRoute regex='items'}}" title='inventory')
                 +i name='grocery-shelf' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href='/m/order' class="{{isActiveRoute regex='orders'}}" title='orders')
-                +i name='money' cl='ui avatar image'
+            // a.icon.item.mobile.hidden.zoomer(href='/m/order' class="{{isActiveRoute regex='orders'}}" title='orders')
+            //     +i name='money' cl='ui avatar image'
             // a.icon.item.mobile.hidden.zoomer(href="/losses" class="{{isActiveRoute regex='losses'}}" title='loss')
             //     +i name='loss' cl='ui avatar image'
             //     // i.large.frown.icon
@@ -47,10 +49,10 @@ template(name='nav')
             //     +i name='checkmark' cl='ui avatar image'
             a.icon.item.mobile.hidden.zoomer(href='/users' class="{{isActiveRoute regex='users'}}" title='users')
                 +i name='groups' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
-                +i name='tasks' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href='/shop' class="{{isActiveRoute regex='shop'}}" title='shop')
-                +i name='shopping-cart' cl='ui avatar image'
+            // a.icon.item.mobile.hidden.zoomer(href='/tasks' class="{{isActiveRoute regex='tasks'}}" title='tasks')
+            //     +i name='tasks' cl='ui avatar image'
+            // a.icon.item.mobile.hidden.zoomer(href='/shop' class="{{isActiveRoute regex='shop'}}" title='shop')
+            //     +i name='shopping-cart' cl='ui avatar image'
             .right.menu
                 if currentUser
                     a.icon.item(href="/add")
@@ -71,8 +73,8 @@ template(name='nav')
                         // if in_role 'admin'
                         //     a.icon.item(href='/admin' title='admin')
                         //         i.large.shield.icon
-                        a.icon.item.toggle_topbar(title='alerts')
-                            i.bell.outline.large.icon
+                        // a.icon.item.toggle_topbar(title='alerts')
+                        //     i.bell.outline.large.icon
                         a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
                             // i.wallet.icon
                             strong {{int currentUser.points}}p

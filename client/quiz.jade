@@ -1,0 +1,21 @@
+template(name='quiz')
+    .ui.basic.segment
+        .ui.header hi
+        .ui.header food
+        .ui.cards
+            each food_docs 
+                a.ui.card(href="/quiz/#{_id}/")
+                    .ui.header 
+                        |#{title}
+                    
+        
+        
+    
+template(name='quiz_view')
+    .ui.header quiz view
+    with current_doc
+        .ui.header #{title}
+    
+    
+template(name='quiz_edit')
+    .ui.header quiz edit
