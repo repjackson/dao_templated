@@ -20,12 +20,6 @@ if Meteor.isClient
                 section:'soup'
                 soup_of_the_day:true
             
-    Template.losses.onCreated ->
-        @autorun => @subscribe 'model_docs', 'loss', ->
-    Template.losses.helpers
-        loss_docs: ->
-            Docs.find 
-                model:'loss'
     Template.tag_picker.onCreated ->
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->
