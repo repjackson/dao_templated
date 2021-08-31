@@ -119,17 +119,6 @@ if Meteor.isServer
     #         _id: transfer.product_id
 
 
-if Meteor.isClient
-    Template.linked_product.onCreated ->
-        # console.log @data
-        @autorun => Meteor.subscribe 'doc_by_id', @data.product_id, ->
-
-    Template.linked_product.helpers
-        linked_product_doc: ->
-            console.log @
-            Docs.findOne @product_id
-            
-            
 if Meteor.isServer
     Meteor.methods  
         complete_transfer: (transfer_id)->
