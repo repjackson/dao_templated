@@ -7,82 +7,82 @@ if Meteor.isClient
         @layout 'user_layout'
         @render 'user_dashboard'
         ), name:'user_dashboard'
-    Router.route '/user/:username/inbox', (->
-        @layout 'user_layout'
-        @render 'inbox'
-        ), name:'inbox'
-    Router.route '/user/:username/posts', (->
-        @layout 'user_layout'
-        @render 'user_posts'
-        ), name:'user_posts'
-    Router.route '/user/:username/requests', (->
-        @layout 'user_layout'
-        @render 'user_requests'
-        ), name:'user_requests'
-    Router.route '/user/:username/orders', (->
-        @layout 'user_layout'
-        @render 'user_orders'
-        ), name:'user_orders'
-    Router.route '/user/:username/checkins', (->
-        @layout 'user_layout'
-        @render 'user_checkins'
-        ), name:'user_checkins'
-    Router.route '/user/:username/rewards', (->
-        @layout 'user_layout'
-        @render 'user_rewards'
-        ), name:'user_rewards'
-    Router.route '/user/:username/groups', (->
-        @layout 'user_layout'
-        @render 'user_groups'
-        ), name:'user_groups'
-    Router.route '/user/:username/jobs', (->
-        @layout 'user_layout'
-        @render 'user_jobs'
-        ), name:'user_jobs'
-    Router.route '/user/:username/compare', (->
-        @layout 'user_layout'
-        @render 'user_compare'
-        ), name:'user_compare'
-    Router.route '/user/:username/compare/:compare_username', (->
-        @layout 'user_layout'
-        @render 'user_compare'
-        ), name:'user_compare_person'
-    Router.route '/user/:username/timeclock', (->
-        @layout 'user_layout'
-        @render 'user_timeclock'
-        ), name:'user_timeclock'
-    Router.route '/user/:username/schedule', (->
-        @layout 'user_layout'
-        @render 'user_schedule'
-        ), name:'user_schedule'
-    Router.route '/user/:username/work', (->
-        @layout 'user_layout'
-        @render 'user_work'
-        ), name:'user_work'
-    Router.route '/user/:username/tasks', (->
-        @layout 'user_layout'
-        @render 'user_tasks'
-        ), name:'user_tasks'
-    Router.route '/user/:username/topups', (->
-        @layout 'user_layout'
-        @render 'user_topups'
-        ), name:'user_topups'
-    Router.route '/user/:username/chat', (->
-        @layout 'user_layout'
-        @render 'user_chat'
-        ), name:'user_chat'
-    Router.route '/user/:username/roles', (->
-        @layout 'user_layout'
-        @render 'user_roles'
-        ), name:'user_roles'
-    Router.route '/user/:username/stats', (->
-        @layout 'user_layout'
-        @render 'user_stats'
-        ), name:'user_stats'
+    # Router.route '/user/:username/inbox', (->
+    #     @layout 'user_layout'
+    #     @render 'inbox'
+    #     ), name:'inbox'
+    # Router.route '/user/:username/posts', (->
+    #     @layout 'user_layout'
+    #     @render 'user_posts'
+    #     ), name:'user_posts'
+    # Router.route '/user/:username/requests', (->
+    #     @layout 'user_layout'
+    #     @render 'user_requests'
+    #     ), name:'user_requests'
+    # Router.route '/user/:username/orders', (->
+    #     @layout 'user_layout'
+    #     @render 'user_orders'
+    #     ), name:'user_orders'
+    # Router.route '/user/:username/checkins', (->
+    #     @layout 'user_layout'
+    #     @render 'user_checkins'
+    #     ), name:'user_checkins'
+    # Router.route '/user/:username/rewards', (->
+    #     @layout 'user_layout'
+    #     @render 'user_rewards'
+    #     ), name:'user_rewards'
+    # Router.route '/user/:username/groups', (->
+    #     @layout 'user_layout'
+    #     @render 'user_groups'
+    #     ), name:'user_groups'
+    # Router.route '/user/:username/jobs', (->
+    #     @layout 'user_layout'
+    #     @render 'user_jobs'
+    #     ), name:'user_jobs'
+    # Router.route '/user/:username/compare', (->
+    #     @layout 'user_layout'
+    #     @render 'user_compare'
+    #     ), name:'user_compare'
+    # Router.route '/user/:username/compare/:compare_username', (->
+    #     @layout 'user_layout'
+    #     @render 'user_compare'
+    #     ), name:'user_compare_person'
+    # Router.route '/user/:username/timeclock', (->
+    #     @layout 'user_layout'
+    #     @render 'user_timeclock'
+    #     ), name:'user_timeclock'
+    # Router.route '/user/:username/schedule', (->
+    #     @layout 'user_layout'
+    #     @render 'user_schedule'
+    #     ), name:'user_schedule'
+    # Router.route '/user/:username/work', (->
+    #     @layout 'user_layout'
+    #     @render 'user_work'
+    #     ), name:'user_work'
+    # Router.route '/user/:username/tasks', (->
+    #     @layout 'user_layout'
+    #     @render 'user_tasks'
+    #     ), name:'user_tasks'
+    # Router.route '/user/:username/topups', (->
+    #     @layout 'user_layout'
+    #     @render 'user_topups'
+    #     ), name:'user_topups'
+    # Router.route '/user/:username/chat', (->
+    #     @layout 'user_layout'
+    #     @render 'user_chat'
+    #     ), name:'user_chat'
+    # Router.route '/user/:username/roles', (->
+    #     @layout 'user_layout'
+    #     @render 'user_roles'
+    #     ), name:'user_roles'
+    # Router.route '/user/:username/stats', (->
+    #     @layout 'user_layout'
+    #     @render 'user_stats'
+    #     ), name:'user_stats'
 
 
 
-    Template.user_stats.events
+    # Template.user_stats.events
         # 'click .make_chart': (e,t)->
         #     @Chart = require('chart.js');
             
@@ -127,15 +127,15 @@ if Meteor.isClient
         #     # });
         
     
-    Template.user_compare.onCreated ->
-        @autorun -> Meteor.subscribe 'bc_users', Router.current().params.username, ->
-        @autorun -> Meteor.subscribe('users')
+    # Template.user_compare.onCreated ->
+    #     @autorun -> Meteor.subscribe 'bc_users', Router.current().params.username, ->
+    #     @autorun -> Meteor.subscribe('users')
 
-    Template.user_compare.helpers    
-        bc_users: ->
-            Meteor.users.find 
-                app:'bc'
-                _id:$ne:Meteor.userId()
+    # Template.user_compare.helpers    
+    #     bc_users: ->
+    #         Meteor.users.find 
+    #             app:'bc'
+    #             _id:$ne:Meteor.userId()
     
     
     
@@ -151,13 +151,13 @@ if Meteor.isClient
         , 2000
 
 
-if Meteor.isServer
-    Meteor.publish 'user_sent', (username)->
-        user = Meteor.users.findOne username:username
+# if Meteor.isServer
+#     Meteor.publish 'user_sent', (username)->
+#         user = Meteor.users.findOne username:username
     
-        Docs.find 
-            model:'transfer'
-            _author_username: username
+#         Docs.find 
+#             model:'transfer'
+#             _author_username: username
 
 
     # Template.user_section.helpers
@@ -165,30 +165,30 @@ if Meteor.isServer
     #         "user_#{Router.current().params.group}"
 
 if Meteor.isClient
-    Template.user_friends.events    
-        'keyup .add_friend_by_username': (e,t)->
-            if e.which is 13
-                val = $('.add_friend_by_username').val()
-                console.log val
-                # Meteor.call 'search_by_username', (val, err, res)->
-                #     console.log res
+    # Template.user_friends.events    
+    #     'keyup .add_friend_by_username': (e,t)->
+    #         if e.which is 13
+    #             val = $('.add_friend_by_username').val()
+    #             console.log val
+    #             # Meteor.call 'search_by_username', (val, err, res)->
+    #             #     console.log res
                 
-                Meteor.call 'add_friend_by_username', val, ->
+    #             Meteor.call 'add_friend_by_username', val, ->
             
-        'click .remove_friend': (e,t)->
-            if confirm 'delete friend?'
-                console.log @
-                # Meteor.call 'search_by_username', (val, err, res)->
-                #     console.log res
+    #     'click .remove_friend': (e,t)->
+    #         if confirm 'delete friend?'
+    #             console.log @
+    #             # Meteor.call 'search_by_username', (val, err, res)->
+    #             #     console.log res
                 
-                Meteor.call 'remove_friend_by_username', @valueOf(), ->
+    #             Meteor.call 'remove_friend_by_username', @valueOf(), ->
             
-    Template.user_friends.helpers
-        user_friend_docs: -> 
-            user = Meteor.users.findOne username:Router.current().params.username
-            if user.friend_ids
-                Meteor.users.find 
-                    _id: $in:user.friend_ids
+    # Template.user_friends.helpers
+    #     user_friend_docs: -> 
+    #         user = Meteor.users.findOne username:Router.current().params.username
+    #         if user.friend_ids
+    #             Meteor.users.find 
+    #                 _id: $in:user.friend_ids
             
     Template.user_layout.helpers
         user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
@@ -214,60 +214,60 @@ if Meteor.isClient
         , 2000
         
         
-    Template.friend_button.events
-        'click .friend': ->
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            Meteor.users.update Meteor.userId(),
-                $addToSet:
-                    friend_ids:current_user._id
+    # Template.friend_button.events
+    #     'click .friend': ->
+    #         current_user = Meteor.users.findOne username:Router.current().params.username
+    #         Meteor.users.update Meteor.userId(),
+    #             $addToSet:
+    #                 friend_ids:current_user._id
                     
-        'click .unfriend': ->
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            Meteor.users.update Meteor.userId(),
-                $pull:
-                    friend_ids:current_user._id
+    #     'click .unfriend': ->
+    #         current_user = Meteor.users.findOne username:Router.current().params.username
+    #         Meteor.users.update Meteor.userId(),
+    #             $pull:
+    #                 friend_ids:current_user._id
                     
-    Template.friend_button.helpers
-        is_friend: ->
-            current_user = Meteor.users.findOne username:Router.current().params.username
-            Meteor.user() and Meteor.user().friend_ids and current_user._id in Meteor.user().friend_ids
+    # Template.friend_button.helpers
+    #     is_friend: ->
+    #         current_user = Meteor.users.findOne username:Router.current().params.username
+    #         Meteor.user() and Meteor.user().friend_ids and current_user._id in Meteor.user().friend_ids
             
             
             
             
             
     
-    Template.user_timeclock.onCreated ->
-        @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'time_session', ->
-        # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
+    # Template.user_timeclock.onCreated ->
+    #     @autorun -> Meteor.subscribe 'user_model_docs', Router.current().params.username, 'time_session', ->
+    #     # @autorun -> Meteor.subscribe 'user_referenced_docs', Router.current().params.username
 
-    Template.user_timeclock.events
-        'click .clock_in':->
-            Meteor.users.update Meteor.userId(),
-                $set:
-                    clocked_in:true
+    # Template.user_timeclock.events
+    #     'click .clock_in':->
+    #         Meteor.users.update Meteor.userId(),
+    #             $set:
+    #                 clocked_in:true
             
             
-        'click .clock_out':->
-            Meteor.users.update Meteor.userId(),
-                $set:
-                    clocked_in:false
+    #     'click .clock_out':->
+    #         Meteor.users.update Meteor.userId(),
+    #             $set:
+    #                 clocked_in:false
             
             
             
             
-    Template.user_timeclock.helpers
-        time_sessions: ->
-            Docs.find 
-                model:'time_session'
+    # Template.user_timeclock.helpers
+    #     time_sessions: ->
+    #         Docs.find 
+    #             model:'time_session'
                 
                 
                 
 if Meteor.isServer
-    Meteor.publish 'user_friends', (username)->
-        user = Meteor.users.findOne username:username
-        Meteor.users.find
-            _id: $in: user.friend_ids
+    # Meteor.publish 'user_friends', (username)->
+    #     user = Meteor.users.findOne username:username
+    #     Meteor.users.find
+    #         _id: $in: user.friend_ids
             
     Meteor.publish 'user_model_docs', (username,model)->
         Docs.find 

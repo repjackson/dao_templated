@@ -107,24 +107,24 @@ template(name='not_found')
             |back
             
             
-template(name='topbar')
-    .ui.fluid.attached.segment.topbar.top.sidebar
-        .ui.middle.aligned.divided.list
-            each recent_alerts
-                +recent_alert
-        a.ui.basic.button.item.close_topbar(href="/user/#{currentUser.username}/inbox")
-            i.inbox.icon
-            |inbox
+// template(name='topbar')
+//     .ui.fluid.attached.segment.topbar.top.sidebar
+//         .ui.middle.aligned.divided.list
+//             each recent_alerts
+//                 +recent_alert
+//         a.ui.basic.button.item.close_topbar(href="/user/#{currentUser.username}/inbox")
+//             i.inbox.icon
+//             |inbox
         
-template(name='recent_alert')        
-    .item.alert
-        .right.floated.content
-            i.eye.link.icon.mark_read(title='mark read')
-        img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-        .content
-            .header
-                |#{description} 
-            .description #{author.name} #{when}
+// template(name='recent_alert')        
+//     .item.alert
+//         .right.floated.content
+//             i.eye.link.icon.mark_read(title='mark read')
+//         img.ui.avatar.image(src="{{c.url author.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+//         .content
+//             .header
+//                 |#{description} 
+//             .description #{author.name} #{when}
             
             
             
@@ -133,9 +133,9 @@ template(name='recent_alert')
 //     .ui.right.wide.sidebar.cartbar
 //         +cart
         
-template(name='walletbar')
-    .ui.right.sidebar.walletbar
-        +user_points
+// template(name='walletbar')
+//     .ui.right.sidebar.walletbar
+//         +user_points
         
 template(name='left_sidebar')
     .ui.left.wide.sidebar.filled
@@ -151,13 +151,13 @@ template(name='left_sidebar')
         +leftbar_nav_item label='tasks' icon='tasks' route='task'
         // +leftbar_nav_item label='reviews' icon='feedback' route='reviews'
         // +leftbar_nav_item label='badges' icon='warranty' route='badges'
-        +leftbar_nav_item label='orders' icon='order-history' route='order'
-        +leftbar_nav_item label='posts' icon='blog' route='post'
-        +leftbar_nav_item label='roles' icon='shield' route='role'
+        // +leftbar_nav_item label='orders' icon='order-history' route='order'
+        // +leftbar_nav_item label='posts' icon='blog' route='post'
+        // +leftbar_nav_item label='roles' icon='shield' route='role'
         +leftbar_nav_item label='users' icon='groups' route='user'
-        +leftbar_nav_item label='groups' icon='campfire' route='group'
-        +leftbar_nav_item label='images' icon='image' route='image'
-        +leftbar_nav_item label='deliveries' icon='delivery' route='delivery'
+        // +leftbar_nav_item label='groups' icon='campfire' route='group'
+        // +leftbar_nav_item label='images' icon='image' route='image'
+        // +leftbar_nav_item label='deliveries' icon='delivery' route='delivery'
         +leftbar_nav_item label='ingredients' icon='ingredients' route='ingredient'
         +leftbar_nav_item label='recipes' icon='beer-recipe' route='recipe'
         +leftbar_nav_item label='questions' icon='question' route='question'
@@ -193,28 +193,28 @@ template(name='right_sidebar')
                 | dashboard
             +rightbar_nav_item label='compare' icon='exchange' route='compare'
             +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
-            +rightbar_nav_item label='posts' icon='blog' route='posts'
-            +rightbar_nav_item label='topups' icon='donation' route='topups'
-            +rightbar_nav_item label='work' icon='services' route='work'
-            +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
-            +rightbar_nav_item label='chat' icon='chat' route='chat'
+            // +rightbar_nav_item label='posts' icon='blog' route='posts'
+            // +rightbar_nav_item label='topups' icon='donation' route='topups'
+            // +rightbar_nav_item label='work' icon='services' route='work'
+            // +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
+            // +rightbar_nav_item label='chat' icon='chat' route='chat'
             // +rightbar_nav_item label='badges' icon='prize' route='badges'
             // +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
             // +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
             // +rightbar_nav_item label='payroll' icon='money' route='payroll'
-            +rightbar_nav_item label='orders' icon='order-history' route='orders'
+            // +rightbar_nav_item label='orders' icon='order-history' route='orders'
             +rightbar_nav_item label='points' icon='coins' route='points'
-            +rightbar_nav_item label='groups' icon='campfire' route='groups'
-            +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
+            // +rightbar_nav_item label='groups' icon='campfire' route='groups'
+            // +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
             +rightbar_nav_item label='sent' icon='sent' route='sent'
-            +rightbar_nav_item label='topups' icon='donation' route='topups'
-            +rightbar_nav_item label='friends' icon='groups' route='friends'
+            // +rightbar_nav_item label='topups' icon='donation' route='topups'
+            // +rightbar_nav_item label='friends' icon='groups' route='friends'
             // +rightbar_nav_item label='rewards' icon='prize' route='rewards'
             // +rightbar_nav_item label='orders' icon='order-history' route='orders'
                 |orders
-            a.ui.basic.compact.image.big.label(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
-                +i name='line-chart' cl='ui avatar image'
-                |stats
+            // a.ui.basic.compact.image.big.label(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
+            //     +i name='line-chart' cl='ui avatar image'
+            //     |stats
                 
             a.ui.image.big.label.toggle_rightbar.no_blink(href="/user/#{username}/edit" title='edit account')
                 +i name='settings' cl='ui avatar image'

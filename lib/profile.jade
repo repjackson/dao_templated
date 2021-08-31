@@ -1,39 +1,39 @@
 template(name='user_layout')
     +nav
     .ui.bottom.attached.pushable.segment
-        +topbar
+        // +topbar
         +left_sidebar
         +right_sidebar
         with user_from_username_param
-            .ui.stackable.padded.grid.global_conainer.pusher
+            .ui.stackable.padded.grid.pusher
                 .row
                     //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
                     .four.wide.column
                         a.item.zoomer(href="/user/#{username}")
-                            img.ui.centered.rounded.inline.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                            img.ui.centered.rounded.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                         // .spacer
-                        a.ui.inline.header(href="/user/#{username}")
+                        a.ui.header(href="/user/#{username}")
                             | #{username}
-                        a.ui.inline.small.header.zoomer(href="/users")
+                        a.ui.small.header.zoomer(href="/users")
                             strong
                                 |#{current_user.points}
                             small
                                 |current pts
                                 span(title='rank') (##{current_user.point_rank})
-                        .ui.inline.small.header
+                        .ui.small.header
                             strong
-                                |#{current_user.total_earned_credits}
+                                |#{current_user.total_received_points}
                             small
-                                |pts earned
-                                span(title='rank') (##{current_user.total_earned_credit_rank})
-                        .ui.inline.small.header
+                                |pts received
+                                // span(title='rank') (##{current_user.total_earned_credit_rank})
+                        .ui.small.header
                             strong
-                                |#{current_user.total_bought_credits}
+                                |#{current_user.total_sent_points}
                             small
-                                |pts bought
-                                span(title='rank') (##{current_user.total_bought_credit_rank})
+                                |pts sent
+                                // span(title='rank') (##{current_user.total_bought_credit_rank})
                         if untappd_username
-                            a.ui.inline.small.header(href="https://untappd.com/user/#{untappd_username}" target="_window")
+                            a.ui.small.header(href="https://untappd.com/user/#{untappd_username}" target="_window")
                                 |untappd profile: #{untappd.username}
                         .ui.large.label app: #{app}
                         div
@@ -77,183 +77,184 @@ template(name='user_layout')
         if in_role 'admin'
             +admin_footer
 
-template(name='inbox')
-    .ui.header 
-        +i name='inbox'
-        |inbox
-    .ui.button.send_message
-        |send message (-2p)
-template(name='user_stats')
+// template(name='inbox')
+//     .ui.header 
+//         +i name='inbox'
+//         |inbox
+//     .ui.button.send_message
+//         |send message (-2p)
+// template(name='user_stats')
     
-    .ui.header
-        i.line.chart.icon
-        |stats
-    .ui.button.make_chart
-        |make chart
-    .ui.header total calories consumed #{currentUser.total_calories_consumed}
-    .ui.header total calories consumed #{currentUser.total_earned_credit_rank}
-    div(style="width:800px; height:500px;")
-        canvas.chart(width="400" height="400")
+//     .ui.header
+//         i.line.chart.icon
+//         |stats
+//     .ui.button.make_chart
+//         |make chart
+//     .ui.header total calories consumed #{currentUser.total_calories_consumed}
+//     .ui.header total calories consumed #{currentUser.total_earned_credit_rank}
+//     div(style="width:800px; height:500px;")
+//         canvas.chart(width="400" height="400")
 
 
-template(name='user_rewards')
-    .ui.header 
-        +i name='prize'
-        |user rewards
-    each won_rewards
-        .ui.card 
-            .content
-                if icon
-                    i.massive.icon(class=icon)
-                a.header(href="/reward/#{_id}")
-                    i.green.checkmark.icon
-                    |#{title}
+// template(name='user_rewards')
+//     .ui.header 
+//         +i name='prize'
+//         |user rewards
+//     each won_rewards
+//         .ui.card 
+//             .content
+//                 if icon
+//                     i.massive.icon(class=icon)
+//                 a.header(href="/reward/#{_id}")
+//                     i.green.checkmark.icon
+//                     |#{title}
                 
-    .ui.header non won rewards
-    .ui.centered.cards
-        each nonwon_rewards
-            .ui.card 
-                .content
-                    if icon
-                        i.massive.icon(class=icon)
-                    a.header(href="/reward/#{_id}")
-                        |#{title}
+//     .ui.header non won rewards
+//     .ui.centered.cards
+//         each nonwon_rewards
+//             .ui.card 
+//                 .content
+//                     if icon
+//                         i.massive.icon(class=icon)
+//                     a.header(href="/reward/#{_id}")
+//                         |#{title}
                 
 
 template(name='user_dashboard')
-    with current_user            
-        +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
-        +rightbar_nav_item label='posts' icon='blog' route='posts'
-        +rightbar_nav_item label='topups' icon='donation' route='topups'
-        +rightbar_nav_item label='work' icon='services' route='work'
-        +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
+    with current_user       
+        +user_points
+        // +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
+        // +rightbar_nav_item label='posts' icon='blog' route='posts'
+        // +rightbar_nav_item label='topups' icon='donation' route='topups'
+        // +rightbar_nav_item label='work' icon='services' route='work'
+        // +rightbar_nav_item label='tasks' icon='tasks' route='tasks'
         // +rightbar_nav_item label='chat' icon='chat' route='chat'
         // +rightbar_nav_item label='badges' icon='prize' route='badges'
         // +rightbar_nav_item label='timeclock' icon='clock' route='timeclock'
         // +rightbar_nav_item label='schedule' icon='calendar' route='schedule'
         // +rightbar_nav_item label='payroll' icon='money' route='payroll'
-        +rightbar_nav_item label='orders' icon='order-history' route='orders'
-        +rightbar_nav_item label='points' icon='coins' route='points'
-        +rightbar_nav_item label='groups' icon='campfire' route='groups'
-        +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
-        +rightbar_nav_item label='sent' icon='sent' route='sent'
-        +rightbar_nav_item label='topups' icon='donation' route='topups'
+        // +rightbar_nav_item label='orders' icon='order-history' route='orders'
+        // +rightbar_nav_item label='points' icon='coins' route='points'
+        // +rightbar_nav_item label='groups' icon='campfire' route='groups'
+        // +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
+        // +rightbar_nav_item label='sent' icon='sent' route='sent'
+        // +rightbar_nav_item label='topups' icon='donation' route='topups'
 
     
-        .ui.two.column.stackable.grid
-            .column
-                .ui.header 
-                    +i name='campfire' cl='ui avatar image'
-                    |groups
-                .ui.link.selection.list
-                    each member_groups
-                        a.item(href="/group/#{_id}")
-                            img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
-                            |#{title}
-            .column
-                .ui.header
-                    +i name='coins' cl='ui avatar image'
-                    |#{points} points
-                .ui.inline.header 
-                    +i name='shield'
-                    |roles
-                each roles
-                    .ui.label #{this}
-                a.ui.header(href="/badges") 
-                    +i name='certificate'
-                    |badges
-                each user_badges
-                    .ui.label #{this}
+        // .ui.two.column.stackable.grid
+        //     // .column
+        //     //     .ui.header 
+        //     //         +i name='campfire' cl='ui avatar image'
+        //     //         |groups
+        //     //     .ui.link.selection.list
+        //     //         each member_groups
+        //     //             a.item(href="/group/#{_id}")
+        //     //                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+        //     //                 |#{title}
+        //     .column
+        //         .ui.header
+        //             +i name='coins' cl='ui avatar image'
+        //             |#{points} points
+        //         .ui.inline.header 
+        //             +i name='shield'
+        //             |roles
+        //         each roles
+        //             .ui.label #{this}
+        //         // a.ui.header(href="/badges") 
+        //         //     +i name='certificate'
+        //         //     |badges
+        //         // each user_badges
+        //         //     .ui.label #{this}
                 
-            .column
-                unless is_current_user
-                    .ui.button.send_points
-                        +i name='donation'
-                        |send points
-                +user_requests
-                +user_messages
-            .column
-                +user_credit
-            .column
-                +user_credits
+        //     .column
+        //         unless is_current_user
+        //             .ui.button.send_points
+        //                 +i name='donation'
+        //                 |send points
+        //         // +user_requests
+        //         // +user_messages
+        //     .column
+        //         +user_credit
+        //     // .column
+        //     //     +user_credits
             
     
-template(name='user_messages')
-    .ui.header user messages
+// template(name='user_messages')
+//     .ui.header user messages
     
-template(name='friend_button')
-    if is_friend
-        .ui.blue.button.unfriend
-            // .visible.content
-            |friends
-            // .hidden.content
-            //     i.minus.icon
-    else 
-        .ui.button.friend
-            |+ friend
+// template(name='friend_button')
+//     if is_friend
+//         .ui.blue.button.unfriend
+//             // .visible.content
+//             |friends
+//             // .hidden.content
+//             //     i.minus.icon
+//     else 
+//         .ui.button.friend
+//             |+ friend
         
     
     
-template(name='user_timeclock')
-    .ui.header timeclock
-    .ui.header status: 
-        if current_user.clocked_in
-            |clocked IN
-        else 
-            |clocked OUT
-    unless current_user.clocked_in    
-        .ui.button.clock_in
-            |clock in
-    if current_user.clocked_in
-        .ui.button.clock_out
-            |clock out
-    each time_sessions
-        |#{when}
+// template(name='user_timeclock')
+//     .ui.header timeclock
+//     .ui.header status: 
+//         if current_user.clocked_in
+//             |clocked IN
+//         else 
+//             |clocked OUT
+//     unless current_user.clocked_in    
+//         .ui.button.clock_in
+//             |clock in
+//     if current_user.clocked_in
+//         .ui.button.clock_out
+//             |clock out
+//     each time_sessions
+//         |#{when}
         
         
-template(name='user_tasks')
-    .ui.header 
-        +i name='tasks'
-        |tasks
-template(name='user_schedule')
-    .ui.header 
-        +i name='calendar'
-        |schedule
-template(name='user_chat')
-    .ui.header 
-        i.chat
-        |chat 
-    .ui.input 
-        input.new_user_message(type='text' placeholder='new message...')
-    .ui.list
-        each user_chats
-            .item #{body} by #{_author_username} #{when}
+// template(name='user_tasks')
+//     .ui.header 
+//         +i name='tasks'
+//         |tasks
+// template(name='user_schedule')
+//     .ui.header 
+//         +i name='calendar'
+//         |schedule
+// template(name='user_chat')
+//     .ui.header 
+//         i.chat
+//         |chat 
+//     .ui.input 
+//         input.new_user_message(type='text' placeholder='new message...')
+//     .ui.list
+//         each user_chats
+//             .item #{body} by #{_author_username} #{when}
             
-    .ui.header
-        i.chat.outline.icon
-        |chat
-    .ui.input
-        input.add_chat(type='text' placeholder='add chat')
-    .ui.comments
-        each chat_messages
-            .comment
-                .content
-                    .ui.inline.header #{body}
-                    .meta #{when}
-                        |by 
-                        a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
-                        if currentUser
-                            +voting_small
-                            if can_edit
-                                +remove_button
+//     .ui.header
+//         i.chat.outline.icon
+//         |chat
+//     .ui.input
+//         input.add_chat(type='text' placeholder='add chat')
+//     .ui.comments
+//         each chat_messages
+//             .comment
+//                 .content
+//                     .ui.inline.header #{body}
+//                     .meta #{when}
+//                         |by 
+//                         a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+//                         if currentUser
+//                             +voting_small
+//                             if can_edit
+//                                 +remove_button
         
         
-template(name='user_requests')  
-    .ui.header
-        +i name='request-service'
-        |#{user_from_username_param.name} requests
-template(name='user_groups')  
-    .ui.header 
-        +i name='campfire'
-        |#{user_from_username_param.name} groups
+// template(name='user_requests')  
+//     .ui.header
+//         +i name='request-service'
+//         |#{user_from_username_param.name} requests
+// template(name='user_groups')  
+//     .ui.header 
+//         +i name='campfire'
+//         |#{user_from_username_param.name} groups
     

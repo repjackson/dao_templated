@@ -88,12 +88,12 @@ if Meteor.isClient
 
 
 
-    Template.user_work.helpers
-        user_work_docs: ->
-            Docs.find {
-                model:'work'
-                _author_username: Router.current().params.username
-            }, sort:_timestamp:-1
+    # Template.user_work.helpers
+    #     user_work_docs: ->
+    #         Docs.find {
+    #             model:'work'
+    #             _author_username: Router.current().params.username
+    #         }, sort:_timestamp:-1
 
     # Template.user_points.helpers
     #     user_orders: ->
@@ -102,12 +102,12 @@ if Meteor.isClient
     #             _author_username: Router.current().params.username
     #         }, sort:_timestamp:-1
 
-    Template.user_topups.helpers
-        user_topup_docs: ->
-            Docs.find {
-                model:'topup'
-                _author_username: Router.current().params.username
-            }, sort:_timestamp:-1
+    # Template.user_topups.helpers
+    #     user_topup_docs: ->
+    #         Docs.find {
+    #             model:'topup'
+    #             _author_username: Router.current().params.username
+    #         }, sort:_timestamp:-1
 
 
 
@@ -139,8 +139,8 @@ if Meteor.isClient
 
 
 
-    Template.user_topups.onCreated ->
-        @autorun => Meteor.subscribe 'user_topups', Router.current().params.username
+    # Template.user_topups.onCreated ->
+    #     @autorun => Meteor.subscribe 'user_topups', Router.current().params.username
     Template.user_dashboard.onCreated ->
         # @autorun => Meteor.subscribe 'user_current_reservations', Router.current().params.username
     Template.user_dashboard.helpers
@@ -148,19 +148,19 @@ if Meteor.isClient
     Template.user_dashboard.events
             
             
-if Meteor.isServer
-    Meteor.publish 'user_work', (username)->
-        # user = Meteor.users.findOne username:username
-        Docs.find({
-            model:'work'
-            _author_username:username
-        }, limit:20)
+# if Meteor.isServer
+#     Meteor.publish 'user_work', (username)->
+#         # user = Meteor.users.findOne username:username
+#         Docs.find({
+#             model:'work'
+#             _author_username:username
+#         }, limit:20)
             
             
-    Meteor.publish 'user_topups', (username)->
-        # user = Meteor.users.findOne username:username
-        Docs.find({
-            model:'topup'
-            _author_username:username
-        }, limit:200)
+#     Meteor.publish 'user_topups', (username)->
+#         # user = Meteor.users.findOne username:username
+#         Docs.find({
+#             model:'topup'
+#             _author_username:username
+#         }, limit:200)
             
