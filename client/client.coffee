@@ -103,10 +103,3 @@ Template.body.events
 
 Router.route '*', -> @render 'home'
 
-
-Template.home.helpers
-    logging_in: -> Meteor.loggingIn()
-    
-    
-# Template.home_item.onRendered ->
-#     Meteor.call 'log_view', @data._id
