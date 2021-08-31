@@ -21,8 +21,10 @@ if Meteor.isClient
             Docs.find match,
                 sort: _timestamp:-1
 
-
 if Meteor.isClient
+        
+    Template.transfer_view.onRendered ->
+
     Router.route '/transfer/:doc_id', (->
         @layout 'layout'
         @render 'transfer_view'
@@ -30,7 +32,9 @@ if Meteor.isClient
 
 
     Template.transfer_view.onCreated ->
+        @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'all_users'
         # @autorun => Meteor.subscribe 'product_by_transfer_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'transfer_things', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'review_from_transfer_id', Router.current().params.doc_id
@@ -118,8 +122,6 @@ if Meteor.isServer
     #         model:'product'
     #         _id: transfer.product_id
 
-
-if Meteor.isServer
     Meteor.methods  
         complete_transfer: (transfer_id)->
             console.log 'completing transfer', transfer_id
@@ -132,29 +134,6 @@ if Meteor.isServer
             console.log 'marked complete'
             Meteor.call 'calc_user_points', @_author_id, ->
                 
-                
-                
-                
-if Meteor.isClient
-    Template.transfer_view.onCreated ->
-        @autorun => Meteor.subscribe 'product_from_transfer_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'all_users'
-        
-    Template.transfer_view.onRendered ->
-
-
-
-if Meteor.isServer
-    Meteor.publish 'product_from_transfer_id', (transfer_id)->
-        transfer = Docs.findOne transfer_id
-        Docs.find 
-            _id:transfer.product_id
-
-
-
-if Meteor.isServer
     Meteor.methods
         send_transfer: (transfer_id)->
             transfer = Docs.findOne transfer_id

@@ -3,10 +3,6 @@ if Meteor.isClient
         @layout 'profile_layout'
         @render 'user_sent'
         ), name:'user_sent'
-    Router.route '/user/:username/debits', (->
-        @layout 'profile_layout'
-        @render 'user_sent'
-        ), name:'user_debits'
 
 
 
@@ -14,7 +10,7 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
             
             
-    Template.user_sent.events
+    Template.user_dashboard.events
         'click .send_points': ->
             new_id = 
                 Docs.insert 

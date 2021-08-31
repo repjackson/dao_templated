@@ -1,9 +1,6 @@
 template(name='user_layout')
     +nav
     .ui.bottom.attached.pushable.segment
-        // +topbar
-        // +left_sidebar
-        // +right_sidebar
         with user_from_username_param
             .ui.stackable.padded.grid.pusher
                 .row
@@ -51,17 +48,6 @@ template(name='user_layout')
                             .ui.basic.icon.button.logout.fly_down(title='log out')
                                 // i.sign.out.alternate.large.icon
                                 +i name='exit'
-                        unless is_current_user
-                            +friend_button
-                        if checkedin
-                            .ui.large.green.label 
-                                |checked in
-                            .ui.small.button.check_out
-                                |checkout
-                        else 
-                            .ui.basic.button.check_in
-                                +i name='internal' cl='ui avatar image'
-                                |check in
                         // .twelve.wide.column
                         // a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
                         //     i.dashboard.icon
