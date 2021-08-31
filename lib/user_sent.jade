@@ -15,7 +15,7 @@ template(name='user_sent')
         each sent_items
             .ui.card
                 .content
-                    .header
+                    a.header(href="/transfer/#{_id}")
                         strong #{amount}pt
                         | to 
                         if recipient.profile_image_id

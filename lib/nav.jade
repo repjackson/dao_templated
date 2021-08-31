@@ -35,8 +35,8 @@ template(name='nav')
                     +i name='what' cl='ui avatar image'
                 a.icon.item.mobile.hidden.zoomer(href="/m/drink" class="{{isActiveRoute regex='drinks'}}" title='drinks')
                     +i name='beer' cl='ui avatar image'
-            a.icon.item.mobile.hidden.zoomer(href='/quiz' class="{{isActiveRoute regex='quiz'}}" title='quiz')
-                +i name='what' cl='ui avatar image'
+            // a.icon.item.mobile.hidden.zoomer(href='/quiz' class="{{isActiveRoute regex='quiz'}}" title='quiz')
+            //     +i name='what' cl='ui avatar image'
             a.icon.item.mobile.hidden.zoomer(href='/m/item' class="{{isActiveRoute regex='items'}}" title='inventory')
                 +i name='grocery-shelf' cl='ui avatar image'
             // a.icon.item.mobile.hidden.zoomer(href='/m/order' class="{{isActiveRoute regex='orders'}}" title='orders')
@@ -75,7 +75,7 @@ template(name='nav')
                         //         i.large.shield.icon
                         // a.icon.item.toggle_topbar(title='alerts')
                         //     i.bell.outline.large.icon
-                        a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute regex='user_points'}}")
+                        a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             // i.wallet.icon
                             strong {{int currentUser.points}}p
                         a.item.toggle_rightbar.no_blink

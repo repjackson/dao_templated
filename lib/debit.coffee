@@ -1,41 +1,24 @@
 if Meteor.isClient
-    Router.route '/debits/', (->
-        @layout 'layout'
-        @render 'debits'
-        ), name:'debits'
-    
-
-    Router.route '/debit/:doc_id/view', (->
-        @layout 'layout'
-        @render 'debit_view'
-        ), name:'debit_view'
-
-    Template.debit_view.onCreated ->
-        @autorun => Meteor.subscribe 'product_from_debit_id', Router.current().params.doc_id
+    Template.transfer_view.onCreated ->
+        @autorun => Meteor.subscribe 'product_from_transfer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'all_users'
         
-    Template.debit_view.onRendered ->
+    Template.transfer_view.onRendered ->
 
 
 
 if Meteor.isServer
-    Meteor.publish 'product_from_debit_id', (debit_id)->
-        debit = Docs.findOne debit_id
+    Meteor.publish 'product_from_transfer_id', (transfer_id)->
+        transfer = Docs.findOne transfer_id
         Docs.find 
-            _id:debit.product_id
+            _id:transfer.product_id
 
 
 if Meteor.isClient
-    Router.route '/debit/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'debit_edit'
-        ), name:'debit_edit'
-        
-        
-    Template.debit_edit.onCreated ->
-        @autorun => Meteor.subscribe 'recipient_from_debit_id', Router.current().params.doc_id
+    Template.transfer_edit.onCreated ->
+        @autorun => Meteor.subscribe 'recipient_from_transfer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         @autorun => @subscribe 'tag_results',
@@ -45,21 +28,21 @@ if Meteor.isClient
             Session.get('current_query')
             Session.get('dummy')
         
-    Template.debit_edit.onRendered ->
+    Template.transfer_edit.onRendered ->
 
 
-    Template.debit_edit.helpers
+    Template.transfer_edit.helpers
         terms: ->
             Terms.find()
         suggestions: ->
             Tags.find()
         recipient: ->
-            debit = Docs.findOne Router.current().params.doc_id
-            if debit.recipient_id
+            transfer = Docs.findOne Router.current().params.doc_id
+            if transfer.recipient_id
                 Meteor.users.findOne
-                    _id: debit.recipient_id
+                    _id: transfer.recipient_id
         members: ->
-            debit = Docs.findOne Router.current().params.doc_id
+            transfer = Docs.findOne Router.current().params.doc_id
             Meteor.users.find({
                 # levels: $in: ['member','domain']
                 _id: $ne: Meteor.userId()
@@ -68,8 +51,8 @@ if Meteor.isClient
                 limit:10
                 })
         # subtotal: ->
-        #     debit = Docs.findOne Router.current().params.doc_id
-        #     debit.amount*debit.recipient_ids.length
+        #     transfer = Docs.findOne Router.current().params.doc_id
+        #     transfer.amount*transfer.recipient_ids.length
         
         point_max: ->
             if Meteor.user().username is 'one'
@@ -78,9 +61,9 @@ if Meteor.isClient
                 Meteor.user().points
         
         can_submit: ->
-            debit = Docs.findOne Router.current().params.doc_id
-            debit.amount and debit.recipient_id
-    Template.debit_edit.events
+            transfer = Docs.findOne Router.current().params.doc_id
+            transfer.amount and transfer.recipient_id
+    Template.transfer_edit.events
         'click .add_recipient': ->
             Docs.update Router.current().params.doc_id,
                 $set:
@@ -151,7 +134,7 @@ if Meteor.isClient
 
 
 
-        'click .cancel_debit': ->
+        'click .cancel_transfer': ->
             Swal.fire({
                 title: "confirm cancel?"
                 text: ""
@@ -179,7 +162,7 @@ if Meteor.isClient
                 reverseButtons: true
             }).then((result)=>
                 if result.value
-                    Meteor.call 'send_debit', @_id, =>
+                    Meteor.call 'send_transfer', @_id, =>
                         Swal.fire(
                             title:"#{@amount} sent"
                             icon:'success'
@@ -187,25 +170,25 @@ if Meteor.isClient
                             position: 'top-end',
                             timer: 1000
                         )
-                        Router.go "/debit/#{@_id}/view"
+                        Router.go "/transfer/#{@_id}/view"
             )
 
 
-    Template.debit_edit.helpers
-    Template.debit_edit.events
+    Template.transfer_edit.helpers
+    Template.transfer_edit.events
 
 if Meteor.isServer
     Meteor.methods
-        send_debit: (debit_id)->
-            debit = Docs.findOne debit_id
-            recipient = Meteor.users.findOne debit.recipient_id
-            debiter = Meteor.users.findOne debit._author_id
+        send_transfer: (transfer_id)->
+            transfer = Docs.findOne transfer_id
+            recipient = Meteor.users.findOne transfer.recipient_id
+            transferer = Meteor.users.findOne transfer._author_id
 
-            console.log 'sending debit', debit
+            console.log 'sending transfer', transfer
             Meteor.call 'recalc_one_stats', recipient._id, ->
-            Meteor.call 'recalc_one_stats', debit._author_id, ->
+            Meteor.call 'recalc_one_stats', transfer._author_id, ->
     
-            Docs.update debit_id,
+            Docs.update transfer_id,
                 $set:
                     submitted:true
                     submitted_timestamp:Date.now()
