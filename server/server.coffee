@@ -47,6 +47,10 @@ Meteor.publish 'parent_doc', (doc_id)->
     Docs.find
         _id:found.parent_id
         
+Meteor.publish 'all_users', (doc_id)->
+    Meteor.users.find()
+
+        
 Meteor.publish 'doc_by_id', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'doc', (doc_id)->

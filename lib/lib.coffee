@@ -32,8 +32,8 @@ Docs.helpers
     author: -> Meteor.users.findOne @_author_id
     _author: -> Meteor.users.findOne @_author_id
     _buyer: -> Meteor.users.findOne @buyer_id
-    recipient: ->
-        Meteor.users.findOne @recipient_id
+    target_user: ->
+        Meteor.users.findOne @target_user_id
     
     when: -> moment(@_timestamp).fromNow()
     is_visible: -> @published in [0,1]

@@ -32,13 +32,6 @@ template(name='user_layout')
                         if untappd_username
                             a.ui.small.header(href="https://untappd.com/user/#{untappd_username}" target="_window")
                                 |untappd profile: #{untappd.username}
-                        .ui.large.label app: #{app}
-                        div
-                        .ui.inline.header 
-                            +i name='shield' cl='ui avatar image'
-                            |roles:
-                        each roles
-                            .ui.basic.label #{this}
                         div
                         if is_current_user
                             a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
@@ -83,3 +76,5 @@ template(name='user_dashboard')
 template(name='user_received')
     .ui.header 
         |points received
+    each received_transfers
+        .ui.header hi

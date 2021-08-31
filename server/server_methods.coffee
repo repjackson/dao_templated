@@ -13,7 +13,7 @@ Meteor.methods
         found_users =
             Meteor.users.find({
                 username: {$regex:"#{username_query}", $options: 'i'}
-                roles:$in:[role_filter]
+                # roles:$in:[role_filter]
                 }).fetch()
         found_users
 

@@ -9,6 +9,9 @@ if Meteor.isClient
     Template.user_sent.onCreated ->
         @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
             
+    Template.user_received.onCreated ->
+        @autorun => Meteor.subscribe 'user_received', Router.current().params.username, ->
+            
             
     Template.user_dashboard.events
         'click .send_points': ->
@@ -56,10 +59,18 @@ if Meteor.isClient
             },
                 sort:_timestamp:-1
 
-        slots: ->
-            Docs.find
-                model:'slot'
-                _author_id: Router.current().params.user_id
+
+
+    Template.user_received.helpers
+        received_transfers: ->
+            current_user = Meteor.users.findOne(username:Router.current().params.username)
+            Docs.find {
+                model:'transfer'
+                target_user_id: current_user._id
+                # target_user_id: target_user._id
+            },
+                sort:_timestamp:-1
+
 
 
 if Meteor.isServer
@@ -68,5 +79,13 @@ if Meteor.isServer
         Docs.find {
             model:'transfer'
             _author_id: user._id
+        }, 
+            limit:100    
+            
+    Meteor.publish 'user_received', (username)->
+        user = Meteor.users.findOne username:username
+        Docs.find {
+            model:'transfer'
+            target_user_id: user._id
         }, 
             limit:100

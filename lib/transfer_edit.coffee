@@ -1,8 +1,13 @@
 if Meteor.isClient
+    Router.route '/transfer/:doc_id/edit', (->
+        @layout 'layout'
+        @render 'transfer_edit'
+        ), name:'transfer_edit'
     Template.transfer_edit.onCreated ->
-        @autorun => Meteor.subscribe 'recipient_from_transfer_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'recipient_from_transfer_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'all_users', ->
         @autorun => @subscribe 'tag_results',
             # Router.current().params.doc_id
             picked_tags.array()
@@ -12,6 +17,24 @@ if Meteor.isClient
         
     Template.transfer_edit.onRendered ->
 
+
+
+
+    Template.transfer_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+        # @autorun => Meteor.subscribe 'model_docs', 'source'
+
+    Template.transfer_edit.onRendered ->
+        # Meteor.setTimeout ->
+        #     today = new Date()
+        #     $('#availability')
+        #         .calendar({
+        #             inline:true
+        #             # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
+        #             # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
+        #         })
+        # , 2000
 
     Template.transfer_edit.helpers
         balance_after_purchase: ->
@@ -28,9 +51,9 @@ if Meteor.isClient
         #     Tags.find()
         recipient: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            if transfer.recipient_id
+            if transfer.target_user_id
                 Meteor.users.findOne
-                    _id: transfer.recipient_id
+                    _id: transfer.target_user_id
         members: ->
             transfer = Docs.findOne Router.current().params.doc_id
             Meteor.users.find({
@@ -42,7 +65,7 @@ if Meteor.isClient
                 })
         # subtotal: ->
         #     transfer = Docs.findOne Router.current().params.doc_id
-        #     transfer.amount*transfer.recipient_ids.length
+        #     transfer.amount*transfer.target_user_ids.length
         
         point_max: ->
             if Meteor.user().username is 'one'
@@ -52,7 +75,7 @@ if Meteor.isClient
         
         can_submit: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            transfer.amount and transfer.recipient_id
+            transfer.amount and transfer.target_user_id
 
 
     Template.transfer_edit.events
@@ -79,11 +102,11 @@ if Meteor.isClient
         'click .add_recipient': ->
             Docs.update Router.current().params.doc_id,
                 $set:
-                    recipient_id:@_id
+                    target_user_id:@_id
         'click .remove_recipient': ->
             Docs.update Router.current().params.doc_id,
                 $unset:
-                    recipient_id:1
+                    target_user_id:1
         'keyup .new_tag': _.throttle((e,t)->
             query = $('.new_tag').val()
             if query.length > 0
@@ -115,15 +138,15 @@ if Meteor.isClient
             Session.set('dummy', !Session.get('dummy'))
     
     
-        'click .select_term': (e,t)->
-            # picked_tags.push @title
-            Docs.update Router.current().params.doc_id,
-                $addToSet:tags:@title
-            picked_tags.push @title
-            $('.new_tag').val('')
-            Session.set('current_query', '')
-            Session.set('searching', false)
-            Session.set('dummy', !Session.get('dummy'))
+        # 'click .select_term': (e,t)->
+        #     # picked_tags.push @title
+        #     Docs.update Router.current().params.doc_id,
+        #         $addToSet:tags:@title
+        #     picked_tags.push @title
+        #     $('.new_tag').val('')
+        #     Session.set('current_query', '')
+        #     Session.set('searching', false)
+        #     Session.set('dummy', !Session.get('dummy'))
 
     
         'blur .edit_description': (e,t)->
@@ -185,30 +208,3 @@ if Meteor.isClient
                         Router.go "/transfer/#{@_id}"
             )
 
-
-
-if Meteor.isClient
-    Router.route '/transfer/:doc_id/edit', (->
-        @layout 'layout'
-        @render 'transfer_edit'
-        ), name:'transfer_edit'
-
-
-
-    Template.transfer_edit.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        # @autorun => Meteor.subscribe 'model_docs', 'source'
-
-    Template.transfer_edit.onRendered ->
-        # Meteor.setTimeout ->
-        #     today = new Date()
-        #     $('#availability')
-        #         .calendar({
-        #             inline:true
-        #             # minDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() - 5),
-        #             # maxDate: new Date(today.getFullYear(), today.getMonth(), today.getDate() + 5)
-        #         })
-        # , 2000
-
-    Template.transfer_edit.events
