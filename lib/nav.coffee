@@ -1,7 +1,7 @@
 if Meteor.isClient
     Template.nav.onCreated ->
-        Session.setDefault('is_global_searching')
-        Session.setDefault('bars_ready', false)
+        # Session.setDefault('is_global_searching')
+        # Session.setDefault('bars_ready', false)
         @autorun => Meteor.subscribe 'me'
         # @autorun => Meteor.subscribe 'current_group'
         # @autorun => Meteor.subscribe 'my_cart'
@@ -11,9 +11,9 @@ if Meteor.isClient
         # @autorun => Meteor.subscribe 'my_cart_products'
 
     Template.nav.onRendered ->
-        Meteor.setTimeout ->
-            Session.set('bars_ready', true)
-        , 2100
+        # Meteor.setTimeout ->
+        #     Session.set('bars_ready', true)
+        # , 2100
         Meteor.setTimeout ->
             $('.menu .item')
                 .popup()
@@ -28,18 +28,18 @@ if Meteor.isClient
                 })
                 .sidebar('attach events', '.toggle_leftbar')
         , 2000
-        Meteor.setTimeout ->
-            $('.ui.rightbar')
-                .sidebar({
-                    context: $('.bottom.segment')
-                    transition:'overlay'
-                    mobileTransition:'overlay'
-                    exclusive:true
-                    duration:200
-                    scrollLock:true
-                })
-                .sidebar('attach events', '.toggle_rightbar')
-        , 2000
+        # Meteor.setTimeout ->
+        #     $('.ui.rightbar')
+        #         .sidebar({
+        #             context: $('.bottom.segment')
+        #             transition:'overlay'
+        #             mobileTransition:'overlay'
+        #             exclusive:true
+        #             duration:200
+        #             scrollLock:true
+        #         })
+        #         .sidebar('attach events', '.toggle_rightbar')
+        # , 2000
         # Meteor.setTimeout ->
         #     $('.ui.topbar.sidebar')
         #         .sidebar({

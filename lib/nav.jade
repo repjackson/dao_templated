@@ -78,7 +78,6 @@ template(name='nav')
                         a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             // i.wallet.icon
                             strong {{int currentUser.points}}p
-                        a.item.toggle_rightbar.no_blink
                             if currentUser.image_id
                                 img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                             else

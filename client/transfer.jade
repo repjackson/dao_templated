@@ -124,6 +124,8 @@ template(name='transfer_view')
                     .spacer
                     .spacer
                     +comments
+                    if in_dev
+                        +print_this
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .five.wide.column
                     a(href="/user/#{recipient.username}")
