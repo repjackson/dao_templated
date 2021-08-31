@@ -9,6 +9,16 @@ Meteor.methods
     #     ]
     #     console.log res
 
+    lookup_user: (username_query, role_filter)->
+        found_users =
+            Meteor.users.find({
+                username: {$regex:"#{username_query}", $options: 'i'}
+                roles:$in:[role_filter]
+                }).fetch()
+        found_users
+
+
+
     calc_user_points: (username)->
         user = Meteor.users.findOne username:username
         # match = {}
