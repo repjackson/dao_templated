@@ -44,7 +44,7 @@ if Meteor.isClient
                 console.log val
                 target_user = Meteor.users.findOne(username:Router.current().params.username)
                 Docs.insert
-                    model:'debit'
+                    model:'transfer'
                     body: val
                     target_user_id: target_user._id
 
@@ -54,7 +54,7 @@ if Meteor.isClient
         sent_items: ->
             current_user = Meteor.users.findOne(username:Router.current().params.username)
             Docs.find {
-                model:'debit'
+                model:'transfer'
                 _author_id: current_user._id
                 # target_user_id: target_user._id
             },
@@ -70,7 +70,7 @@ if Meteor.isServer
     Meteor.publish 'user_sent', (username)->
         user = Meteor.users.findOne username:username
         Docs.find {
-            model:'debit'
+            model:'transfer'
             _author_id: user._id
         }, 
             limit:100

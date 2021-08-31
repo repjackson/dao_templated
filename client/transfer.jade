@@ -51,15 +51,6 @@ template(name='user_transfers')
     .ui.inline.header #{transfers.count} 
         +i name='invoice'
         |transfers
-    .ui.button
-        |view complete
-    |sort by
-    .ui.button
-        |price
-    .ui.button
-        |time
-    .ui.button 
-        |delivery
     .scrolling
         each transfers
             +user_transfer_item
@@ -90,7 +81,7 @@ template(name='user_transfer_item')
         |#{status}
         i.clock.icon
         |#{when}
-        if is_admin 
+        if in_dev 
             +print_this
             +remove_button
 
