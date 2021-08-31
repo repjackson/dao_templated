@@ -82,7 +82,7 @@ Meteor.methods
         received_docs = 
             Docs.find
                 model:'transfer'
-                recipient_id:user._id
+                target_user_id:user._id
         
         for transfer in received_docs.fetch()
             console.log transfer

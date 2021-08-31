@@ -8,10 +8,35 @@ if Meteor.isClient
         @render 'user_sent'
         ), name:'user_debits'
 
-    Template.user_sent.onCreated ->
-        # @autorun -> Meteor.subscribe 'user_model_docs', 'debit', Router.current().params.username
-        @autorun => Meteor.subscribe 'user_sent', Router.current().params.username
 
+
+    Template.user_sent.onCreated ->
+        @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
+            
+            
+    Template.user_sent.events
+        'click .send_points': ->
+            new_id = 
+                Docs.insert 
+                    model:'transfer'
+            user = Meteor.users.findOne username:Router.current().params.username
+                    
+            unless Meteor.user().username is Router.current().params.username
+                Docs.update new_id, 
+                    $set:
+                        target_username:Router.current().params.username
+                        target_user_id:user._id
+            Router.go "/transfer/#{new_id}/edit"
+                    
+    Template.user_sent.helpers
+        user_sent_docs: ->
+            user = Meteor.users.findOne username:Router.current().params.username
+        
+            Docs.find 
+                model:'transfer'
+                _author_username: user.username
+                
+            
     Template.user_sent.events
         'keyup .new_debit': (e,t)->
             if e.which is 13

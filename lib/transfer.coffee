@@ -1,31 +1,4 @@
 if Meteor.isClient
-    Template.user_sent.onCreated ->
-        @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
-            
-            
-    Template.user_sent.events
-        'click .send_points': ->
-            new_id = 
-                Docs.insert 
-                    model:'transfer'
-            user = Meteor.users.findOne username:Router.current().params.username
-                    
-            unless Meteor.user().username is Router.current().params.username
-                Docs.update new_id, 
-                    $set:
-                        target_username:Router.current().params.username
-                        target_user_id:user._id
-            Router.go "/transfer/#{new_id}/edit"
-                    
-    Template.user_sent.helpers
-        user_sent_docs: ->
-            user = Meteor.users.findOne username:Router.current().params.username
-        
-            Docs.find 
-                model:'transfer'
-                _author_username: user.username
-                
-            
     
     Router.route '/transfers', (->
         @render 'transfers'
@@ -154,22 +127,22 @@ if Meteor.isServer
         Docs.find match, 
             limit:20
         
-    Meteor.publish 'review_from_transfer_id', (transfer_id)->
-        # transfer = Docs.findOne transfer_id
-        # match = {model:'transfer'}
-        Docs.find 
-            model:'transfer_review'
-            transfer_id:transfer_id
+    # Meteor.publish 'review_from_transfer_id', (transfer_id)->
+    #     # transfer = Docs.findOne transfer_id
+    #     # match = {model:'transfer'}
+    #     Docs.find 
+    #         model:'transfer_review'
+    #         transfer_id:transfer_id
         
-    Meteor.publish 'product_by_transfer_id', (transfer_id)->
-        transfer = Docs.findOne transfer_id
-        Docs.find
-            _id: transfer.product_id
-    Meteor.publish 'transfer_things', (transfer_id)->
-        transfer = Docs.findOne transfer_id
-        Docs.find
-            model:'thing'
-            transfer_id: transfer_id
+    # Meteor.publish 'product_by_transfer_id', (transfer_id)->
+    #     transfer = Docs.findOne transfer_id
+    #     Docs.find
+    #         _id: transfer.product_id
+    # Meteor.publish 'transfer_things', (transfer_id)->
+    #     transfer = Docs.findOne transfer_id
+    #     Docs.find
+    #         model:'thing'
+    #         transfer_id: transfer_id
 
     # Meteor.methods
         # transfer_transfer: (transfer_id)->

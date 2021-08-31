@@ -258,3 +258,19 @@ template(name='user_dashboard')
 //         +i name='campfire'
 //         |#{user_from_username_param.name} groups
     
+template(name='user_points')
+    .ui.stackable.two.column.grid
+        // if is_current_user
+        
+        .column.smallscroll
+            +user_received
+        //     +user_topups
+        // .column.smallscroll
+        //     +user_work
+        .column.smallscroll
+            +user_sent
+            // +user_orders
+
+template(name='user_received')
+    .ui.header 
+        |points received
