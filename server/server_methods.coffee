@@ -200,7 +200,7 @@ Meteor.methods
         # doc.upvoters = []
         # return
         new_id = Docs.insert doc
-        # console.log 'new id', new_id
+        console.log 'new id', new_id
         new_id
         
 

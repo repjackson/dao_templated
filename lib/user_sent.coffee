@@ -15,17 +15,17 @@ if Meteor.isClient
             
     Template.user_dashboard.events
         'click .send_points': ->
-            new_id = 
-                Docs.insert 
-                    model:'transfer'
-            user = Meteor.users.findOne username:Router.current().params.username
-                    
-            unless Meteor.user().username is Router.current().params.username
-                Docs.update new_id, 
-                    $set:
-                        target_username:Router.current().params.username
-                        target_user_id:user._id
-            Router.go "/transfer/#{new_id}/edit"
+            Meteor.call 'insert_doc', {model:'transfer'}, (err,res)->
+                console.log res
+                # console.log 'new id', new_id
+                user = Meteor.users.findOne username:Router.current().params.username
+                        
+                unless Meteor.user().username is Router.current().params.username
+                    Docs.update res, 
+                        $set:
+                            target_username:Router.current().params.username
+                            target_user_id:user._id
+                Router.go "/transfer/#{res}/edit"
                     
     Template.user_sent.helpers
         user_sent_docs: ->
