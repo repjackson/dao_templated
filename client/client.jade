@@ -36,17 +36,13 @@ head
 template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    .ui.bottom.attached.pushable.segment.scrolling
-        if logging_in
-            .ui.center.aligned.basic.segment
-                i.massive.loading.yin.yang.grey.icon
-        else
-            .global_conainer.pusher
-                // unless connected
-                //     +status
-                +yield
-        if in_dev
-            +admin_footer
+    if logging_in
+        .ui.center.aligned.basic.segment
+            i.massive.loading.yin.yang.grey.icon
+    else
+        +yield
+    if in_dev
+        +admin_footer
       
 
       
@@ -93,7 +89,7 @@ template(name='admin_footer')
       
       
 template(name='nav')
-    #topnav.ui.fluid.attached.borderless.menu.topnav.hscroll
+    #topnav.ui.fluid.attached.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -104,7 +100,7 @@ template(name='nav')
             //         // i.big.loading.grey.food.icon
             // else 
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute regex='home'}}")
-                i.large.home.icon
+                i.large.yin.yang.icon
                 // img.ui.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
                 // span.mobile.hidden backcountry
             .right.menu
@@ -123,12 +119,13 @@ template(name='nav')
                     else
                         a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute regex='profile'}}")
                             // i.wallet.icon
-                            strong {{int currentUser.points}}p
                             if currentUser.image_id
                                 img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                             else
                                 i.user.icon
-                            strong.mobile.hidden #{currentUser.name}
+                            strong #{currentUser.name}
+                            |&nbsp;
+                            strong {{int currentUser.points}}p
                 unless currentUser
                     if subs_ready
                         a.icon.item(href='/login' title='login') 

@@ -51,9 +51,9 @@ if Meteor.isClient
         #     Tags.find()
         target: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            if transfer.target_user_id
+            if transfer.target_id
                 Meteor.users.findOne
-                    _id: transfer.target_user_id
+                    _id: transfer.target_id
         members: ->
             transfer = Docs.findOne Router.current().params.doc_id
             Meteor.users.find({
@@ -65,7 +65,7 @@ if Meteor.isClient
                 })
         # subtotal: ->
         #     transfer = Docs.findOne Router.current().params.doc_id
-        #     transfer.amount*transfer.target_user_ids.length
+        #     transfer.amount*transfer.target_ids.length
         
         point_max: ->
             if Meteor.user().username is 'one'
@@ -75,7 +75,7 @@ if Meteor.isClient
         
         can_submit: ->
             transfer = Docs.findOne Router.current().params.doc_id
-            transfer.amount and transfer.target_user_id
+            transfer.amount and transfer.target_id
 
 
     Template.transfer_edit.events
@@ -102,11 +102,11 @@ if Meteor.isClient
         'click .add_target': ->
             Docs.update Router.current().params.doc_id,
                 $set:
-                    target_user_id:@_id
+                    target_id:@_id
         'click .remove_target': ->
             Docs.update Router.current().params.doc_id,
                 $unset:
-                    target_user_id:1
+                    target_id:1
         'keyup .new_tag': _.throttle((e,t)->
             query = $('.new_tag').val()
             if query.length > 0

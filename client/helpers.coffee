@@ -47,7 +47,7 @@ Template.registerHelper 'current_route', () ->
     Router.current().location.get().path
     
 Template.registerHelper 'target', () ->
-    found = Meteor.users.findOne @target_user_id
+    found = Meteor.users.findOne @target_id
     # console.log found 
     # console.log @
     found

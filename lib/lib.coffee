@@ -33,7 +33,7 @@ Docs.helpers
     _author: -> Meteor.users.findOne @_author_id
     _buyer: -> Meteor.users.findOne @buyer_id
     target_user: ->
-        Meteor.users.findOne @target_user_id
+        Meteor.users.findOne @target_id
     
     when: -> moment(@_timestamp).fromNow()
     is_visible: -> @published in [0,1]

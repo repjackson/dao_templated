@@ -101,7 +101,7 @@ if Meteor.isClient
                     Docs.update res, 
                         $set:
                             target_username:Router.current().params.username
-                            target_user_id:user._id
+                            target_id:user._id
                 Router.go "/transfer/#{res}/edit"
                     
     Template.user_sent.helpers
@@ -122,7 +122,7 @@ if Meteor.isClient
                 Docs.insert
                     model:'transfer'
                     body: val
-                    target_user_id: target_user._id
+                    target_id: target_user._id
 
 
 
@@ -132,7 +132,7 @@ if Meteor.isClient
             Docs.find {
                 model:'transfer'
                 _author_id: current_user._id
-                # target_user_id: target_user._id
+                # target_id: target_user._id
             },
                 sort:_timestamp:-1
 
@@ -143,8 +143,8 @@ if Meteor.isClient
             current_user = Meteor.users.findOne(username:Router.current().params.username)
             Docs.find {
                 model:'transfer'
-                target_user_id: current_user._id
-                # target_user_id: target_user._id
+                target_id: current_user._id
+                # target_id: target_user._id
             },
                 sort:_timestamp:-1
 
@@ -163,6 +163,6 @@ if Meteor.isServer
         user = Meteor.users.findOne username:username
         Docs.find {
             model:'transfer'
-            target_user_id: user._id
+            target_id: user._id
         }, 
             limit:100                

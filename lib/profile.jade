@@ -1,57 +1,43 @@
 template(name='user_layout')
     +nav
-    .ui.bottom.attached.pushable.segment
-        with user_from_username_param
-            .ui.stackable.padded.grid.pusher
-                .row
-                    //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
-                    .four.wide.column
-                        a.item.zoomer(href="/user/#{username}")
-                            img.ui.centered.rounded.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
-                        // .spacer
-                        a.ui.header(href="/user/#{username}")
-                            | #{username}
-                        a.ui.small.header.zoomer(href="/users")
-                            strong
-                                |#{current_user.points}
-                            small
-                                |current pts
-                                span(title='rank') (##{current_user.point_rank})
-                        .ui.small.header
-                            strong
-                                |#{current_user.total_received_points}
-                            small
-                                |pts received
-                                // span(title='rank') (##{current_user.total_earned_credit_rank})
-                        .ui.small.header
-                            strong
-                                |#{current_user.total_sent_points}
-                            small
-                                |pts sent
-                                // span(title='rank') (##{current_user.total_bought_credit_rank})
-                        if untappd_username
-                            a.ui.small.header(href="https://untappd.com/user/#{untappd_username}" target="_window")
-                                |untappd profile: #{untappd.username}
-                        div
-                        if is_current_user
-                            a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
-                                // i.cog.large.icon
-                                +i name='settings'
-                        if is_current_user
-                            .ui.basic.icon.button.logout.fly_down(title='log out')
-                                // i.sign.out.alternate.large.icon
-                                +i name='exit'
-                        // .twelve.wide.column
-                        // a.ui.basic.button(href="/user/#{username}" class="{{isActiveRoute 'user_dashboard'}}")
-                        //     i.dashboard.icon
-                        //     |dashboard
-                    .twelve.wide.column
-                        // a.ui.basic.button(href="/user/#{username}/payroll" class="{{isActiveRoute 'user_payroll'}}")
-                        //     i.money.icon
-                        //     |payroll
-                        div.global_container
-                            .spacer
-                            +yield
+    with user_from_username_param
+        .ui.stackable.padded.grid.pusher
+            .row
+                //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
+                .four.wide.column
+                    a.item.zoomer(href="/user/#{username}")
+                        img.ui.centered.rounded.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
+                    // .spacer
+                    a.ui.header(href="/user/#{username}")
+                        | #{username}
+                    .ui.small.header.zoomer
+                        strong
+                            |#{current_user.points}
+                        small
+                            |current pts
+                            span(title='rank') (##{current_user.point_rank})
+                    .ui.small.header
+                        strong
+                            |#{current_user.total_received_points}
+                        small
+                            |pts received
+                            // span(title='rank') (##{current_user.total_earned_credit_rank})
+                    .ui.small.header
+                        strong
+                            |#{current_user.total_sent_points}
+                        small
+                            |pts sent
+                            // span(title='rank') (##{current_user.total_bought_credit_rank})
+                    div
+                    if is_current_user
+                        a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                            i.cog.large.icon
+                    if is_current_user
+                        .ui.basic.icon.button.logout.fly_down(title='log out')
+                            i.sign.out.alternate.large.icon
+                .twelve.wide.column
+                    .spacer
+                    +yield
 
         if in_role 'admin'
             +admin_footer
@@ -64,21 +50,34 @@ template(name='user_dashboard')
         .ui.stackable.two.column.grid
             // if is_current_user
             
-            .column.smallscroll
+            .column.scrolling
                 +user_received
-            //     +user_topups
-            // .column.smallscroll
-            //     +user_work
-            .column.smallscroll
+            .column.scrolling
                 +user_sent
-                // +user_orders
-
+                
+                
+                
 template(name='user_received')
     .ui.header 
         |points received
     each received_transfers
-        .ui.header hi
-        
+        .ui.card
+            .content
+                a.header(href="/transfer/#{_id}") #{title}
+                a.header(href="/transfer/#{_id}")
+                    strong #{amount}pt
+                    | to 
+                    if target.image_id
+                        img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                    |#{target.username}
+                small #{when}
+                div
+                |#{description}
+                div
+                each tags
+                    .ui.mini.basic.label #{this}
+                if in_dev
+                    +print_this
         
         
         
@@ -99,16 +98,19 @@ template(name='user_sent')
         each sent_items
             .ui.card
                 .content
+                    a.header(href="/transfer/#{_id}") #{title}
                     a.header(href="/transfer/#{_id}")
                         strong #{amount}pt
                         | to 
                         if target.image_id
                             img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                        |#{target.shortname}
+                        |#{target.username}
                     small #{when}
                     div
                     |#{description}
                     div
                     each tags
                         .ui.mini.basic.label #{this}
+                    if in_dev 
+                        +print_this
                                 

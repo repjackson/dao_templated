@@ -1,4 +1,4 @@
-template(name='doc_array_togggle')
+template(name='doc_array_toggle')
     if currentUser
         .ui.button.toggle(class=doc_array_toggle_class title=label)
             if in_list
@@ -13,45 +13,7 @@ template(name='doc_array_togggle')
         //- each list_users
         //-     +user_info
         
-template(name='product_images')
-    .ui.header
-        +i name='image'
-        |#{product_order_docs.count} #{parent.title} orders
 
-    .ui.stackable.cards
-        each product_image_docs
-            .card
-                img.ui.tiny.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
-            
-                .ui.header
-                    |#{title}
-            
-
-
-template(name='product_orders')
-    .ui.header
-        +i name='order-history'
-        |#{product_order_docs.count} #{parent.title} orders
-
-    .ui.selection.list
-        each product_order_docs
-            .ui.header #{title}
-
-
-
-template(name='product_fans')
-    .ui.inline.header 
-        +i name='flag-filled'
-        |fans
-    if is_fan
-        i.remove.icon.unfan(title='unfan')
-    else
-        .ui.small.compact.button.fans
-            i.plus.icon
-            |become fan
-    each product_fans
-        a.ui.header(href="/user/#{username}/")
-            |#{username}
 
 
 template(name='session_toggle') 
@@ -113,26 +75,6 @@ template(name='comments')
                                 +remove_button
                                 
                                 
-template(name='reviews')
-    .ui.header
-        +i name='popular-topic' cl='ui inline image'
-        |reviews
-    div
-    if currentUser
-        .ui.fluid.icon.large.input
-            i.plus.icon
-    .ui.reviews
-        each doc_reviews
-            .comment
-                .content
-                    .ui.header #{body}
-                    .meta #{when}
-                        |by 
-                        a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
-                        if currentUser
-                            +voting_small
-                            if can_edit
-                                +remove_button
 
 
 template(name='viewing')
@@ -190,42 +132,7 @@ template(name='set_sort_key')
                 i.icon(class=icon)
             |#{label}
 
-template(name='goto_model')
-    if is_staff
-        a.goto_model(href="/m/#{slug}" title="goto #{slug}")
-            i.external.blue.icon
-            //- +i name='external-link'
 
-template(name='events_column')
-    .ui.accordion
-        h4.active.title
-            // +i name='edit-property' cl='ui inline image'
-            //- i.rss.icon
-            | log
-            i.dropdown.icon
-        .active.content
-            .ui.feed
-                each log_events
-                    .event
-                        .label
-                            img.ui.rounded.image(src="{{c.url object.image width=400 height=400 gravity='face' crop='fill'}}")
-                        .content
-                            .summary
-                                |#{body}
-                                .date
-                                    |#{when}
-                                if in_dev
-                                    +remove_button
-
-
-
-
-template(name='follow')
-    .ui.segment
-        .ui.header
-            i.user.plus.icon
-            |follow
-        +user_list_toggle key='follower_ids' icon='rss' add_label='Follow' remove_label='Unfollow' color='black'
 
 
 template(name='toggle_edit')
@@ -500,7 +407,7 @@ template(name='email_validation_check')
         
 
 template(name='print_this')
-    i.link.large.code.icon.print.zoomer
+    i.link.large.code.circular.icon.print.zoomer
     
 
 template(name='alert_this')

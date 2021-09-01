@@ -9,19 +9,6 @@ if Meteor.isClient
     
     
     
-    Template.product_fans.events
-        'click .become_fan': ->
-            Docs.update @_id, 
-                $addToSet:
-                    fan_ids: Meteor.userId()
-                    
-        'click .unfan': ->
-            Docs.update @_id, 
-                $pull:
-                    fan_ids: Meteor.userId()
-                    
-        
-    
     
     
     
@@ -158,10 +145,6 @@ if Meteor.isClient
 
 
 
-    Template.role_editor.onCreated ->
-        @autorun => Meteor.subscribe 'model', 'role'
-
-
 
 
 
@@ -290,21 +273,6 @@ if Meteor.isClient
                     $set:"emails.0.verified":true
 
 
-    Template.add_button.onCreated ->
-        # console.log @
-        Meteor.subscribe 'model_from_slug', @data.model
-    Template.add_button.helpers
-        model: ->
-            data = Template.currentData()
-            Docs.findOne
-                model: 'model'
-                slug: data.model
-    Template.add_button.events
-        'click .add': ->
-            new_id = Docs.insert
-                model: @model
-            Router.go "/m/#{@model}/#{new_id}/edit"
-
 
     Template.remove_button.events
         'click .remove_doc': (e,t)->
@@ -377,19 +345,6 @@ if Meteor.isClient
             res
 
 if Meteor.isServer
-    Meteor.methods
-        'send_kiosk_message': (message)->
-            parent = Docs.findOne message.parent._id
-            Docs.update message._id,
-                $set:
-                    sent: true
-                    sent_timestamp: Date.now()
-            Docs.insert
-                model:'log_event'
-                log_type:'kiosk_message_sent'
-                text:"kiosk message sent"
-
-
     Meteor.publish 'children', (model, parent_id, limit)->
         # console.log model
         # console.log parent_id
@@ -401,12 +356,12 @@ if Meteor.isServer
         
         
 if Meteor.isClient
-    Template.doc_array_togggle.helpers
+    Template.doc_array_toggle.helpers
         doc_array_toggle_class: ->
             parent = Template.parentData()
             # user = Meteor.users.findOne Router.current().params.username
             if parent["#{@key}"] and @value in parent["#{@key}"] then 'blue' else 'basic'
-    Template.doc_array_togggle.events
+    Template.doc_array_toggle.events
         'click .toggle': (e,t)->
             parent = Template.parentData()
             if parent["#{@key}"]
