@@ -4,7 +4,7 @@ if Meteor.isClient
         @render 'transfer_edit'
         ), name:'transfer_edit'
     Template.transfer_edit.onCreated ->
-        @autorun => Meteor.subscribe 'recipient_from_transfer_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'all_users', ->
@@ -49,7 +49,7 @@ if Meteor.isClient
         #     Terms.find()
         # suggestions: ->
         #     Tags.find()
-        recipient: ->
+        target: ->
             transfer = Docs.findOne Router.current().params.doc_id
             if transfer.target_user_id
                 Meteor.users.findOne
@@ -99,11 +99,11 @@ if Meteor.isClient
             Docs.remove @_id
             Router.go "/"
     
-        'click .add_recipient': ->
+        'click .add_target': ->
             Docs.update Router.current().params.doc_id,
                 $set:
                     target_user_id:@_id
-        'click .remove_recipient': ->
+        'click .remove_target': ->
             Docs.update Router.current().params.doc_id,
                 $unset:
                     target_user_id:1

@@ -18,9 +18,9 @@ template(name='user_sent')
                     a.header(href="/transfer/#{_id}")
                         strong #{amount}pt
                         | to 
-                        if recipient.profile_image_id
-                            img.ui.avatar.image(src="{{c.url recipient.profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-                        |#{recipient.shortname}
+                        if target.image_id
+                            img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                        |#{target.shortname}
                     small #{when}
                     div
                     |#{description}

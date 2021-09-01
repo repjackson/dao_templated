@@ -46,9 +46,8 @@ Template.registerHelper 'current_route', () ->
     # console.log window.location.pathname.split('/')[1]
     Router.current().location.get().path
     
-Template.registerHelper 'order_product', () ->
-    
-    found = Docs.findOne @product_id
+Template.registerHelper 'target', () ->
+    found = Meteor.users.findOne @target_user_id
     # console.log found 
     # console.log @
     found

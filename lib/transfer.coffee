@@ -83,11 +83,11 @@ if Meteor.isServer
     Meteor.methods
         send_transfer: (transfer_id)->
             transfer = Docs.findOne transfer_id
-            recipient = Meteor.users.findOne transfer.target_user_id
+            target = Meteor.users.findOne transfer.target_user_id
             transferer = Meteor.users.findOne transfer._author_id
 
             console.log 'sending transfer', transfer
-            Meteor.call 'recalc_one_stats', recipient._id, ->
+            Meteor.call 'recalc_one_stats', target._id, ->
             Meteor.call 'recalc_one_stats', transfer._author_id, ->
     
             Docs.update transfer_id,
