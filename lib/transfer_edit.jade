@@ -38,7 +38,9 @@ template(name='transfer_edit')
                 .six.wide.column
                     +textarea_edit key='description' label='description' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    div 
+                    div
+                    if in_dev
+                        +print_this
                     
                     +array_edit key='tags' label='tags' icon='tag' direct=true
                     // div
@@ -69,18 +71,20 @@ template(name='transfer_edit')
                     .ui.big.input
                         input.point_amount(type='number' value=amount min='1' max=point_max)
                     div
+                    .spacer
                     +key_value_edit key='amount' value=1
                     +key_value_edit key='amount' value=5
                     +key_value_edit key='amount' value=10
                     +key_value_edit key='amount' value=20
                     +key_value_edit key='amount' value=50
-                    .spacer
+                    .ui.hidden.divider
+                    .ui.hidden.divider
                     .ui.center.aligned.basic.segment
                         if can_submit
                             .ui.green.huge.circular.button.submit
                                 i.big.send.icon
-                                |send
+                                |send #{amount}pts
                         else 
                             .ui.green.huge.circular.disabled.button
                                 i.send.big.icon
-                                |send
+                                |send #{amount}pts

@@ -1008,3 +1008,65 @@ Template.range_edit.events
         console.log moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
         Docs.update doc_id,
             $set:end_datetime:formatted
+            
+            
+            
+            
+Template.date_edit.events
+    'blur .edit_date': (e,t)->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        val = t.$('.edit_date').val()
+
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+
+
+
+
+Template.datetime_edit.events
+    'blur .edit_datetime': (e,t)->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        val = t.$('.edit_datetime').val()
+
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+
+
+
+
+
+Template.time_edit.events
+    'blur .edit_time': (e,t)->
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+        val = t.$('.edit_time').val()
+
+        doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
+                $set:"#{@key}":val
+            
