@@ -22,6 +22,8 @@ if Meteor.isClient
         user: -> Meteor.users.findOne username:Router.current().params.username
 
     Template.user_layout.events
+        'click .refresh_user_stats': ->
+            Meteor.call 'calc_user_points', Router.current().params.username, ->
         'click .logout_other_clients': -> Meteor.logoutOtherClients()
 
         'click .logout': (e,t)->

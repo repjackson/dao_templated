@@ -4,8 +4,8 @@ template(name='transfer_view')
             .centered.row 
                 .five.wide.column
                     a(href="/user/#{_author.username}") 
-                        img.ui.circular.centered.pointer.zoom.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                        .ui.large.center.aligned.header.pointer.zoom
+                        img.ui.circular.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
                 .five.wide.column
                     .ui.huge.center.aligned.header
@@ -33,8 +33,8 @@ template(name='transfer_view')
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .five.wide.column
                     a(href="/user/#{target.username}")
-                        img.ui.circular.centered.fluid.pointer.zoom.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                        .ui.large.center.aligned.header.pointer.zoom
+                        img.ui.circular.centered.fluid.pointer.zoomer.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        .ui.large.center.aligned.header.pointer.zoomer
                             |#{target.name}
 
 

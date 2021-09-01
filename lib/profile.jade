@@ -29,6 +29,7 @@ template(name='user_layout')
                             |pts sent
                             // span(title='rank') (##{current_user.total_bought_credit_rank})
                     div
+                    i.refresh.circular.link.icon.refresh_user_stats
                     if is_current_user
                         a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             i.cog.large.icon
@@ -71,11 +72,9 @@ template(name='user_received')
                         img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
                     |#{target.username}
                 small #{when}
-                div
                 |#{description}
-                div
                 each tags
-                    .ui.mini.basic.label #{this}
+                    .ui.basic.label #{this}
                 if in_dev
                     +print_this
         
@@ -104,13 +103,11 @@ template(name='user_sent')
                         | to 
                         if target.image_id
                             img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                        |#{target.username}
+                        |#{target_username}
                     small #{when}
-                    div
                     |#{description}
-                    div
                     each tags
-                        .ui.mini.basic.label #{this}
+                        .ui.basic.label #{this}
                     if in_dev 
                         +print_this
                                 

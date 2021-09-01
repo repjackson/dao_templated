@@ -9,8 +9,9 @@ if Meteor.isClient
 
     Template.transfer_view.onCreated ->
         @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'all_users'
+        # @autorun => Meteor.subscribe 'all_users'
         # @autorun => Meteor.subscribe 'product_by_transfer_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'transfer_things', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'review_from_transfer_id', Router.current().params.doc_id

@@ -53,6 +53,12 @@ Meteor.publish 'all_users', (doc_id)->
         
 Meteor.publish 'doc_by_id', (doc_id)->
     Docs.find doc_id
+Meteor.publish 'target_from_transfer_id', (transfer_id)->
+    transfer = 
+        Docs.findOne transfer_id
+    Meteor.users.find transfer.target_id
+    
+    
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
 Meteor.publish 'model_docs', (model)->
@@ -302,9 +308,9 @@ Meteor.methods
                 target_id:user._id
         
         for transfer in received_docs.fetch()
-            console.log transfer
             
             if transfer.amount
+                console.log 'adding transfer amount', transfer.amount
                 total_received += transfer.amount 
         console.log 'total received points', total_received
         
@@ -316,8 +322,8 @@ Meteor.methods
                 _author_id:user._id
         
         for transfer in sent_docs.fetch()
-            # console.log transfer.amount
             if transfer.amount
+                console.log transfer.amount
                 total_sent += transfer.amount 
         console.log 'total sent points', total_sent
         final_calculated_current_points = total_received - total_sent
