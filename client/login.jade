@@ -2,32 +2,26 @@ template(name='login')
     .ui.stackable.grid
         .centered.row
             .six.wide.center.aligned.column
-                // img.ui.image(src="{{c.url 'kitchen_logo' gravity='face' crop='fill'}}")
                 if is_logging_in
-                    +ibig name='pizza' cl='spinning'
-                    // i.massive.loading.pizza.slice.icon
+                    i.massive.loading.yin.yang.slice.icon
                 else 
-                    img.ui.small.centered.inline.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
-                // img.ui.centered.image(src="https://mark.trademarkia.com/services/logo.ashx?sid=88023400")
+                    i.massive.yin.yang.slice.icon
                 .ui.center.aligned.header login
-                // .ui.inline.small.header 
                 .ui.hidden.divider
                 .ui.inline.small.header 
-                    +i name='user-male'
-                    // i.user.outline.icon
+                    i.user.outline.icon
                     |username
                 .ui.fluid.large.input(class=enter_class)
                     input.username(type='text')
                 .spacer
                 .ui.inline.small.header 
-                    +i name='password'
-                    // i.lock.icon
+                    i.lock.icon
                     | password
                 .ui.fluid.large.input(class=enter_class)
                     input.password(type='password')
                 .ui.hidden.divider
                 .ui.fluid.big.basic.button.enter(title="login #{username}" class=enter_class)
-                    +i name='internal' cl='ui mini inline image'
+                    i.sign.in.alternate.icon
                     |login
                     strong #{username}
                 .ui.center.aligned.basic.segment    
@@ -38,13 +32,11 @@ template(name='login')
                     //     i.refresh.icon
                     //     |forgot password
 template(name='register')
-    //- img.ui.fluid.image.bg_overlay(src="{{c.url 'forest-bg2' width=1000 crop='fit'}}")    
     .ui.stackable.grid
         .centered.middle.aligned.row
             .ten.wide.column
                 .ui.center.aligned.basic.segment
-                    i.massive.pizza.icon
-                    // img.ui.centered.image(src="https://mark.trademarkia.com/services/logo.ashx?sid=88023400")
+                    i.massive.yin.yang.icon
                     .ui.center.aligned.inline.header
                         | register
                 div

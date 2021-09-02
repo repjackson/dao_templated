@@ -4,7 +4,7 @@ template(name='transfers')
             .ui.stackable.grid 
                 .four.wide.column
                     .ui.header 
-                        +i name='blog'
+                        +i name='transfer'
                         |transfers
                     |view
                     // +session_set key='transfer_sort_filter' value='open'               
@@ -14,25 +14,28 @@ template(name='transfers')
                     div
                     |sort by
                     +session_set key='transfer_sort_key' value='price'               
-                .twelve.wide.column
-                    a.ui.center.aligned.header(href="/transfers")
-                        +i name='clock' cl='ui tiny inline image'
-                        | transfers
-                    .scrolling
-                        each transfer_docs
-                            +transfer_item
-                            .ui.divider
+                .twelve.wide.column.scrolling
+                    each transfer_docs
+                        +transfer_item
             
             
 template(name='transfer_item')
-    a.ui.item(href="/transfer/#{_id}")
+    a.ui.card(href="/transfer/#{_id}")
         .content
-            .ui.header #{title}
-            a.ui.icon.big.button(href="/transfer/#{_id}")
-                i.right.chevron.large.icon
+            a.header(href="/transfer/#{_id}") #{title}
+            a.header(href="/transfer/#{_id}")
+                strong #{amount}pts
+                |from #{_author_username}
+                | to 
+                if target.image_id
+                    img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                |#{target_username}
+            small #{when}
+            |#{description}
+            each tags
+                .ui.basic.label #{this}
             if in_dev 
                 +print_this
-            |#{when}, #{_author_username} 
 
                     
 

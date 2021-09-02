@@ -26,9 +26,6 @@ if Meteor.isClient
 # Router.configure
 # 	progressSpinner : false
 
-Router.route '/', (->
-    @render 'home'
-    ), name:'home'
 
 Template.not_found.events
     'click .browser_back': ->

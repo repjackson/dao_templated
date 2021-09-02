@@ -10,19 +10,19 @@ template(name='user_layout')
                     // .spacer
                     a.ui.header(href="/user/#{username}")
                         | #{username}
-                    .ui.small.header.zoomer
+                    .ui.large.basic.label.zoomer
                         strong
                             |#{current_user.points}
                         small
                             |current pts
                             span(title='rank') (##{current_user.point_rank})
-                    .ui.small.header
+                    .ui.large.basic.label
                         strong
                             |#{current_user.total_received_points}
                         small
                             |pts received
                             // span(title='rank') (##{current_user.total_earned_credit_rank})
-                    .ui.small.header
+                    .ui.large.basic.label
                         strong
                             |#{current_user.total_sent_points}
                         small
@@ -36,6 +36,10 @@ template(name='user_layout')
                     if is_current_user
                         .ui.basic.icon.button.logout.fly_down(title='log out')
                             i.sign.out.alternate.large.icon
+                    .ui.hidden.divider
+                    .ui.big.basic.circular.green.button.send_points
+                        |send points
+                            
                 .twelve.wide.column
                     .spacer
                     +yield
@@ -45,8 +49,6 @@ template(name='user_layout')
 
 
 template(name='user_dashboard')
-    .ui.big.button.send_points
-        |send points
     with current_user       
         .ui.stackable.two.column.grid
             // if is_current_user
@@ -60,9 +62,13 @@ template(name='user_dashboard')
                 
 template(name='user_received')
     .ui.header 
+        +i name='internal'
         |points received
     each received_transfers
         .ui.card
+            if image_id
+                +image_view key='image_id' label='image' direct=true
+        
             .content
                 a.header(href="/transfer/#{_id}") #{title}
                 a.header(href="/transfer/#{_id}")
@@ -93,9 +99,11 @@ template(name='user_sent')
         .ui.basic.circular.label #{title}
             small #{count}
         
-    .ui.stackable.cards.scrolling
+    .scrolling
         each sent_items
             .ui.card
+                if image_id
+                    +image_view key='image_id' label='image' direct=true
                 .content
                     a.header(href="/transfer/#{_id}") #{title}
                     a.header(href="/transfer/#{_id}")

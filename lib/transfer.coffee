@@ -1,5 +1,5 @@
 if Meteor.isClient
-    Router.route '/transfers', (->
+    Router.route '/', (->
         @render 'transfers'
         ), name:'transfers'
 
