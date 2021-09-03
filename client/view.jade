@@ -22,6 +22,7 @@ template(name='transfer_view')
                     .ui.small.header
                         i.clock.icon
                         | #{when}
+                        |#{timestamp_long}
                     .spacer
                     .spacer
                     +voting_full
@@ -29,6 +30,8 @@ template(name='transfer_view')
                     if in_dev
                         +print_this
                         +remove_button
+                        a(href="/transfer/#{_id}/edit")
+                            i.large.circular.pencil.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .four.wide.center.aligned.column
                     a(href="/user/#{target.username}")

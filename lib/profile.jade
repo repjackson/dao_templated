@@ -55,7 +55,7 @@ template(name='user_dashboard')
             
             .column.scrolling
                 +user_received
-            .column.scrolling
+            .column.scrollin
                 +user_sent
                 
                 
@@ -99,7 +99,7 @@ template(name='user_sent')
         .ui.basic.circular.label #{title}
             small #{count}
         
-    .scrolling
+    .scrollin
         each sent_items
             .ui.card
                 if image_id

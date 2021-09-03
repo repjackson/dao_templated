@@ -86,9 +86,9 @@ if Meteor.isServer
             target = Meteor.users.findOne transfer.target_id
             transferer = Meteor.users.findOne transfer._author_id
 
-            console.log 'sending transfer', transfer
-            Meteor.call 'recalc_one_stats', target._id, ->
-            Meteor.call 'recalc_one_stats', transfer._author_id, ->
+            # console.log 'sending transfer', transfer
+            # Meteor.call 'recalc_one_stats', target._id, ->
+            # Meteor.call 'recalc_one_stats', transfer._author_id, ->
     
             Docs.update transfer_id,
                 $set:

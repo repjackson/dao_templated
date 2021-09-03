@@ -35,6 +35,11 @@ template(name='transfer_edit')
                     +date_edit key='date' label='date' direct=true   
                     +time_edit key='time' label='time' direct=true   
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    .ui.header 
+                        |privacy
+                    +key_value_edit key='privacy' value='public' icon='visible' label='public'
+                    +key_value_edit key='privacy' value='private' icon='lock' label='private'
+                    +key_value_edit key='privacy' value='anon' icon='anonymous' label='anonymous'
                 .six.wide.column
                     +textarea_edit key='description' label='description' direct=true
                     +image_edit key='image_id' label='image' direct=true
