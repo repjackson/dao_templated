@@ -1,7 +1,7 @@
 @picked_tags = new ReactiveArray []
 
 
-Template.body.events
+Template.view.events
     'click .zoom_in_card': (e,t)->
         $(e.currentTarget).closest('.card').transition('drop', 500)
     'click .zoom_out': (e,t)->
