@@ -49,8 +49,11 @@ Router.route '/user/:username/sent', (->
 
 
 Template.user_sent.onCreated ->
-    # @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
-        
+    @autorun => Meteor.subscribe 'transfers', 
+        Router.current().params.username
+        'sent'
+        picked_tags.array()
+        ,->
     @autorun -> Meteor.subscribe 'transfer_tags', 
         Router.current().params.username
         'sent'
@@ -70,7 +73,7 @@ Template.user_received.onCreated ->
         , ->
         
         
-Template.user_dashboard.events
+Template.user_layout.events
     'click .send_points': ->
         Meteor.call 'insert_doc', {model:'transfer'}, (err,res)->
             console.log res
@@ -103,16 +106,16 @@ Template.user_sent.helpers
         },
             sort:_timestamp:-1
         
-Template.user_sent.events
-    'keyup .new_debit': (e,t)->
-        if e.which is 13
-            val = $('.new_debit').val()
-            console.log val
-            target_user = Meteor.users.findOne(username:Router.current().params.username)
-            Docs.insert
-                model:'transfer'
-                body: val
-                target_id: target_user._id
+# Template.user_sent.events
+#     'keyup .new_debit': (e,t)->
+#         if e.which is 13
+#             val = $('.new_debit').val()
+#             console.log val
+#             target_user = Meteor.users.findOne(username:Router.current().params.username)
+#             Docs.insert
+#                 model:'transfer'
+#                 body: val
+#                 target_id: target_user._id
 
 
 

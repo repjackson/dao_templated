@@ -65,7 +65,8 @@ template(name='user_received')
         +i name='internal'
         |points received
     each received_tags
-        .ui.label #{this}
+        .ui.basic.large.circular.label #{title}
+            small #{count}
     each received_transfers
         .ui.card
             if image_id
@@ -89,8 +90,9 @@ template(name='user_received')
         
         
 template(name='user_sent')  
-    .ui.inline.header 
-        i.send.icon
+    .ui.header 
+        // i.send.icon
+        +i name='sent'
         |sent
     // .ui.basic.label #{total_sent_amount}p total sent
     // .ui.basic.label(title='sent count') #{sent_count} gifts sent

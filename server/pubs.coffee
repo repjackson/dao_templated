@@ -8,6 +8,7 @@ Meteor.publish 'user_sent', (username)->
         
 Meteor.publish 'transfers', (
     username
+    direction
     picked_tags
     )->
         
