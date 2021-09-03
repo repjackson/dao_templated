@@ -173,7 +173,7 @@ Meteor.methods
         
         for transfer in sent_docs.fetch()
             if transfer.amount
-                console.log transfer.amount
+                # console.log transfer.amount
                 total_sent += transfer.amount 
         console.log 'total sent points', total_sent
         final_calculated_current_points = total_received - total_sent
@@ -229,3 +229,74 @@ Meteor.methods
         Docs.update doc_id,
             $inc:views:1
         
+        
+        
+    calc_user_tags: (username)->
+        user = Meteor.users.findOne username:username
+        Meteor.call 'omega', user._id, 'sent', (err,res)->
+            console.log 'res from async agg', res
+        # debit_tags = Meteor.call 'omega', user._id, 'debit', (err, res)->
+        # console.log res
+        # console.log 'res from async agg', sent_tags
+        
+        # Meteor.users.update user._id, 
+        #     $set:
+        #         sent_tags:sent_tags
+
+        # received_tags = Meteor.call 'omega', user._id, 'received'
+        # # console.log res
+        # console.log 'res from async agg', received_tags
+        # Meteor.users.update user._id, 
+        #     $set:
+        #         received_tags:received_tags
+
+
+    omega: (user_id, direction)->
+        user = Meteor.users.findOne user_id
+        options = {
+            explain:false
+            allowDiskUse:true
+        }
+        match = {}
+        match.model = 'transfer'
+        if direction is 'sent'
+            match._author_id = user_id
+        if direction is 'received'
+            match.target_id = user_id
+
+        # console.log 'found debits', Docs.find(match).count()
+        # if omega.selected_tags.length > 0
+        #     limit = 42
+        # else
+        # limit = 10
+        # console.log 'omega_match', match
+        # { $match: tags:$all: omega.selected_tags }
+        pipe =  [
+            { $match: match }
+            { $project: tags: 1 }
+            { $unwind: "$tags" }
+            { $group: _id: "$tags", count: $sum: 1 }
+            # { $match: _id: $nin: omega.selected_tags }
+            { $sort: count: -1, _id: 1 }
+            { $limit: 10 }
+            { $project: _id: 0, title: '$_id', count: 1 }
+        ]
+
+        if pipe
+            # console.log('pipe',pipe)
+            agg = global['Docs'].rawCollection().aggregate(pipe,options)
+            # else
+            # res = {}
+            if agg
+                # console.log('agg to array', agg)
+                agg.toArray()
+                # agg.forEach (tag, i) =>
+                #     console.log 'for each tag', tag
+            #     # printed = console.log(agg.toArray())
+            #     agg.toArray()
+            #     # omega = Docs.findOne model:'omega_session'
+            #     # Docs.update omega._id,
+            #     #     $set:
+            #     #         agg:agg.toArray()
+        else
+            return null        

@@ -12,6 +12,7 @@ if Meteor.isClient
 
     Template.user_layout.onRendered ->
         Meteor.call 'calc_user_points', Router.current().params.username, ->
+        Meteor.call 'calc_user_tags', Router.current().params.username, ->
         Meteor.setTimeout ->
             $('.button').popup()
         , 2000

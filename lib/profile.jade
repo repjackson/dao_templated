@@ -64,6 +64,9 @@ template(name='user_received')
     .ui.header 
         +i name='internal'
         |points received
+    with current_user
+        each received_tags
+            .ui.label #{this}
     each received_transfers
         .ui.card
             if image_id
