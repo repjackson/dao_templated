@@ -43,6 +43,7 @@ Meteor.users.allow
 
 Meteor.publish 'transfer_tags', (
     username
+    direction
     picked_tags
     title_filter
     )->
@@ -66,7 +67,7 @@ Meteor.publish 'transfer_tags', (
         match.title = {$regex:title_filter, $options:'i'}
 
     result_count = Docs.find(match).count()
-    console.log result_count
+    console.log 'transfer tag result count', result_count
 
     tag_cloud = Docs.aggregate [
         { $match: match }

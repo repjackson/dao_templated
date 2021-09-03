@@ -8,13 +8,18 @@ Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
     # @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
     @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username, ->
+    @autorun -> Meteor.subscribe 'transfer_tags', 
+        Router.current().params.username
+        'sent'
+        picked_tags.array()
+        , ->
 
 Template.user_layout.onRendered ->
     Meteor.call 'calc_user_points', Router.current().params.username, ->
-    Meteor.call 'calc_user_tags', Router.current().params.username, ->
-    Meteor.setTimeout ->
-        $('.button').popup()
-    , 2000
+    # Meteor.call 'calc_user_tags', Router.current().params.username, ->
+    # Meteor.setTimeout ->
+    #     $('.button').popup()
+    # , 2000
 
 Template.user_layout.helpers
     user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
@@ -70,6 +75,8 @@ Template.user_dashboard.events
             Router.go "/transfer/#{res}/edit"
                 
 Template.user_sent.helpers
+    sent_tags: ->
+        Results.find()
     user_sent_docs: ->
         user = Meteor.users.findOne username:Router.current().params.username
     
