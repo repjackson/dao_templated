@@ -73,7 +73,7 @@ Template.user_received.onCreated ->
         , ->
         
         
-Template.user_layout.events
+Template.nav.events
     'click .send_points': ->
         Meteor.call 'insert_doc', {model:'transfer'}, (err,res)->
             console.log res

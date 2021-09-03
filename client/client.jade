@@ -113,6 +113,9 @@ template(name='nav')
                 //         |sign in
                 //       .right.menu
                 if currentUser
+                    a.icon.item.send_points(title='send points')
+                        i.large.green.plus.icon
+                
                     if logging_out
                         .icon.item
                             i.large.yin.yang.loading.icon

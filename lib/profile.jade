@@ -37,8 +37,6 @@ template(name='user_layout')
                         .ui.basic.icon.button.logout.fly_down(title='log out')
                             i.sign.out.alternate.large.icon
                     .ui.hidden.divider
-                    .ui.big.basic.circular.green.button.send_points
-                        |send points
                             
                 .twelve.wide.column
                     .spacer
@@ -63,7 +61,7 @@ template(name='user_dashboard')
 template(name='user_received')
     .ui.header 
         +i name='internal'
-        |points received
+        |#{received_transfers.count} received
     each received_tags
         .ui.basic.large.circular.label #{title}
             small #{count}
@@ -93,6 +91,7 @@ template(name='user_sent')
     .ui.header 
         // i.send.icon
         +i name='sent'
+        |#{sent_items.count}
         |sent
     // .ui.basic.label #{total_sent_amount}p total sent
     // .ui.basic.label(title='sent count') #{sent_count} gifts sent
