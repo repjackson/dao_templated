@@ -64,9 +64,8 @@ template(name='user_received')
     .ui.header 
         +i name='internal'
         |points received
-    with current_user
-        each received_tags
-            .ui.label #{this}
+    each received_tags
+        .ui.label #{this}
     each received_transfers
         .ui.card
             if image_id
@@ -102,7 +101,7 @@ template(name='user_sent')
         .ui.basic.large.circular.label #{title}
             small #{count}
         
-    .scrollin
+    .scrolling
         each sent_items
             .ui.card
                 if image_id

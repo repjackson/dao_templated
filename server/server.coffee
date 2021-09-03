@@ -40,60 +40,6 @@ Meteor.users.allow
 
 
 
-
-Meteor.publish 'transfer_tags', (
-    username
-    direction
-    picked_tags
-    title_filter
-    )->
-    self = @
-    
-    user = Meteor.users.findOne(username:username)
-    
-    # match = {}
-    match = {}
-    match.model = 'transfer'
-    
-    if direction is 'sent'
-        match._author_id = user._id
-    if direction is 'received'
-        match.target_id = user._id
-
-    
-    if picked_tags.length > 0 then match.tags = $all:picked_tags 
-
-    if title_filter and title_filter.length > 1
-        match.title = {$regex:title_filter, $options:'i'}
-
-    result_count = Docs.find(match).count()
-    console.log 'transfer tag result count', result_count
-
-    tag_cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "tags": 1 }
-        { $unwind: "$tags" }
-        { $group: _id: "$tags", count: $sum: 1 }
-        { $match: _id: $nin: picked_tags }
-        { $match: count: $lt: result_count }
-        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 11 }
-        { $project: _id: 0, title: '$_id', count: 1 }
-    ], {
-        allowDiskUse: true
-    }
-    
-    tag_cloud.forEach (tag, i) =>
-        self.added 'results', Random.id(),
-            title: tag.title
-            count: tag.count
-            model:'tag'
-            # category:key
-            # index: i
-
-    self.ready()
-    
 # Meteor.publish 'wiki_docs', (
 #     picked_tags=[]
 #     )->

@@ -6,25 +6,78 @@ Meteor.publish 'user_sent', (username)->
     }, 
         limit:100    
         
-Meteor.publish 'user_received', (username)->
+Meteor.publish 'transfers', (
+    username
+    picked_tags
+    )->
+        
     user = Meteor.users.findOne username:username
-    Docs.find {
-        model:'transfer'
-        target_id: user._id
-    }, 
+    match = {model:'transfer'}
+    if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    if direction is 'sent'
+        match._author_id = user._id
+    if direction is 'received'
+        match.target_id = user._id
+
+    
+    Docs.find match,
         limit:100                            
         
-        
-        
-Meteor.publish 'transfers', (transfer_id, status)->
-    # transfer = Docs.findOne transfer_id
-    match = {model:'transfer'}
-    if status 
-        match.status = status
 
-    Docs.find match, 
-        limit:20
+Meteor.publish 'transfer_tags', (
+    username
+    direction
+    picked_tags
+    title_filter
+    )->
+    self = @
     
+    user = Meteor.users.findOne(username:username)
+    
+    # match = {}
+    match = {}
+    match.model = 'transfer'
+    
+    if direction is 'sent'
+        match._author_id = user._id
+    if direction is 'received'
+        match.target_id = user._id
+
+    
+    if picked_tags.length > 0 then match.tags = $all:picked_tags 
+
+    if title_filter and title_filter.length > 1
+        match.title = {$regex:title_filter, $options:'i'}
+
+    result_count = Docs.find(match).count()
+    console.log 'transfer tag result count', result_count
+
+    tag_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "tags": 1 }
+        { $unwind: "$tags" }
+        { $group: _id: "$tags", count: $sum: 1 }
+        { $match: _id: $nin: picked_tags }
+        { $match: count: $lt: result_count }
+        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 11 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
+    
+    tag_cloud.forEach (tag, i) =>
+        self.added 'results', Random.id(),
+            title: tag.title
+            count: tag.count
+            model:'tag'
+            direction:direction
+            # index: i
+
+    self.ready()
+    
+        
         
         
         
@@ -40,23 +93,6 @@ Meteor.publish 'user_transfers', (username)->
         
         
         
-Meteor.publish 'user_model_docs', (username,model)->
-    Docs.find 
-        model:model
-        _author_username:username
-        
-Meteor.publish 'user_groups', (username)->
-    user = Meteor.users.findOne username:username
-    Docs.find 
-        model:'group'
-        _id:$in:user.membership_group_ids
-
-
-
-Meteor.publish 'parent_doc', (doc_id)->
-    found = Docs.findOne doc_id
-    Docs.find
-        _id:found.parent_id
         
 Meteor.publish 'all_users', (doc_id)->
     Meteor.users.find()
@@ -72,11 +108,6 @@ Meteor.publish 'target_from_transfer_id', (transfer_id)->
     
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
-Meteor.publish 'model_docs', (model)->
-    Docs.find {
-        model:model
-        app:'bc'
-    }, limit:20
 
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()

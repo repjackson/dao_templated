@@ -8,11 +8,6 @@ Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
     # @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
     @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username, ->
-    @autorun -> Meteor.subscribe 'transfer_tags', 
-        Router.current().params.username
-        'sent'
-        picked_tags.array()
-        , ->
 
 Template.user_layout.onRendered ->
     Meteor.call 'calc_user_points', Router.current().params.username, ->
@@ -54,10 +49,25 @@ Router.route '/user/:username/sent', (->
 
 
 Template.user_sent.onCreated ->
-    @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
+    # @autorun => Meteor.subscribe 'user_sent', Router.current().params.username, ->
+        
+    @autorun -> Meteor.subscribe 'transfer_tags', 
+        Router.current().params.username
+        'sent'
+        picked_tags.array()
+        , ->
         
 Template.user_received.onCreated ->
-    @autorun => Meteor.subscribe 'user_received', Router.current().params.username, ->
+    @autorun => Meteor.subscribe 'transfers', 
+        Router.current().params.username
+        'received'
+        picked_tags.array()
+        ,->
+    @autorun -> Meteor.subscribe 'transfer_tags', 
+        Router.current().params.username
+        'received'
+        picked_tags.array()
+        , ->
         
         
 Template.user_dashboard.events
@@ -76,7 +86,7 @@ Template.user_dashboard.events
                 
 Template.user_sent.helpers
     sent_tags: ->
-        Results.find()
+        Results.find(direction:'sent')
     user_sent_docs: ->
         user = Meteor.users.findOne username:Router.current().params.username
     
@@ -110,6 +120,9 @@ Template.user_sent.events
 
 
 Template.user_received.helpers
+    received_tags: ->
+        Results.find(direction:'received')
+
     received_transfers: ->
         current_user = Meteor.users.findOne(username:Router.current().params.username)
         Docs.find {
