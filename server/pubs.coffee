@@ -15,10 +15,11 @@ Meteor.publish 'transfers', (
     user = Meteor.users.findOne username:username
     match = {model:'transfer'}
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
-    if direction is 'sent'
-        match._author_id = user._id
-    if direction is 'received'
-        match.target_id = user._id
+    if username
+        if direction is 'sent'
+            match._author_id = user._id
+        if direction is 'received'
+            match.target_id = user._id
 
     
     Docs.find match,
@@ -38,11 +39,11 @@ Meteor.publish 'transfer_tags', (
     # match = {}
     match = {}
     match.model = 'transfer'
-    
-    if direction is 'sent'
-        match._author_id = user._id
-    if direction is 'received'
-        match.target_id = user._id
+    if username
+        if direction is 'sent'
+            match._author_id = user._id
+        if direction is 'received'
+            match.target_id = user._id
 
     
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
