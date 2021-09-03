@@ -22,15 +22,6 @@ if Meteor.isClient
                 sort: _timestamp:-1
 
 if Meteor.isServer
-    Meteor.publish 'transfers', (transfer_id, status)->
-        # transfer = Docs.findOne transfer_id
-        match = {model:'transfer', app:'bc'}
-        if status 
-            match.status = status
-
-        Docs.find match, 
-            limit:20
-        
 
 if Meteor.isClient
     Template.user_transfer_item.onCreated ->
@@ -44,54 +35,3 @@ if Meteor.isClient
             Docs.find {
                 model:'transfer'
             }, sort:_timestamp:-1
-
-if Meteor.isServer
-    # Meteor.publish 'user_transfers', (username)->
-    #     # user = Meteor.users.findOne username:username
-    #     Docs.find 
-    #         model:'transfer'
-    #         _author_username:username
-            
-    
-    Meteor.publish 'user_transfers', (username)->
-        user = Meteor.users.findOne username:username
-        Docs.find {
-            model:'transfer'
-            _author_id: user._id
-        }, 
-            limit:20
-            sort:_timestamp:-1
-            
-    # Meteor.publish 'product_from_transfer_id', (transfer_id)->
-    #     transfer = Docs.findOne transfer_id
-    #     Docs.find
-    #         model:'product'
-    #         _id: transfer.product_id
-
-    Meteor.methods  
-        complete_transfer: (transfer_id)->
-            console.log 'completing transfer', transfer_id
-            current_transfer = Docs.findOne transfer_id            
-            Docs.update transfer_id, 
-                $set:
-                    status:'purchased'
-                    purchased:true
-                    purchase_timestamp: Date.now()
-            console.log 'marked complete'
-            Meteor.call 'calc_user_points', @_author_id, ->
-                
-    Meteor.methods
-        send_transfer: (transfer_id)->
-            transfer = Docs.findOne transfer_id
-            target = Meteor.users.findOne transfer.target_id
-            transferer = Meteor.users.findOne transfer._author_id
-
-            # console.log 'sending transfer', transfer
-            # Meteor.call 'recalc_one_stats', target._id, ->
-            # Meteor.call 'recalc_one_stats', transfer._author_id, ->
-    
-            Docs.update transfer_id,
-                $set:
-                    submitted:true
-                    submitted_timestamp:Date.now()
-            return                

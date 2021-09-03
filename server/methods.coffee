@@ -300,3 +300,30 @@ Meteor.methods
             #     #         agg:agg.toArray()
         else
             return null        
+            
+            
+    complete_transfer: (transfer_id)->
+        console.log 'completing transfer', transfer_id
+        current_transfer = Docs.findOne transfer_id            
+        Docs.update transfer_id, 
+            $set:
+                status:'purchased'
+                purchased:true
+                purchase_timestamp: Date.now()
+        console.log 'marked complete'
+        Meteor.call 'calc_user_points', @_author_id, ->
+            
+    send_transfer: (transfer_id)->
+        transfer = Docs.findOne transfer_id
+        target = Meteor.users.findOne transfer.target_id
+        transferer = Meteor.users.findOne transfer._author_id
+
+        # console.log 'sending transfer', transfer
+        # Meteor.call 'recalc_one_stats', target._id, ->
+        # Meteor.call 'recalc_one_stats', transfer._author_id, ->
+
+        Docs.update transfer_id,
+            $set:
+                submitted:true
+                submitted_timestamp:Date.now()
+        return                            

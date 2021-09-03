@@ -15,6 +15,31 @@ Meteor.publish 'user_received', (username)->
         limit:100                            
         
         
+        
+Meteor.publish 'transfers', (transfer_id, status)->
+    # transfer = Docs.findOne transfer_id
+    match = {model:'transfer'}
+    if status 
+        match.status = status
+
+    Docs.find match, 
+        limit:20
+    
+        
+        
+        
+        
+Meteor.publish 'user_transfers', (username)->
+    user = Meteor.users.findOne username:username
+    Docs.find {
+        model:'transfer'
+        _author_id: user._id
+    }, 
+        limit:20
+        sort:_timestamp:-1
+        
+        
+        
 Meteor.publish 'user_model_docs', (username,model)->
     Docs.find 
         model:model
