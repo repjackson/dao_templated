@@ -1,22 +1,22 @@
 @picked_tags = new ReactiveArray []
 
 
-# Template.body.events
-#     'click .zoom_in_card': (e,t)->
-#         $(e.currentTarget).closest('.card').transition('drop', 500)
-#     'click .zoom_out': (e,t)->
-#         $(e.currentTarget).closest('.grid').transition('zoom', 500)
-#     'click .fly_up': (e,t)->
-#         $(e.currentTarget).closest('.grid').transition('fly up', 500)
-#     'click .cards_up': (e,t)->
-#         $(e.currentTarget).closest('.cards').transition('swing up', 500)
-#     'click .fly_down': (e,t)->
-#         $(e.currentTarget).closest('.grid').transition('fly down', 500)
-#     'click .fly_right': (e,t)->
-#         $(e.currentTarget).closest('.grid').transition('fly right', 500)
-#     'click .fly_left': (e,t)->
-#         console.log @, 'hi'
-#         $(e.currentTarget).closest('.grid').transition('fly left', 500)
+Template.body.events
+    'click .zoom_in_card': (e,t)->
+        $(e.currentTarget).closest('.card').transition('drop', 500)
+    'click .zoom_out': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('zoom', 500)
+    'click .fly_up': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('fly up', 500)
+    'click .cards_up': (e,t)->
+        $(e.currentTarget).closest('.cards').transition('swing up', 500)
+    'click .fly_down': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('fly down', 500)
+    'click .fly_right': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('fly right', 500)
+    'click .fly_left': (e,t)->
+        console.log @, 'hi'
+        $(e.currentTarget).closest('.grid').transition('fly left', 500)
 
 
 if Meteor.isClient

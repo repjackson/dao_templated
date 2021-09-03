@@ -41,13 +41,13 @@ template(name='transfer_edit')
                     +key_value_edit key='privacy' value='private' icon='lock' label='private'
                     +key_value_edit key='privacy' value='anon' icon='anonymous' label='anonymous'
                 .six.wide.column
+                    +array_edit key='tags' label='tags' icon='tag' direct=true
                     +textarea_edit key='description' label='description' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
                     if in_dev
                         +print_this
                     
-                    +array_edit key='tags' label='tags' icon='tag' direct=true
                     // div
                     // .ui.inline.header
                     //     i.tag.red.icon

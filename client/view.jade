@@ -1,9 +1,9 @@
-template(name='transfer_view')
+template(name='view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row 
                 .four.wide.center.aligned.column
-                    a(href="/user/#{_author.username}") 
+                    a.fly_right(href="/user/#{_author.username}") 
                         img.ui.circular.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
@@ -34,7 +34,7 @@ template(name='transfer_view')
                             i.large.circular.pencil.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .four.wide.center.aligned.column
-                    a(href="/user/#{target.username}")
+                    a.fly_right(href="/user/#{target.username}")
                         img.ui.circular.centered.fluid.pointer.zoomer.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{target.name}
