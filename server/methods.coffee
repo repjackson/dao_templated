@@ -72,7 +72,7 @@ Meteor.methods
     #     ]
     #     console.log res
 
-    lookup_user: (username_query, role_filter)->
+    lookup_user: (username_query)->
         found_users =
             Meteor.users.find({
                 username: {$regex:"#{username_query}", $options: 'i'}
@@ -158,7 +158,6 @@ Meteor.methods
                 target_id:user._id
         
         for transfer in received_docs.fetch()
-            
             if transfer.amount
                 console.log 'adding transfer amount', transfer.amount
                 total_received += transfer.amount 
@@ -205,6 +204,8 @@ Meteor.methods
         Meteor.users.update user._id,
             $set:
                 points: final_calculated_current_points
+                total_received:total_received
+                total_sent:total_sent
                 # total_earned_credits: point_credit_total
                 # total_bought_credits: point_topup_total
                 # total_credits: point_credit_total + point_topup_total

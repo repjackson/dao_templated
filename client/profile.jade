@@ -4,27 +4,27 @@ template(name='user_layout')
         .ui.stackable.padded.grid.pusher
             .row
                 //- img.ui.image.checkin_banner(src="{{c.url banner_image width=1000 height=1000 crop='crop'}}")
-                .four.wide.column
+                .three.wide.column
                     a.item.zoomer(href="/user/#{username}")
                         img.ui.centered.rounded.small.image(src="{{c.url image_id height=300 width=300 gravity='face' crop='fill'}}")
                     // .spacer
                     a.ui.header(href="/user/#{username}")
                         | #{username}
-                    .ui.large.basic.label.zoomer
+                    .ui.big.basic.label.zoomer
                         strong
                             |#{current_user.points}
                         small
                             |current pts
                             span(title='rank') (##{current_user.point_rank})
-                    .ui.large.basic.label
+                    .ui.big.basic.label
                         strong
-                            |#{current_user.total_received_points}
+                            |#{current_user.total_received}
                         small
                             |pts received
                             // span(title='rank') (##{current_user.total_earned_credit_rank})
-                    .ui.large.basic.label
+                    .ui.big.basic.label
                         strong
-                            |#{current_user.total_sent_points}
+                            |#{current_user.total_sent}
                         small
                             |pts sent
                             // span(title='rank') (##{current_user.total_bought_credit_rank})
@@ -38,7 +38,7 @@ template(name='user_layout')
                             i.sign.out.alternate.large.icon
                     .ui.hidden.divider
                             
-                .twelve.wide.column
+                .thirteen.wide.column
                     .spacer
                     +yield
 
@@ -61,29 +61,31 @@ template(name='user_dashboard')
 template(name='user_received')
     .ui.header 
         +i name='internal'
-        |#{received_transfers.count} received
+        |#{received_transfers.count} received 
+        small (#{current_user.total_received}pts total)
     each received_tags
         .ui.basic.large.circular.label #{title}
             small #{count}
-    each received_transfers
-        .ui.card
-            if image_id
-                +image_view key='image_id' label='image' direct=true
-        
-            .content
-                a.header(href="/transfer/#{_id}") #{title}
-                a.header(href="/transfer/#{_id}")
-                    strong #{amount}pt
-                    | to 
-                    if target.image_id
-                        img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                    |#{target.username}
-                small #{when}
-                |#{description}
-                each tags
-                    .ui.basic.label #{this}
-                if in_dev
-                    +print_this
+    .ui.two.stackable.cards
+        each received_transfers
+            .ui.card
+                if image_id
+                    +image_view key='image_id' label='image' direct=true
+            
+                .content
+                    a.header(href="/transfer/#{_id}") #{title}
+                    a.header(href="/transfer/#{_id}")
+                        strong #{amount}pt
+                        | to 
+                        if target.image_id
+                            img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
+                        |#{target.username}
+                    small #{when}
+                    |#{description}
+                    each tags
+                        .ui.basic.label #{this}
+                    if in_dev
+                        +print_this
         
         
         
@@ -93,6 +95,7 @@ template(name='user_sent')
         +i name='sent'
         |#{sent_items.count}
         |sent
+        small (#{current_user.total_sent}pts total)
     // .ui.basic.label #{total_sent_amount}p total sent
     // .ui.basic.label(title='sent count') #{sent_count} gifts sent
     // .ui.basic.label(title='rank') ##{global_sent_count_rank} gift sent rank
@@ -102,7 +105,7 @@ template(name='user_sent')
         .ui.basic.large.circular.label #{title}
             small #{count}
         
-    .scrolling
+    .scrolling.ui.two.stackable.cards
         each sent_items
             .ui.card
                 if image_id

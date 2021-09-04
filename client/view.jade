@@ -13,16 +13,21 @@ template(name='view')
                     .f14
                         |#{description}
                     .spacer
-                    +image_view key='image_id' label='image' direct=true
                     if tags
-                        i.tag.grey.icon
+                        i.large.tag.grey.icon
                         each tags 
                             .ui.big.basic.circular.label #{this}
-                    div 
+                    if location_tags
+                        i.large.marker.grey.icon
+                        each location_tags 
+                            .ui.big.basic.circular.label #{this}
+                    .spacer
                     .ui.small.header
                         i.clock.icon
                         | #{when}
                         |#{timestamp_long}
+                    +image_view key='image_id' label='image' direct=true
+                    div 
                     .spacer
                     .spacer
                     +voting_full

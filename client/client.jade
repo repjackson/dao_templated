@@ -94,15 +94,14 @@ template(name='nav')
             .item 
                 +status
         if connected
-            // unless subs_ready
-            //     .icon.item
-            //         +i name='pizza' cl='spinning'
-            //         // i.big.loading.grey.food.icon
+            unless subs_ready
+                .icon.item
+                    i.big.loading.grey.yin.yang.icon
             // else 
             a.header.item.zoomer.fly_left(href='/')
                 i.large.yin.yang.icon
-                // img.ui.avatar.image(src="https://cdn.shopify.com/s/files/1/2432/4293/files/bcplogocirclestyle-2092x2107_1024x1024.png?v=1507416868")
-                // span.mobile.hidden backcountry
+            a.header.item.zoomer.fly_left(href='/users')
+                i.large.users.icon
             .right.menu
                 //     a.item.log_out(title='sign out')
                 //         i.sign.out.icon
