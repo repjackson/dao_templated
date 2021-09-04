@@ -1,7 +1,7 @@
 if Meteor.isClient
-    @selected_user_tags = new ReactiveArray []
-    @selected_user_levels = new ReactiveArray []
-    @selected_user_roles = new ReactiveArray []
+    @picked_user_tags = new ReactiveArray []
+    @picked_user_levels = new ReactiveArray []
+    @picked_user_roles = new ReactiveArray []
 
 
     Router.route '/users', (->
@@ -10,16 +10,16 @@ if Meteor.isClient
 
 
     Template.users.onCreated ->
-        @autorun -> Meteor.subscribe 'selected_users', 
-            selected_user_tags.array() 
-            selected_user_levels.array()
+        @autorun -> Meteor.subscribe 'picked_users', 
+            picked_user_tags.array() 
+            picked_user_levels.array()
 
     Template.users.helpers
         users: ->
             match = {}
-            unless 'admin' in Meteor.user().roles
-                match.levels = $in:['member']
-            if selected_user_tags.array().length > 0 then match.tags = $all: selected_user_tags.array()
+            # unless 'admin' in Meteor.user().roles
+            #     match.levels = $in:['member']
+            if picked_user_tags.array().length > 0 then match.tags = $all: picked_user_tags.array()
             Meteor.users.find match,
                 sort:points:-1
             # if Meteor.user()
@@ -35,29 +35,7 @@ if Meteor.isClient
             #         levels:$in:['member']
             #     )
 
-    Template.member_card.helpers
-        credit_ratio: ->
-            unless @debit_count is 0
-                @debit_count/@debit_count
 
-    Template.member_card.events
-        'click .calc_points': ->
-            Meteor.call 'calc_user_points', @_id, ->
-        'click .debit': ->
-            # user = Meteor.users.findOne(username:@username)
-            new_debit_id =
-                Docs.insert
-                    model:'debit'
-                    recipient_id: @_id
-            Router.go "/debit/#{new_debit_id}/edit"
-
-        'click .request': ->
-            # user = Meteor.users.findOne(username:@username)
-            new_id =
-                Docs.insert
-                    model:'request'
-                    recipient_id: @_id
-            Router.go "/request/#{new_id}/edit"
 
     Template.addtoset_user.helpers
         ats_class: ->
@@ -82,64 +60,56 @@ if Meteor.isClient
 
     Template.user_cloud.onCreated ->
         @autorun -> Meteor.subscribe('user_tags',
-            selected_user_tags.array()
-            selected_user_levels.array()
-            selected_user_roles.array()
+            picked_user_tags.array()
+            picked_user_levels.array()
+            picked_user_roles.array()
             Session.get('view_mode')
         )
 
     Template.user_cloud.helpers
-        all_tags: ->
-            user_count = Meteor.users.find(_id:$ne:Meteor.userId()).count()
-            if 0 < user_count < 3 then User_tags.find { count: $lt: user_count } else User_tags.find()
-        selected_user_tags: ->
+        # all_tags: ->
+        #     user_count = Meteor.users.find(_id:$ne:Meteor.userId()).count()
+        #     if 0 < user_count < 3 then User_tags.find { count: $lt: user_count } else User_tags.find()
+        picked_user_tags: ->
             # model = 'event'
-            # console.log "selected_#{model}_tags"
-            selected_user_tags.array()
+            # console.log "picked_#{model}_tags"
+            picked_user_tags.array()
         all_levels: ->
             user_count = Meteor.users.find(_id:$ne:Meteor.userId()).count()
-            if 0 < user_count < 3 then Levels.find { count: $lt: user_count } else Levels.find()
-        selected_user_tags: ->
+            if 0 < user_count < 3 then Results.find { model:'level', count: $lt: user_count } else Results.find(model:'level')
+        picked_user_tags: ->
             # model = 'event'
-            # console.log "selected_#{model}_tags"
-            selected_user_tags.array()
+            # console.log "picked_#{model}_tags"
+            picked_user_tags.array()
 
-        all_levels: ->
-            user_count = Meteor.users.find(_id:$ne:Meteor.userId()).count()
-            if 0 < user_count < 3 then User_levels.find { count: $lt: user_count } else User_levels.find()
-        selected_user_levels: ->
+        picked_user_levels: ->
             # model = 'event'
-            # console.log "selected_#{model}_levels"
-            selected_user_levels.array()
-        all_levels: ->
-            user_count = Meteor.users.find(_id:$ne:Meteor.userId()).count()
-            if 0 < user_count < 3 then Level_results.find { count: $lt: user_count } else Level_results.find()
-        selected_user_levels: ->
-            # model = 'event'
-            # console.log "selected_#{model}_levels"
-            selected_user_levels.array()
+            # console.log "picked_#{model}_levels"
+            picked_user_levels.array()
 
 
     Template.user_cloud.events
-        'click .select_tag': -> selected_user_tags.push @name
-        'click .unselect_tag': -> selected_user_tags.remove @valueOf()
-        'click #clear_tags': -> selected_user_tags.clear()
+        'click .select_tag': -> picked_user_tags.push @name
+        'click .unselect_tag': -> picked_user_tags.remove @valueOf()
+        'click #clear_tags': -> picked_user_tags.clear()
 
-        'click .select_level': -> selected_user_levels.push @name
-        'click .unselect_level': -> selected_user_levels.remove @valueOf()
-        'click #clear_levels': -> selected_user_levels.clear()
+        'click .select_level': -> picked_user_levels.push @name
+        'click .unselect_level': -> picked_user_levels.remove @valueOf()
+        'click #clear_levels': -> picked_user_levels.clear()
 
 
 
 if Meteor.isServer
-    Meteor.publish 'selected_users', (
-        selected_user_tags
-        selected_user_levels
+    Meteor.publish 'picked_users', (
+        picked_user_tags
+        picked_user_levels
         )->
         match = {}
-        if selected_user_tags.length > 0 then match.tags = $all: selected_user_tags
-        if selected_user_levels.length > 0 then match.levels = $all: selected_user_levels
-        Meteor.users.find match
+        if picked_user_tags.length > 0 then match.tags = $all: picked_user_tags
+        # if picked_user_levels.length > 0 then match.levels = $all: picked_user_levels
+        Meteor.users.find match,
+            sort:
+                points:-1
         # if Meteor.user()
         #     if 'admin' in Meteor.user().roles
         #         Meteor.users.find()
@@ -156,15 +126,15 @@ if Meteor.isServer
 
 
     Meteor.publish 'user_tags', (
-        selected_user_tags,
-        selected_user_levels,
+        picked_user_tags,
+        picked_user_levels,
         view_mode
         limit
     )->
         self = @
         match = {}
-        if selected_user_tags.length > 0 then match.tags = $all: selected_user_tags
-        if selected_user_levels.length > 0 then match.levels = $all: selected_user_levels
+        if picked_user_tags.length > 0 then match.tags = $all: picked_user_tags
+        if picked_user_levels.length > 0 then match.levels = $all: picked_user_levels
         # match.model = 'item'
         # if view_mode is 'users'
         #     match.bought = $ne:true
@@ -184,7 +154,7 @@ if Meteor.isServer
             { $project: "tags": 1 }
             { $unwind: "$tags" }
             { $group: _id: "$tags", count: $sum: 1 }
-            { $match: _id: $nin: selected_user_tags }
+            { $match: _id: $nin: picked_user_tags }
             { $sort: count: -1, _id: 1 }
             { $limit: 10 }
             { $project: _id: 0, name: '$_id', count: 1 }
@@ -205,7 +175,7 @@ if Meteor.isServer
             { $project: "levels": 1 }
             { $unwind: "$levels" }
             { $group: _id: "$levels", count: $sum: 1 }
-            { $match: _id: $nin: selected_user_levels }
+            { $match: _id: $nin: picked_user_levels }
             { $sort: count: -1, _id: 1 }
             { $limit: 10 }
             { $project: _id: 0, name: '$_id', count: 1 }

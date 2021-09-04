@@ -36,6 +36,11 @@ Template.not_found.events
 Template.admin_footer.onCreated ->
     # @subscribe => 
     
+Template.admin_footer.events
+    'click .delete_user': ->
+        if confirm "delete #{@} user?"
+            Meteor.users.remove @_id
+    
 Template.admin_footer.helpers
     docs: ->
         Docs.find()

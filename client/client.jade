@@ -74,6 +74,9 @@ template(name='admin_footer')
                                 .header
                                     |#{username} 
                                 +print_this
+                                a.ui.icon.button(href="/user/#{_id}/edit")
+                                    i.pencil.icon
+                                i.remove.link.icon.delete_user
             .five.wide.column
                 .ui.inline.inverted.header #{results.count} results
                 .ui.small.inverted.list.smallscroll
