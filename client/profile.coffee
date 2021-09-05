@@ -79,12 +79,12 @@ Template.nav.events
             console.log res
             # console.log 'new id', new_id
             user = Meteor.users.findOne username:Router.current().params.username
-                    
-            unless Meteor.user().username is Router.current().params.username
-                Docs.update res, 
-                    $set:
-                        target_username:Router.current().params.username
-                        target_id:user._id
+            if user 
+                unless Meteor.user().username is Router.current().params.username
+                    Docs.update res, 
+                        $set:
+                            target_username:Router.current().params.username
+                            target_id:user._id
             Router.go "/transfer/#{res}/edit"
                 
 Template.user_sent.helpers

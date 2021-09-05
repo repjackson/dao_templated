@@ -142,7 +142,7 @@ Template.image_edit.events
         files = e.currentTarget.files
         parent = Template.parentData()
         # console.log @
-        console.log Template.parentData()
+        # console.log Template.parentData()
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.

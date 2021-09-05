@@ -5,8 +5,14 @@ template(name='users')
                 i.large.users.icon
                 |users
             +user_cloud
+            +session_set key='user_sort_filter' value='total sent'               
+            +session_set key='user_sort_filter' value='total received'
+            +session_set key='user_sort_filter' value='# sent'
+            +session_set key='user_sort_filter' value='# received'
+            +session_set key='user_sort_filter' value='current points'
+            
         .twelve.wide.column
-            .scrolling.ui.four.cards
+            .scrolling.ui.four.stackable.cards
                 each users
                     +user_card
 
@@ -14,16 +20,6 @@ template(name='users')
 
 
 template(name='user_cloud')
-    i.shield.blue.large.icon
-    if selected_user_levels
-        #clear_levels.ui.primary.icon.compact.button
-            i.remove.icon
-        each selected_user_levels
-            .unselect_level.ui.primary.compact.button
-                strong #{this}
-    each all_levels
-        .ui.compact.basic.button.select_level(class=cloud_tag_class) 
-            strong #{this.name}
     div
     i.tags.large.icon
     if selected_user_tags
