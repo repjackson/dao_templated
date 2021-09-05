@@ -192,7 +192,9 @@ Meteor.methods
 
                 # 
         received_rank = Meteor.users.find(total_received:$gt:parseInt(total_received)).count()
-        console.log 'total received rank', received_rank
+        sent_rank = Meteor.users.find(total_sent:$gt:parseInt(total_sent)).count()
+        # viewed_rank = Meteor.users.find(profile_views:$gt:parseInt(profile_views)).count()
+        # console.log 'total received rank', received_rank
         # Meteor.users.update user._id, 
         #     $set:total_earned_credit_rank:total_earned_credit_rank+1
 
@@ -206,6 +208,8 @@ Meteor.methods
                 points: final_calculated_current_points
                 total_received:total_received
                 total_sent:total_sent
+                received_rank:received_rank+1
+                sent_rank:sent_rank+1
                 # total_earned_credits: point_credit_total
                 # total_bought_credits: point_topup_total
                 # total_credits: point_credit_total + point_topup_total

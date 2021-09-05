@@ -12,10 +12,13 @@ template(name='users')
             +session_set key='user_sort_filter' value='current points'
             
         .thirteen.wide.column
-            .scrolling.ui.four.stackable.cards
-                each users
-                    +user_card
-
+            if users.count
+                .scrolling.ui.four.stackable.cards
+                    each users
+                        +user_card
+            else
+                .ui.basic.segment
+                    i.massive.loading.grey.users.icon
 
 
 
@@ -35,7 +38,7 @@ template(name='user_cloud')
 
 
 template(name='user_card')
-    a.card.rounded.pointer.zoomer(href="/user/#{username}")
+    a.card.rounded.pointer.zoomer.fly_right(href="/user/#{username}")
         img.ui.image(src="{{c.url image_id width=400 height=300 crop='fill'}}")    
         .content
             a.ui.inline.header(href="/user/#{username}" class=theme_color) 

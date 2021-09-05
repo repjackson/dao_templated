@@ -34,6 +34,10 @@ if Meteor.isClient
             #     Meteor.users.find(
             #         levels:$in:['member']
             #     )
+    Template.user_card.events
+        'click .fly_right': (e,t)->
+            $(e.currentTarget).closest('.card').transition('scale', 500)
+            $(e.currentTarget).closest('.grid').transition('fly up', 500)
 
 
 
@@ -110,6 +114,7 @@ if Meteor.isServer
         Meteor.users.find match,
             sort:
                 points:-1
+            limit:20
         # if Meteor.user()
         #     if 'admin' in Meteor.user().roles
         #         Meteor.users.find()

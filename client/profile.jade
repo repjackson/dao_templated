@@ -39,15 +39,30 @@ template(name='user_layout')
                     .ui.hidden.divider
                             
                 .thirteen.wide.column
-                    .spacer
+                    // .spacer
                     +yield
 
-        if in_role 'admin'
-            +admin_footer
+        // if in_role 'admin'
+        //     +admin_footer
 
 
 template(name='user_dashboard')
     with current_user       
+        .ui.statistic
+            .label
+                |received rank
+            .value 
+                |#{received_rank}
+        .ui.statistic
+            .label
+                |sent rank
+            .value 
+                |#{sent_rank}
+        .ui.statistic
+            .label
+                |profile views
+            .value 
+                |#{profile_views}
         .ui.stackable.two.column.grid
             // if is_current_user
             
