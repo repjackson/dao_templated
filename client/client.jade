@@ -92,7 +92,7 @@ template(name='admin_footer')
       
       
 template(name='nav')
-    #topnav.ui.fluid.attached.borderless.menu.topnav
+    #topnav.ui.fluid.attached.borderless.four.item.menu.topnav
         unless connected
             .item 
                 +status
@@ -105,39 +105,39 @@ template(name='nav')
                 i.large.exchange.icon
             a.header.item.zoomer.fly_left(href='/users')
                 i.large.users.icon
-            .right.menu
-                //     a.item.log_out(title='sign out')
-                //         i.sign.out.icon
-                //         |sign out
-                // else 
-                //     a.item(href="/login" title='sign in')
-                //         i.sign.in.icon
-                //         |sign in
-                //       .right.menu
-                if currentUser
-                    a.icon.item.send_points(title='send points')
-                        i.large.green.plus.icon
-                
-                    if logging_out
-                        .icon.item
-                            i.large.yin.yang.loading.icon
-                    else
-                        a.item(href="/user/#{currentUser.username}")
-                            // i.wallet.icon
-                            if currentUser.image_id
-                                img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
-                            else
-                                i.user.icon
-                            strong #{currentUser.name}
-                            |&nbsp;
-                            strong {{int currentUser.points}}p
-                unless currentUser
-                    if subs_ready
-                        a.icon.item(href='/login' title='login') 
-                            i.sign.in.large.icon
-                    else 
-                        i.yin.yang.loading.icon
-         
+            // .right.menu
+            //     a.item.log_out(title='sign out')
+            //         i.sign.out.icon
+            //         |sign out
+            // else 
+            //     a.item(href="/login" title='sign in')
+            //         i.sign.in.icon
+            //         |sign in
+            //       .right.menu
+            if currentUser
+                a.icon.item.send_points(title='send points')
+                    i.large.green.plus.icon
+            
+                if logging_out
+                    .icon.item
+                        i.large.yin.yang.loading.icon
+                else
+                    a.item(href="/user/#{currentUser.username}")
+                        // i.wallet.icon
+                        if currentUser.image_id
+                            img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                        else
+                            i.user.icon
+                        strong #{currentUser.name}
+                        |&nbsp;
+                        strong {{int currentUser.points}}p
+            unless currentUser
+                if subs_ready
+                    a.icon.item(href='/login' title='login') 
+                        i.sign.in.large.icon
+                else 
+                    i.yin.yang.loading.icon
+     
 
 
 
