@@ -264,11 +264,11 @@ template(name='textarea_edit')
         
 template(name='text_edit')
     // div
-    .ui.icon.large.fluid.input
-        .ui.inline.small.header
+    .ui.input
+        label
             if icon
-                //- i.grey.icon(class=icon)
-                +icon name=icon cl='ui avatar image'
+                i.grey.icon(class=icon)
+                // +icon name=icon cl='ui avatar image'
             if title
                 |#{title}
             else if label
@@ -276,6 +276,7 @@ template(name='text_edit')
             else if key
                 |#{key}
                 //- +clear_value
+        div
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 

@@ -14,10 +14,6 @@ Template.edit.onCreated ->
         Session.get('current_query')
         Session.get('dummy')
     
-Template.edit.onRendered ->
-
-
-
 
 Template.edit.onCreated ->
     @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
@@ -97,6 +93,21 @@ Template.edit.events
     'click .delete_transfer': ->
         Docs.remove @_id
         Router.go "/"
+
+
+    'click .parse_quick_add': ->
+        split = @quick_add.split(' ')
+        console.log split[0]
+        if split[0] is 'send'
+            console.log 'amount', parseInt(split[1])
+            Docs.update Router.current().params.doc_id, 
+                $set:
+                    amount:parseInt(split[1])
+        console.log split[1]
+        console.log split[2]
+        console.log split[3]
+        console.log split[4]
+        console.log split[5]
 
     'click .add_target': ->
         Docs.update Router.current().params.doc_id,

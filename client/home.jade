@@ -2,23 +2,22 @@ template(name='transfers')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
-                .three.wide.column
+                .four.wide.column
                     .ui.header 
                         +i name='transfer'
                         |transfers
-                    |view
-                    // +session_set key='transfer_sort_filter' value='open'               
-                    +session_set key='transfer_sort_filter' value='now'               
-                    +session_set key='transfer_sort_filter' value='later'   
-                    +session_set key='transfer_sort_filter' value=null label='all'
-                    div
-                    |sort by
-                    +session_set key='transfer_sort_key' value='price'               
-                .thirteen.wide.column
                     each transfer_tags
                         .ui.basic.large.circular.label #{title}
                             small #{count}
 
+                .twelve.wide.column
+                    i.eye.grey.icon
+                    // +session_set key='transfer_sort_filter' value='open'               
+                    +session_set key='transfer_sort_filter' value='now'               
+                    +session_set key='transfer_sort_filter' value='later'   
+                    +session_set key='transfer_sort_filter' value=null label='all'
+                    i.sort.grey.icon
+                    +session_set key='transfer_sort_key' value='price'               
                     .ui.four.stackable.cards.scrolling
                         each transfer_docs
                             +transfer_item
