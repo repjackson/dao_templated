@@ -122,7 +122,7 @@ Meteor.methods
         #     # { $project: tags: 1 }
         #     { $group:
         #         _id: "$item",
-        #         point_total: { $sum: "$task_points" },
+        #         point_total: { $sum: "$amount" },
         #         # avgAmount: { $avg: { $multiply: [ "$price", "$quantity" ] } },
         #         # avgQuantity: { $avg: "$quantity" }
         #     }
@@ -191,8 +191,8 @@ Meteor.methods
         # calculated_total_bought_credits = point_topup_total
 
                 # 
-        # total_earned_credit_rank = Meteor.users.find(total_earned_credits:$gt:parseInt(calculated_total_earned_credits)).count()
-        # console.log 'total earned credit rank', total_earned_credit_rank
+        received_rank = Meteor.users.find(total_received:$gt:parseInt(total_received)).count()
+        console.log 'total received rank', received_rank
         # Meteor.users.update user._id, 
         #     $set:total_earned_credit_rank:total_earned_credit_rank+1
 

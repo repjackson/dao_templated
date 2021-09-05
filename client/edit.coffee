@@ -74,20 +74,20 @@ Template.edit.helpers
 
 
 Template.edit.events
-    'click .complete_transfer': (e,t)->
-        console.log @
-        Session.set('transfering',true)
-        if @purchase_amount
-            if Meteor.user().points and @purchase_amount < Meteor.user().points
-                Meteor.call 'complete_transfer', @_id, =>
-                    Router.go "/product/#{@product_id}"
-                    Session.set('transfering',false)
-            else 
-                alert "not enough points"
-                Router.go "/user/#{Meteor.user().username}/points"
-                Session.set('transfering',false)
-        else 
-            alert 'no purchase amount'
+    # 'click .complete_transfer': (e,t)->
+    #     console.log @
+    #     Session.set('transfering',true)
+    #     if @purchase_amount
+    #         if Meteor.user().points and @purchase_amount < Meteor.user().points
+    #             Meteor.call 'complete_transfer', @_id, =>
+    #                 Router.go "/product/#{@product_id}"
+    #                 Session.set('transfering',false)
+    #         else 
+    #             alert "not enough points"
+    #             Router.go "/user/#{Meteor.user().username}/points"
+    #             Session.set('transfering',false)
+    #     else 
+    #         alert 'no purchase amount'
         
         
     'click .delete_transfer': ->
@@ -200,7 +200,7 @@ Template.edit.events
                 Router.go '/'
         )
         
-    'click .submit': ->
+    'click .submit': (e,t)->
         Swal.fire({
             title: "confirm send #{@amount}pts?"
             text: ""
@@ -213,6 +213,7 @@ Template.edit.events
         }).then((result)=>
             if result.value
                 Meteor.call 'send_transfer', @_id, =>
+                    $(e.currentTarget).closest('.grid').transition('fly down',500)
                     Swal.fire(
                         title:"#{@amount} sent"
                         icon:'success'
@@ -220,6 +221,7 @@ Template.edit.events
                         position: 'top-end',
                         timer: 1000
                     )
+                    
                     Router.go "/transfer/#{@_id}"
         )
 

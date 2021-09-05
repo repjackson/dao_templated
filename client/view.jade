@@ -24,8 +24,8 @@ template(name='view')
                     .spacer
                     .ui.small.header
                         i.clock.icon
-                        | #{when}
-                        |#{timestamp_long}
+                        | #{when}, 
+                        |#{_timestamp_long}
                     +image_view key='image_id' label='image' direct=true
                     div 
                     .spacer
@@ -34,7 +34,7 @@ template(name='view')
                     +comments
                     if in_dev
                         +print_this
-                        +remove_button
+                        // +remove_button
                     if is_author
                         a(href="/transfer/#{_id}/edit")
                             i.large.circular.pencil.icon

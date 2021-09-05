@@ -6,8 +6,6 @@ Router.route '/user/:username', (->
 
 Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
-    # @autorun -> Meteor.subscribe 'user_groups', Router.current().params.username, ->
-    @autorun -> Meteor.subscribe 'user_friends', Router.current().params.username, ->
 
 Template.user_layout.onRendered ->
     Meteor.call 'calc_user_points', Router.current().params.username, ->
@@ -36,9 +34,9 @@ Template.user_edit.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username
 
 Template.user_edit.onRendered ->
-    Meteor.setTimeout ->
-        $('.button').popup()
-    , 2000
+    # Meteor.setTimeout ->
+    #     $('.button').popup()
+    # , 2000
     
             
 Router.route '/user/:username/sent', (->
@@ -52,24 +50,40 @@ Template.user_sent.onCreated ->
     @autorun => Meteor.subscribe 'transfers', 
         Router.current().params.username
         'sent'
-        picked_tags.array()
+        picked_transfer_tags.array()
+        picked_transfer_from.array()
+        picked_transfer_to.array()
+        picked_transfer_timestamp_tags.array()
+        picked_transfer_location_tags.array()
         ,->
     @autorun -> Meteor.subscribe 'transfer_tags', 
         Router.current().params.username
         'sent'
-        picked_tags.array()
+        picked_transfer_tags.array()
+        picked_transfer_from.array()
+        picked_transfer_to.array()
+        picked_transfer_timestamp_tags.array()
+        picked_transfer_location_tags.array()
         , ->
         
 Template.user_received.onCreated ->
     @autorun => Meteor.subscribe 'transfers', 
         Router.current().params.username
         'received'
-        picked_tags.array()
+        picked_transfer_tags.array()
+        picked_transfer_from.array()
+        picked_transfer_to.array()
+        picked_transfer_timestamp_tags.array()
+        picked_transfer_location_tags.array()
         ,->
     @autorun -> Meteor.subscribe 'transfer_tags', 
         Router.current().params.username
         'received'
-        picked_tags.array()
+        picked_transfer_tags.array()
+        picked_transfer_from.array()
+        picked_transfer_to.array()
+        picked_transfer_timestamp_tags.array()
+        picked_transfer_location_tags.array()
         , ->
         
         

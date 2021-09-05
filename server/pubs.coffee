@@ -29,7 +29,9 @@ Meteor.publish 'transfers', (
 
     
     Docs.find match,
-        limit:20                          
+        limit:20   
+        sort:
+            _timestamp:-1
         
 
 Meteor.publish 'transfer_tags', (
