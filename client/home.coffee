@@ -51,10 +51,14 @@ Template.transfers.helpers
 
 
 Template.transfer_item.events
-    'click .fly_right': ->
+    'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly up', 500)
 
 Template.transfers.events
     'click .pick_tag': -> picked_transfer_tags.push @name
     'click .unpick_tag': -> picked_transfer_tags.remove @valueOf()
+    'click #clear_tags': -> picked_transfer_tags.clear()
+    
+    'click .pick_location_tag': -> picked_transfer_tags.push @name
+    'click .unpick_location_tag': -> picked_transfer_tags.remove @valueOf()
     'click #clear_tags': -> picked_transfer_tags.clear()

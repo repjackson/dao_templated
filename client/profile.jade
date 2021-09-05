@@ -84,6 +84,9 @@ template(name='user_received')
     .ui.two.stackable.cards
         each received_transfers
             .ui.card
+                .content
+                    each tags
+                        .ui.basic.large.label #{this}
                 if image_id
                     +image_view key='image_id' label='image' direct=true
             
@@ -97,8 +100,6 @@ template(name='user_received')
                         |#{target.username}
                     small #{when}
                     |#{description}
-                    each tags
-                        .ui.basic.label #{this}
                     if in_dev
                         +print_this
         

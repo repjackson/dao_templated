@@ -23,6 +23,24 @@ if Meteor.isClient
     Template.nav.onCreated ->
         @autorun => Meteor.subscribe 'me'
 
+
+Template.nav.events
+    'click .send_points': ->
+        if Meteor.userId()
+            Meteor.call 'insert_doc', {model:'transfer', privacy:'private'}, (err,res)->
+                console.log res
+                # console.log 'new id', new_id
+                user = Meteor.users.findOne username:Router.current().params.username
+                if user 
+                    unless Meteor.user().username is Router.current().params.username
+                        Docs.update res, 
+                            $set:
+                                target_username:Router.current().params.username
+                                target_id:user._id
+                Router.go "/transfer/#{res}/edit"
+        else 
+            Router.go "/login"
+        
 # Router.configure
 # 	progressSpinner : false
 
