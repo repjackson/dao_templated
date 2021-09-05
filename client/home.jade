@@ -6,6 +6,8 @@ template(name='transfers')
                     .ui.header 
                         +i name='transfer'
                         |transfers
+                    unless subs_ready
+                        i.loading.refresh.large.icon
                     each transfer_tags
                         .ui.basic.large.circular.label #{title}
                             small #{count}
@@ -19,8 +21,12 @@ template(name='transfers')
                     i.sort.grey.icon
                     +session_set key='transfer_sort_key' value='price'               
                     .ui.four.stackable.cards.scrolling
-                        each transfer_docs
-                            +transfer_item
+                        if transfer_docs.count
+                            each transfer_docs
+                                +transfer_item
+                        else 
+                            .ui.basic.segment
+                                i.massive.yin.yang.grey.loading.icon
             
             
 template(name='transfer_item')
