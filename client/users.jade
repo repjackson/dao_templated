@@ -35,11 +35,10 @@ template(name='user_cloud')
 
 
 template(name='user_card')
-    .card.rounded.pointer.zoomer(class=theme_color)
-        a(href="/user/#{username}")
-            img.ui.image(src="{{c.url image_id width=400 height=300 crop='fill'}}")    
+    a.card.rounded.pointer.zoomer(href="/user/#{username}")
+        img.ui.image(src="{{c.url image_id width=400 height=300 crop='fill'}}")    
         .content
-            a.ui.header(href="/user/#{username}" class=theme_color) 
+            a.ui.inline.header(href="/user/#{username}" class=theme_color) 
                 |#{name}
                 //- |#{username}
                 // if spirit_animal

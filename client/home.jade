@@ -34,15 +34,15 @@ template(name='transfer_item')
                 strong #{amount}pts
                 if _author.image_id
                     img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}")
-                |from #{_author_username}
-                | to 
+                | #{_author_username}
+                i.large.chevron.right.icon
                 if target.image_id
                     img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{target_username}
             small #{when}
             |#{description}
             each tags
-                .ui.basic.label #{this}
+                .ui.basic.large.circular.label #{this}
             if in_dev 
                 +print_this
 

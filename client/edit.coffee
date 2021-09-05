@@ -6,7 +6,7 @@ Template.edit.onCreated ->
     @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id, ->
     @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id, ->
     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
-    # @autorun => Meteor.subscribe 'all_users', ->
+    @autorun => Meteor.subscribe 'all_users', ->
     @autorun => @subscribe 'tag_results',
         # Router.current().params.doc_id
         picked_tags.array()

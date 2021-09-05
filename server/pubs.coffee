@@ -9,12 +9,18 @@ Meteor.publish 'user_sent', (username)->
 Meteor.publish 'transfers', (
     username
     direction
-    picked_tags
+    picked_transfer_tags
+    picked_transfer_from
+    picked_transfer_to
+    picked_transfer_timestamp_tags
+    picked_transfer_location_tags
     )->
         
     user = Meteor.users.findOne username:username
     match = {model:'transfer'}
-    if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    if picked_transfer_tags.length > 0 then match.tags = $all:picked_transfer_tags 
+    if picked_transfer_location_tags.length > 0 then match.location_tags = $all:picked_transfer_location_tags 
+    if picked_transfer_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_transfer_timestamp_tags 
     if username
         if direction is 'sent'
             match._author_id = user._id
@@ -23,14 +29,18 @@ Meteor.publish 'transfers', (
 
     
     Docs.find match,
-        limit:100                            
+        limit:20                          
         
 
 Meteor.publish 'transfer_tags', (
     username
     direction
-    picked_tags
-    title_filter
+    picked_transfer_tags
+    picked_transfer_from
+    picked_transfer_to
+    picked_transfer_timestamp_tags
+    picked_transfer_location_tags
+    title_filter=null
     )->
     self = @
     
@@ -46,7 +56,12 @@ Meteor.publish 'transfer_tags', (
             match.target_id = user._id
 
     
-    if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    if picked_transfer_tags.length > 0 then match.tags = $all:picked_tags 
+
+    if picked_transfer_location_tags.length > 0 then match.location_tags = $all:picked_transfer_location_tags 
+    if picked_transfer_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_transfer_timestamp_tags 
+
+
 
     if title_filter and title_filter.length > 1
         match.title = {$regex:title_filter, $options:'i'}
@@ -59,7 +74,7 @@ Meteor.publish 'transfer_tags', (
         { $project: "tags": 1 }
         { $unwind: "$tags" }
         { $group: _id: "$tags", count: $sum: 1 }
-        { $match: _id: $nin: picked_tags }
+        { $match: _id: $nin: picked_transfer_tags }
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
@@ -75,6 +90,51 @@ Meteor.publish 'transfer_tags', (
             count: tag.count
             model:'tag'
             direction:direction
+            # index: i
+            
+            
+    location_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "location_tags": 1 }
+        { $unwind: "$location_tags" }
+        { $group: _id: "$location_tags", count: $sum: 1 }
+        { $match: _id: $nin: picked_transfer_location_tags }
+        { $match: count: $lt: result_count }
+        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 20 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
+    
+    tag_cloud.forEach (tag, i) =>
+        self.added 'results', Random.id(),
+            title: tag.title
+            count: tag.count
+            model:'location_tag'
+            # index: i
+            
+    from_cloud = Docs.aggregate [
+        { $match: match }
+        { $project: "_author_username": 1 }
+        { $unwind: "$_author_username" }
+        { $group: _id: "$_author_username", count: $sum: 1 }
+        { $match: _id: $nin: picked_transfer_from }
+        { $match: count: $lt: result_count }
+        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+        { $sort: count: -1, _id: 1 }
+        { $limit: 20 }
+        { $project: _id: 0, title: '$_id', count: 1 }
+    ], {
+        allowDiskUse: true
+    }
+    
+    tag_cloud.forEach (tag, i) =>
+        self.added 'results', Random.id(),
+            title: tag.title
+            count: tag.count
+            model:'from'
             # index: i
 
     self.ready()
