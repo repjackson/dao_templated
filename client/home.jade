@@ -2,7 +2,7 @@ template(name='transfers')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
-                .four.wide.column
+                .three.wide.column
                     .ui.header 
                         +i name='transfer'
                         |transfers
@@ -14,22 +14,26 @@ template(name='transfers')
                     div
                     |sort by
                     +session_set key='transfer_sort_key' value='price'               
-                .twelve.wide.column
+                .thirteen.wide.column
                     each transfer_tags
                         .ui.basic.large.circular.label #{title}
                             small #{count}
 
-                    .ui.doubling.cards.scrolling
+                    .ui.four.stackable.cards.scrolling
                         each transfer_docs
                             +transfer_item
             
             
 template(name='transfer_item')
     a.ui.card(href="/transfer/#{_id}")
+        if image_id
+            img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
         .content
             a.header(href="/transfer/#{_id}") #{title}
             a.header(href="/transfer/#{_id}")
                 strong #{amount}pts
+                if _author.image_id
+                    img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |from #{_author_username}
                 | to 
                 if target.image_id

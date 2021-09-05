@@ -3,6 +3,7 @@ Router.route '/', (->
     ), name:'transfers'
 
 Template.transfers.onCreated ->
+    @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
         null
         'sent'
