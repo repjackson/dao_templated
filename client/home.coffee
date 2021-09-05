@@ -50,6 +50,10 @@ Template.transfers.helpers
             sort: _timestamp:-1
 
 
+Template.transfer_item.events
+    'click .fly_right': ->
+        $(e.currentTarget).closest('.grid').transition('fly up', 500)
+
 Template.transfers.events
     'click .pick_tag': -> picked_transfer_tags.push @name
     'click .unpick_tag': -> picked_transfer_tags.remove @valueOf()

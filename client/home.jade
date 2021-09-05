@@ -36,16 +36,16 @@ template(name='transfers')
             
             
 template(name='transfer_item')
-    a.ui.card(href="/transfer/#{_id}")
+    a.ui.card.fly_right(href="/transfer/#{_id}")
         if image_id
             img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
         .content
             a.header(href="/transfer/#{_id}") #{title}
             a.header(href="/transfer/#{_id}")
-                strong #{amount}pts
                 if _author.image_id
                     img.ui.avatar.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}")
                 | #{_author_username}
+                strong #{amount}
                 i.large.chevron.right.icon
                 if target.image_id
                     img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")

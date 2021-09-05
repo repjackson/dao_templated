@@ -14,11 +14,11 @@ template(name='view')
                         |#{description}
                     .spacer
                     if tags
-                        i.large.tag.grey.icon
+                        +i name='tag'
                         each tags 
                             .ui.big.basic.circular.label #{this}
                     if location_tags
-                        i.large.marker.grey.icon
+                        +i name='marker'
                         each location_tags 
                             .ui.big.basic.circular.label #{this}
                     .spacer

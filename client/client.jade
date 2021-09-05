@@ -92,7 +92,7 @@ template(name='admin_footer')
       
       
 template(name='nav')
-    #topnav.ui.fluid.attached.four.item.menu.topnav
+    #topnav.ui.fluid.attached.four.item.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -102,9 +102,11 @@ template(name='nav')
                     i.big.loading.grey.yin.yang.icon
             // else 
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute 'transfers'}}")
-                i.large.exchange.icon
+                // i.large.exchange.icon
+                +i name='transfer' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/users' class="{{isActiveRoute 'users'}}")
-                i.large.users.icon
+                // i.large.users.icon
+                +i name='user-male' cl='zoomer'
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon
@@ -115,7 +117,8 @@ template(name='nav')
             //         |sign in
             //       .right.menu
             a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
-                i.large.green.plus.icon
+                +i name='plus' cl='zoomer'
+                // i.large.green.plus.icon
         
             if currentUser
                 if logging_out

@@ -2,7 +2,8 @@ template(name='users')
     .ui.padded.stackable.grid
         .three.wide.column
             .ui.header 
-                i.large.users.icon
+                // i.large.users.icon
+                +i name='groups'
                 |users
             +user_cloud
             +session_set key='user_sort_filter' value='total sent'               
@@ -24,7 +25,7 @@ template(name='users')
 
 template(name='user_cloud')
     div
-    i.tags.large.icon
+    +i name='tag'
     if selected_user_tags
         #clear_tags.ui.primary.icon.compact.button
             i.remove.icon
