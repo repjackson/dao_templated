@@ -29,12 +29,12 @@ template(name='user_layout')
                             |pts sent
                             // span(title='rank') (##{current_user.total_bought_credit_rank})
                     div
-                    i.refresh.circular.link.icon.refresh_user_stats
+                    // i.refresh.circular.link.icon.refresh_user_stats
                     if is_current_user
-                        a.ui.basic.circular.icon.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
+                        a.ui.basic.circular.icon.big.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
                             i.cog.large.icon
                     if is_current_user
-                        .ui.basic.icon.button.logout.fly_down(title='log out')
+                        .ui.basic.icon.big.button.logout.fly_down(title='log out')
                             i.sign.out.alternate.large.icon
                     .ui.hidden.divider
                             

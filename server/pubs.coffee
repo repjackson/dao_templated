@@ -110,34 +110,34 @@ Meteor.publish 'transfer_tags', (
         allowDiskUse: true
     }
     
-    tag_cloud.forEach (tag, i) =>
+    location_cloud.forEach (tag, i) =>
         self.added 'results', Random.id(),
             title: tag.title
             count: tag.count
             model:'location_tag'
             # index: i
             
-    from_cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "_author_username": 1 }
-        { $unwind: "$_author_username" }
-        { $group: _id: "$_author_username", count: $sum: 1 }
-        { $match: _id: $nin: picked_transfer_from }
-        { $match: count: $lt: result_count }
-        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
-        { $project: _id: 0, title: '$_id', count: 1 }
-    ], {
-        allowDiskUse: true
-    }
+    # from_cloud = Docs.aggregate [
+    #     { $match: match }
+    #     { $project: "_author_username": 1 }
+    #     { $unwind: "$_author_username" }
+    #     { $group: _id: "$_author_username", count: $sum: 1 }
+    #     { $match: _id: $nin: picked_transfer_from }
+    #     { $match: count: $lt: result_count }
+    #     # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
+    #     { $sort: count: -1, _id: 1 }
+    #     { $limit: 20 }
+    #     { $project: _id: 0, title: '$_id', count: 1 }
+    # ], {
+    #     allowDiskUse: true
+    # }
     
-    tag_cloud.forEach (tag, i) =>
-        self.added 'results', Random.id(),
-            title: tag.title
-            count: tag.count
-            model:'from'
-            # index: i
+    # tag_cloud.forEach (tag, i) =>
+    #     self.added 'results', Random.id(),
+    #         title: tag.title
+    #         count: tag.count
+    #         model:'from'
+    #         # index: i
 
     self.ready()
     

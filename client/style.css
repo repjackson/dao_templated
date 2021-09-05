@@ -37,7 +37,7 @@ body {
 
 .button {
   /*margin:.1em !important;*/
-  /*border-radius: 10px !important;*/
+  border-radius: 10px !important;
 }
 .button:hover {
   transition: transform 1s; /* Animation */
@@ -777,6 +777,7 @@ input.username_search{
 
 .label {
   animation: fadein 1s;
+  margin:2px !important;
 }
 .segment{
   animation: fadein 1s;

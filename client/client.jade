@@ -41,8 +41,8 @@ template(name='layout')
             i.massive.loading.yin.yang.grey.icon
     else
         +yield
-    // if in_dev
-    //     +admin_footer
+    if in_dev
+        +admin_footer
       
 
       
@@ -114,10 +114,10 @@ template(name='nav')
             //         i.sign.in.icon
             //         |sign in
             //       .right.menu
+            a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
+                i.large.green.plus.icon
+        
             if currentUser
-                a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
-                    i.large.green.plus.icon
-            
                 if logging_out
                     .icon.item
                         i.large.yin.yang.loading.icon

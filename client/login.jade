@@ -1,12 +1,12 @@
 template(name='login')
-    .ui.stackable.grid
+    .ui.stackable.padded.grid
         .centered.row
             .six.wide.center.aligned.column
                 if is_logging_in
                     i.massive.loading.yin.yang.slice.icon
                 else 
                     i.massive.yin.yang.slice.icon
-                .ui.center.aligned.header login
+                .ui.center.aligned.inline.header login
                 .ui.hidden.divider
                 .ui.inline.small.header 
                     i.user.outline.icon

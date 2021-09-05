@@ -34,7 +34,9 @@ Template.transfers.onCreated ->
 
 Template.transfers.helpers
     transfer_tags: ->
-        Results.find()
+        Results.find(model:'tag')
+    location_tag_results: ->
+        Results.find(model:'location_tag')
 
     transfer_docs: ->
         match = {model:'transfer'}

@@ -164,6 +164,9 @@ Template.login.events
                 # console.log res
                 $('body').toast({
                     message: 'login successful'
+                    position: "bottom right"
+                    icon:'checkmark'
+                    class: 'success'
                 })
                 $(e.currentTarget).closest('.grid').transition('fly right', 1000)
                 

@@ -6,9 +6,15 @@ template(name='transfers')
                     .ui.header 
                         +i name='transfer'
                         |transfers
-                    unless subs_ready
-                        i.loading.refresh.large.icon
+                    unless transfer_tags.count
+                        i.loading.refresh.big.icon
+                    i.teal.tag.big.icon
                     each transfer_tags
+                        .ui.basic.large.circular.label #{title}
+                            // small #{count}
+                    div
+                    i.red.marker.big.icon
+                    each location_tag_results
                         .ui.basic.large.circular.label #{title}
                             small #{count}
 
@@ -46,9 +52,13 @@ template(name='transfer_item')
                 |#{target_username}
             small #{when}
             |#{description}
+            i.tag.icon
             each tags
                 .ui.basic.large.circular.label #{this}
-            if in_dev 
-                +print_this
+            i.red.marker.icon
+            each location_tags
+                .ui.basic.large.circular.label #{this}
+            // if in_dev 
+            //     +print_this
 
                     
