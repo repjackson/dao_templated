@@ -75,7 +75,7 @@ Template.user_received.onCreated ->
         
 Template.nav.events
     'click .send_points': ->
-        Meteor.call 'insert_doc', {model:'transfer'}, (err,res)->
+        Meteor.call 'insert_doc', {model:'transfer', privacy:'private'}, (err,res)->
             console.log res
             # console.log 'new id', new_id
             user = Meteor.users.findOne username:Router.current().params.username

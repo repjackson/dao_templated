@@ -103,6 +103,11 @@ Template.edit.events
             Docs.update Router.current().params.doc_id, 
                 $set:
                     amount:parseInt(split[1])
+        if split[3] is 'to'
+            console.log 'to', split[3]
+            # Docs.update Router.current().params.doc_id, 
+            #     $set:
+            #         amount:parseInt(split[1])
         console.log split[1]
         console.log split[2]
         console.log split[3]
