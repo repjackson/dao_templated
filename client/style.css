@@ -19,11 +19,12 @@ body {
     background-color: white !important;
 }
 .card:hover {
-    filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
+    filter: drop-shadow(10px 10px 10px rgba(200,200,200, 0.5)) !important;
+    transition: transform 1s; /* Animation */
 }
 .pointer:hover {
     cursor: pointer !important;
-    filter: drop-shadow(10px 10px 10px rgba(250,250,250, 0.5)) !important;
+    filter: drop-shadow(10px 10px 10px rgba(200,200,200, 0.5)) !important;
     transition: transform 1s; /* Animation */
     /*border-radius: 10px !important;*/
     transfom: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
@@ -35,10 +36,10 @@ body {
     transition: 1s ease-in-out
 }
 
-.button {
+/*.button {*/
   /*margin:.1em !important;*/
-  border-radius: 10px !important;
-}
+/*  border-radius: 10px !important;*/
+/*}*/
 .button:hover {
   transition: transform 1s; /* Animation */
   transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
@@ -125,7 +126,7 @@ body {
   display:inline !important;
 }
 
-body, p, {
+body, p {
   font-family: "Ubuntu","Montserrat",sans-serif !important;
   /*font-family: "Benne",sans-serif;*/
 }
@@ -585,7 +586,7 @@ input.username_search{
     /*font-family: 'Benne', sans-serif !important;*/
     /*filter: invert(.9) !important;*/
 
-    border-radius:7px !important; 
+    /*border-radius:7px !important; */
 }
 
 .attached.label {
@@ -614,7 +615,7 @@ input.username_search{
 .button {
     /* background-color: rgba(200, 200, 200, 0.5) !important; */
     /* box-shadow: 0 1px 1px 1px rgba(50, 50, 100, 0.1) !important; */
-    margin:2px !important;
+    /*margin:2px !important;*/
     /*font-weight: bold !important;*/
     /*text-size: bold !important;*/
     /*font-size: 110% !important;*/
@@ -820,20 +821,20 @@ input.username_search{
 .hscroll::-webkit-scrollbar {
     width: 0px !important;
     height: 0px !important;
-
+}
 /* .button {
     margin: 2em !important;
 } */
 
 
-.ui.button, .ui.input, .ui.label {
-    margin: 0.2em !important;
-} 
+/*.ui.button, .ui.input, .ui.label {*/
+/*    margin: 0.2em !important;*/
+/*} */
 
 
-.menu > .ui.button{
-	 margin_top: 2em !important;
-}
+/*.menu > .ui.button{*/
+/*	 margin_top: 2em !important;*/
+/*}*/
 
 
 
@@ -1074,10 +1075,6 @@ input.username_search{
 	/*padding-left: 1em;*/
 }
 
-
-.card {
-    opacity: .9 !important;
-}
 
 ::-webkit-scrollbar {
     /*display: none;*/

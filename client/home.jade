@@ -1,31 +1,41 @@
-template(name='transfers')
+template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
                 .four.wide.column
                     .ui.header 
-                        +i name='transfer'
+                        +i name='transfer-between-users'
                         |transfers
-                    unless transfer_tags.count
-                        i.loading.refresh.big.icon
+                    // unless tag_results.count
+                    //     i.loading.yin.yang.big.grey.icon
+                    // else
                     i.teal.tag.big.icon
-                    each transfer_tags
-                        .ui.basic.circular.label.pick_tag #{title}
+                    each picked_tags
+                        .ui.blue.button.unpick_tag.zoomer
+                            |#{this}
+                    each tag_results
+                        a.ui.basic.circular.link.label.pick_tag #{title}
                             // small #{count}
                     div
                     i.red.marker.big.icon
+                    each picked_location_tags
+                        a.ui.red.button.unpick_location_tag
+                            |#{this}
                     each location_tag_results
-                        .ui.basic.circular.label.pick_location_tag #{title}
+                        a.ui.basic.circular.link.label.zoomer.pick_location_tag #{title}
                             // small #{count}
+                    // +leaderboard
                     .ui.header 
-                        +i name='award'
+                        +i name='leaderboard'
                         |today's leaderboard
                     .ui.small.header 
+                        +i name='send' cl='ui avatar image'
                         |sent
                     .ui.large.link.selection.list
                         each most_sent_today
                             a.item(href="/user/#{username}") #{username}: #{total_sent_day}p
                     .ui.small.header 
+                        +i name='donate' cl='ui avatar image'
                         |received
                     .ui.large.link.selection.list
                         each most_received_today
@@ -34,7 +44,7 @@ template(name='transfers')
                     i.eye.grey.icon
                     // +session_set key='transfer_sort_filter' value='open'               
                     +session_set key='transfer_filter' value='now' icon='clock'            
-                    +session_set key='transfer_filter' value='today' icon='sun'
+                    +session_set key='transfer_filter' value='day' icon='sun'
                     +session_set key='transfer_filter' value=null label='all'
                     i.sort.grey.icon
                     +session_set key='transfer_sort_key' value='price'               
@@ -44,7 +54,7 @@ template(name='transfers')
                                 +transfer_item
                         else 
                             .ui.basic.segment
-                                i.massive.refresh.grey.loading.icon
+                                i.massive.yin.yang.grey.loading.icon
             
             
 template(name='transfer_item')
@@ -75,5 +85,9 @@ template(name='transfer_item')
                     .ui.basic.large.circular.label #{this}
                 // if in_dev 
                 //     +print_this
-
+        .ui.attached.buttons
+            .ui.icon.button
+                i.chat.icon
+            .ui.icon.button
+                i.thumbs.up.icon
                     

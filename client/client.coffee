@@ -1,6 +1,3 @@
-@picked_tags = new ReactiveArray []
-
-
 Template.nav.events
     'click .zoom_in_card': (e,t)->
         $(e.currentTarget).closest('.card').transition('drop', 500)
