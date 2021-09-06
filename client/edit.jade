@@ -3,7 +3,7 @@ template(name='edit')
         .ui.stackable.padded.grid
             .row 
                 .five.wide.column
-                    .ui.large.fluid.basic.circular.button.cancel_transfer
+                    .ui.large.fluid.basic.button.cancel_transfer
                         i.large.remove.red.icon
                         |cancel
                     .ui.segment
@@ -27,7 +27,7 @@ template(name='edit')
                             //     i.search.icon
                             //     input.search_username(type='text' placeholder='username')
                             // each members
-                            //     .ui.compact.basic.circular.button.add_target
+                            //     .ui.compact.basic.button.add_target
                             //         // i.plus.icon
                             //         img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             //         |#{name}
@@ -56,18 +56,18 @@ template(name='edit')
                     //     input.new_tag(type='text' placeholder='+' autocomplete="off")
                     //     //- +clear_value                
                     // each terms 
-                    //     a.ui.large.circular.basic.button.select_term(href='#')
+                    //     a.ui.large.basic.button.select_term(href='#')
                     //         if image
                     //             img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                     //         |#{title}
                     // each tags
-                    //     .ui.big.basic.circular.label
+                    //     .ui.big.basic.label
                     //         i.delete.icon.remove_element
                     //         |#{this}
                     // if suggestions
                     //     .ui.small.inline.header suggestions
                     // each suggestions
-                    //     a.ui.large.circular.basic.button.select_term(href='#')
+                    //     a.ui.large.basic.button.select_term(href='#')
                     //         // if image
                     //         //     img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                     //         |#{title}
@@ -85,14 +85,14 @@ template(name='edit')
                     .ui.hidden.divider
                     .ui.center.aligned.basic.segment
                         if can_submit
-                            .ui.green.huge.circular.button.submit
+                            .ui.green.huge.button.submit
                                 i.big.send.icon
                                 small send 
                                 strong #{amount}p
                                 small to 
                                 strong #{target_username}
                         else 
-                            .ui.green.huge.circular.disabled.button
+                            .ui.green.huge.disabled.button
                                 i.send.big.icon
                                 |send #{amount}pts to #{target_username}
                     // +text_edit key='quick_add' label="quick send [amount] to [username] for [list of tags]" icon='lightning'
@@ -138,5 +138,5 @@ template(name='single_user_edit')
             .ui.inline.header
                 img.ui.avatar.image(src="{{c.url image_id width=100 height=100 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                 |#{name}
-            i.pull_user.remove.link.circular.icon
+            i.pull_user.remove.link.icon
 

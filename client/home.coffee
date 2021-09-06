@@ -9,10 +9,11 @@ Router.route '/', (->
 @picked_location_tags = new ReactiveArray []
 
 
+Template.leaderboard.onCreated ->
+    @autorun -> Meteor.subscribe 'today_leaderboard', -> 
 
 Template.home.onCreated ->
     Session.setDefault('transfer_filter','day')
-    @autorun -> Meteor.subscribe 'today_leaderboard', -> 
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
         null
@@ -47,7 +48,11 @@ Template.home.helpers
         Results.find(model:'location_tag')
     picked_tags: -> picked_tags.array()
     picked_location_tags: -> picked_location_tags.array()
-
+    transfer_docs: ->
+        match = {model:'transfer'}
+        Docs.find match,
+            sort: _timestamp:-1
+Template.leaderboard.helpers
     most_sent_today: ->
         Meteor.users.find({total_sent_day: $gt:0},
             sort:
@@ -59,10 +64,6 @@ Template.home.helpers
                 total_received_day:-1
         )
 
-    transfer_docs: ->
-        match = {model:'transfer'}
-        Docs.find match,
-            sort: _timestamp:-1
 
 
 Template.transfer_item.events

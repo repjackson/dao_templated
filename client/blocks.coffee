@@ -36,7 +36,7 @@ Template.session_set.events
             Session.set(@key, @value)
 Template.session_set.helpers
     session_set_class: ->
-        if Session.equals(@key,@value) then 'blue large' else 'basic'
+        if Session.equals(@key,@value) then 'active large' else 'basic'
 Template.print_this.events
     'click .print': -> console.log @
 

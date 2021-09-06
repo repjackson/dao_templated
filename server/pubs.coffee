@@ -9,11 +9,11 @@ Meteor.publish 'user_sent', (username)->
 Meteor.publish 'transfers', (
     username
     direction
-    picked_transfer_tags
-    picked_transfer_from
-    picked_transfer_to
-    picked_transfer_timestamp_tags
-    picked_transfer_location_tags
+    picked_tags
+    picked_authors
+    picked_targets
+    picked_timestamp_tags
+    picked_location_tags
     filter=null
     sort_key='_timestamp'
     sort_direction=-1
@@ -33,9 +33,9 @@ Meteor.publish 'transfers', (
         day_ago = now-gap
         match._timestamp = $gte:day_ago
     
-    if picked_transfer_tags.length > 0 then match.tags = $all:picked_transfer_tags 
-    if picked_transfer_location_tags.length > 0 then match.location_tags = $all:picked_transfer_location_tags 
-    if picked_transfer_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_transfer_timestamp_tags 
+    if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    if picked_location_tags.length > 0 then match.location_tags = $all:picked_location_tags 
+    if picked_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_timestamp_tags 
     if username
         if direction is 'sent'
             match._author_id = user._id
@@ -65,11 +65,11 @@ Meteor.publish 'today_leaderboard', ()->
 Meteor.publish 'transfer_tags', (
     username
     direction
-    picked_transfer_tags
-    picked_transfer_from
-    picked_transfer_to
-    picked_transfer_timestamp_tags
-    picked_transfer_location_tags
+    picked_tags
+    picked_authors
+    picked_targets
+    picked_timestamp_tags
+    picked_location_tags
     # title_filter=null
     filter=null
     sort_key='_timestamp'
@@ -102,10 +102,10 @@ Meteor.publish 'transfer_tags', (
             match.target_id = user._id
 
     
-    if picked_transfer_tags.length > 0 then match.tags = $all:picked_tags 
+    if picked_tags.length > 0 then match.tags = $all:picked_tags 
 
-    if picked_transfer_location_tags.length > 0 then match.location_tags = $all:picked_transfer_location_tags 
-    if picked_transfer_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_transfer_timestamp_tags 
+    if picked_location_tags.length > 0 then match.location_tags = $all:picked_location_tags 
+    if picked_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_timestamp_tags 
 
 
 
@@ -120,7 +120,7 @@ Meteor.publish 'transfer_tags', (
         { $project: "tags": 1 }
         { $unwind: "$tags" }
         { $group: _id: "$tags", count: $sum: 1 }
-        { $match: _id: $nin: picked_transfer_tags }
+        { $match: _id: $nin: picked_tags }
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
@@ -144,7 +144,7 @@ Meteor.publish 'transfer_tags', (
         { $project: "location_tags": 1 }
         { $unwind: "$location_tags" }
         { $group: _id: "$location_tags", count: $sum: 1 }
-        { $match: _id: $nin: picked_transfer_location_tags }
+        { $match: _id: $nin: picked_location_tags }
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
@@ -166,7 +166,7 @@ Meteor.publish 'transfer_tags', (
     #     { $project: "_author_username": 1 }
     #     { $unwind: "$_author_username" }
     #     { $group: _id: "$_author_username", count: $sum: 1 }
-    #     { $match: _id: $nin: picked_transfer_from }
+    #     { $match: _id: $nin: picked_authors }
     #     { $match: count: $lt: result_count }
     #     # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
     #     { $sort: count: -1, _id: 1 }

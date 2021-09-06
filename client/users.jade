@@ -11,7 +11,8 @@ template(name='users')
             +session_set key='user_sort_filter' value='# sent'
             +session_set key='user_sort_filter' value='# received'
             +session_set key='user_sort_filter' value='current points'
-            
+            +leaderboard
+
         .thirteen.wide.column
             if users.count
                 .scrolling.ui.four.stackable.cards
@@ -20,6 +21,25 @@ template(name='users')
             else
                 .ui.basic.segment
                     i.massive.loading.grey.users.icon
+
+
+
+template(name='leaderboard')
+    .ui.header 
+        +i name='leaderboard'
+        |today's leaderboard
+    .ui.small.header 
+        +i name='send' cl='ui avatar image'
+        |sent
+    .ui.large.link.selection.list
+        each most_sent_today
+            a.item(href="/user/#{username}") #{username}: #{total_sent_day}p
+    .ui.small.header 
+        +i name='donate' cl='ui avatar image'
+        |received
+    .ui.large.link.selection.list
+        each most_received_today
+            a.item(href="/user/#{username}") #{username}: #{total_received_day}p
 
 
 

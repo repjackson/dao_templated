@@ -12,7 +12,7 @@ Template.nav.events
     'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 500)
     'click .fly_left': (e,t)->
-        console.log @, 'hi'
+        # console.log @, 'hi'
         $(e.currentTarget).closest('.grid').transition('fly left', 500)
 
 
@@ -25,7 +25,7 @@ Template.nav.events
     'click .send_points': ->
         if Meteor.userId()
             Meteor.call 'insert_doc', {model:'transfer', privacy:'private'}, (err,res)->
-                console.log res
+                # console.log res
                 # console.log 'new id', new_id
                 user = Meteor.users.findOne username:Router.current().params.username
                 if user 
