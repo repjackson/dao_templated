@@ -62,16 +62,15 @@ template(name='transfer_item')
         if image_id
             img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
             // a.header(href="/transfer/#{_id}") #{title}
-        .header
-            .ui.big.basic.image.label
+        .content
+            .ui.inline.header
                 if _author.image_id
-                    img.ui.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
+                    img.ui.avatar.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
                 | #{_author_username}
-            .ui.inline.header #{amount}
-            i.large.chevron.right.grey.icon
-            .ui.big.basic.image.label
+                .ui.big.basic.label #{amount}p
+                // .ui.big.basic.image.label
                 if target.image_id
-                    img.ui.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
+                    img.ui.avatar.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
                 |#{target_username}
         .content
             small #{when}
@@ -85,9 +84,11 @@ template(name='transfer_item')
                     .ui.basic.large.circular.label #{this}
                 // if in_dev 
                 //     +print_this
-        .ui.attached.buttons
+        .ui.attached.basic.buttons
             .ui.icon.button
-                i.chat.icon
+                i.chat.outline.icon
             .ui.icon.button
-                i.thumbs.up.icon
+                i.thumbs.up.outline.icon
+            .ui.icon.button
+                i.thumbs.down.outline.icon
                     

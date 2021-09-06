@@ -70,10 +70,10 @@ Template.transfer_item.events
         $(e.currentTarget).closest('.grid').transition('fly up', 500)
 
 Template.home.events
-    'click .pick_tag': -> picked_tags.push @name
+    'click .pick_tag': -> picked_tags.push @title
     'click .unpick_tag': -> picked_tags.remove @valueOf()
     'click #clear_tags': -> picked_tags.clear()
     
-    'click .pick_location_tag': -> picked_location_tags.push @name
+    'click .pick_location_tag': -> picked_location_tags.push @title
     'click .unpick_location_tag': -> picked_location_tags.remove @valueOf()
     # 'click #clear_tags': -> picked_tags.clear()
