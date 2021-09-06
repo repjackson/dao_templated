@@ -17,7 +17,19 @@ template(name='transfers')
                     each location_tag_results
                         .ui.basic.circular.label.pick_location_tag #{title}
                             // small #{count}
-
+                    .ui.header 
+                        +i name='award'
+                        |today's leaderboard
+                    .ui.small.header 
+                        |sent
+                    .ui.large.link.selection.list
+                        each most_sent_today
+                            a.item(href="/user/#{username}") #{username}: #{total_sent_day}p
+                    .ui.small.header 
+                        |received
+                    .ui.large.link.selection.list
+                        each most_received_today
+                            a.item(href="/user/#{username}") #{username}: #{total_received_day}p
                 .twelve.wide.column
                     i.eye.grey.icon
                     // +session_set key='transfer_sort_filter' value='open'               
@@ -32,35 +44,36 @@ template(name='transfers')
                                 +transfer_item
                         else 
                             .ui.basic.segment
-                                i.massive.exchange.grey.loading.icon
+                                i.massive.refresh.grey.loading.icon
             
             
 template(name='transfer_item')
-    a.ui.card.fly_right(href="/transfer/#{_id}")
+    a.ui.link.card.fly_right(href="/transfer/#{_id}")
         if image_id
             img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
-        .content
             // a.header(href="/transfer/#{_id}") #{title}
-            a.header(href="/transfer/#{_id}")
-                .ui.big.basic.image.label
-                    if _author.image_id
-                        img.ui.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
-                    | #{_author_username}
-                strong #{amount}
-                i.large.chevron.right.grey.icon
-                .ui.big.basic.image.label
-                    if target.image_id
-                        img.ui.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
-                    |#{target_username}
+        .header
+            .ui.big.basic.image.label
+                if _author.image_id
+                    img.ui.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
+                | #{_author_username}
+            .ui.inline.header #{amount}
+            i.large.chevron.right.grey.icon
+            .ui.big.basic.image.label
+                if target.image_id
+                    img.ui.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
+                |#{target_username}
+        .content
             small #{when}
             |#{description}
             i.tag.icon
             each tags
                 .ui.basic.large.circular.label #{this}
-            i.red.marker.icon
-            each location_tags
-                .ui.basic.large.circular.label #{this}
-            // if in_dev 
-            //     +print_this
+            if location_tags
+                i.red.marker.icon
+                each location_tags
+                    .ui.basic.large.circular.label #{this}
+                // if in_dev 
+                //     +print_this
 
                     

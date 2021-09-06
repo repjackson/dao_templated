@@ -12,6 +12,7 @@ Router.route '/', (->
 
 Template.transfers.onCreated ->
     Session.setDefault('transfer_filter','now')
+    @autorun -> Meteor.subscribe 'today_leaderboard', -> 
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
         null
@@ -44,6 +45,17 @@ Template.transfers.helpers
         Results.find(model:'tag')
     location_tag_results: ->
         Results.find(model:'location_tag')
+
+    most_sent_today: ->
+        Meteor.users.find({total_sent_day: $exists:true},
+            sort:
+                total_sent_day:-1
+        )
+    most_received_today: ->
+        Meteor.users.find({total_received_day: $exists:true},
+            sort:
+                total_received_day:-1
+        )
 
     transfer_docs: ->
         match = {model:'transfer'}

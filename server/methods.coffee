@@ -150,8 +150,25 @@ Meteor.methods
         # console.log 'total debits', total_debits
         # console.log 'total credits', point_credit_total
         # final_calculated_current_points = point_credit_total - total_debits + point_topup_total
+        total_sent = 0
+        total_sent_hour = 0
+        total_sent_day = 0
         
         total_received = 0
+        total_received_hour = 0
+        total_received_day = 0
+        
+        now = Date.now()
+        hour_gap = 60*60*1000
+        hour_ago = now-hour_gap
+        # match._timestamp = $gte:hour_ago
+
+
+        day_gap = 60*60*24*1000
+        day_ago = now-day_gap
+        # match._timestamp = $gte:day_ago
+
+        
         received_docs = 
             Docs.find
                 model:'transfer'
@@ -160,11 +177,15 @@ Meteor.methods
         for transfer in received_docs.fetch()
             if transfer.amount
                 console.log 'adding transfer amount', transfer.amount
+                if transfer._timestamp > hour_ago
+                    total_received_hour += transfer.amount 
+                if transfer._timestamp > day_ago
+                    total_received_day += transfer.amount 
                 total_received += transfer.amount 
-        console.log 'total received points', total_received
+                
+                
+        # console.log 'total received points', total_received
         
-        
-        total_sent = 0
         sent_docs = 
             Docs.find
                 model:'transfer'
@@ -172,6 +193,10 @@ Meteor.methods
         
         for transfer in sent_docs.fetch()
             if transfer.amount
+                if transfer._timestamp > hour_ago
+                    total_sent_hour += transfer.amount 
+                if transfer._timestamp > day_ago
+                    total_sent_day += transfer.amount 
                 # console.log transfer.amount
                 total_sent += transfer.amount 
         console.log 'total sent points', total_sent
@@ -208,6 +233,11 @@ Meteor.methods
                 points: final_calculated_current_points
                 total_received:total_received
                 total_sent:total_sent
+                total_sent_hour:total_sent_hour
+                total_sent_day:total_sent_day
+                total_received:total_received
+                total_received_hour:total_received_hour
+                total_received_day:total_received_day
                 received_rank:received_rank+1
                 sent_rank:sent_rank+1
                 # total_earned_credits: point_credit_total

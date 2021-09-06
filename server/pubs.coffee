@@ -49,6 +49,19 @@ Meteor.publish 'transfers', (
             "#{sort_key}":sort_direction
         
 
+
+
+Meteor.publish 'today_leaderboard', ()->
+    Meteor.users.find({
+        total_sent_day: 
+            $exists:true
+    },{
+        sort:
+            total_sent_day:-1
+    })
+    
+    
+    
 Meteor.publish 'transfer_tags', (
     username
     direction

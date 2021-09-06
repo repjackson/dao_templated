@@ -28,6 +28,25 @@ template(name='user_layout')
                         small
                             |pts sent
                             // span(title='rank') (##{current_user.total_bought_credit_rank})
+                    +i name='clock'
+                    .ui.big.basic.label
+                        strong
+                            |#{current_user.total_sent_hour}
+                        small
+                            |pts sent last hour
+                            // span(title='rank') (##{current_user.total_bought_credit_rank})
+                    +i name='sun'
+                    .ui.big.basic.label
+                        strong
+                            |#{current_user.total_sent_day}
+                        small
+                            |pts sent last day
+                    .ui.big.basic.label
+                        strong
+                            |#{current_user.total_received_day}
+                        small
+                            |pts received last day
+                            // span(title='rank') (##{current_user.total_bought_credit_rank})
                     div
                     // i.refresh.circular.link.icon.refresh_user_stats
                     if is_current_user
