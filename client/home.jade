@@ -10,23 +10,23 @@ template(name='transfers')
                         i.loading.refresh.big.icon
                     i.teal.tag.big.icon
                     each transfer_tags
-                        .ui.basic.large.circular.label #{title}
+                        .ui.basic.circular.label.pick_tag #{title}
                             // small #{count}
                     div
                     i.red.marker.big.icon
                     each location_tag_results
-                        .ui.basic.large.circular.label #{title}
-                            small #{count}
+                        .ui.basic.circular.label.pick_location_tag #{title}
+                            // small #{count}
 
                 .twelve.wide.column
                     i.eye.grey.icon
                     // +session_set key='transfer_sort_filter' value='open'               
-                    +session_set key='transfer_sort_filter' value='now'               
-                    +session_set key='transfer_sort_filter' value='later'   
-                    +session_set key='transfer_sort_filter' value=null label='all'
+                    +session_set key='transfer_filter' value='now' icon='clock'            
+                    +session_set key='transfer_filter' value='today' icon='sun'
+                    +session_set key='transfer_filter' value=null label='all'
                     i.sort.grey.icon
                     +session_set key='transfer_sort_key' value='price'               
-                    .ui.four.stackable.cards.scrolling
+                    .ui.three.stackable.cards.scrolling
                         if transfer_docs.count
                             each transfer_docs
                                 +transfer_item

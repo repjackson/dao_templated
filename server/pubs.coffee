@@ -14,10 +14,25 @@ Meteor.publish 'transfers', (
     picked_transfer_to
     picked_transfer_timestamp_tags
     picked_transfer_location_tags
+    filter=null
+    sort_key='_timestamp'
+    sort_direction=-1
     )->
         
     user = Meteor.users.findOne username:username
     match = {model:'transfer'}
+    
+    if filter is 'now'
+        now = Date.now()
+        gap = 60*60*1000
+        hour_ago = now-gap
+        match._timestamp = $gte:hour_ago
+    else if filter is 'today'
+        now = Date.now()
+        gap = 60*60*1000*24
+        day_ago = now-gap
+        match._timestamp = $gte:day_ago
+    
     if picked_transfer_tags.length > 0 then match.tags = $all:picked_transfer_tags 
     if picked_transfer_location_tags.length > 0 then match.location_tags = $all:picked_transfer_location_tags 
     if picked_transfer_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_transfer_timestamp_tags 
@@ -31,7 +46,7 @@ Meteor.publish 'transfers', (
     Docs.find match,
         limit:20   
         sort:
-            _timestamp:-1
+            "#{sort_key}":sort_direction
         
 
 Meteor.publish 'transfer_tags', (
@@ -42,7 +57,10 @@ Meteor.publish 'transfer_tags', (
     picked_transfer_to
     picked_transfer_timestamp_tags
     picked_transfer_location_tags
-    title_filter=null
+    # title_filter=null
+    filter=null
+    sort_key='_timestamp'
+    sort_direction=-1
     )->
     self = @
     
@@ -51,6 +69,19 @@ Meteor.publish 'transfer_tags', (
     # match = {}
     match = {}
     match.model = 'transfer'
+    
+    if filter is 'now'
+        now = Date.now()
+        gap = 60*60*1000
+        hour_ago = now-gap
+        match._timestamp = $gte:hour_ago
+    else if filter is 'today'
+        now = Date.now()
+        gap = 60*60*24*1000
+        day_ago = now-gap
+        match._timestamp = $gte:day_ago
+
+    
     if username
         if direction is 'sent'
             match._author_id = user._id
@@ -65,8 +96,8 @@ Meteor.publish 'transfer_tags', (
 
 
 
-    if title_filter and title_filter.length > 1
-        match.title = {$regex:title_filter, $options:'i'}
+    # if title_filter and title_filter.length > 1
+    #     match.title = {$regex:title_filter, $options:'i'}
 
     result_count = Docs.find(match).count()
     console.log 'transfer tag result count', result_count

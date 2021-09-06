@@ -11,6 +11,7 @@ Router.route '/', (->
 
 
 Template.transfers.onCreated ->
+    Session.setDefault('transfer_filter','now')
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
         null
@@ -20,6 +21,9 @@ Template.transfers.onCreated ->
         picked_transfer_to.array()
         picked_transfer_timestamp_tags.array()
         picked_transfer_location_tags.array()
+        Session.get('transfer_filter')
+        Session.get('transfer_sort_key')
+        Session.get('transfer_sort_direction')
         , ->
     
     @autorun => Meteor.subscribe 'transfers', 
@@ -30,6 +34,9 @@ Template.transfers.onCreated ->
         picked_transfer_to.array()
         picked_transfer_timestamp_tags.array()
         picked_transfer_location_tags.array()
+        Session.get('transfer_filter')
+        Session.get('transfer_sort_key')
+        Session.get('transfer_sort_direction')
         ,->
 
 Template.transfers.helpers
