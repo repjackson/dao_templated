@@ -11,7 +11,7 @@ Router.route '/', (->
 
 
 Template.transfers.onCreated ->
-    Session.setDefault('transfer_filter','now')
+    Session.setDefault('transfer_filter','day')
     @autorun -> Meteor.subscribe 'today_leaderboard', -> 
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
