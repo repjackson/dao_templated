@@ -9,20 +9,20 @@ template(name='home')
                     // unless tag_results.count
                     //     i.loading.yin.yang.big.grey.icon
                     // else
-                    i.teal.tag.big.icon
+                    +i name='tags'
                     each picked_tags
                         .ui.blue.button.unpick_tag.zoomer
                             |#{this}
                     each tag_results
-                        a.ui.basic.circular.link.label.pick_tag #{title}
+                        a.ui.basic.link.label.pick_tag #{title}
                             // small #{count}
                     div
-                    i.red.marker.big.icon
+                    +i name='marker'
                     each picked_location_tags
                         a.ui.red.button.unpick_location_tag
                             |#{this}
                     each location_tag_results
-                        a.ui.basic.circular.link.label.zoomer.pick_location_tag #{title}
+                        a.ui.basic.link.label.zoomer.pick_location_tag #{title}
                             // small #{count}
                     // +leaderboard
                     .ui.header 
@@ -77,16 +77,19 @@ template(name='transfer_item')
             |#{description}
             i.tag.icon
             each tags
-                .ui.basic.large.circular.label #{this}
+                .ui.basic.large.label #{this}
             if location_tags
                 i.red.marker.icon
                 each location_tags
-                    .ui.basic.large.circular.label #{this}
+                    .ui.basic.large.label #{this}
                 // if in_dev 
                 //     +print_this
         .ui.attached.basic.buttons
+        .ui.attached.basic.buttons
             .ui.icon.button
                 i.chat.outline.icon
+            .ui.icon.button
+                i.eye.icon
             .ui.icon.button
                 i.thumbs.up.outline.icon
             .ui.icon.button
