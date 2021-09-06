@@ -4,7 +4,7 @@ template(name='view')
             .centered.row 
                 .four.wide.center.aligned.column
                     a.fly_right(href="/user/#{_author.username}") 
-                        img.ui.circular.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
                 .eight.wide.center.aligned.column
@@ -16,11 +16,11 @@ template(name='view')
                     if tags
                         +i name='tags' cl='ui inline image'
                         each tags 
-                            .ui.big.basic.circular.label #{this}
+                            .ui.big.basic.label #{this}
                     if location_tags
                         +i name='marker' cl='ui inline image'
                         each location_tags 
-                            .ui.big.basic.circular.label #{this}
+                            .ui.big.basic.label #{this}
                     .spacer
                     .ui.small.header
                         i.clock.icon
@@ -37,11 +37,11 @@ template(name='view')
                         // +remove_button
                     if is_author
                         a(href="/transfer/#{_id}/edit")
-                            i.large.circular.pencil.icon
+                            i.large.pencil.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .four.wide.center.aligned.column
                     a.fly_right(href="/user/#{target.username}")
-                        img.ui.circular.centered.fluid.pointer.zoomer.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        img.ui.centered.fluid.pointer.zoomer.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{target.name}
 

@@ -2,7 +2,7 @@ template(name='home')
     .ui.stackable.padded.grid
         .sixteen.wide.column.scrolling
             .ui.stackable.grid 
-                .four.wide.column
+                .four.wide.column.scrolling
                     .ui.header 
                         +i name='transfer-between-users'
                         |transfers
@@ -24,6 +24,22 @@ template(name='home')
                     each location_tag_results
                         a.ui.basic.link.large.label.zoomer.pick_location_tag #{title}
                             // small #{count}
+                    div
+                    +i name='send' cl='ui inline image'
+                    each picked_authors
+                        a.ui.teal.button.unpick_author_tag
+                            |#{this}
+                    each author_results
+                        a.ui.basic.link.large.label.zoomer.pick_author_tag #{title}
+                            // small #{count}
+                    div
+                    +i name='donate' cl='ui inline image'
+                    each picked_targets
+                        a.ui.teal.button.unpick_target_tag
+                            |#{this}
+                    each target_results
+                        a.ui.basic.link.large.label.zoomer.pick_target_tag #{title}
+                            // small #{count}
                 .twelve.wide.column
                     i.eye.grey.icon
                     // +session_set key='transfer_sort_filter' value='open'               
@@ -32,7 +48,7 @@ template(name='home')
                     +session_set key='transfer_filter' value=null label='all'
                     i.sort.grey.icon
                     +session_set key='transfer_sort_key' value='price'               
-                    .ui.three.stackable.cards.scrolling
+                    .ui.four.stackable.cards.scrolling
                         if transfer_docs.count
                             each transfer_docs
                                 +transfer_item
