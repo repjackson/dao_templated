@@ -69,8 +69,8 @@ Template.comments.onCreated ->
     # console.log Template.parentData()
     # parent = Docs.findOne Template.parentData()._id
     parent = Docs.findOne Router.current().params.doc_id
-    if parent
-        @autorun => Meteor.subscribe 'children', 'comment', parent._id
+    @autorun => Meteor.subscribe 'comments', parent._id
+    # if parent
 Template.comments.helpers
     doc_comments: ->
         parent = Docs.findOne Router.current().params.doc_id
@@ -133,6 +133,17 @@ Template.voting_small.events
 #
 #         Meteor.call 'call_watson', doc._id, @key, @mode
 
+Template.voting_full.helpers
+    upvote_class: ->
+        if @upvoter_ids and Meteor.userId() in @upvoter_ids
+            'green' 
+        else
+            'outline'
+    downvote_class: ->
+        if @downvoter_ids and Meteor.userId() in @downvoter_ids
+            'red' 
+        else 
+            'outline'
 Template.voting_full.events
     'click .upvote': (e,t)->
         $(e.currentTarget).closest('.button').transition('pulse',200)

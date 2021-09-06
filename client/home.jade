@@ -48,7 +48,7 @@ template(name='home')
                     +session_set key='transfer_filter' value=null label='all'
                     i.sort.grey.icon
                     +session_set key='transfer_sort_key' value='price'               
-                    .ui.four.stackable.cards.scrolling
+                    .ui.three.stackable.centered.cards.scrolling
                         if transfer_docs.count
                             each transfer_docs
                                 +transfer_item
@@ -67,7 +67,7 @@ template(name='transfer_item')
                 if _author.image_id
                     img.ui.avatar.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
                 | #{_author_username}
-                .ui.big.basic.label #{amount}p
+                .ui.big.basic.circular.label #{amount}
                 // .ui.big.basic.image.label
                 if target.image_id
                     img.ui.avatar.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
@@ -85,13 +85,16 @@ template(name='transfer_item')
                 // if in_dev 
                 //     +print_this
         .ui.attached.basic.buttons
-        .ui.attached.basic.buttons
             .ui.icon.button
+                |#{comment_count}
                 i.chat.outline.icon
             .ui.icon.button
+                |#{views}
                 i.eye.icon
             .ui.icon.button
+                |#{upvotes}
                 i.thumbs.up.outline.icon
             .ui.icon.button
+                |#{downvotes}
                 i.thumbs.down.outline.icon
                     

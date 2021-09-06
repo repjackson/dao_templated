@@ -266,7 +266,14 @@ Meteor.publish 'target_from_transfer_id', (transfer_id)->
     
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
-
+    
+Meteor.publish 'comments', (doc_id)->
+    # doc = Docs.findOne doc_id
+    Docs.find 
+        model:'comment'
+        parent_id:doc_id
+    
+    
 Meteor.publish 'me', ()->
     Meteor.users.find Meteor.userId()
 

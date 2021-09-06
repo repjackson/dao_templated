@@ -16,8 +16,9 @@ Meteor.methods
                     friend_usernames:found.username
     log_profile_view: (username)->
         found = Meteor.users.findOne username:username
-        Meteor.users.update found._id, 
-            $inc:profile_views:1
+        unless Meteor.user() and Meteor.user().username is username
+            Meteor.users.update found._id, 
+                $inc:profile_views:1
     search_by_username: (username)->
         found = Meteor.users.findOne 
             username:username
