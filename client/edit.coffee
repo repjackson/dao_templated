@@ -75,7 +75,6 @@ Template.edit.helpers
 
 Template.edit.events
     # 'click .complete_transfer': (e,t)->
-    #     console.log @
     #     Session.set('transfering',true)
     #     if @purchase_amount
     #         if Meteor.user().points and @purchase_amount < Meteor.user().points
@@ -97,22 +96,10 @@ Template.edit.events
 
     'click .parse_quick_add': ->
         split = @quick_add.split(' ')
-        console.log split[0]
         if split[0] is 'send'
-            console.log 'amount', parseInt(split[1])
             Docs.update Router.current().params.doc_id, 
                 $set:
                     amount:parseInt(split[1])
-        if split[3] is 'to'
-            console.log 'to', split[3]
-            # Docs.update Router.current().params.doc_id, 
-            #     $set:
-            #         amount:parseInt(split[1])
-        console.log split[1]
-        console.log split[2]
-        console.log split[3]
-        console.log split[4]
-        console.log split[5]
 
     'click .add_target': ->
         Docs.update Router.current().params.doc_id,
@@ -177,7 +164,6 @@ Template.edit.events
 
 
     'blur .point_amount': (e,t)->
-        # console.log @
         val = parseInt t.$('.point_amount').val()
         Docs.update Router.current().params.doc_id,
             $set:amount:val
@@ -240,7 +226,6 @@ Template.single_user_edit.events
     'keyup .single_user_select_input': (e,t)->
         search_value = $(e.currentTarget).closest('.single_user_select_input').val().trim()
         if search_value.length > 1
-            console.log 'searching', search_value
             Meteor.call 'lookup_user', search_value, (err,res)=>
                 if err then console.error err
                 else
@@ -250,13 +235,6 @@ Template.single_user_edit.events
         page_doc = Docs.findOne Router.current().params.doc_id
         field = Template.currentData()
 
-        # console.log @
-        # console.log Template.currentData()
-        # console.log Template.parentData()
-        # console.log Template.parentData(1)
-        # console.log Template.parentData(2)
-        # console.log Template.parentData(3)
-        # console.log Template.parentData(4)
 
 
         val = t.$('.edit_text').val()

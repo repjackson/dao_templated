@@ -38,7 +38,6 @@ Template.session_set.helpers
     session_set_class: ->
         if Session.equals(@key,@value) then 'active large' else 'basic'
 Template.print_this.events
-    'click .print': -> console.log @
 
 Template.alert_this.events
     'click .alert': -> alert @valueOf()
@@ -53,7 +52,6 @@ Template.search_input.events
             $('.search_field').val('')
         else 
             val = $('.search_field').val()
-            # console.log val
             Session.set("#{@model}_#{@field}_filter", val)
         
 Template.search_input.helpers
@@ -66,7 +64,6 @@ Template.comments.onRendered ->
     #     $('.accordion').accordion()
     # , 1000
 Template.comments.onCreated ->
-    # console.log Template.parentData()
     # parent = Docs.findOne Template.parentData()._id
     parent = Docs.findOne Router.current().params.doc_id
     @autorun => Meteor.subscribe 'comments', parent._id
@@ -128,8 +125,6 @@ Template.voting_small.events
 # Template.call_watson.events
 #     'click .autotag': ->
 #         doc = Docs.findOne Router.current().params.doc_id
-#         console.log doc
-#         console.log @
 #
 #         Meteor.call 'call_watson', doc._id, @key, @mode
 
@@ -181,13 +176,6 @@ Template.username_info.helpers
 
 Template.toggle_edit.events
     'click .toggle_edit': ->
-        console.log @
-        console.log Template.currentData()
-        console.log Template.parentData()
-        console.log Template.parentData(1)
-        console.log Template.parentData(2)
-        console.log Template.parentData(3)
-        console.log Template.parentData(4)
 
 
 
@@ -197,7 +185,6 @@ Template.user_list_info.onCreated ->
 
 Template.user_list_info.helpers
     user: ->
-        console.log @
         Meteor.users.findOne @valueOf()
 
 
@@ -307,32 +294,26 @@ Template.view_user_button.events
 
 Template.session_edit_value_button.events
     'click .set_session_value': ->
-        # console.log @key
-        # console.log @value
         Session.set(@key, @value)
 
 Template.session_edit_value_button.helpers
     calculated_class: ->
         res = ''
-        # console.log @
         if @cl
             res += @cl
         if Session.equals(@key,@value)
             res += ' blue'
-        # console.log res
         res
 
 
 
 Template.session_boolean_toggle.events
     'click .toggle_session_key': ->
-        console.log @key
         Session.set(@key, !Session.get(@key))
 
 Template.session_boolean_toggle.helpers
     calculated_class: ->
         res = ''
-        # console.log @
         if @cl
             res += @cl
         if Session.get(@key)
@@ -340,7 +321,6 @@ Template.session_boolean_toggle.helpers
         else
             res += ' basic'
 
-        # console.log res
         res
 
 Template.doc_array_toggle.helpers
@@ -374,7 +354,6 @@ Template.doc_array_toggle.events
 #     'keyup .find_friend': (e,t)->
 #         search_value = $(e.currentTarget).closest('.find_friend').val().trim()
 #         if search_value.length > 1
-#             console.log 'searching', search_value
 #             Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
 #                 if err then console.error err
 #                 else
@@ -384,13 +363,6 @@ Template.doc_array_toggle.events
 #         page_doc = Docs.findOne Router.current().params.doc_id
 #         field = Template.currentData()
 
-#         # console.log @
-#         # console.log Template.currentData()
-#         # console.log Template.parentData()
-#         # console.log Template.parentData(1)
-#         # console.log Template.parentData(2)
-#         # console.log Template.parentData(3)
-#         # console.log Template.parentData(4)
 
 
 #         val = t.$('.edit_text').val()
@@ -431,7 +403,6 @@ Template.doc_array_toggle.events
 Template.key_value_edit.events
     'click .set_key_value': ->
         parent = Template.parentData()
-        # console.log 'hi'
         # parent = Docs.findOne Router.current().params.doc_id
         Docs.update parent._id,
             $set: "#{@key}": @value
@@ -440,13 +411,11 @@ Template.key_value_edit.helpers
     set_key_value_class: ->
         # parent = Docs.findOne Router.current().params.doc_id
         parent = Template.parentData()
-        # console.log parent
         if parent["#{@key}"] is @value then 'active' else 'basic'
 
 Template.user_key_value_edit.events
     'click .set_key_value': ->
         parent = Template.parentData()
-        # console.log 'hi'
         # parent = Docs.findOne Router.current().params.doc_id
         Meteor.users.update parent._id,
             $set: "#{@key}": @value
@@ -455,5 +424,4 @@ Template.user_key_value_edit.helpers
     set_key_value_class: ->
         # parent = Docs.findOne Router.current().params.doc_id
         parent = Template.parentData()
-        # console.log parent
         if parent["#{@key}"] is @value then 'active' else 'basic'

@@ -43,13 +43,10 @@ Template.registerHelper 'lowered', (input)-> input.toLowerCase()
 Template.registerHelper 'pathname_root', () ->
     window.location.pathname.split('/')[1]
 Template.registerHelper 'current_route', () ->
-    # console.log window.location.pathname.split('/')[1]
     Router.current().location.get().path
     
 Template.registerHelper 'target', () ->
     found = Meteor.users.findOne @target_id
-    # console.log found 
-    # console.log @
     found
     
     
@@ -58,9 +55,6 @@ Template.registerHelper 'active_path', (metric) ->
     false
 
 Template.registerHelper 'kve', (key,value) ->
-    # console.log 'key', key
-    # console.log 'value', value
-    # console.log @
     @["#{key}"] is value
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
@@ -102,24 +96,15 @@ Template.registerHelper 'session_is', (key, value)->
     Session.equals(key, value)
 
 Template.registerHelper 'key_value_is', (key, value)->
-    # console.log 'key', key
-    # console.log 'value', value
-    # console.log 'this', this
     @["#{key}"] is value
 
 
 
 
 Template.registerHelper 'is', (key, value)->
-    # console.log 'key', key
-    # console.log 'value', value
-    # console.log 'this', this
     key is value
 
 Template.registerHelper 'parent_key_value_is', (key, value)->
-    # console.log 'key', key
-    # console.log 'value', value
-    # console.log 'this', this
     @["#{key}"] is value
 
 
@@ -143,17 +128,14 @@ Template.registerHelper 'parent_key_value_is', (key, value)->
 # Template.registerHelper 'checkin_guest_docs', () ->
 #     Docs.findOne Router.current().params.doc_id
 #     session_document = Docs.findOne Router.current().params.doc_id
-#     # console.log session_document.guest_ids
 #     Docs.find
 #         _id:$in:session_document.guest_ids
 
 
 Template.registerHelper 'is_text', () ->
-    # console.log @field_type
     @field_type is 'text'
 
 Template.registerHelper 'template_parent', () ->
-    # console.log Template.parentData()
     Template.parentData()
 
 Template.registerHelper 'fields', () ->
@@ -166,10 +148,8 @@ Template.registerHelper 'fields', () ->
         #     match.view_roles = $in:Meteor.user().roles
         match.model = 'field'
         match.parent_id = model._id
-        # console.log model
         cur = Docs.find match,
             sort:rank:1
-        # console.log cur.fetch()
         cur
 Template.registerHelper 'nl2br', (text)->
     nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
@@ -229,7 +209,6 @@ Template.registerHelper 'publish_when', () -> moment(@publish_date).fromNow()
 
 
 Template.registerHelper 'field_value', () ->
-    # console.log @
     parent = Template.parentData()
     parent5 = Template.parentData(5)
     parent6 = Template.parentData(6)
@@ -248,7 +227,6 @@ Template.registerHelper 'field_value', () ->
 
 
 Template.registerHelper 'sorted_field_values', () ->
-    # console.log @
     parent = Template.parentData()
     parent5 = Template.parentData(5)
     parent6 = Template.parentData(6)
@@ -267,11 +245,7 @@ Template.registerHelper 'sorted_field_values', () ->
 Template.registerHelper 'in_dev', () -> Meteor.isDevelopment
 
 Template.registerHelper 'calculated_size', (metric) ->
-    # console.log metric
-    # console.log typeof parseFloat(@relevance)
-    # console.log typeof (@relevance*100).toFixed()
     whole = parseInt(@["#{metric}"]*10)
-    # console.log whole
 
     if whole is 2 then 'f2'
     else if whole is 3 then 'f3'
@@ -290,18 +264,15 @@ Template.registerHelper 'user_from_id', () -> Meteor.users.findOne @
 
 
 Template.registerHelper 'model_docs_helper', (model) ->
-    # console.log model
     Docs.find 
         model:model
         app:'bc'
         # group_id = Meteor.user().current_group_id
         
 Template.registerHelper 'connected', () -> 
-    # console.log Meteor.status()
     if Meteor.status().status is 'connected' then true else false
 
 Template.registerHelper 'subs_ready', () -> 
-    # console.log Template.instance().subscriptionsReady()
     Template.instance().subscriptionsReady()
 
 Template.registerHelper 'order_things',-> 
@@ -323,8 +294,6 @@ Template.registerHelper 'specials',->
     
     
 Template.registerHelper 'product_doc',-> 
-    # console.log @
-    # console.log 'product doc'
     Docs.findOne
         model:'product'
         _id:@product_id
@@ -349,7 +318,6 @@ Template.registerHelper 'product_doc',->
 #         for product in Docs.find(_id:$in:store_session_document.cart_product_ids).fetch()
 #             if product.price_usd
 #                 subtotal += product.price_usd
-#                 # console.log 'product', product
 #         subtotal
 Template.registerHelper 'commafy', (num)-> if num then num.toLocaleString()
 

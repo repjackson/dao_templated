@@ -118,7 +118,6 @@ Meteor.publish 'transfer_tags', (
     #     match.title = {$regex:title_filter, $options:'i'}
 
     result_count = Docs.find(match).count()
-    console.log 'transfer tag result count', result_count
 
     tag_cloud = Docs.aggregate [
         { $match: match }
@@ -288,3 +287,40 @@ Meteor.publish 'author_from_doc_id', (doc_id)->
     if doc and doc._author_id
         Meteor.users.find doc._author_id
 
+Meteor.publish 'ref_doc', (tag)->
+    match = {}
+    match.model = 'post'
+    match.title = tag.title
+    found = 
+        Docs.findOne match
+    if found
+        Docs.find match
+    else 
+        match.title = null
+        match.tags = $in:[tag.title]
+        Docs.find match,
+            sort:views:1
+            
+Meteor.publish 'flat_ref_doc', (title)->
+    if title
+        Docs.find({
+            model:'transfer'
+            tags:$in:[title]
+            # title:title
+        }, 
+            fields:
+                title:1
+                model:1
+                app:1
+                # metadata:1
+                image_id:1
+                image_url:1
+            limit:1
+        )
+    else 
+        Docs.find {
+            model:'transfer'
+            tags:$in:[title]
+        },
+            sort:views:1
+            limit:1

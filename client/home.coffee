@@ -12,6 +12,22 @@ Router.route '/', (->
 Template.leaderboard.onCreated ->
     @autorun -> Meteor.subscribe 'today_leaderboard', -> 
 
+
+Template.tag_picker.onCreated ->
+    @autorun => @subscribe 'ref_doc', @data, ->
+Template.unpick_tag.onCreated ->
+    @autorun => @subscribe 'flat_ref_doc', @data, ->
+Template.flat_tag_picker.onCreated ->
+    @autorun => @subscribe 'flat_ref_doc', @data, ->
+Template.tag_picker.events
+    'click .pick_tag': -> 
+        picked_tags.push @title
+        Session.set('viewing_post_id',null)
+        # Meteor.call 'call_wiki', @title,=>
+        #     console.log 'called wiki on', @title
+
+
+
 Template.home.onCreated ->
     Session.setDefault('transfer_filter','day')
     @autorun -> Meteor.subscribe 'all_users', -> 

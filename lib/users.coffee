@@ -43,18 +43,13 @@ if Meteor.isClient
 
     Template.addtoset_user.helpers
         ats_class: ->
-            # console.log Templat
             if Template.parentData()["#{@value}"] in @key
-                # console.log 'yes'
                 'blue'
             else
-                # console.log 'oh god no'
                 ''
 
     Template.addtoset_user.events
         'click .toggle_value': ->
-            console.log @
-            console.log Template.parentData(1)
             Meteor.users.update Template.parentData(1)._id,
                 $addToSet:
                     "#{@key}": @value
@@ -76,19 +71,16 @@ if Meteor.isClient
         #     if 0 < user_count < 3 then User_tags.find { count: $lt: user_count } else User_tags.find()
         picked_user_tags: ->
             # model = 'event'
-            # console.log "picked_#{model}_tags"
             picked_user_tags.array()
         all_levels: ->
             user_count = Meteor.users.find(_id:$ne:Meteor.userId()).count()
             if 0 < user_count < 3 then Results.find { model:'level', count: $lt: user_count } else Results.find(model:'level')
         picked_user_tags: ->
             # model = 'event'
-            # console.log "picked_#{model}_tags"
             picked_user_tags.array()
 
         picked_user_levels: ->
             # model = 'event'
-            # console.log "picked_#{model}_levels"
             picked_user_levels.array()
 
 
@@ -165,8 +157,6 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 
-        # console.log 'filter: ', filter
-        # console.log 'cloud: ', cloud
 
         cloud.forEach (user_tag, i) ->
             self.added 'user_tags', Random.id(),
@@ -186,8 +176,6 @@ if Meteor.isServer
             { $project: _id: 0, name: '$_id', count: 1 }
             ]
 
-        # console.log 'filter: ', filter
-        # console.log 'level_cloud: ', level_cloud
 
         level_cloud.forEach (level_result, i) ->
             self.added 'level_results', Random.id(),

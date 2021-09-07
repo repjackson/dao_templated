@@ -24,7 +24,6 @@ Template.register.events
         email = $('.email_field').val()
         Session.set 'email', email
         Meteor.call 'validate_email', email, (err,res)->
-            console.log res
             if res is true
                 Session.set 'email_status', 'valid'
             else
@@ -59,7 +58,6 @@ Template.register.events
         # if Session.equals 'enter_mode', 'register'
         # if confirm "register #{username}?"
         # Meteor.call 'validate_email', email, (err,res)->
-        #     console.log res
         # options = {
         #     username:username
         #     password:password
@@ -69,15 +67,12 @@ Template.register.events
             username:username
             password:password
             }
-        console.log username, password
         Meteor.call 'create_user', options, (err,res)=>
             if err
                 alert err
             else
-                console.log res
                 # unless username
                 #     username = "#{Session.get('first_name').toLowerCase()}_#{Session.get('last_name').toLowerCase()}"
-                # console.log username
                 Meteor.users.update res,
                     $addToSet: 
                         roles: 'customer'
@@ -135,7 +130,6 @@ Template.login.events
         Session.set 'username', username
         Meteor.call 'find_username', username, (err,res)->
             if res
-                console.log res
                 Session.set('enter_mode', 'login')
 
     'blur .username': ->
@@ -153,15 +147,12 @@ Template.login.events
             username:username
             password:password
             }
-        # console.log options
         Meteor.loginWithPassword username, password, (err,res)=>
             if err
-                console.log err
                 $('body').toast({
                     message: err.reason
                 })
             else
-                # console.log res
                 $('body').toast({
                     message: 'login successful'
                     position: "bottom right"
@@ -183,10 +174,8 @@ Template.login.events
                     username:username
                     password:password
                     }
-                # console.log options
                 Meteor.loginWithPassword username, password, (err,res)=>
                     if err
-                        console.log err
                         $('body').toast({
                             message: err.reason
                         })

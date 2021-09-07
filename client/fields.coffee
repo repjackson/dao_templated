@@ -24,8 +24,6 @@ Template.youtube_edit.events
 
 Template.key_value_set.helpers
     key_value_class: ->
-        # console.log @
-        # console.log Template.parentData()
         if Template.parentData()[@key] is @value then 'teal' else 'basic'
 Template.key_value_set.events
     'click .set_value': ->
@@ -141,8 +139,6 @@ Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
         parent = Template.parentData()
-        # console.log @
-        # console.log Template.parentData()
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -182,7 +178,6 @@ Template.array_edit.events
     #     $(e.currentTarget).closest('.touch_element').transition('slide left')
         
     'click .pick_tag': (e,t)->
-        # console.log @
         picked_tags.clear()
         picked_tags.push @valueOf()
 
@@ -302,7 +297,6 @@ Template.textarea_view.onRendered ->
 
 Template.number_edit.events
     'blur .edit_number': (e,t)->
-        # console.log @
         parent = Template.parentData()
         val = parseInt t.$('.edit_number').val()
         doc = Docs.findOne parent._id
@@ -318,7 +312,6 @@ Template.float_edit.events
         # else
         #     parent = Template.parentData(5)
         val = parseFloat(t.$('.edit_float').val())
-        console.log 'float', val
         doc = Docs.findOne Router.current().params.doc_id
         if doc
             Docs.update doc._id,
@@ -736,13 +729,6 @@ Template.multi_doc_edit.events
 #         page_doc = Docs.findOne Router.current().params.doc_id
 #         field = Template.currentData()
 
-#         # console.log @
-#         # console.log Template.currentData()
-#         # console.log Template.parentData()
-#         # console.log Template.parentData(1)
-#         # console.log Template.parentData(2)
-#         # console.log Template.parentData(3)
-#         # console.log Template.parentData(4)
 
 
 #         val = t.$('.edit_text').val()
@@ -765,13 +751,6 @@ Template.multi_doc_edit.events
 #         #     $set: assignment_timestamp:Date.now()
 
 #     'click .pull_user': ->
-#         # console.log Template.parentData(1)
-#         # console.log Template.parentData(2)
-#         # console.log Template.parentData(3)
-#         # console.log Template.parentData(4)
-#         # console.log Template.parentData(5)
-#         # console.log Template.parentData(6)
-#         # console.log Template.parentData(7)
 #         if confirm "remove #{@username}?"
 #             parent = Template.parentData(1)
 #             field = Template.currentData()
@@ -802,7 +781,6 @@ Template.multi_user_edit.events
             Meteor.call 'lookup_user', search_value, @role_filter, (err,res)=>
                 if err then console.error err
                 else
-                    # console.log res 
                     t.user_results.set res
     'click .select_user': (e,t) ->
         page_doc = Docs.findOne Router.current().params.doc_id
@@ -861,7 +839,6 @@ Template.multi_doc_input.events
             Meteor.call 'lookup_doc', search_value, 'guest', (err,res)=>
                 if err then console.error err
                 else
-                    # console.log res
                     t.doc_results.set res
     'click .select_doc': (e,t) ->
         # session_document = Docs.findOne Session.get('session_document')
@@ -936,10 +913,7 @@ Template.range_edit.events
     'click .get_end': ->
         doc_id = Router.current().params.doc_id
         result = $('.ui.calendar').calendar('get endDate')[0]
-        console.log result
         formatted = moment(result).format("YYYY-MM-DD[T]HH:mm")
-        console.log moment(@end_datetime).diff(moment(@start_datetime),'minutes',true)
-        console.log moment(@end_datetime).diff(moment(@start_datetime),'hours',true)
         Docs.update doc_id,
             $set:end_datetime:formatted
             
