@@ -99,11 +99,11 @@ template(name='user_received')
         small (#{current_user.total_received}p total)
     each received_tags
         .ui.basic.big.label #{title}
-            small #{count}
+            // small #{count}
     .ui.hidden.divider
     .ui.four.stackable.cards
         each received_transfers
-            .ui.card
+            a.ui.card(href="/transfer/#{_id}")
                 if image_id
                     +image_view key='image_id' label='image' direct=true
                 .content
@@ -141,7 +141,7 @@ template(name='user_sent')
         
     .scrolling.ui.four.doubling.cards
         each sent_items
-            .ui.card
+            a.ui.card(href="/transfer/#{_id}") #{title}
                 if image_id
                     +image_view key='image_id' label='image' direct=true
                 .content

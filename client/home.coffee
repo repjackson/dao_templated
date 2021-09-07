@@ -86,7 +86,7 @@ Template.leaderboard.helpers
 
 Template.transfer_item.events
     'click .fly_right': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly up', 500)
+        $(e.currentTarget).closest('.grid').transition('fly right', 250)
 
 Template.home.events
     # 'click .pick_tag': -> picked_tags.push @title
