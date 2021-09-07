@@ -26,11 +26,12 @@ template(name='view')
                         i.clock.icon
                         | #{when}, 
                         |#{_timestamp_long}
-                    +image_view key='image_id' label='image' direct=true
+                    img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
                     div 
                     .spacer
                     .spacer
                     +voting_full
+                    +viewing
                     +comments
                     if in_dev
                         +print_this
@@ -41,7 +42,7 @@ template(name='view')
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .four.wide.center.aligned.column
                     a.fly_right(href="/user/#{target.username}")
-                        img.ui.centered.fluid.pointer.zoomer.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        img.ui.centered.fluid.pointer.zoomer.rounded.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{target.name}
 

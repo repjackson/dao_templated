@@ -3,7 +3,7 @@ template(name='user_edit')
         //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .sixteen.wide.column
                     .ui.center.aligned.large.inline.grey.header
                         | #{current_user.first_name} #{current_user.last_name}
                     //- +i name='pencil'
@@ -21,20 +21,14 @@ template(name='user_edit')
                             .ui.orange.button.remove_user 
                                 i.remove.icon
                                 |delete user
-                .ten.wide.column
-                    .ui.form
-                        // +text_edit key='first_name' label='first name' direct=true
-                        // +text_edit key='last_name' label='last name' direct=true
-                        // +text_edit key='display_name' label='display name' direct=true
-                        +boolean_edit key='publish_profile' label='publish profile' direct=true
-                        // +array_edit key='roles' label='roles' direct=true
-                        // +text_edit key='app' label='app' direct=true
-                        div
-                        .ui.segment
-                            .ui.header 
-                                i.envelope.outline.icon
-                                |emails
-                            +emails_edit
+                // .ten.wide.column
+                //     .ui.form
+                //         // +text_edit key='first_name' label='first name' direct=true
+                //         // +text_edit key='last_name' label='last name' direct=true
+                //         // +text_edit key='display_name' label='display name' direct=true
+                //         // +boolean_edit key='publish_profile' label='publish profile' direct=true
+                //         // +array_edit key='roles' label='roles' direct=true
+                //         // +text_edit key='app' label='app' direct=true
                     
 template(name='user_settings')
     .ui.segment

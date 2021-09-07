@@ -1,5 +1,5 @@
 head
-    title backcountry
+    title dao
     meta(name='viewport', content='user-scalable=no, initial-scale=1.0, maximum-scale=1.0, width=device-width')
     meta(name='apple-mobile-web-app-capable', content='yes')
     meta(name='apple-mobile-web-app-status-bar-style', content='black')
@@ -14,14 +14,14 @@ head
     link(rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png")
     link(rel="manifest" href="/site.webmanifest")
     link(rel="mask-icon" href="/safari-pinned-tab.svg" color="#000000")
-    // link(href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet")
+    link(href="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/css/suneditor.min.css" rel="stylesheet")
 
     script(src='https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.js')
     
     script(src="https://cdn.jsdelivr.net/npm/sweetalert2@9")
-    // script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js")
-    // script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/en.js")
+    script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js")
+    script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/en.js")
 
     // script(src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.1/chart.js")
     //- script(async='', src='https://www.googletagmanager.com/gtag/js?id=UA-140259454-1')
@@ -34,7 +34,6 @@ head
 
     
 template(name='layout')
-    // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     if logging_in
         .ui.center.aligned.basic.segment

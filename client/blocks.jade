@@ -78,18 +78,19 @@ template(name='comments')
 
 
 template(name='viewing')
-    div
-    if currentUser
-        unless viewed_by
-            .ui.icon.button.mark_read
-                i.eye.icon
-        else 
-            if in_dev
-                .ui.icon.button.mark_unread
-                    i.cancel.icon
+    // div
+    // if currentUser
+    //     unless viewed_by
+    //         .ui.icon.button.mark_read
+    //             i.eye.icon
+    //     else 
+    //         if in_dev
+    //             .ui.icon.button.mark_unread
+    //                 i.cancel.icon
     .ui.inline.header viewed by
-    each read_ids
-        +user_info
+    each viewer_usernames
+        .ui.basic.label #{this}
+
 
 template(name='user_info')
     with user_from_id this
@@ -185,17 +186,6 @@ template(name='user_status')
 //         //- +user_status user
 
 
-template(name='user_email')
-    .ui.small.inline.header #{email_address}
-    if email_verified
-        .ui.label 
-            i.green.checkmark.icon
-            |verified
-    else
-        .ui.orange.label 
-            i.ban.icon
-            |unverified
-        
 
 template(name='big_user_card')
     with user
@@ -312,7 +302,7 @@ template(name='voting_full')
         .ui.large.basic.circular.label(title='points') #{points}pts
         if anon_points
             .ui.large.label(title='anon points') #{anon_points} anon pts
-    div
+    // div
     if upvoter_ids
         .ui.small.inline.grey.header 
             i.thumbs.up.outline.icon
@@ -363,16 +353,6 @@ template(name='add_button')
 
 
 
-template(name='edit_button')
-    a.ui.button.icon.edit(title='Edit' href="/m/#{model}/#{_id}/edit")
-        i.blue.pencil.icon
-        |Edit
-
-
-template(name='save_button')
-    a.ui.button.large.icon.save(title='Save' href="/m/#{model}/#{_id}/view")
-        i.checkmark.icon
-        |Save
 
 template(name='toggle_button')
     .ui.icon.toggle.button(title=label)
@@ -393,25 +373,6 @@ template(name='add_model_button')
 
 
             
-template(name='email_validation_check')
-    //- if email_verified
-    //-     .ui.large.button
-    //-         i.checkmark.icon
-    //-         |email validated
-    unless email_verified
-        .ui.fluid.button.send_verification
-            //- i.user.shield.icon
-            //- +i name='user-shield' cl='ui inline image'
-            |resend verification email
-        if times
-            .ui.label
-                |#{times}
-            //- else
-                //- |#{times}x sent
-        if is_staff
-            .ui.button.toggle_email_verified
-                |mark email verified
-        
 
 template(name='print_this')
     i.link.large.code.circular.icon.print.zoomer

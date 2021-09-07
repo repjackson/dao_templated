@@ -266,9 +266,13 @@ Meteor.methods
         
         
     log_view: (doc_id)->
-        Docs.update doc_id,
-            $inc:views:1
-        
+        if Meteor.userId()
+            Docs.update doc_id, 
+                $addToSet:
+                    viewer_ids:Meteor.userId()
+                    viewer_usernames:Meteor.user().username
+                $inc:views:1
+            
         
         
     calc_user_tags: (username)->

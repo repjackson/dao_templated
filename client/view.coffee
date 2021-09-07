@@ -6,6 +6,8 @@ Router.route '/transfer/:doc_id', (->
     ), name:'view'
 
 
+Template.view.onRendered ->
+    Meteor.call 'log_view', Router.current().params.doc_id, ->
 Template.view.onCreated ->
     @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
     @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id
