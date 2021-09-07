@@ -26,6 +26,34 @@ Template.tag_picker.events
         # Meteor.call 'call_wiki', @title,=>
         #     console.log 'called wiki on', @title
 
+Template.flat_tag_picker.helpers
+    ref_doc_flat: ->
+        # console.log @valueOf()
+        found = Docs.findOne 
+            model:'post'
+            title:@valueOf()
+        if found 
+            found
+        else 
+            Docs.findOne
+                model:'post'
+                tags:$in:[@valueOf()]
+                app:'well'
+
+Template.tag_picker.helpers
+    ref_doc: ->
+        # console.log @valueOf()
+        found = 
+            Docs.findOne 
+                model:'post'
+                title:@title
+        if found 
+            found
+        else 
+            Docs.findOne
+                model:'post'
+                tags:$in:[@title]
+                app:'well'
 
 
 Template.home.onCreated ->
