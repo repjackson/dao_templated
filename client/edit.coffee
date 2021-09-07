@@ -187,29 +187,29 @@ Template.edit.events
         )
         
     'click .submit': (e,t)->
-        Swal.fire({
-            title: "confirm send #{@amount}pts?"
-            text: ""
-            icon: 'question'
-            showCancelButton: true,
-            confirmButtonColor: 'green'
-            confirmButtonText: 'confirm'
-            cancelButtonText: 'cancel'
-            reverseButtons: true
-        }).then((result)=>
-            if result.value
-                Meteor.call 'send_transfer', @_id, =>
-                    $(e.currentTarget).closest('.grid').transition('fly down',500)
-                    Swal.fire(
-                        title:"#{@amount} sent"
-                        icon:'success'
-                        showConfirmButton: false
-                        position: 'top-end',
-                        timer: 1000
-                    )
-                    
-                    Router.go "/transfer/#{@_id}"
-        )
+        # Swal.fire({
+        #     title: "confirm send #{@amount}pts?"
+        #     text: ""
+        #     icon: 'question'
+        #     showCancelButton: true,
+        #     confirmButtonColor: 'green'
+        #     confirmButtonText: 'confirm'
+        #     cancelButtonText: 'cancel'
+        #     reverseButtons: true
+        # }).then((result)=>
+        #     if result.value
+        Meteor.call 'send_transfer', @_id, =>
+            $(e.currentTarget).closest('.grid').transition('fly down',500)
+            Swal.fire(
+                title:"#{@amount} sent"
+                icon:'success'
+                showConfirmButton: false
+                position: 'top-end',
+                timer: 1000
+            )
+            
+            Router.go "/transfer/#{@_id}"
+        # )
 
 
 

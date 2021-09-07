@@ -289,7 +289,7 @@ Meteor.publish 'author_from_doc_id', (doc_id)->
 
 Meteor.publish 'ref_doc', (tag)->
     match = {}
-    match.model = 'post'
+    match.model = 'transfer'
     match.title = tag.title
     found = 
         Docs.findOne match
@@ -302,25 +302,24 @@ Meteor.publish 'ref_doc', (tag)->
             sort:views:1
             
 Meteor.publish 'flat_ref_doc', (title)->
-    if title
-        Docs.find({
-            model:'transfer'
-            tags:$in:[title]
-            # title:title
-        }, 
-            fields:
-                title:1
-                model:1
-                app:1
-                # metadata:1
-                image_id:1
-                image_url:1
-            limit:1
-        )
-    else 
-        Docs.find {
-            model:'transfer'
-            tags:$in:[title]
-        },
-            sort:views:1
-            limit:1
+    # if title
+    Docs.find({
+        model:'transfer'
+        tags:$in:[title]
+        # title:title
+    }, 
+        fields:
+            title:1
+            model:1
+            # metadata:1
+            image_id:1
+            image_url:1
+        limit:1
+    )
+    # else 
+    #     Docs.find {
+    #         model:'transfer'
+    #         tags:$in:[title]
+    #     },
+    #         sort:views:1
+    #         limit:1

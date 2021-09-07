@@ -2,12 +2,12 @@ template(name='view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row 
-                .four.wide.center.aligned.column
+                .three.wide.center.aligned.column
                     a.fly_right(href="/user/#{_author.username}") 
                         img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
-                .eight.wide.center.aligned.column
+                .ten.wide.center.aligned.column
                     .ui.huge.center.aligned.inline.header
                         |#{amount}p
                     // .f14
@@ -40,7 +40,7 @@ template(name='view')
                         a(href="/transfer/#{_id}/edit")
                             i.large.pencil.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
-                .four.wide.center.aligned.column
+                .three.wide.center.aligned.column
                     a.fly_right(href="/user/#{target.username}")
                         img.ui.centered.fluid.pointer.zoomer.rounded.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer

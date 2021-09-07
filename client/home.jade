@@ -41,7 +41,6 @@ template(name='home')
                 a.ui.basic.link.large.label.zoomer.pick_target_tag #{title}
                     // small #{count}
         .twelve.wide.column
-            i.eye.grey.icon
             // +session_set key='transfer_sort_filter' value='open'               
             +session_set key='transfer_filter' value='now' icon='clock'            
             +session_set key='transfer_filter' value='day' icon='sun'
@@ -124,17 +123,17 @@ template(name='transfer_item')
                     .ui.basic.large.label #{this}
                 // if in_dev 
                 //     +print_this
-        .ui.attached.basic.buttons
-            .ui.icon.button
-                |#{comment_count}
-                i.chat.outline.icon
-            .ui.icon.button
-                |#{views}
-                i.eye.icon
-            .ui.icon.button
-                |#{upvotes}
-                i.thumbs.up.outline.icon
-            .ui.icon.button
-                |#{downvotes}
-                i.thumbs.down.outline.icon
+        // .ui.attached.basic.buttons
+        //     .ui.icon.button
+        //         |#{comment_count}
+        //         i.chat.outline.icon
+        //     .ui.icon.button
+        //         |#{views}
+        //         i.eye.icon
+        //     .ui.icon.button
+        //         |#{upvotes}
+        //         i.thumbs.up.outline.icon
+        //     .ui.icon.button
+        //         |#{downvotes}
+        //         i.thumbs.down.outline.icon
                     
