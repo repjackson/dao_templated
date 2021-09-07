@@ -12,7 +12,7 @@ template(name='edit')
                             img.ui.small.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             |#{_author.name}
                     .ui.segment
-                        .ui.header target
+                        .ui.inline.header target
                         with target
                             i.large.remove.link.icon.remove_target
                             a.pointer(href="/user/#{name}")

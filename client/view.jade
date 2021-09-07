@@ -16,7 +16,7 @@ template(name='view')
                     if tags
                         +i name='tags' cl='ui inline image'
                         each tags 
-                            .ui.big.basic.label #{this}
+                            a.ui.big.basic.link.label.flat_tag #{this}
                     if location_tags
                         +i name='marker' cl='ui inline image'
                         each location_tags 

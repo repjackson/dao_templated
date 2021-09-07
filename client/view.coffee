@@ -19,6 +19,11 @@ Template.view.onCreated ->
 
 
 Template.view.events
+    'click .flat_tag': ->
+        console.log @
+        picked_tags.clear()
+        picked_tags.push @valueOf()
+        Router.go '/'
     # 'click .mark_viewed': ->
     #     # if confirm 'mark viewed?'
     #     Docs.update Router.current().params.doc_id, 
