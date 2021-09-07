@@ -85,7 +85,7 @@ template(name='user_dashboard')
         .ui.stackable.one.column.grid
             // if is_current_user
             
-            .column.scrolling
+            .column.scrollin
                 +user_received
             .column.scrollin
                 +user_sent
@@ -98,8 +98,9 @@ template(name='user_received')
         |#{received_transfers.count} received 
         small (#{current_user.total_received}p total)
     each received_tags
-        .ui.basic.large.label #{title}
+        .ui.basic.big.label #{title}
             small #{count}
+    .ui.hidden.divider
     .ui.four.stackable.cards
         each received_transfers
             .ui.card
@@ -117,8 +118,8 @@ template(name='user_received')
                         .ui.basic.large.label #{this}
                     small #{when}
                     |#{description}
-                    if in_dev
-                        +print_this
+                    // if in_dev
+                    //     +print_this
         
         
         
@@ -135,8 +136,8 @@ template(name='user_sent')
         
     i.tags.icon(title='credit tags')
     each sent_tags
-        .ui.basic.large.label #{title}
-            small #{count}
+        .ui.basic.big.label #{title}
+            // small #{count}
         
     .scrolling.ui.four.doubling.cards
         each sent_items
@@ -155,6 +156,6 @@ template(name='user_sent')
                     |#{description}
                     each tags
                         .ui.basic.label #{this}
-                    if in_dev 
-                        +print_this
+                    // if in_dev 
+                    //     +print_this
                                 

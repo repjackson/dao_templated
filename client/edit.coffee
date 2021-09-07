@@ -1,5 +1,5 @@
 Router.route '/transfer/:doc_id/edit', (->
-    @layout 'layout'
+    @layout 'fullscreen'
     @render 'edit'
     ), name:'edit'
 Template.edit.onCreated ->

@@ -32,15 +32,14 @@ template(name='edit')
                             //         img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             //         |#{name}
                             //         small #{points}p
-                    +date_edit key='date' label='date' direct=true   
-                    +time_edit key='time' label='time' direct=true   
+                    // +date_edit key='date' label='date' direct=true   
+                    // +time_edit key='time' label='time' direct=true   
                 .six.wide.column
                     +array_edit key='tags' label='tags' icon='tag' direct=true
+                    div
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     // +textarea_edit key='description' label='description' direct=true
                     +image_edit key='image_id' label='image' direct=true
-                    .ui.header 
-                        |privacy
                     +key_value_edit key='privacy' value='public' icon='eye' label='public'
                     +key_value_edit key='privacy' value='private' icon='lock' label='private'
                     +key_value_edit key='privacy' value='anon' icon='anonymous-mask' label='anonymous'

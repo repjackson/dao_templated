@@ -107,6 +107,7 @@ body {
 	overflow-x:hidden;
 	max-height:85vh;
 	padding: 1em;
+	/*margin: 1em;*/
 }
 .smallscroll{
 	overflow-y:scroll;
@@ -586,7 +587,7 @@ input.username_search{
     /*font-family: 'Benne', sans-serif !important;*/
     /*filter: invert(.9) !important;*/
 
-    /*border-radius:7px !important; */
+    border-radius:7px !important; 
 }
 
 .attached.label {

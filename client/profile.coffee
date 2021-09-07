@@ -51,40 +51,40 @@ Template.user_sent.onCreated ->
     @autorun => Meteor.subscribe 'transfers', 
         Router.current().params.username
         'sent'
-        picked_tags.array()
-        picked_authors.array()
-        picked_targets.array()
-        picked_timestamp_tags.array()
-        picked_location_tags.array()
+        []
+        []
+        []
+        []
+        []
         ,->
     @autorun -> Meteor.subscribe 'transfer_tags', 
         Router.current().params.username
         'sent'
-        picked_tags.array()
-        picked_authors.array()
-        picked_targets.array()
-        picked_timestamp_tags.array()
-        picked_location_tags.array()
+        []
+        []
+        []
+        []
+        []
         , ->
         
 Template.user_received.onCreated ->
     @autorun => Meteor.subscribe 'transfers', 
         Router.current().params.username
         'received'
-        picked_tags.array()
-        picked_authors.array()
-        picked_targets.array()
-        picked_timestamp_tags.array()
-        picked_location_tags.array()
+        []
+        []
+        []
+        []
+        []
         ,->
     @autorun -> Meteor.subscribe 'transfer_tags', 
         Router.current().params.username
         'received'
-        picked_tags.array()
-        picked_authors.array()
-        picked_targets.array()
-        picked_timestamp_tags.array()
-        picked_location_tags.array()
+        []
+        []
+        []
+        []
+        []
         , ->
         
         

@@ -43,6 +43,11 @@ template(name='layout')
     if in_dev
         +admin_footer
       
+template(name='fullscreen')
+    +yield
+    // if in_dev
+    //     +admin_footer
+      
 
       
 template(name='admin_footer')
