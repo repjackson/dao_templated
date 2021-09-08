@@ -42,11 +42,11 @@ template(name='home')
                     // small #{count}
         .twelve.wide.column
             // +session_set key='transfer_sort_filter' value='open'               
-            +session_set key='transfer_filter' value='now' icon='clock'            
-            +session_set key='transfer_filter' value='day' icon='sun'
-            +session_set key='transfer_filter' value=null label='all'
-            i.sort.grey.icon
-            +session_set key='transfer_sort_key' value='price'               
+            // +session_set key='transfer_filter' value='now' icon='clock'            
+            // +session_set key='transfer_filter' value='day' icon='sun'
+            // +session_set key='transfer_filter' value=null label='all'
+            // i.sort.grey.icon
+            // +session_set key='transfer_sort_key' value='price'               
             .ui.four.stackable.centered.cards.scrolling
                 if transfer_docs.count
                     each transfer_docs
@@ -111,8 +111,7 @@ template(name='transfer_item')
                 if target.image_id
                     img.ui.avatar.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
                 |#{target_username}
-        .content
-            small #{when}
+            // .content
             |#{description}
             i.tag.large.grey.icon
             each tags
@@ -121,6 +120,7 @@ template(name='transfer_item')
                 i.large.marker.icon
                 each location_tags
                     .ui.basic.large.label #{this}
+            small #{when}
                 // if in_dev 
                 //     +print_this
         // .ui.attached.basic.buttons

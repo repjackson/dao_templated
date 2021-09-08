@@ -122,7 +122,17 @@ Template.user_sent.helpers
 
 
 
+Template.profile_picker.onCreated ->
+    @autorun => @subscribe 'ref_doc', @data, ->
 
+
+Template.profile_picker.events
+    'click .pick_tag': (e,t)->
+        picked_tags.clear()
+        picked_tags.push @title
+        $(e.currentTarget).closest('.grid').transition('fly right', 500)
+        
+        Router.go '/'
 
 Template.user_received.helpers
     received_tags: ->

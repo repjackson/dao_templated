@@ -23,8 +23,12 @@ Template.tag_picker.events
     'click .pick_tag': -> 
         picked_tags.push @title
         Session.set('viewing_post_id',null)
-        # Meteor.call 'call_wiki', @title,=>
-        #     console.log 'called wiki on', @title
+# Template.profile_picker.events
+#     'click .pick_tag': -> 
+#         picked_tags.push @title
+#         Session.set('viewing_post_id',null)
+#         # Meteor.call 'call_wiki', @title,=>
+#         #     console.log 'called wiki on', @title
 
 Template.flat_tag_picker.helpers
     ref_doc_flat: ->
@@ -42,20 +46,24 @@ Template.flat_tag_picker.helpers
 Template.tag_picker.helpers
     ref_doc: ->
         # console.log @valueOf()
-        found = 
-            Docs.findOne 
-                model:'transfer'
-                title:@title
-        if found 
-            found
-        else 
-            Docs.findOne
-                model:'transfer'
-                tags:$in:[@title]
+        Docs.findOne({
+            model:'transfer'
+            tags:$in:[@title]
+        }, {sort:points:-1})
+
+Template.profile_picker.helpers
+    ref_doc: ->
+        # console.log @valueOf()
+        Docs.findOne({
+            model:'transfer'
+            tags:$in:[@title]
+        }, {sort:points:-1})
+
+
 
 
 Template.home.onCreated ->
-    Session.setDefault('transfer_filter','day')
+    Session.setDefault('transfer_filter','all')
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
         null

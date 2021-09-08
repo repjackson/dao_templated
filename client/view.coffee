@@ -20,7 +20,7 @@ Template.view.onCreated ->
 
 Template.view.events
     'click .flat_tag': ->
-        console.log @
+        # console.log @
         picked_tags.clear()
         picked_tags.push @valueOf()
         Router.go '/'
