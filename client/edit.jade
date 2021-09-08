@@ -122,9 +122,9 @@ template(name='single_user_edit')
             input.single_user_select_input(type='text' placeholder='lookup user..' autocomplete='off')
             each selections
                 .ui.large.label
-                    |#{name} 
-                .ui.mini.grey.inline.header 
-                    |#{username}
+                    |#{username} 
+                // .ui.mini.grey.inline.header 
+                //     |#{username}
         if user_results
             .ui.attached.smoothed.segment
                 .ui.middle.aligned.selection.animated.list

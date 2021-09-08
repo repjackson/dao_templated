@@ -19,7 +19,8 @@ Template.view.onCreated ->
 
 
 Template.view.events
-    'click .flat_tag': ->
+    'click .flat_tag': (e,t)->
+        $(e.currentTarget).closest('.grid').transition('fly right', 500)
         # console.log @
         picked_tags.clear()
         picked_tags.push @valueOf()
@@ -33,26 +34,3 @@ Template.view.events
     #             runner_username: Meteor.user().username
     #             status: 'viewed' 
   
-
-Template.view.helpers
-    transfer_review: ->
-        Docs.findOne 
-            model:'transfer_review'
-            transfer_id:Router.current().params.doc_id
-
-    can_transfer: ->
-        # if StripeCheckout
-        unless @_author_id is Meteor.userId()
-            transfer_count =
-                Docs.find(
-                    model:'transfer'
-                    transfer_id:@_id
-                ).count()
-            if transfer_count is @servings_amount
-                false
-            else
-                true
-        # else
-        #     false
-
-

@@ -102,6 +102,8 @@ Template.home.helpers
     picked_location_tags: -> picked_location_tags.array()
     transfer_docs: ->
         match = {model:'transfer'}
+        if picked_tags.array().length > 0
+            match.tags = $all: picked_tags.array()
         Docs.find match,
             sort: _timestamp:-1
 Template.leaderboard.helpers
