@@ -171,20 +171,20 @@ Template.edit.events
 
 
     'click .cancel_transfer': ->
-        Swal.fire({
-            title: "confirm cancel?"
-            text: ""
-            icon: 'question'
-            showCancelButton: true,
-            confirmButtonColor: 'red'
-            confirmButtonText: 'confirm'
-            cancelButtonText: 'cancel'
-            reverseButtons: true
-        }).then((result)=>
-            if result.value
-                Docs.remove @_id
-                Router.go '/'
-        )
+        # Swal.fire({
+        #     title: "confirm cancel?"
+        #     text: ""
+        #     icon: 'question'
+        #     showCancelButton: true,
+        #     confirmButtonColor: 'red'
+        #     confirmButtonText: 'confirm'
+        #     cancelButtonText: 'cancel'
+        #     reverseButtons: true
+        # }).then((result)=>
+        # if result.value
+        Docs.remove @_id
+        Router.go '/'
+        # )
         
     'click .submit': (e,t)->
         # Swal.fire({
@@ -199,15 +199,23 @@ Template.edit.events
         # }).then((result)=>
         #     if result.value
         Meteor.call 'send_transfer', @_id, =>
-            $(e.currentTarget).closest('.grid').transition('fly down',500)
-            Swal.fire(
-                title:"#{@amount} sent"
-                icon:'success'
-                showConfirmButton: false
-                position: 'top-end',
-                timer: 1000
+            $(e.currentTarget).closest('.grid').transition('fly right',500)
+            # Swal.fire(
+            #     title:"#{@amount} sent"
+            #     icon:'success'
+            #     showConfirmButton: false
+            #     position: 'top-end',
+            #     timer: 1000
+            # )
+            $('body').toast(
+                showIcon: 'checkmark'
+                message: "#{@amount} sent to #{@target_username}"
+                # showProgress: 'bottom'
+                class: 'success'
+                # displayTime: 'auto',
+                position: "bottom right"
             )
-            
+
             Router.go "/transfer/#{@_id}"
         # )
 
