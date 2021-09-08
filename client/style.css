@@ -11,7 +11,7 @@ body {
     /*background: rgba(200,200,200,1) !important;*/
     /*filter: invert(1) !important; */
     /* overscroll-behavior: none; */
-    /*transition: all 1s ease !important;*/
+    /*transition: all .5s ease !important;*/
      /*background: #0e0e44 !important; */
 }
 
@@ -20,20 +20,20 @@ body {
 }
 .card:hover {
     filter: drop-shadow(10px 10px 10px rgba(200,200,200, 0.5)) !important;
-    transition: transform 1s; /* Animation */
+    transition: transform .5s; /* Animation */
 }
 .pointer:hover {
     cursor: pointer !important;
     filter: drop-shadow(10px 10px 10px rgba(200,200,200, 0.5)) !important;
-    transition: transform 1s; /* Animation */
+    transition: transform .5s; /* Animation */
     /*border-radius: 10px !important;*/
     transfom: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
 }
 
 .global_search_input {
-    animation: fadein 1s !important;
-    animation: slide 1s !important;
-    transition: 1s ease-in-out
+    animation: fadein .5s !important;
+    animation: slide .5s !important;
+    transition: .5s ease-in-out
 }
 
 /*.button {*/
@@ -41,7 +41,7 @@ body {
 /*  border-radius: 10px !important;*/
 /*}*/
 .button:hover {
-  transition: transform 1s; /* Animation */
+  transition: transform .5s; /* Animation */
   transform: scale(1.1) !important; /* (150% zoom - Note: if the zoom is too large, it will go outside of the viewport) */
   /*margin:.1em !important;*/
 }
@@ -135,11 +135,11 @@ body, p {
 
 
 .admin_panel {
-    animation: drop 1s !important;
+    animation: drop .5s !important;
 }
 .button, .selector, .card, p, .header, .image, .fade {
-    animation: fadein 1s !important;
-    /*animation: slide 1s !important;*/
+    animation: fadein .5s !important;
+    /*animation: slide .5s !important;*/
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }
@@ -350,7 +350,7 @@ img, .button{
 }
 
  #topnav > .item {
-    transition: all 1s ease !important;
+    transition: all .5s ease !important;
 } 
 
 /*.card {*/
@@ -365,7 +365,7 @@ img, .button{
 /*}*/
 .zoomer:hover {
     /*box-shadow: inset 0px 0px 10px 10px rgba(250,250,250,0.8);*/
-    transition: transform 1s; /* Animation */
+    transition: transform .5s; /* Animation */
     border-radius: 10px !important;
     filter: drop-shadow(0px 0px 5px 5px rgba(200,200,200,.7)) !important;
     transform: scale(1.1) !important;
@@ -717,7 +717,7 @@ input.username_search{
 
 
 .button, .selector, .card, p, .header, .item:not(.animated), .image, .fade {
-    animation: fadein 1s;
+    animation: fadein .5s;
      /*-webkit-transition: opacity 2s ease-out; */
     /* animation: fadeout .5s; */
 }
@@ -768,7 +768,7 @@ input.username_search{
     /*font-family: 'Goudy Bookletter 1911', sans-serif !important;*/
 }
 .ui.header{
-    animation: fadein 1s;
+    animation: fadein .5s;
      /*font-family: 'Benne', sans-serif !important; */
     /* font-family: 'Lusitana', serif !important; */
     /* font-size: 300% !important; */
@@ -778,15 +778,15 @@ input.username_search{
 }
 
 .label {
-  animation: fadein 1s;
+  animation: fadein .5s;
   margin:2px !important;
 }
 .segment{
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 
 /*.icon {*/
-/*  animation: fadein 1s;*/
+/*  animation: fadein .5s;*/
   /*filter: invert(.9) !important;*/
 /*}*/
 
@@ -796,10 +796,10 @@ input.username_search{
 }
 
 #main {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 .result_column, .comment {
-  animation: fadein 1s;
+  animation: fadein .5s;
 }
 
 @media screen and (max-width: 1100px) {
