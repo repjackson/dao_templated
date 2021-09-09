@@ -146,7 +146,8 @@ template(name='user_sent')
         
     i.tags.icon(title='credit tags')
     each sent_tags
-        .ui.basic.big.label #{title}
+        +profile_picker
+        // .ui.basic.big.label #{title}
             // small #{count}
         
     .scrolling.ui.four.doubling.cards
