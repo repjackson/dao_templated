@@ -7,7 +7,7 @@ template(name='post_view')
                         img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
-                .ten.wide.center.aligned.column
+                .ten.wide.column
                     .ui.huge.center.aligned.header
                         |#{title}
                     .ui.huge.center.aligned.inline.header
@@ -59,3 +59,13 @@ template(name='post_view')
                         each orders
                             a.item(href="/order/#{_id}}") #{when}
 
+                    +post_tips
+                    
+template(name='post_tips')
+    .ui.header 
+        +i name='donate'
+        |post tips
+    .ui.large.selection.link.list
+        each post_tips
+            a.item(href="/tip/#{_id}") #{amount} #{when}
+        

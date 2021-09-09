@@ -58,45 +58,6 @@ template(name='posts')
                 //         i.massive.yin.yang.grey.loading.icon
             
             
-// template(name='tag_picker')
-//     // if title
-//     a.ui.large.link.image.basic.label.pick_tag.zoomer(title=count)
-//         with ref_doc
-//             if image_url
-//                 +image_link_view key='image_url' direct=true
-//             else if image_id
-//                 +image_view key='image_id' direct=true
-//         // else
-//         |#{title} 
-//         // 
-//             // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-//             // img(src=metadata.image)
-//         // small.ui.grey.text #{count}
-            
-            
-            
-// template(name='unpick_tag')                        
-//     a.ui.black.huge.image.label.zoomer.unpick_tag
-//         with ref_doc_flat
-//             if image_url
-//                 +image_link_view key='image_url'
-//             else if image_id
-//                 +image_view key='image_id'
-        
-//             // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
-//         |#{this}
-                        
-            
-// template(name='flat_tag_picker')
-//     .ui.large.image.link.label.flat_tag_pick.zoomer.pointer
-//         with ref_doc_flat
-//             if image_url
-//                 +image_link_view key='image_url' direct=true
-//             else if image_id
-//                 +image_view key='image_id' direct=true
-//         // img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
-//         |#{this}
-
             
 template(name='post_item')
     a.ui.link.card.fly_right(href="/post/#{_id}")
@@ -126,17 +87,19 @@ template(name='post_item')
             small #{when}
                 // if in_dev 
                 //     +print_this
-        // .ui.attached.basic.buttons
-        //     .ui.icon.button
-        //         |#{comment_count}
-        //         i.chat.outline.icon
-        //     .ui.icon.button
-        //         |#{views}
-        //         i.eye.icon
-        //     .ui.icon.button
-        //         |#{upvotes}
-        //         i.thumbs.up.outline.icon
-        //     .ui.icon.button
-        //         |#{downvotes}
-        //         i.thumbs.down.outline.icon
+        .ui.attached.basic.buttons
+            .ui.icon.button
+                |#{comment_count}
+                i.chat.outline.icon
+            .ui.icon.button
+                |#{views}
+                i.eye.icon
+            .ui.icon.button
+                |#{upvotes}
+                i.thumbs.up.outline.icon
+            .ui.icon.button
+                |#{downvotes}
+                i.thumbs.down.outline.icon
+            .ui.icon.button.tip
+                +i name='donate' cl='ui avatar image'
                     

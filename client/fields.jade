@@ -264,19 +264,20 @@ template(name='textarea_edit')
         
 template(name='text_edit')
     // div
+    .ui.inline.header
+        
+        if icon
+            i.grey.icon(class=icon)
+            // +icon name=icon cl='ui avatar image'
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else if key
+            |#{key}
+            //- +clear_value
+    div
     .ui.input
-        label
-            if icon
-                i.grey.icon(class=icon)
-                // +icon name=icon cl='ui avatar image'
-            if title
-                |#{title}
-            else if label
-                |#{label}
-            else if key
-                |#{key}
-                //- +clear_value
-        div
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 

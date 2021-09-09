@@ -38,6 +38,7 @@ template(name='post_edit')
                     .ui.hidden.divider
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                 .eight.wide.column
+                    +text_edit key='title' label='title' direct=true
                     +html_edit key='description' label='description' direct=true
                     
                     +image_edit key='image_id' label='image' direct=true
