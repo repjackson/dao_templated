@@ -62,7 +62,7 @@ Template.profile_picker.helpers
 
 
 
-Template.home.onCreated ->
+Template.posts.onCreated ->
     Session.setDefault('post_filter','all')
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'post_tags', 
@@ -91,7 +91,7 @@ Template.home.onCreated ->
         Session.get('post_sort_direction')
         ,->
 
-Template.home.helpers
+Template.posts.helpers
     tag_results: -> Results.find(model:'tag')
     location_tag_results: -> Results.find(model:'location_tag')
     target_results: -> Results.find(model:'target_tag')
@@ -124,7 +124,14 @@ Template.post_item.events
     'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 250)
 
-Template.home.events
+Template.posts.events
+    'click .add_post': ->
+        new_id = 
+            Docs.insert 
+                model:'post'
+        Router.go "/post/#{new_id}/edit"   
+        
+        
     # 'click .pick_tag': -> picked_tags.push @title
     'click .unpick_tag': -> picked_tags.remove @valueOf()
     'click #clear_tags': -> picked_tags.clear()

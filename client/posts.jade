@@ -2,8 +2,10 @@ template(name='posts')
     .ui.stackable.padded.grid
         .four.wide.column.scrolling
             .ui.header 
-                +i name='posts-between-users'
-                |postss
+                +i name='blog'
+                |posts
+            .ui.icon.button.add_post
+                i.plus.large.icon
             // unless tag_results.count
             //     i.loading.yin.yang.big.grey.icon
             // else

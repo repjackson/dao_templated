@@ -1,6 +1,6 @@
 Router.route '/', (->
-    @render 'home'
-    ), name:'home'
+    @render 'transfers'
+    ), name:'transfers'
 
 @picked_tags = new ReactiveArray []
 @picked_authors = new ReactiveArray []
@@ -62,7 +62,7 @@ Template.profile_picker.helpers
 
 
 
-Template.home.onCreated ->
+Template.transfers.onCreated ->
     Session.setDefault('transfer_filter','all')
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
@@ -91,7 +91,7 @@ Template.home.onCreated ->
         Session.get('transfer_sort_direction')
         ,->
 
-Template.home.helpers
+Template.transfers.helpers
     tag_results: -> Results.find(model:'tag')
     location_tag_results: -> Results.find(model:'location_tag')
     target_results: -> Results.find(model:'target_tag')
@@ -124,7 +124,7 @@ Template.transfer_item.events
     'click .fly_right': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 250)
 
-Template.home.events
+Template.transfers.events
     # 'click .pick_tag': -> picked_tags.push @title
     'click .unpick_tag': -> picked_tags.remove @valueOf()
     'click #clear_tags': -> picked_tags.clear()

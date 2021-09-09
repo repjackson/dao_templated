@@ -11,42 +11,38 @@ template(name='post_edit')
                         .ui.inline.header
                             img.ui.small.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             |#{_author.name}
-                    .ui.segment
-                        .ui.inline.header target
-                        with target
-                            i.large.remove.link.icon.remove_target
-                            a.pointer(href="/user/#{name}")
-                                img.ui.tiny.inline.image(src="{{c.url image_id height=400 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                                .ui.inline.header #{name}
-                                .ui.small.grey.inline.header #{points}
-                        unless target
-                            .ui.divider
-                            // i.large.user.plus.icon
-                            +single_user_edit key='target_id' label='search member' icon='user plus' direct=true
-                            // .ui.icon.input
-                            //     i.search.icon
-                            //     input.search_username(type='text' placeholder='username')
-                            // each members
-                            //     .ui.compact.basic.button.add_target
-                            //         // i.plus.icon
-                            //         img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                            //         |#{name}
-                            //         small #{points}p
-                    // +date_edit key='date' label='date' direct=true   
-                    // +time_edit key='time' label='time' direct=true   
+                    // .ui.segment
+                    //     .ui.inline.header target
+                    //     with target
+                    //         i.large.remove.link.icon.remove_target
+                    //         a.pointer(href="/user/#{name}")
+                    //             img.ui.tiny.inline.image(src="{{c.url image_id height=400 width=400 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    //             .ui.inline.header #{name}
+                    //             .ui.small.grey.inline.header #{points}
+                    //     unless target
+                    //         .ui.divider
+                    //         // i.large.user.plus.icon
+                    //         +single_user_edit key='target_id' label='search member' icon='user plus' direct=true
+                    //         // .ui.icon.input
+                    //         //     i.search.icon
+                    //         //     input.search_username(type='text' placeholder='username')
+                    //         // each members
+                    //         //     .ui.compact.basic.button.add_target
+                    //         //         // i.plus.icon
+                    //         //         img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                    //         //         |#{name}
+                    //         //         small #{points}p
+                    // // +date_edit key='date' label='date' direct=true   
+                    // // +time_edit key='time' label='time' direct=true   
                 .eight.wide.column
                     +array_edit key='tags' label='tags' icon='tag' direct=true
                     .ui.hidden.divider
                     +boolean_edit key='has_location_tags' label='location' icon='marker' direct=true
                     if has_location_tags
                         +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    +boolean_edit key='has_description' label='description' icon='content' direct=true
-                    if has_description
-                        +html_edit key='description' label='description' direct=true
+                    +html_edit key='description' label='description' direct=true
                     
-                    +boolean_edit key='has_image' label='image' icon='image' direct=true
-                    if has_image
-                        +image_edit key='image_id' label='image' direct=true
+                    +image_edit key='image_id' label='image' direct=true
                     // +key_value_edit key='privacy' value='public' icon='eye' label='public'
                     // +key_value_edit key='privacy' value='private' icon='lock' label='private'
                     // +key_value_edit key='privacy' value='anon' icon='anonymous-mask' label='anonymous'
@@ -78,32 +74,19 @@ template(name='post_edit')
                     //         //     img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                     //         |#{title}
                 .four.wide.center.aligned.column
-                    // .ui.big.header #{amount}pts
+                    // .ui.big.header #{price}pts
                     .ui.big.input
-                        input.point_amount(type='number' value=amount min='1' max=point_max)
+                        input.point_price(type='number' value=price min='1' max=point_max)
                     // div
                     // .spacer
-                    +key_value_edit key='amount' value=1
-                    +key_value_edit key='amount' value=5
-                    +key_value_edit key='amount' value=10
-                    +key_value_edit key='amount' value=20
-                    +key_value_edit key='amount' value=50
+                    +key_value_edit key='price' value=null
+                    +key_value_edit key='price' value=1
+                    +key_value_edit key='price' value=5
+                    +key_value_edit key='price' value=10
+                    +key_value_edit key='price' value=20
+                    +key_value_edit key='price' value=50
                     .ui.hidden.divider
-                    .ui.center.aligned.basic.segment
-                        if can_submit
-                            .ui.green.huge.rounded.button.submit
-                                i.big.send.icon
-                                small send 
-                                strong #{amount}p
-                                small to 
-                                strong #{target_username}
-                        else 
-                            .ui.green.huge.disabled.rounded.button
-                                i.send.big.icon
-                                |send #{amount}pts to #{target_username}
-                    // +text_edit key='quick_add' label="quick send [amount] to [username] for [list of tags]" icon='lightning'
-                    // .ui.button.parse_quick_add
-                    //     i.lightning.icon
-
-
+                    .ui.green.huge.rounded.button.submit
+                        i.checkmark.icon
+                        |save
 
