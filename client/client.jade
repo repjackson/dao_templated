@@ -96,7 +96,7 @@ template(name='admin_footer')
       
       
 template(name='nav')
-    #topnav.ui.fluid.attached.four.item.borderless.menu.topnav
+    #topnav.ui.fluid.attached.five.item.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -111,6 +111,9 @@ template(name='nav')
             a.header.item.zoomer.fly_left(href='/users' class="{{isActiveRoute 'users'}}")
                 // i.large.users.icon
                 +i name='user-male' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}")
+                // i.large.users.icon
+                +i name='blog' cl='zoomer'
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon

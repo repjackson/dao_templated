@@ -1,0 +1,139 @@
+template(name='posts')
+    .ui.stackable.padded.grid
+        .four.wide.column.scrolling
+            .ui.header 
+                +i name='posts-between-users'
+                |postss
+            // unless tag_results.count
+            //     i.loading.yin.yang.big.grey.icon
+            // else
+            +i name='tags' cl='ui inline image'
+            each picked_tags
+                +unpick_tag
+                // .ui.blue.button.unpick_tag.zoomer
+                //     |#{this}
+            each tag_results
+                +tag_picker
+                // a.ui.basic.link.large.label.pick_tag #{title}
+                //     // small #{count}
+            div
+            +i name='marker' cl='ui inline image'
+            each picked_location_tags
+                a.ui.red.button.unpick_location_tag
+                    |#{this}
+            each location_tag_results
+                a.ui.basic.link.large.label.zoomer.pick_location_tag #{title}
+                    // small #{count}
+            div
+            +i name='send' cl='ui inline image'
+            each picked_authors
+                a.ui.teal.button.unpick_author_tag
+                    |#{this}
+            each author_results
+                a.ui.basic.link.large.label.zoomer.pick_author_tag #{title}
+                    // small #{count}
+            div
+            +i name='donate' cl='ui inline image'
+            each picked_targets
+                a.ui.teal.button.unpick_target_tag
+                    |#{this}
+            each target_results
+                a.ui.basic.link.large.label.zoomer.pick_target_tag #{title}
+                    // small #{count}
+        .twelve.wide.column
+            // +session_set key='posts_sort_filter' value='open'               
+            // +session_set key='posts_filter' value='now' icon='clock'            
+            // +session_set key='posts_filter' value='day' icon='sun'
+            // +session_set key='posts_filter' value=null label='all'
+            // i.sort.grey.icon
+            // +session_set key='posts_sort_key' value='price'               
+            .ui.four.stackable.centered.cards.scrolling
+                if posts_docs.count
+                    each posts_docs
+                        +posts_item
+                else 
+                    .ui.basic.segment
+                        i.massive.yin.yang.grey.loading.icon
+            
+            
+// template(name='tag_picker')
+//     // if title
+//     a.ui.large.link.image.basic.label.pick_tag.zoomer(title=count)
+//         with ref_doc
+//             if image_url
+//                 +image_link_view key='image_url' direct=true
+//             else if image_id
+//                 +image_view key='image_id' direct=true
+//         // else
+//         |#{title} 
+//         // 
+//             // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+//             // img(src=metadata.image)
+//         // small.ui.grey.text #{count}
+            
+            
+            
+// template(name='unpick_tag')                        
+//     a.ui.black.huge.image.label.zoomer.unpick_tag
+//         with ref_doc_flat
+//             if image_url
+//                 +image_link_view key='image_url'
+//             else if image_id
+//                 +image_view key='image_id'
+        
+//             // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+//         |#{this}
+                        
+            
+// template(name='flat_tag_picker')
+//     .ui.large.image.link.label.flat_tag_pick.zoomer.pointer
+//         with ref_doc_flat
+//             if image_url
+//                 +image_link_view key='image_url' direct=true
+//             else if image_id
+//                 +image_view key='image_id' direct=true
+//         // img.ui.image(src="{{c.url ref_doc_flat.image_id width=200 height=200 gravity='face' crop='fill'}}")
+//         |#{this}
+
+            
+template(name='post_item')
+    a.ui.link.card.fly_right(href="/post/#{_id}")
+        if image_id
+            img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+            // a.header(href="/posts/#{_id}") #{title}
+        .content
+            .ui.inline.header
+                if _author.image_id
+                    img.ui.avatar.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
+                | #{_author_username}
+                .ui.big.basic.circular.label #{amount}
+                // .ui.big.basic.image.label
+                if target.image_id
+                    img.ui.avatar.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
+                |#{target_username}
+            // .content
+            |!{description}
+            // i.tag.large.grey.icon
+            each tags
+                .ui.basic.large.label #{this}
+            if location_tags
+                i.large.marker.icon
+                each location_tags
+                    .ui.basic.large.label #{this}
+            small #{when}
+                // if in_dev 
+                //     +print_this
+        // .ui.attached.basic.buttons
+        //     .ui.icon.button
+        //         |#{comment_count}
+        //         i.chat.outline.icon
+        //     .ui.icon.button
+        //         |#{views}
+        //         i.eye.icon
+        //     .ui.icon.button
+        //         |#{upvotes}
+        //         i.thumbs.up.outline.icon
+        //     .ui.icon.button
+        //         |#{downvotes}
+        //         i.thumbs.down.outline.icon
+                    

@@ -1,24 +1,24 @@
-Template.view.onRendered ->
+Template.post_view.onRendered ->
 
-Router.route '/transfer/:doc_id', (->
+Router.route '/post/:doc_id', (->
     @layout 'layout'
-    @render 'view'
-    ), name:'view'
+    @render 'post_view'
+    ), name:'post_view'
 
 
-Template.view.onRendered ->
+Template.post_view.onRendered ->
     Meteor.call 'log_view', Router.current().params.doc_id, ->
-Template.view.onCreated ->
+Template.post_view.onCreated ->
     @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id
-    @autorun => Meteor.subscribe 'target_from_transfer_id', Router.current().params.doc_id
+    @autorun => Meteor.subscribe 'target_from_post_id', Router.current().params.doc_id
     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     # @autorun => Meteor.subscribe 'all_users'
-    # @autorun => Meteor.subscribe 'product_by_transfer_id', Router.current().params.doc_id
-    # @autorun => Meteor.subscribe 'transfer_things', Router.current().params.doc_id
-    # @autorun => Meteor.subscribe 'review_from_transfer_id', Router.current().params.doc_id
+    # @autorun => Meteor.subscribe 'product_by_post_id', Router.current().params.doc_id
+    # @autorun => Meteor.subscribe 'post_things', Router.current().params.doc_id
+    # @autorun => Meteor.subscribe 'review_from_post_id', Router.current().params.doc_id
 
 
-Template.view.events
+Template.post_view.events
     'click .flat_tag': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 500)
         # console.log @
