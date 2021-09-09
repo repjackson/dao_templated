@@ -76,7 +76,20 @@ template(name='user_card')
             // strong {{credit_ratio}}
             // span ##{global_debit_count_rank}
             // span ##{global_credit_count_rank}
-            
+        .ui.attached.basic.buttons
+            .ui.icon.button
+                |#{comment_count}
+                i.chat.outline.icon
+            .ui.icon.button
+                |#{views}
+                i.eye.icon
+            .ui.icon.button
+                |#{upvotes}
+                i.thumbs.up.outline.icon
+            .ui.icon.button
+                |#{downvotes}
+                i.thumbs.down.outline.icon
+
                     
 
 template(name='addtoset_user')

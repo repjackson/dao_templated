@@ -19,20 +19,6 @@ Template.post_view.onCreated ->
 
 
 Template.post_view.helpers  
-    can_access: ->
-        if @price is 0
-            true
-        else 
-            found_order = 
-                Docs.findOne 
-                    post_id:Router.current().params.doc_id
-                    _author_id:Meteor.userId()
-            if found_order
-                true
-            else 
-                false
-
-    
     orders: ->
         post = Docs.findOne Router.current().params.doc_id
         # Meteor.users.find 

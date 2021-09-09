@@ -60,8 +60,9 @@ template(name='post_view')
                         |orders
                     .ui.large.selection.link.list
                         each orders
-                            a.item(href="/order/#{_id}}") #{when}
-
+                            a.item(href="/order/#{_id}}")
+                                |#{_author_username}
+                                small #{when}
                     +post_tips
                     
 template(name='post_tips')

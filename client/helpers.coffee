@@ -15,6 +15,20 @@ Template.registerHelper 'included_ingredients', () ->
         _id: $in:@ingredient_ids
         
         
+Template.registerHelper 'can_access', () ->
+    if @price is 0
+        true
+    else 
+        found_order = 
+            Docs.findOne 
+                post_id:Router.current().params.doc_id
+                _author_id:Meteor.userId()
+        if found_order
+            true
+        else 
+            false
+        
+        
 Template.registerHelper 'is_admin', () ->
     # Meteor.users.findOne username:Router.current().params.username
     if Meteor.user() and Meteor.user().roles

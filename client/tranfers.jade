@@ -123,17 +123,17 @@ template(name='transfer_item')
             small #{when}
                 // if in_dev 
                 //     +print_this
-        // .ui.attached.basic.buttons
-        //     .ui.icon.button
-        //         |#{comment_count}
-        //         i.chat.outline.icon
-        //     .ui.icon.button
-        //         |#{views}
-        //         i.eye.icon
-        //     .ui.icon.button
-        //         |#{upvotes}
-        //         i.thumbs.up.outline.icon
-        //     .ui.icon.button
-        //         |#{downvotes}
-        //         i.thumbs.down.outline.icon
+        .ui.attached.basic.buttons
+            .ui.icon.button
+                |#{comment_count}
+                i.chat.outline.icon
+            .ui.icon.button
+                |#{views}
+                i.eye.icon
+            .ui.icon.button
+                |#{upvotes}
+                i.thumbs.up.outline.icon
+            .ui.icon.button
+                |#{downvotes}
+                i.thumbs.down.outline.icon
                     

@@ -69,14 +69,17 @@ template(name='post_item')
                 if _author.image_id
                     img.ui.avatar.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
                 | #{_author_username}
-                .ui.big.basic.circular.label #{amount}
+                if price    
+                    .ui.big.basic.circular.label #{price}p
+                else 
+                    .ui.basic.green.label free
                 // .ui.big.basic.image.label
-                if target.image_id
-                    img.ui.avatar.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
-                |#{target_username}
             // .content
-            |!{body}
-            |!{description}
+            if can_access
+                |!{body}
+                |!{description}
+            else 
+                +ibig name='paywall'
             // i.tag.large.grey.icon
             each tags
                 .ui.basic.large.label #{this}

@@ -13,6 +13,7 @@ Router.route '/posts', (->
 
 Template.posts.onCreated ->
     Session.setDefault('post_filter','all')
+    @autorun -> Meteor.subscribe 'model_docs', 'order', -> 
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'post_tags', 
         null

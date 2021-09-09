@@ -16,6 +16,10 @@ Meteor.publish 'user_subscribed_by', (username)->
     Meteor.users.find 
         _id:$in: user.subscribed_user_ids
     
+Meteor.publish 'model_docs', (model)->
+    Docs.find {  
+        model:model
+    }, limit:100
     
     
 Meteor.publish 'user_orders', (username)->
