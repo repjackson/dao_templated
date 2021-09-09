@@ -2,10 +2,15 @@ Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'user_dashboard'
     ), name:'user_dashboard'
+Router.route '/user/:username/points', (->
+    @layout 'user_layout'
+    @render 'points'
+    ), name:'points'
 
 
 Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
+    @autorun -> Meteor.subscribe 'user_topups', Router.current().params.username, ->
 
 Template.user_layout.onRendered ->
     Meteor.call 'calc_user_points', Router.current().params.username, ->
@@ -18,6 +23,14 @@ Template.user_layout.onRendered ->
 Template.user_layout.helpers
     user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
     user: -> Meteor.users.findOne username:Router.current().params.username
+Template.user_points.helpers
+    topups: ->
+        Docs.find 
+            model:'topup'
+
+Template.user_points.events
+    'click .topup': ->
+        Meteor.call 'topup', Router.current().params.username, ->
 
 Template.user_layout.events
     'click .refresh_user_stats': ->

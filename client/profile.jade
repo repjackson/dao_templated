@@ -83,10 +83,20 @@ template(name='user_dashboard')
             // if is_current_user
             
             .column.scrollin
+                +user_points
+            .column.scrollin
                 +user_received
             .column.scrollin
                 +user_sent
                 
+       
+template(name='user_points')
+    .ui.header points (topups)
+    .ui.button.topup
+        |topup
+    each topups
+        .ui.header #{amount}
+       
                 
                 
 template(name='user_received')

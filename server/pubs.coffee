@@ -64,6 +64,17 @@ Meteor.publish 'today_leaderboard', ()->
     })
     
     
+Meteor.methods
+    topup: (username)->
+        Docs.insert
+            model:'topup'
+            amount:10
+            _author_username:Meteor.user().username
+            
+Meteor.publish 'user_topups', (username)->
+    Docs.find 
+        model:'topup'
+        _author_username:username
     
 Meteor.publish 'transfer_tags', (
     username
