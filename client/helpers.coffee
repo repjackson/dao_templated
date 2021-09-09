@@ -16,18 +16,20 @@ Template.registerHelper 'included_ingredients', () ->
         
         
 Template.registerHelper 'can_access', () ->
-    if @price is 0
+    # console.log 'accessing ', @
+    # if @price and @price is 0
+    #     true
+    # else 
+    found_order = 
+        Docs.findOne 
+            model:'order'
+            post_id:@_id
+            _author_id:Meteor.userId()
+    if found_order
         true
     else 
-        found_order = 
-            Docs.findOne 
-                post_id:Router.current().params.doc_id
-                _author_id:Meteor.userId()
-        if found_order
-            true
-        else 
-            false
-        
+        false
+    
         
 Template.registerHelper 'is_admin', () ->
     # Meteor.users.findOne username:Router.current().params.username

@@ -43,6 +43,10 @@ template(name='posts')
                 a.ui.basic.link.large.label.zoomer.pick_target_tag #{title}
                     // small #{count}
         .twelve.wide.column
+            |bought filter
+            +session_set key='view_bought_posts' value='all'               
+            +session_set key='view_bought_posts' value='no'               
+            +session_set key='view_bought_posts' value='yes'               
             // +session_set key='posts_sort_filter' value='open'               
             // +session_set key='posts_filter' value='now' icon='clock'            
             // +session_set key='posts_filter' value='day' icon='sun'
@@ -62,9 +66,14 @@ template(name='posts')
 template(name='post_item')
     a.ui.link.card.fly_right(href="/post/#{_id}")
         if image_id
-            img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+            if can_access
+                img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+            else 
+                i.massive.lock.icon
             // a.header(href="/posts/#{_id}") #{title}
         .content
+            .ui.header
+                |#{title}
             .ui.inline.header
                 if _author.image_id
                     img.ui.avatar.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
@@ -79,7 +88,7 @@ template(name='post_item')
                 |!{body}
                 |!{description}
             else 
-                +ibig name='paywall'
+                i.massive.lock.icon
             // i.tag.large.grey.icon
             each tags
                 .ui.basic.large.label #{this}
