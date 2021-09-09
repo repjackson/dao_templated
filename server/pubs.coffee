@@ -5,6 +5,19 @@ Meteor.publish 'user_sent', (username)->
         _author_id: user._id
     }, 
         limit:100    
+Meteor.publish 'user_subscribed_to', (username)->
+    user = Meteor.users.findOne username:username
+    Meteor.users.find 
+        subscribed_user_ids:$in:[Meteor.userId()]
+    
+        
+Meteor.publish 'user_subscribed_by', (username)->
+    user = Meteor.users.findOne username:username
+    Meteor.users.find 
+        _id:$in: user.subscribed_user_ids
+    
+    
+    
 Meteor.publish 'user_orders', (username)->
     user = Meteor.users.findOne username:username
     Docs.find {

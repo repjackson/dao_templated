@@ -132,6 +132,19 @@ template(name='user_topups')
     each topups
         .ui.header #{amount}
        
+template(name='user_subscriptions')
+    .ui.inline.header 
+        +i name='refresh'
+        |subscriptions
+    .ui.header 
+        |subscribed to
+    each subscribed_to
+        .ui.header #{username}
+    .ui.header 
+        |subscribed by
+    each subscribed_by
+        .ui.header #{username}
+       
                 
 template(name='user_orders')
     .ui.header 

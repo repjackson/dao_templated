@@ -32,6 +32,22 @@ Router.route '/user/:username/subscriptions', (->
     ), name:'user_subscriptions'
 
 
+Template.user_subscriptions.onCreated ->
+    @autorun -> Meteor.subscribe 'user_subscribed_to', Router.current().params.username, ->
+    @autorun -> Meteor.subscribe 'user_subscribed_by', Router.current().params.username, ->
+        
+
+Template.user_subscriptions.helpers
+    subscribed_by: ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.find 
+            _id:$in:user.subscribed_user_ids
+        
+    subscribed_to: ->
+        Meteor.users.find 
+            subscribed_user_ids:$in:[Meteor.userId()]
+    
+
 Template.user_layout.onCreated ->
     @autorun -> Meteor.subscribe 'user_from_username', Router.current().params.username, ->
     @autorun -> Meteor.subscribe 'user_topups', Router.current().params.username, ->
