@@ -45,6 +45,10 @@ Meteor.publish 'posts', (
         
 
 
+Meteor.publish 'post_orders', (post_id)->
+    Docs.find 
+        model:'order'
+        post_id:post_id
 Meteor.publish 'post_tags', (
     username
     direction

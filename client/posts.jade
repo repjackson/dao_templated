@@ -49,7 +49,7 @@ template(name='posts')
             // +session_set key='posts_filter' value=null label='all'
             // i.sort.grey.icon
             // +session_set key='posts_sort_key' value='price'               
-            .ui.four.stackable.centered.cards.scrolling
+            .ui.three.stackable.centered.cards.scrolling
                 // if posts_docs.count
                 each post_docs
                     +post_item
@@ -114,6 +114,7 @@ template(name='post_item')
                     img.ui.avatar.image(src="{{c.url target.image_id height=400 width=400 gravity='face' crop='fill'}}")
                 |#{target_username}
             // .content
+            |!{body}
             |!{description}
             // i.tag.large.grey.icon
             each tags

@@ -14,11 +14,32 @@ Template.post_view.onCreated ->
     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     # @autorun => Meteor.subscribe 'all_users'
     # @autorun => Meteor.subscribe 'product_by_post_id', Router.current().params.doc_id
-    # @autorun => Meteor.subscribe 'post_things', Router.current().params.doc_id
+    @autorun => Meteor.subscribe 'post_orders', Router.current().params.doc_id
     # @autorun => Meteor.subscribe 'review_from_post_id', Router.current().params.doc_id
 
 
+Template.post_view.helpers  
+    orders: ->
+        post = Docs.findOne Router.current().params.doc_id
+        # Meteor.users.find 
+        #     _id: $in:post.buyer_ids
+        Docs.find 
+            model:'order'
+            
+            
+            
 Template.post_view.events
+    'click .purchase': (e,t)->
+        new_order = 
+            Docs.insert     
+                model:'order'
+                _author_id:Meteor.userId()
+                _author_username:Meteor.user().username
+                _timestamp:Date.now()
+                post_id:Router.current().params.doc_id
+        Router.go "/order/#{new_order}/edit"
+        
+        
     'click .flat_tag': (e,t)->
         $(e.currentTarget).closest('.grid').transition('fly right', 500)
         # console.log @

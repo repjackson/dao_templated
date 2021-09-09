@@ -5,10 +5,10 @@ template(name='post_edit')
                 .four.wide.column
                     .ui.large.fluid.basic.button.cancel_transfer
                         i.large.remove.red.icon
-                        |cancel
+                        |delete
                     .ui.segment
-                        .ui.inline.grey.header sender
                         .ui.inline.header
+                            .ui.header author
                             img.ui.small.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                             |#{_author.name}
                     // .ui.segment
@@ -34,12 +34,10 @@ template(name='post_edit')
                     //         //         small #{points}p
                     // // +date_edit key='date' label='date' direct=true   
                     // // +time_edit key='time' label='time' direct=true   
-                .eight.wide.column
                     +array_edit key='tags' label='tags' icon='tag' direct=true
                     .ui.hidden.divider
-                    +boolean_edit key='has_location_tags' label='location' icon='marker' direct=true
-                    if has_location_tags
-                        +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                .eight.wide.column
                     +html_edit key='description' label='description' direct=true
                     
                     +image_edit key='image_id' label='image' direct=true
@@ -79,7 +77,10 @@ template(name='post_edit')
                         input.point_price(type='number' value=price min='1' max=point_max)
                     // div
                     // .spacer
-                    +key_value_edit key='price' value=null
+                    .ui.header 
+                        i.coins.icon
+                        |access price
+                    +key_value_edit key='price' value=0
                     +key_value_edit key='price' value=1
                     +key_value_edit key='price' value=5
                     +key_value_edit key='price' value=10

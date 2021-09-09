@@ -8,27 +8,30 @@ template(name='post_view')
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
                 .ten.wide.center.aligned.column
+                    .ui.huge.center.aligned.header
+                        |#{title}
                     .ui.huge.center.aligned.inline.header
-                        |#{amount}p
+                        |#{price}p
                     // .f14
                     //     |#{description}
                     // .spacer
+                    div 
+                    img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
+                    |!{description}
+                    |!{body}
                     if tags
                         +i name='tags' cl='ui inline image'
                         each tags 
-                            a.ui.big.basic.link.label.flat_tag #{this}
+                            a.ui.large.basic.link.label.flat_tag #{this}
                     if location_tags
                         +i name='marker' cl='ui inline image'
                         each location_tags 
-                            .ui.big.basic.label #{this}
+                            .ui.large.basic.label #{this}
                     // .spacer
                     .ui.small.inline.header
                         i.clock.icon
                         | #{when}, 
                         |#{_timestamp_long}
-                    img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
-                    div 
-                    |!{description}
                     div 
                     .spacer
                     .spacer
@@ -39,14 +42,21 @@ template(name='post_view')
                         +print_this
                         +remove_button
                     if is_author
-                        a(href="/post/#{_id}/edit")
+                        a.ui.circular.basic.icon.button(href="/post/#{_id}/edit")
                             i.large.pencil.icon
+                    if in_dev
+                        a(href="/post/#{_id}/edit")
+                            i.large.circular.pencil.blue.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .three.wide.center.aligned.column
-                    a.fly_right(href="/user/#{target.username}")
-                        img.ui.centered.fluid.pointer.zoomer.rounded.image(src="{{c.url target.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                        .ui.large.center.aligned.header.pointer.zoomer
-                            |#{target.name}
-
-
+                    .ui.header 
+                        i.coins.icon
+                        |access
+                    .ui.small.header price: #{price}
+                    .ui.fluid.green.button.purchase
+                        |purchase for #{price}p
+                    .ui.large.selection.link.list
+                        each orders
+                            a.item(href="/order/#{_id}}") #{when}
+                        
 

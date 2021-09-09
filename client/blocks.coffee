@@ -38,7 +38,7 @@ Template.session_set.helpers
     session_set_class: ->
         if Session.equals(@key,@value) then 'active large' else 'basic'
 Template.print_this.events
-
+    'click .print': -> console.log @
 Template.alert_this.events
     'click .alert': -> alert @valueOf()
 
