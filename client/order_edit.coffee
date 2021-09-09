@@ -44,29 +44,6 @@ Template.order_edit.helpers
     #     Terms.find()
     # suggestions: ->
     #     Tags.find()
-    target: ->
-        order = Docs.findOne Router.current().params.doc_id
-        if order.target_id
-            Meteor.users.findOne
-                _id: order.target_id
-    members: ->
-        order = Docs.findOne Router.current().params.doc_id
-        Meteor.users.find({
-            # levels: $in: ['member','domain']
-            _id: $ne: Meteor.userId()
-        }, {
-            sort:points:1
-            limit:10
-            })
-    # subtotal: ->
-    #     order = Docs.findOne Router.current().params.doc_id
-    #     order.amount*order.target_ids.length
-    
-    point_max: ->
-        if Meteor.user().username is 'one'
-            1000
-        else 
-            Meteor.user().points
     
     can_submit: ->
         order = Docs.findOne Router.current().params.doc_id
@@ -94,61 +71,7 @@ Template.order_edit.events
         Router.go "/"
 
 
-    'click .parse_quick_add': ->
-        split = @quick_add.split(' ')
-        if split[0] is 'send'
-            Docs.update Router.current().params.doc_id, 
-                $set:
-                    amount:parseInt(split[1])
 
-    'click .add_target': ->
-        Docs.update Router.current().params.doc_id,
-            $set:
-                target_id:@_id
-    'click .remove_target': ->
-        Docs.update Router.current().params.doc_id,
-            $unset:
-                target_id:1
-    'keyup .new_tag': _.throttle((e,t)->
-        query = $('.new_tag').val()
-        if query.length > 0
-            Session.set('searching', true)
-        else
-            Session.set('searching', false)
-        Session.set('current_query', query)
-        
-        if e.which is 13
-            element_val = t.$('.new_tag').val().toLowerCase().trim()
-            Docs.update Router.current().params.doc_id,
-                $addToSet:tags:element_val
-            picked_tags.push element_val
-            Meteor.call 'log_term', element_val, ->
-            Session.set('searching', false)
-            Session.set('current_query', '')
-            Session.set('dummy', !Session.get('dummy'))
-            t.$('.new_tag').val('')
-    , 1000)
-
-    'click .remove_element': (e,t)->
-        element = @valueOf()
-        field = Template.currentData()
-        picked_tags.remove element
-        Docs.update Router.current().params.doc_id,
-            $pull:tags:element
-        t.$('.new_tag').focus()
-        t.$('.new_tag').val(element)
-        Session.set('dummy', !Session.get('dummy'))
-
-
-    # 'click .select_term': (e,t)->
-    #     # picked_tags.push @title
-    #     Docs.update Router.current().params.doc_id,
-    #         $addToSet:tags:@title
-    #     picked_tags.push @title
-    #     $('.new_tag').val('')
-    #     Session.set('current_query', '')
-    #     Session.set('searching', false)
-    #     Session.set('dummy', !Session.get('dummy'))
 
 
     'click .cancel_order': ->
@@ -190,18 +113,20 @@ Template.order_edit.events
                 #     # displayTime: 'auto',
                 #     position: "bottom right"
                 # )
-                Swal.fire({
-                    title: err.error
-                    text: ""
-                    icon: 'question'
-                    showCancelButton: true,
-                    confirmButtonColor: 'green'
-                    confirmButtonText: 'confirm'
-                    cancelButtonText: 'cancel'
-                    reverseButtons: true
-                }).then((result)=>
-                    # if result.value
-                )
+                if err.error is 'not_enough'
+                    Swal.fire({
+                        title: err.reason
+                        text: ""
+                        icon: 'question'
+                        showCancelButton: true,
+                        confirmButtonColor: 'green'
+                        confirmButtonText: 'topup'
+                        cancelButtonText: 'cancel'
+                        reverseButtons: true
+                    }).then((result)=>
+                        Router.go "/user/#{Meteor.user().username}/points"
+                        # if result.value
+                    )
                     
             else 
                 $(e.currentTarget).closest('.grid').transition('fly right',500)

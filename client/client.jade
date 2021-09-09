@@ -105,15 +105,15 @@ template(name='nav')
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
             // else 
+            a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}")
+                // i.large.users.icon
+                +i name='blog' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute 'home'}}")
                 // i.large.exchange.icon
                 +i name='transfer-between-users' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/users' class="{{isActiveRoute 'users'}}")
                 // i.large.users.icon
                 +i name='user-male' cl='zoomer'
-            a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}")
-                // i.large.users.icon
-                +i name='blog' cl='zoomer'
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon
