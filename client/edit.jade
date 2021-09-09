@@ -2,7 +2,7 @@ template(name='edit')
     with current_doc
         .ui.stackable.padded.grid
             .row 
-                .five.wide.column
+                .four.wide.column
                     .ui.large.fluid.basic.button.cancel_transfer
                         i.large.remove.red.icon
                         |cancel
@@ -34,7 +34,7 @@ template(name='edit')
                             //         small #{points}p
                     // +date_edit key='date' label='date' direct=true   
                     // +time_edit key='time' label='time' direct=true   
-                .six.wide.column
+                .eight.wide.column
                     +array_edit key='tags' label='tags' icon='tag' direct=true
                     .ui.hidden.divider
                     +boolean_edit key='has_location_tags' label='location' icon='marker' direct=true
@@ -42,7 +42,7 @@ template(name='edit')
                         +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +boolean_edit key='has_description' label='description' icon='content' direct=true
                     if has_description
-                        +textarea_edit key='description' label='description' direct=true
+                        +html_edit key='description' label='description' direct=true
                     
                     +boolean_edit key='has_image' label='image' icon='image' direct=true
                     if has_image
@@ -77,7 +77,7 @@ template(name='edit')
                     //         // if image
                     //         //     img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                     //         |#{title}
-                .five.wide.center.aligned.column
+                .four.wide.center.aligned.column
                     // .ui.big.header #{amount}pts
                     .ui.big.input
                         input.point_amount(type='number' value=amount min='1' max=point_max)

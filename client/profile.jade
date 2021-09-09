@@ -103,7 +103,8 @@ template(name='user_received')
         each received_transfers
             a.ui.card(href="/transfer/#{_id}")
                 if image_id
-                    +image_view key='image_id' label='image' direct=true
+                    // +image_view key='image_id' label='image' direct=true
+                    img.ui.image(src="{{c.url image_id }}")
                 .content
                     .ui.inline.header
                         if _author.image_id
