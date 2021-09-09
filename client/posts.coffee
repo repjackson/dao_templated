@@ -9,57 +9,6 @@ Router.route '/posts', (->
 @picked_location_tags = new ReactiveArray []
 
 
-Template.leaderboard.onCreated ->
-    @autorun -> Meteor.subscribe 'today_leaderboard', -> 
-
-
-Template.tag_picker.onCreated ->
-    @autorun => @subscribe 'ref_doc', @data, ->
-Template.unpick_tag.onCreated ->
-    @autorun => @subscribe 'flat_ref_doc', @data, ->
-Template.flat_tag_picker.onCreated ->
-    @autorun => @subscribe 'flat_ref_doc', @data, ->
-Template.tag_picker.events
-    'click .pick_tag': -> 
-        picked_tags.push @title
-        Session.set('viewing_post_id',null)
-# Template.profile_picker.events
-#     'click .pick_tag': -> 
-#         picked_tags.push @title
-#         Session.set('viewing_post_id',null)
-#         # Meteor.call 'call_wiki', @title,=>
-#         #     console.log 'called wiki on', @title
-
-Template.flat_tag_picker.helpers
-    ref_doc_flat: ->
-        # console.log @valueOf()
-        found = Docs.findOne 
-            model:'post'
-            title:@valueOf()
-        if found 
-            found
-        else 
-            Docs.findOne
-                model:'post'
-                tags:$in:[@valueOf()]
-
-Template.tag_picker.helpers
-    ref_doc: ->
-        # console.log @valueOf()
-        Docs.findOne({
-            model:'post'
-            tags:$in:[@title]
-        }, {sort:points:-1})
-
-Template.profile_picker.helpers
-    ref_doc: ->
-        # console.log @valueOf()
-        Docs.findOne({
-            model:'post'
-            tags:$in:[@title]
-        }, {sort:points:-1})
-
-
 
 
 Template.posts.onCreated ->

@@ -50,12 +50,12 @@ template(name='posts')
             // i.sort.grey.icon
             // +session_set key='posts_sort_key' value='price'               
             .ui.four.stackable.centered.cards.scrolling
-                if posts_docs.count
-                    each posts_docs
-                        +posts_item
-                else 
-                    .ui.basic.segment
-                        i.massive.yin.yang.grey.loading.icon
+                // if posts_docs.count
+                each post_docs
+                    +post_item
+                // else 
+                //     .ui.basic.segment
+                //         i.massive.yin.yang.grey.loading.icon
             
             
 // template(name='tag_picker')
