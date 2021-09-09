@@ -70,6 +70,22 @@ template(name='user_layout')
                         small
                             |profile views
                 .thirteen.wide.column
+                    .ui.five.item.menu
+                        a.item(href="/user/#{current_user.username}/")
+                            i.large.dashboard.icon
+                            |dashboard
+                        a.item(href="/user/#{current_user.username}/sent")
+                            i.send.large.icon
+                            |sent 
+                        a.item(href="/user/#{current_user.username}/received")
+                            i.chevron.down.icon
+                            |received 
+                        a.item(href="/user/#{current_user.username}/topups")
+                            +i name='donate'
+                            |topups 
+                        a.item(href="/user/#{current_user.username}/posts")
+                            +i name='blog'
+                            |posts 
                     // .spacer
                     +yield
 

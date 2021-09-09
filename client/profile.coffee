@@ -2,10 +2,26 @@ Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'user_dashboard'
     ), name:'user_dashboard'
-Router.route '/user/:username/points', (->
+# Router.route '/user/:username/points', (->
+#     @layout 'user_layout'
+#     @render 'points'
+#     ), name:'points'
+Router.route '/user/:username/topups', (->
     @layout 'user_layout'
-    @render 'points'
-    ), name:'points'
+    @render 'user_topups'
+    ), name:'user_topups'
+Router.route '/user/:username/received', (->
+    @layout 'user_layout'
+    @render 'user_received'
+    ), name:'user_received'
+Router.route '/user/:username/sent', (->
+    @layout 'user_layout'
+    @render 'user_sent'
+    ), name:'user_sent'
+Router.route '/user/:username/posts', (->
+    @layout 'user_layout'
+    @render 'user_posts'
+    ), name:'user_posts'
 
 
 Template.user_layout.onCreated ->
@@ -53,11 +69,6 @@ Template.user_edit.onRendered ->
     # , 2000
     
             
-Router.route '/user/:username/sent', (->
-    @layout 'profile_layout'
-    @render 'user_sent'
-    ), name:'user_sent'
-
 
 
 Template.user_sent.onCreated ->
