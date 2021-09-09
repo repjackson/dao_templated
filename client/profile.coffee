@@ -26,6 +26,10 @@ Router.route '/user/:username/orders', (->
     @layout 'user_layout'
     @render 'user_orders'
     ), name:'user_orders'
+Router.route '/user/:username/subscriptions', (->
+    @layout 'user_layout'
+    @render 'user_subscriptions'
+    ), name:'user_subscriptions'
 
 
 Template.user_layout.onCreated ->
@@ -40,13 +44,37 @@ Template.user_layout.onRendered ->
     #     $('.button').popup()
     # , 2000
 
+Template.user_layout.events
+    'click .subscribe': ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id, 
+            $addToSet:
+                subscribed_user_ids:Meteor.userId()
+                
+    'click .unsubscribe': ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id, 
+            $pull:
+                subscribed_user_ids:Meteor.userId()
+                
+
 Template.user_layout.helpers
     user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
     user: -> Meteor.users.findOne username:Router.current().params.username
+    subscribed: ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        if user.subscribed_user_ids and Meteor.userId() in user.subscribed_user_ids
+            true
+        else 
+            false
 Template.user_topups.helpers
     topups: ->
         Docs.find 
             model:'topup'
+
+
+Template.user_orders.onCreated ->
+    @autorun -> Meteor.subscribe 'user_orders', Router.current().params.username, ->
 Template.user_orders.helpers
     order_docs: ->
         Docs.find 

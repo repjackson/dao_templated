@@ -5,6 +5,13 @@ Meteor.publish 'user_sent', (username)->
         _author_id: user._id
     }, 
         limit:100    
+Meteor.publish 'user_orders', (username)->
+    user = Meteor.users.findOne username:username
+    Docs.find {
+        model:'order'
+        _author_id: user._id
+    }, 
+        limit:100    
         
 Meteor.publish 'transfers', (
     username

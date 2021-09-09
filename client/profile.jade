@@ -19,6 +19,17 @@ template(name='user_layout')
                         .ui.basic.icon.big.button.logout.fly_down(title='log out')
                             i.sign.out.alternate.large.icon
                     // .ui.hidden.divider
+                    unless subscribed
+                        .ui.button.subscribe
+                            |subscribe
+                    if subscribed
+                        .ui.animated.button.unsubscribe
+                            .visible.content
+                                i.checkmark.icon
+                                |subscribed
+                            .hidden.content
+                                i.undo.icon
+                                |unsubscribe
                     .ui.large.basic.label
                         strong
                             |#{current_user.points}
@@ -83,6 +94,9 @@ template(name='user_layout')
                         a.item(href="/user/#{current_user.username}/topups")
                             +i name='donate'
                             |topups 
+                        a.item(href="/user/#{current_user.username}/subscriptions")
+                            +i name='refresh'
+                            |subscriptions 
                         a.item(href="/user/#{current_user.username}/posts")
                             +i name='blog'
                             |posts 
