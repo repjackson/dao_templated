@@ -1,4 +1,4 @@
-template(name='post_view')
+template(name='order_view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row 
@@ -42,10 +42,10 @@ template(name='post_view')
                         +print_this
                         +remove_button
                     if is_author
-                        a.ui.circular.basic.icon.button(href="/post/#{_id}/edit")
+                        a.ui.circular.basic.icon.button(href="/order/#{_id}/edit")
                             i.large.pencil.icon
                     if in_dev
-                        a(href="/post/#{_id}/edit")
+                        a(href="/order/#{_id}/edit")
                             i.large.circular.pencil.blue.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
                 .three.wide.center.aligned.column

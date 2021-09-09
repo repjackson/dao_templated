@@ -220,3 +220,25 @@ Meteor.publish 'post_tags', (
     
         
         
+
+
+Meteor.methods 
+    confirm_order:(order_id)->
+        order = Docs.findOne order_id
+        post = Docs.findOne order.post_id
+        
+        user = Meteor.user()
+        
+        console.log 'user points', user.points
+        console.log 'post price', post.price
+        if user.points <= post.price
+            console.log 'not enough', user.points-post.price
+            throw new Meteor.Error 'not enough points'
+        else 
+            Docs.update order_id, 
+                $set:
+                    complete: true
+                    order_price:post.price
+                    
+            
+                    
