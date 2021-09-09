@@ -47,6 +47,11 @@ template(name='posts')
             +session_set key='view_bought_posts' value='all'               
             +session_set key='view_bought_posts' value='no'               
             +session_set key='view_bought_posts' value='yes'               
+            |price filter
+            +session_set key='view_price_posts' value='free'               
+            +session_set key='view_price_posts' value='affordable'               
+            +session_set key='view_price_posts' value='unaffordable'
+            +session_set key='view_price_posts' value='all'
             // +session_set key='posts_sort_filter' value='open'               
             // +session_set key='posts_filter' value='now' icon='clock'            
             // +session_set key='posts_filter' value='day' icon='sun'

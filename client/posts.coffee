@@ -13,7 +13,7 @@ Router.route '/posts', (->
 
 Template.posts.onCreated ->
     Session.setDefault('post_filter','all')
-    @autorun -> Meteor.subscribe 'model_docs', 'order', -> 
+    # @autorun -> Meteor.subscribe 'model_docs', 'order', -> 
     @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'post_tags', 
         null
@@ -69,6 +69,8 @@ Template.leaderboard.helpers
         )
 
 
+Template.post_item.onCreated ->
+    @autorun => Meteor.subscribe 'post_orders', @data._id, -> 
 
 Template.post_item.events
     'click .fly_right': (e,t)->

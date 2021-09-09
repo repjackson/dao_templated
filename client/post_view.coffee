@@ -25,6 +25,7 @@ Template.post_view.helpers
         #     _id: $in:post.buyer_ids
         Docs.find 
             model:'order'
+            post_id:Router.current().params.doc_id
             
             
             

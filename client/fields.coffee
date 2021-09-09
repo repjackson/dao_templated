@@ -300,8 +300,12 @@ Template.number_edit.events
         parent = Template.parentData()
         val = parseInt t.$('.edit_number').val()
         doc = Docs.findOne parent._id
+        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
+                $set:"#{@key}":val
+        else if user
+            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 

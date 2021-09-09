@@ -3,7 +3,7 @@ template(name='user_edit')
         //- img.ui.fluid.image.checkin_banner(src="{{c.url banner_image_id width=1000 height=500 crop='crop'}}")    
         .ui.stackable.padded.grid
             .row
-                .sixteen.wide.column
+                .four.wide.column
                     .ui.center.aligned.large.inline.grey.header
                         | #{current_user.first_name} #{current_user.last_name}
                     //- +i name='pencil'
@@ -11,6 +11,11 @@ template(name='user_edit')
                     a.ui.big.fluid.green.icon.button.fly_down(href="/user/#{current_user.username}/") 
                         i.checkmark.large.icon
                     .ui.hidden.divider
+                    +boolean_edit key='premium_access' label='premium account' direct=true icon='shield'
+                    if premium_access
+                        +number_edit key='premium_access_price' label='access price (points)' direct=true
+                        
+                .twelve.wide.column
                     +image_edit key='image_id' icon='picture' title='profile image' direct=true
                     if is_current_user
                         +password_edit

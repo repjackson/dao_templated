@@ -96,7 +96,7 @@ template(name='admin_footer')
       
       
 template(name='nav')
-    #topnav.ui.fluid.attached.five.item.borderless.menu.topnav
+    #topnav.ui.fluid.attached.four.item.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -123,9 +123,9 @@ template(name='nav')
             //         i.sign.in.icon
             //         |sign in
             //       .right.menu
-            a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
-                +i name='plus' cl='zoomer'
-                // i.large.green.plus.icon
+            // a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
+            //     +i name='plus' cl='zoomer'
+            //     // i.large.green.plus.icon
         
             if currentUser
                 if logging_out

@@ -112,7 +112,7 @@ Meteor.publish 'post_tags', (
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 10 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -136,7 +136,7 @@ Meteor.publish 'post_tags', (
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 10 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -158,7 +158,7 @@ Meteor.publish 'post_tags', (
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 10 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -181,7 +181,7 @@ Meteor.publish 'post_tags', (
         { $match: count: $lt: result_count }
         # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
         { $sort: count: -1, _id: 1 }
-        { $limit: 20 }
+        { $limit: 10 }
         { $project: _id: 0, title: '$_id', count: 1 }
     ], {
         allowDiskUse: true
@@ -203,7 +203,7 @@ Meteor.publish 'post_tags', (
     #     { $match: count: $lt: result_count }
     #     # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
     #     { $sort: count: -1, _id: 1 }
-    #     { $limit: 20 }
+    #     { $limit: 10 }
     #     { $project: _id: 0, title: '$_id', count: 1 }
     # ], {
     #     allowDiskUse: true
