@@ -114,7 +114,7 @@ template(name='user_received')
                     each tags
                         .ui.basic.large.label #{this}
                     small #{when}
-                    |#{description}
+                    // |!{description}
                     // if in_dev
                     //     +print_this
         
@@ -162,7 +162,7 @@ template(name='user_sent')
                             img.ui.avatar.image(src="{{c.url target.image_id height=200 width=200 gravity='face' crop='fill'}}")
                         |#{target_username}
                     small #{when}
-                    |#{description}
+                    // |!{description}
                     each tags
                         .ui.basic.label #{this}
                     // if in_dev 

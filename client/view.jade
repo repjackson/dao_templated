@@ -21,8 +21,8 @@ template(name='view')
                         +i name='marker' cl='ui inline image'
                         each location_tags 
                             .ui.big.basic.label #{this}
-                    .spacer
-                    .ui.small.header
+                    // .spacer
+                    .ui.small.inline.header
                         i.clock.icon
                         | #{when}, 
                         |#{_timestamp_long}

@@ -87,7 +87,8 @@ template(name='viewing')
     //         if in_dev
     //             .ui.icon.button.mark_unread
     //                 i.cancel.icon
-    .ui.inline.header viewed by
+    // .ui.inline.header viewed by
+    i.eye.large.icon
     each viewer_usernames
         .ui.basic.label #{this}
 
@@ -306,7 +307,7 @@ template(name='voting_full')
     if upvoter_ids
         .ui.small.inline.grey.header 
             i.thumbs.up.outline.icon
-            |upvoters
+            // |upvoters
         // each upvoter_ids
         //     +user_info
         each upvoter_usernames
@@ -315,7 +316,7 @@ template(name='voting_full')
     if downvoter_ids
         .ui.small.inline.grey.header 
             i.thumbs.down.outline.icon
-            |downvoters
+            // |downvoters
         each downvoter_usernames
             .ui.basic.label 
                 |#{this}
