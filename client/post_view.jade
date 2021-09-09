@@ -16,9 +16,10 @@ template(name='post_view')
                     //     |#{description}
                     // .spacer
                     div 
-                    img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
-                    |!{description}
-                    |!{body}
+                    if can_access
+                        img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
+                        |!{description}
+                        |!{body}
                     if tags
                         +i name='tags' cl='ui inline image'
                         each tags 
@@ -55,6 +56,8 @@ template(name='post_view')
                     .ui.small.header price: #{price}
                     .ui.fluid.green.button.purchase
                         |purchase for #{price}p
+                    .ui.header 
+                        |orders
                     .ui.large.selection.link.list
                         each orders
                             a.item(href="/order/#{_id}}") #{when}
@@ -64,7 +67,7 @@ template(name='post_view')
 template(name='post_tips')
     .ui.header 
         +i name='donate'
-        |post tips
+        |tips
     .ui.large.selection.link.list
         each post_tips
             a.item(href="/tip/#{_id}") #{amount} #{when}

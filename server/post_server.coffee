@@ -233,6 +233,10 @@ Meteor.methods
         console.log 'post price', post.price
         if user.points <= post.price
             # console.log 'not enough', user.points-post.price
+            Docs.update order_id, 
+                $set:
+                    complete:true
+                    order_price:post.price
             throw new Meteor.Error 'not_enough', 'not enough points'
         else 
             Docs.update order_id, 

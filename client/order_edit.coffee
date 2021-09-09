@@ -124,10 +124,9 @@ Template.order_edit.events
                         cancelButtonText: 'cancel'
                         reverseButtons: true
                     }).then((result)=>
-                        Router.go "/user/#{Meteor.user().username}/points"
-                        # if result.value
+                        if result.value
+                            Router.go "/user/#{Meteor.user().username}/topups"
                     )
-                    
             else 
                 $(e.currentTarget).closest('.grid').transition('fly right',500)
                 # Swal.fire(

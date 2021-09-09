@@ -70,7 +70,7 @@ template(name='user_layout')
                         small
                             |profile views
                 .thirteen.wide.column
-                    .ui.five.item.menu
+                    .ui.six.item.menu.hscroll
                         a.item(href="/user/#{current_user.username}/")
                             i.large.dashboard.icon
                             |dashboard
@@ -86,6 +86,9 @@ template(name='user_layout')
                         a.item(href="/user/#{current_user.username}/posts")
                             +i name='blog'
                             |posts 
+                        a.item(href="/user/#{current_user.username}/orders")
+                            +i name='order-history'
+                            |orders 
                     // .spacer
                     +yield
 
@@ -99,19 +102,30 @@ template(name='user_dashboard')
             // if is_current_user
             
             .column.scrollin
-                +user_points
+                +user_topups
             .column.scrollin
                 +user_received
             .column.scrollin
                 +user_sent
                 
        
-template(name='user_points')
-    .ui.header points (topups)
+template(name='user_topups')
+    .ui.inline.header 
+        +i name='donate'
+        |topups
     .ui.button.topup
         |topup
     each topups
         .ui.header #{amount}
+       
+                
+template(name='user_orders')
+    .ui.header 
+        +i name='order-history'
+        |orders
+    .ui.large.list 
+        each order_docs
+            .item #{when} #{_author_username}
        
                 
                 

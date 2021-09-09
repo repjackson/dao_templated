@@ -45,7 +45,11 @@ template(name='order_edit')
                     // .ui.big.header #{price}pts
                     // div
                     // .spacer
-                    .ui.green.huge.rounded.button.confirm_order
-                        i.checkmark.icon
-                        |confirm
+                    if complete 
+                        .ui.big.green.button(href="/post/#{post_id/")
+                            |order complete, go back
+                    else 
+                        .ui.green.huge.rounded.button.confirm_order
+                            i.checkmark.icon
+                            |confirm
 

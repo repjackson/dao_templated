@@ -22,6 +22,10 @@ Router.route '/user/:username/posts', (->
     @layout 'user_layout'
     @render 'user_posts'
     ), name:'user_posts'
+Router.route '/user/:username/orders', (->
+    @layout 'user_layout'
+    @render 'user_orders'
+    ), name:'user_orders'
 
 
 Template.user_layout.onCreated ->
@@ -39,12 +43,17 @@ Template.user_layout.onRendered ->
 Template.user_layout.helpers
     user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
     user: -> Meteor.users.findOne username:Router.current().params.username
-Template.user_points.helpers
+Template.user_topups.helpers
     topups: ->
         Docs.find 
             model:'topup'
+Template.user_orders.helpers
+    order_docs: ->
+        Docs.find 
+            model:'order'
+            _author_username:Router.current().params.username
 
-Template.user_points.events
+Template.user_topups.events
     'click .topup': ->
         Meteor.call 'topup', Router.current().params.username, ->
 
