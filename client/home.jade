@@ -11,7 +11,6 @@ template(name='home')
             .column
                 +specials
             .column
-                +soup_small
             .column
                 +daily_question
             .column
@@ -61,8 +60,8 @@ template(name='home')
                                 +home_item
             // .column
             //     +items
-            .column
-                +checkin_small
+            // .column
+            //     +checkin_small
             // .column
             //     +loss_summary
                 // +losses
@@ -70,35 +69,23 @@ template(name='home')
             //     +food
             // .column
             //     +drinks
-            .column
-                +order_small
-        
-template(name='daily_question')
-    .ui.header 
-        |daily question
+            // .column
+            //     +order_small
         
                 
-template(name='soup')
-    .ui.stackable.padded.grid 
-        .sixteen.wide.column
-            .ui.header 
-                +i name='soup-plate'
-                |soup
-            with soup_of_the_day
-                a.ui.header(href="/soup/#{_id}") #{title}
             
                 
-template(name='soup_small')
-    a.ui.header(href="/soup") 
-        +i name='soup-plate'
-        |soup of the day
-    
-    with soup_doc
-        .ui.header #{title}
-        each ingredients
-            .ui.large.label
-                |#{this}
 
+template(name='daily_question')
+    .ui.inline.header 
+        i.question.icon
+        |daily question
+    if is_admin
+        i.circular.link.plus.icon.add_question
+    with daily_question
+        .ui.header #{title}
+        
+        
 template(name='specials')
     a.ui.header(href="/specials")
         +i name='discount'

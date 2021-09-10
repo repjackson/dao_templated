@@ -8,6 +8,21 @@ Template.session_edit_button.helpers
 
 
 
+Template.subscribe_button.events
+    'click .subscribe': ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id, 
+            $addToSet:
+                subscribed_user_ids:Meteor.userId()
+                
+    'click .unsubscribe': ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        Meteor.users.update user._id, 
+            $pull:
+                subscribed_user_ids:Meteor.userId()
+                
+
+
 
 
 Template.doc_fans.events

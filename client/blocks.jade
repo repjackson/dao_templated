@@ -14,6 +14,21 @@ template(name='doc_array_toggle')
         //-     +user_info
         
 
+template(name='subscribe_button')
+    unless subscribed
+        .ui.large.fluid.basic.button.subscribe
+            |subscribe
+    if subscribed
+        .ui.animated.fluid.large.green.button.unsubscribe
+            .visible.content
+                i.checkmark.icon
+                |subscribed
+            .hidden.content
+                i.undo.icon
+                |unsubscribe
+
+
+
 template(name='edit_button')
     a.ui.circular.icon.button(href="/#{model}/#{_id}/edit")
         i.large.pencil.icon

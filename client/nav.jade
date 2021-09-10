@@ -11,7 +11,7 @@ template(name='nav')
             a.icon.item.toggle_leftbar.no_blink
                i.bars.large.icon 
             
-            a.header.item.zoomer.mobile.hidden(href='/' class="{{isActiveRoute ''}}" title='home')
+            a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
                 +i name='yin-yang' cl='zoomer'
             a.header.item.zoomer.mobile.hidden(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
                 +i name='blog' cl='zoomer'
@@ -31,8 +31,8 @@ template(name='nav')
                 +i name='campfire' cl='zoomer'
             a.header.item.zoomer.mobile.hidden(href='/badges' class="{{isActiveRoute 'badges'}}")
                 +i name='certificate' cl='zoomer'
-            a.icon.item(href="/add")
-                i.large.green.plus.icon
+            // a.icon.item(href="/add")
+            //     i.large.green.plus.icon
             a.icon.item.toggle_topbar(title='alerts')
                 i.bell.outline.large.icon
 

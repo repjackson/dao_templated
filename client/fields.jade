@@ -68,10 +68,10 @@ template(name='html_view')
 //     i.large.icon(class=name)
 template(name='i')
     //- i.icon(class=name)
-    img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=cl title=title)
-    // if currentUser.color_icons
-    // else 
-    //     img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=cl title=title)
+    if currentUser.simple_icons
+        img(src="https://img.icons8.com/ios/48/000000/#{name}.png" class=cl title=title)
+    else 
+        img(src="https://img.icons8.com/color/48/000000/#{name}.png" class=cl title=title)
     // img(src="https://img.icons8.com/cotton/48/000000/#{name}.png" class=cl title=title)
     //- img.icon8(src="https://img.icons8.com/ios/50/000000/#{name}.png" class=cl title=title)
     //- img(src="https://img.icons8.com/ultraviolet/48/000000/#{name}.png" class=cl title=title)

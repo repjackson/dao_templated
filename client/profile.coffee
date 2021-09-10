@@ -64,19 +64,6 @@ Template.user_layout.onRendered ->
     #     $('.button').popup()
     # , 2000
 
-Template.user_layout.events
-    'click .subscribe': ->
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id, 
-            $addToSet:
-                subscribed_user_ids:Meteor.userId()
-                
-    'click .unsubscribe': ->
-        user = Meteor.users.findOne username:Router.current().params.username
-        Meteor.users.update user._id, 
-            $pull:
-                subscribed_user_ids:Meteor.userId()
-                
 
 Template.user_layout.helpers
     user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username

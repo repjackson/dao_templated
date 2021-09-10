@@ -18,17 +18,7 @@ template(name='user_layout')
                             |premium access account for 
                             |#{premium_access_price}pts
                     +friend_button
-                    unless subscribed
-                        .ui.large.fluid.basic.button.subscribe
-                            |subscribe
-                    if subscribed
-                        .ui.animated.fluid.large.green.button.unsubscribe
-                            .visible.content
-                                i.checkmark.icon
-                                |subscribed
-                            .hidden.content
-                                i.undo.icon
-                                |unsubscribe
+                    +subscribe_button
                     .ui.hidden.divider
                     if is_current_user
                         a.ui.basic.icon.big.button.fly_up(href="/user/#{user_from_username_param.username}/edit" title='profile settings')
@@ -117,6 +107,8 @@ template(name='user_layout')
         //     +admin_footer
 
 
+
+
 template(name='user_dashboard')
     with current_user    
         .ui.stackable.one.column.grid
@@ -157,8 +149,12 @@ template(name='user_topups')
         |topups
     .ui.button.topup
         |topup
-    each topups
-        .ui.header #{amount}
+    .ui.selection.animated.list
+        each topups
+            a.item(href="/topup/#{_id}") #{amount}
+       
+       
+       
        
 template(name='user_subscriptions')
     .ui.inline.header 

@@ -1,15 +1,16 @@
 template(name='deliveries')
-    .four.wide.column   
-        .ui.header 
-            +i name='truck'
-            |deliveries
-        .ui.header your default address
-        .ui.icon.button.request_delivery
-            i.plus.icon
-    .scrolling.twelve.wide.column
-        .ui.five.doubling.centered.cards
-            each delivery_docs
-                +delivery_item
+    .ui.stackable.padded.grid
+        .four.wide.column   
+            .ui.header 
+                +i name='truck'
+                |deliveries
+            .ui.header your default address
+            .ui.icon.button.request_delivery
+                i.plus.icon
+        .scrolling.twelve.wide.column
+            .ui.five.doubling.centered.cards
+                each delivery_docs
+                    +delivery_item
                     
             
 template(name='delivery_item')
