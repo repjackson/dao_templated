@@ -15,6 +15,16 @@ template(name='doc_array_toggle')
         
 
 
+template(name='friend_button')
+    if is_friend
+        .ui.animated.button
+            .visible.content
+                i.checkmark.icon
+                |friends
+            .hidden.content
+                i.undo.icon
+                |unfriend
+
 template(name='linked_product')
     .ui.segment
         with linked_product_doc

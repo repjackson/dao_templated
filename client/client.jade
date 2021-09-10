@@ -34,14 +34,26 @@ head
 
     
 template(name='layout')
+    // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
-    if logging_in
-        .ui.center.aligned.basic.segment
-            i.massive.loading.yin.yang.grey.icon
-    else
-        +yield
-    if in_dev
-        +admin_footer
+    .ui.bottom.attached.pushable.segment.scrolling
+        +left_sidebar
+        +right_sidebar
+        +topbar
+        // +cartbar
+        // +walletbar
+        // +secnav
+        if logging_in
+            .ui.center.aligned.basic.segment
+                i.massive.loading.yin.yang.grey.icon
+        else
+            .global_conainer.pusher
+                // unless connected
+                //     +status
+                +yield
+        if in_dev
+            +admin_footer
+
       
 template(name='fullscreen')
     +yield
@@ -94,6 +106,33 @@ template(name='admin_footer')
       
       
       
+template(name='add')
+    .ui.padded.grid
+        .ui.one.column.row 
+            .column
+                .ui.center.aligned.big.header 
+                    i.plus.icon
+                    |add document
+        .ui.four.column.centered.row 
+            +add_column label='post' model='post' icon='blog'
+            +add_column label='event' model='event' icon='calendar'
+            +add_column label='review' model='review' icon='chat'
+            +add_column label='picture' model='picture' icon='image'
+            +add_column label='food' model='food' icon='food'
+            +add_column label='drink' model='drink' icon='beer'
+            +add_column label='user' model='user' icon='user'
+            +add_column label='ingredient' model='ingredient' icon='ingredients'
+            +add_column label='checkin' model='checkin' icon='checkmark'
+            +add_column label='transfer' model='transfer' icon='donation'
+            +add_column label='topup' model='topup' icon='donation'
+        
+template(name='add_column')
+    a.center.aligned.column.zoomer.add_doc.pointer
+        a.ui.icon.header
+            +i name=icon
+            |#{label}
+
+
       
 
 

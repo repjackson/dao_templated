@@ -9,7 +9,20 @@ Template.session_edit_button.helpers
 
 
 
-
+Template.friend_button.events
+    'click .add_friend': ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        
+        Meteor.users.update user._id, 
+            $addToSet:
+                friend_user_ids:Meteor.userId()
+    'click .remove_friend': ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        
+        Meteor.users.update user._id, 
+            $pull:
+                friend_user_ids:Meteor.userId()
+        
 
 
 Template.session_toggle.events
