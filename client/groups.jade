@@ -1,279 +1,241 @@
 template(name='groups')
     .ui.stackable.padded.grid
-        .row
-            .three.wide.column
-                .ui.header 
-                    +i name='campfire'
-                    |#{groups.count}
-                    |groups
-                .ui.icon.large.button.new_group
-                    i.green.plus.icon
-            .twelve.wide.column
-                //- with top_group
-                //-     +group_card
-                i.link.refresh.icon.refresh_my_time_stats
-                .ui.small.compact.icon.button.toggle_complete(title='view complete' class=view_complete_class)
-                    i.checkmark.icon
-                //- .ui.small.compact.icon.button.toggle_incomplete(title='incomplete') 
-                //-     i.circle.outline.icon
-                |sort by 
-                .largescroll.ui.cards
-                    each group_docs 
-                        +group_card
-                    
-
-
-template(name='group_card')
-    a.ui.card(class=group_segment_class href="/group/#{_id}")
-        // .ui.header.goto_group #{title}
-        img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face'}}")
-        .content
-            .ui.header #{title}
-            |!{description}
+        .four.wide.column
+            .ui.inline.header 
+                i.large.fire.icon
+                |groups
+            i.plus.circular.link.icon.add_group
             div
-            .ui.horizontal.list 
-                .item(title='views')
-                    i.eye.icon 
-                    |#{views}
-                .item(title='points')
-                    i.thumbs.up.outline.icon
-                    |#{points}
-                if group_list_id 
-                    .item(title='group list')
-                        i.list.icon 
-                        |#{group_list.title}
-                .item
-                    i.grey.tags.icon 
-                    each five_tags
-                        .ui.small.label #{this}
-            if weight 
-                .ui.small.inline.header #{weight} weight
-            if assigned_by
-                .ui.large.label(title='assigned by')
-                    |#{assigned_by}
-                .ui.small.inline.header ->
-            if assigned_to
-                .ui.large.label(title='assigned to')
-                    |#{assigned_to}
-            unless complete
-                if percent_complete
-                    .rounded(style="height:5px;width:{{percent_complete}}%;background-color:grey" title="{{percent_complete}}% complete")
-                        //- 
-                        //- .ui.bottom.attached.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
-                        //-     .bar
-                            //- .progress
-                        //- .label complete
-        // .spacer
+            .ui.inline.small.header
+                i.tag.icon
+                |tags
+            each picked_group_tags
+                a.ui.blue.label.unpick_group_tag
+                    |#{this}
+            each group_tag_results
+                if title
+                    a.ui.basic.circular.small.link.label.pick_group_tag
+                        |#{title} 
+                        small.ui.grey.text #{count}
+        .twelve.wide.column
+            span.sorting_row
+                // +session_set key='view_users' value='grid' icon='th' 
+                // +session_set key='view_users' value='list' icon='list'
+                // +session_set key='sort_users_direction' value='-1' icon='chevron down'
+                // +session_set key='sort_users_direction' value='1' icon='chevron up'
+                // +session_set key='sort_users_key' value='points' icon='coins'
+                // +session_set key='sort_users_key' value='created_date' icon='clock'
+                // +session_set key='view_limit' value=1
+                +search_input model='group' field='title'
+                i.large.sort.icon
+                .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
+                    if sorting_up
+                        i.sort.amount.down.icon
+                    else
+                        i.sort.amount.up.icon
+                |&nbsp;
+                |&nbsp;
+                .spacer 
+        
+            span.ui.doubling.cards.scrolling
+                each group_docs
+                    +group_card
+                 
+                 
+
+template(name='group_card')                    
+    a.ui.card.fly_left(href="/group/#{_id}") 
+        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        .content 
+            .ui.inline.header 
+                |#{title}
+            i.grey.tag.icon
+            each tags
+                .ui.small.basic.label #{this}
+            if location_tags
+                i.grey.marker.icon
+                each location_tags
+                    .ui.small.label #{this}
+            if people_tags
+                i.grey.marker.icon
+                each people_tags
+                    .ui.small.label #{this}
 
 
-
-template(name='picked_group')
-    // if editing_group 
-    //     +text_edit key='title' direct=true
-    //     +array_edit key='tags' direct=true
-    //     div
-    //     .ui.icon.large.button.save_group(title='save group') 
-    //         i.checkmark.green.large.icon
-    //     .ui.icon.small.button.delete_group(title='delete group') 
-    //         i.remove.icon
-    // else 
-    .ui.small.header #{title}
-    |o!{description}
-    +array_view key='tags' direct=true
-    // div
-    // .ui.icon.large.button.edit_group(title='edit group') 
-    if can_edit 
-        a.ui.icon.large.button(href="/group/#{_id}/edit" title='edit group') 
-            +i name='pencil' cl='ui avatar image'
-    .ui.icon.large.button.goto_group(title='view group') 
-        +i name='chevron-right'
-    // div
-    +voting_full
-
-
-
-template(name='group_view')
-    with current_doc
-        .ui.stackable.padded.grid
-            .row 
-                .five.wide.column
-                    .ui.big.basic.button.goto_groups
-                        // i.left.chevron.icon
-                        +i name='groups' cl='ui avatar image'
-                        |groups
-                    .ui.header #{title}
-                    if parent_dependents
-                        .ui.small.header parent dependents
-                        each parent_dependents
-                            a.ui.button(href="/group/#{_id}")
-                                i.left.chevron.icon
-                                |#{title}
-                    if can_edit 
-                        a.ui.icon.button(href="/group/#{_id}/edit" title='edit') 
-                            i.pencil.grey.icon
-                    //- +multi_user_edit key='subscriber_ids' label='subscriptions' direct=true
-                    div
-                    +subscriptions
-                    div
-                    +author_info
-                    +creation_info
-                    div
-                    .ui.grey.inline.header 
-                        i.clock.small.icon
-                        |time tracking
-                    .ui.compact.icon.button.new_group
-                        i.plus.icon
-                    .ui.link.list
-                        each groups 
-                            a.item(href="/group/#{_id}")
-                                |{{long_time start_datetime}}-{{long_time end_datetime}}
-                                small by #{_author_username}
-                    .ui.small.grey.header total time #{total_time}
-                    div
-                    +viewing
-                    div
-                    +voting_full
-                .seven.wide.column
-                    if parent_id
-                        a.ui.fluid.button(href="/group/#{parent_id}")
-                            i.up.chevron.icon
-                            |#{parent_doc.title}
-                    
-                    .ui.header #{title}
-                    | !{description}
-                    div
-                    +comments
-                    .ui.grey.inline.header 
-                        i.small.fork.icon
-                        |sub groups 
-                    i.plus.link.icon.new_subgroup
-                    div
-                    each subgroups 
-                        .ui.segment
-                            +text_edit key='title' direct=true
-                            +text_edit key='assigned_to' direct=true
-                            a.ui.icon.button(href="/group/#{_id}")
-                                i.right.chevron.icon
-                            +remove_button
-                .four.wide.column
-                    if child_dependents
-                        .ui.small.header child dependents
-                        each child_dependents
-                            a.ui.fluid.small.button(href="/group/#{_id}")
-                                i.right.chevron.icon
-                                |#{title}
-                    if group_id
-                        .ui.header
-                            i.list.icon 
-                            |group 
-                        with group 
-                            |#{title}
-                    div
-                    .ui.inline.small.grey.header 
-                        i.small.grey.sign.in.inline.icon 
-                        |assigned to
-                    .ui.inline.header #{assigned_to}
-                    div
-                    .ui.small.inline.grey.header 
-                        i.small.grey.sign.out.inline.icon 
-                        | assigned by
-                    .ui.inline.header #{assigned_by}
-                    if due_date
-                        div
-                        .ui.small.grey.inline.header
-                            i.small.grey.calendar.inline.icon 
-                            | due date
-                        .ui.inline.header #{due_date}
-                        div
-                        .ui.small.grey.inline.header due
-                        .ui.inline.header 
-                            |{{from_now due_date}}
-                    div
-                    if due_time
-                        .ui.inline.small.grey.header  due time
-                        .ui.inline.header #{due_time}
-                    if complete 
-                        .ui.large.green.label 
-                            |complete
-                        .ui.icon.button.mark_incomplete(title='mark incomplete')
-                            i.remove.icon
-                    else 
-                        .ui.large.label 
-                            |incomplete
-                        .ui.icon.button.mark_complete(title='mark complete')
-                            i.checkmark.icon
-                    .ui.grey.header 
-                        i.small.inline.rss.icon
-                        |activity 
-                    .ui.feed
-                        each log_events
-                            .event
-                                .content
-                                    .summary
-                                        |#{text}
-                                    .meta
-                                        |#{when} 
-                                        if is_admin 
-                                            +remove_icon
-                    if percent_complete
-                        .ui.disabled.indicating.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
-                            .bar
-                                .progress
-                            .label complete
-                        .ui.hidden.divider
-                    if weight
-                        .ui.disabled.indicating.progress(data-percent="{{weight}}" title="{{weight}} weight")
-                            .bar
-                                .progress
-                            .label weight
-
-
-
+                
 template(name='group_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row 
-                .four.wide.column
-                    a.ui.fluid.large.button(href="/group/#{_id}") 
-                        i.checkmark.icon
-                        |save
-                    +remove_button
-                    +boolean_edit key='approval_required' label='approval required' direct=true
-                    if approval_required 
-                        +text_edit key='approving_username' label='approving username' direct=true
-                    +boolean_edit key='bounty' label='bounty' direct=true
-                    if bounty 
-                        +number_edit key='bounty_amount' label='bounty amount' direct=true
-                    +number_edit key='estimated_hours' label='estimated hours' direct=true
-                    +number_edit key='actual_hours' label='actual hours' direct=true
-                
-                .eight.wide.column
+            .row
+                .six.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        | #{title}
+                        small group
+                    a.ui.large.icon.green.button(href="/group/#{_id}/" title='save product')
+                        i.checkmark.big.icon
                     +text_edit key='title' label='title' direct=true
+                    +image_edit key='image_id' label='image' direct=true
+                    div
+                    if in_dev 
+                        +print_this
+                .ten.wide.column
                     +html_edit key='description' label='description' direct=true
-                    div 
-                    +array_edit key='tags' label='tags' direct=true
-                .four.wide.column
-                    // +text_edit key='parent_id' label='parent id' direct=true
-                    //- if group_list_id 
-                    //-     with group_list
-                    //-         .ui.segment
-                    //-             i.grey.list.icon
-                    //-             a.ui.inline.header(href="/group_list/#{_id}/view" title='view group list') #{title}
-                    //-             i.small.link.grey.remove.icon.clear_group_list(title='remove from list')
-                    //- +group_list_lookup key='group_list_id' label='group list' direct=true
-                    //- if group_list_id 
-                    //-     with group_list
-                    //-         .ui.segment
-                    //-             i.grey.list.icon
-                    //-             a.ui.inline.header(href="/group_list/#{_id}/view" title='view group list') #{title}
-                    //-             i.small.link.grey.remove.icon.clear_group_list(title='remove from list')
-                    +single_user_edit key='assigned_by' label='assigned by' direct=true
-                    if assigned_by
-                        +text_view key='assigned_by' direct=true
-                    +single_user_edit key='assigned_to' label='assigned to' icon='sign out' direct=true
-                    if assigned_to
-                        +text_view key='assigned_to' icon='sign in' direct=true
-                    +date_edit key='due_date' label='due date' icon='calendar' direct=true
-                    +boolean_edit key='complete' label='complete' icon='checkmark' direct=true
-                    +number_edit key='percent_complete' label='percent complete' icon='percent' min=0 max=100 direct=true
-                    +number_edit key='weight' label='weight' icon='sort up' min=0 max=100 direct=true
+                    .ui.header 
+                        i.user.icon
+                        |members
+                    +boolean_edit key='has_parent_group' label='has parent group' icon='fork' direct=true
+                    if has_parent_group
+                        unless parent_group
+                            .ui.inline.header
+                                i.fork.icon
+                                |set parent group
+                            each nonparent_groups
+                                a.ui.basic.image.big.link.label.set_parent
+                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                        with parent_group
+                            .ui.inline.header
+                                i.fork.icon
+                                |parent group
+                            .ui.basic.inline.segment
+                                .ui.inline.header
+                                    img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                                    |#{title}
+                                i.circular.minus.link.icon.clear_parent_group
+                                i.active.directory.icon
+                                each child_groups
+                                    .ui.label #{title}
+                    .ui.header child groups
+                    each child_groups
+                        .ui.header #{title}
+                    
+                    div
+                    // +html_edit key='directions' label='directions' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    .ui.red.button.delete_group
+                        i.remove.icon   
+                        | delete
+                
+                
+template(name='group_layout')
+    +nav
+    .ui.bottom.attached.pushable.segment
+        +topbar
+        +left_sidebar
+        +right_sidebar
+        // +cartbar
+        // +walletbar
+        // +secnav
+        with current_doc
+            .ui.stackable.padded.grid
+                .row
+                    .five.wide.column
+                        a.fly_right(href="/groups")
+                            i.fire.large.circular.link.icon
+                        .ui.inline.header
+                            | #{title}
+                            small group view
+                        +image_view key='image_id' label='image' direct=true
+                        div
+                        if can_edit
+                            a.ui.icon.button(href="/group/#{_id}/edit")
+                                i.pencil.large.icon
+                        div
+                        +html_view key='description' label='description' direct=true
+                        +array_view key='tags' label='tags' icon='tags' direct=true
+                        div
+                        +array_view key='location_tags' label='location tags' icon='marker' direct=true
+                        if in_dev
+                            +print_this
+                    .eleven.wide.column
+                        a.ui.basic.button(href="/group/#{_id}/members")
+                            i.users.icon
+                            |members
+                        a.ui.basic.button(href="/group/#{_id}/products")
+                            i.cart.icon
+                            |products
+                        a.ui.basic.button(href="/group/#{_id}/items")
+                            i.list.icon
+                            |items
+                        a.ui.basic.button(href="/group/#{_id}/tasks")
+                            i.tasks.icon
+                            |tasks
+                        a.ui.basic.button(href="/group/#{_id}/work")
+                            i.wrench.icon
+                            |work
+                        a.ui.basic.button(href="/group/#{_id}/relations")
+                            i.exchange.icon
+                            |relations
+                        .scrolling
+                            +yield
+        +admin_footer           
+                        
+template(name='group_products')  
+    .ui.header 
+        i.cart.icon
+        |group products
+    i.plus.circular.link.icon.add_group_product
+    each group_products
+        a.ui.header(href="/product/#{_id}")
+            |#{title}
+
+
+template(name='group_view')            
+    .ui.header 
+        +i name='shopping-cart'
+        |products
+    .ui.large.selection.link.animated.list
+        each group_products
+            .item 
+                a.ui.header(href="/product/#{_id}") #{title}
+    div
+    .ui.inline.header 
+        +i name='groups'
+        |members
+    i.circular.plus.link.icon.add_group_member
+    // if can_join
+    unless is_member
+        .ui.basic.button.join
+            i.user.plus.green.icon
+            |join
+    if is_member
+        .ui.basic.button.leave
+            i.undo.red.icon
+            |leave
+    .ui.large.selection.link.animated.list
+        each group_members
+            .item 
+                a.ui.header(href="/user/#{username}") 
+                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+                    |#{username}
+    div
+    if has_parent_group
+        .ui.inline.header 
+            i.fork.icon
+            |parent group
+        with parent_group
+            a.ui.inline.header(href="/group/#{_id}") 
+                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                |#{title}
+    if sibling_groups.count
+        .ui.header 
+            i.exchange.icon
+            |sibling groups
+        each sibling_groups
+            .ui.small.header 
+                |#{title}
+                img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+    if child_groups.count
+        .ui.header 
+            i.fork.icon
+            |child groups
+        .ui.stackable.three.link.cards
+            each child_groups
+                a.ui.card(href="/group/#{_id}")
+                    img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .content
+                        header 
+                            |#{title}
+    +comments
