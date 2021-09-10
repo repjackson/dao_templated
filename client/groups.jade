@@ -3,85 +3,28 @@ template(name='groups')
         .row
             .three.wide.column
                 .ui.header 
-                    i.groups.icon
+                    +i name='campfire'
                     |#{groups.count}
                     |groups
                 .ui.icon.large.button.new_group
                     i.green.plus.icon
-                +group_cloud
-                i.remove.circular.link.icon.clear_filter(title='clear filters')
-                with currentUser
-                    .ui.button.your_incomplete
-                        i.large.circle.outline.icon
-                        |your incomplete groups
-                    .ui.basic.label(title='hours today')
-                        i.sun.icon
-                        i.clock.icon
-                        | #{daily_hours}hrs
-                    .ui.basic.label(title='weekly hours')
-                        i.calendar.icon
-                        i.clock.icon
-                        | #{weekly_hours}hrs
-                    .ui.basic.label(title='sessions today')
-                        i.sun.icon
-                        i.business.time.icon
-                        | #{daily_sessions} sessions
-                    .ui.basic.label(title='weekly sessions')
-                        i.calendar.icon
-                        i.business.time.icon
-                        | #{weekly_sessions} sessions
-            .six.wide.column
+            .twelve.wide.column
                 //- with top_group
-                //-     +group_card_template
+                //-     +group_card
                 i.link.refresh.icon.refresh_my_time_stats
                 .ui.small.compact.icon.button.toggle_complete(title='view complete' class=view_complete_class)
                     i.checkmark.icon
                 //- .ui.small.compact.icon.button.toggle_incomplete(title='incomplete') 
                 //-     i.circle.outline.icon
                 |sort by 
-                .ui.small.compact.button lucrative
-                .ui.small.compact.button soonest
-                .ui.small.compact.button priority
-            
-                .largescroll.ui.segments
-                    each groups 
-                        +group_card_template
-            .six.wide.column
-                if picked_group_doc
-                    .ui.icon.right.floated.button.unselect_group
-                        i.remove.icon
-                    with picked_group_doc
-                        +picked_group
-                else 
-                    // .ui.icon.basic.button.new_group 
-                    //     i.plus.icon
-                    //     // |new group 
-                    i.refresh.link.icon.refresh_groups_stats
-                    with groups_stats_doc
-                        .ui.small.grey.header #{total_groups} total groups 
-                        .ui.small.grey.header #{week_groups_count} groups this week
-                        .ui.small.grey.header #{day_groups_count} groups today
+                .largescroll.ui.cards
+                    each group_docs 
+                        +group_card
                     
-template(name='group_cloud')
-    //- #group_cloud
-        //- .ui.left.icon.input
-        //-     i.search.icon
-        //-     +inputAutocomplete settings=settings id="search" class="" autocomplete="off" 
-        // .ui.hidden.fitted.divider
-    i.grey.tags.icon
-    if picked_tags
-        #clear_tags.ui.active.icon.compact.button
-            i.remove.icon
-        each picked_tags
-            .unselect_tag.ui.active.compact.button
-                strong #{this}
-    each all_tags
-        .ui.compact.small.button.select_tag(class=group_cloud_tag_class) 
-            strong #{this.name}
 
 
-template(name='group_card_template')
-    .ui.segment.pointer.select_group(class=group_segment_class)
+template(name='group_card')
+    .ui.card(class=group_segment_class)
         // .ui.header.goto_group #{title}
         .ui.header #{title}
         |!{description}

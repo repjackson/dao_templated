@@ -8,6 +8,9 @@ template(name='nav')
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
             // else 
+            a.icon.item.toggle_leftbar.no_blink
+               i.bars.large.icon 
+            
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute ''}}" title='home')
                 +i name='yin-yang' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
@@ -24,6 +27,8 @@ template(name='nav')
                 +i name='food' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/drinks' class="{{isActiveRoute 'drinks'}}")
                 +i name='beer' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/groups' class="{{isActiveRoute 'groups'}}")
+                +i name='campfire' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/groups' class="{{isActiveRoute 'groups'}}")
                 +i name='campfire' cl='zoomer'
             a.icon.item(href="/add")

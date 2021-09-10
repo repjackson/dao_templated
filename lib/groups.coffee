@@ -41,71 +41,34 @@ if Meteor.isClient
         'click .new_group': (e,t)->
             new_group_id =
                 Docs.insert
-                    model:'task'
-            Session.set('editing_task', true)
-            Session.set('picked_task_id', new_task_id)
-            Router.go "/task/#{new_task_id}/edit"
-        'click .unselect_task': ->
-            Session.set('picked_task_id', null)
+                    model:'group'
+            Session.set('editing_group', true)
+            Session.set('picked_group_id', new_group_id)
+            Router.go "/group/#{new_group_id}/edit"
+        'click .unselect_group': ->
+            Session.set('picked_group_id', null)
 
     Template.groups.helpers
-        view_complete_class: ->
-            if Session.get('view_complete') then 'blue' else ''
-        picked_task_doc: ->
-            Docs.findOne Session.get('picked_task_id')
-        current_groups: ->
+        group_docs: ->
             Docs.find
-                model:'task'
-                # current:true
-        groups_stats_doc: ->
-            Docs.findOne
-                model:'groups_stats'
-        groups: ->
-            Docs.find
-                model:'task'
-
-
-
-
-    Template.picked_task.events
-        'click .delete_task': ->
-            if confirm 'delete task?'
-                Docs.remove @_id
-                Session.set('picked_task_id', null)
-        'click .save_task': ->
-            Session.set('editing_task', false)
-        'click .edit_task': ->
-            Session.set('editing_task', true)
-        'click .goto_task': (e,t)->
-            $(e.currentTarget).closest('.grid').transition('fade right', 500)
-            Meteor.setTimeout =>
-                Router.go "/task/#{@_id}/"
-            , 500
-
-    Template.picked_task.helpers
-        editing_task: -> Session.get('editing_task')
+                model:'group'
 
 
 
 
 
-
-
-
-
-
-    Template.task_card_template.onRendered ->
+    Template.group_card.onRendered ->
         Meteor.setTimeout ->
             $('.accordion').accordion()
         , 1000
-    Template.task_card_template.onCreated ->
+    Template.group_card.onCreated ->
         @autorun => Meteor.subscribe 'model_docs', 'log_events'
-    Template.task_card_template.events
+    Template.group_card.events
         'click .add_group_item': ->
             new_mi_id = Docs.insert
                 model:'group_item'
             Router.go "/group/#{_id}/edit"
-    Template.group_card_template.helpers
+    Template.group_card.helpers
         group_segment_class: ->
             classes=''
             if @complete
@@ -119,7 +82,7 @@ if Meteor.isClient
                 _id: @group_list_id
 
 
-    Template.group_card_template.events
+    Template.group_card.events
         'dblclick .select_group': (e,t)->
             $(e.currentTarget).closest('.item').transition('fly right', 500)
             Router.go "/group/#{@_id}/"
@@ -321,79 +284,6 @@ if Meteor.isClient
 
 
 
-if Meteor.isClient
-    @picked_tags = new ReactiveArray []
-
-    Template.group_cloud.onCreated ->
-        @autorun -> Meteor.subscribe('group_tags',
-            picked_tags.array()
-            Session.get('view_complete')
-            Session.get('view_incomplete')
-
-            )
-
-    Template.group_cloud.helpers
-        all_tags: ->
-            doc_count = Docs.find().count()
-            if 0 < doc_count < 3 then Results.find { count: $lt: doc_count } else Results.find()
-
-        tag_cloud_class: ->
-            button_class = switch
-                when @index <= 10 then 'big'
-                when @index <= 20 then 'large'
-                when @index <= 30 then ''
-                when @index <= 40 then 'small'
-                when @index <= 50 then 'tiny'
-            return button_class
-
-        settings: -> {
-            position: 'bottom'
-            limit: 10
-            rules: [
-                {
-                    collection: Results
-                    field: 'name'
-                    matchAll: true
-                    template: Template.tag_result
-                }
-                ]
-        }
-
-
-        picked_tags: ->
-            # model = 'event'
-            picked_tags.array()
-
-
-    Template.group_cloud.events
-        'click .select_tag': -> picked_tags.push @name
-        'click .unselect_tag': -> picked_tags.remove @valueOf()
-        'click #clear_tags': -> picked_tags.clear()
-
-        'keyup #search': (e,t)->
-            e.preventDefault()
-            val = $('#search').val().toLowerCase().trim()
-            switch e.which
-                when 13 #enter
-                    switch val
-                        when 'clear'
-                            picked_tags.clear()
-                            $('#search').val ''
-                        else
-                            unless val.length is 0
-                                picked_tags.push val.toString()
-                                $('#search').val ''
-                when 8
-                    if val.length is 0
-                        picked_tags.pop()
-
-        'autocompleteselect #search': (event, template, doc) ->
-            picked_tags.push doc.name
-            $('#search').val ''
-
-        'click #add': ->
-            Meteor.call 'add', (err,id)->
-                Router.go "/edit/#{id}"
 
 
 if Meteor.isServer
