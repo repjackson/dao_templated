@@ -15,6 +15,17 @@ Template.registerHelper 'included_ingredients', () ->
         _id: $in:@ingredient_ids
         
         
+        
+Template.registerHelper 'model_docs_helper', (model) ->
+    # console.log model
+    Docs.find 
+        model:model
+        # app:'bc'
+        # group_id = Meteor.user().current_group_id
+        
+        
+        
+        
 Template.registerHelper 'can_access', () ->
     # console.log 'accessing ', @
     # if @price and @price is 0

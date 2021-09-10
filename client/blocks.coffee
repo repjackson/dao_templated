@@ -9,6 +9,21 @@ Template.session_edit_button.helpers
 
 
 
+
+Template.doc_fans.events
+    'click .become_fan': ->
+        Docs.update @_id, 
+            $addToSet:
+                fan_ids: Meteor.userId()
+                
+    'click .unfan': ->
+        Docs.update @_id, 
+            $pull:
+                fan_ids: Meteor.userId()
+                
+
+
+
 Template.friend_button.events
     'click .add_friend': ->
         user = Meteor.users.findOne username:Router.current().params.username

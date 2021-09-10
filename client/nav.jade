@@ -32,6 +32,11 @@ template(name='nav')
             a.header.item.zoomer.fly_left(href='/drinks' class="{{isActiveRoute 'drinks'}}")
                 // i.large.users.icon
                 +i name='beer' cl='zoomer'
+            a.icon.item(href="/add")
+                i.large.green.plus.icon
+            a.icon.item.toggle_topbar(title='alerts')
+                i.bell.outline.large.icon
+
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon

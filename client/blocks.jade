@@ -15,6 +15,72 @@ template(name='doc_array_toggle')
         
 
 
+template(name='reviews')
+    .ui.header
+        +i name='popular-topic' cl='ui inline image'
+        |reviews
+    div
+    if currentUser
+        .ui.fluid.icon.large.input
+            i.plus.icon
+    .ui.reviews
+        each doc_reviews
+            .comment
+                .content
+                    .ui.header #{body}
+                    .meta #{when}
+                        |by 
+                        a(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                        if currentUser
+                            +voting_small
+                            if can_edit
+                                +remove_button
+
+
+
+template(name='doc_images')
+    .ui.header
+        +i name='image'
+        |#{product_order_docs.count} #{parent.title} orders
+
+    .ui.stackable.cards
+        each product_image_docs
+            .card
+                img.ui.tiny.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+            
+                .ui.header
+                    |#{title}
+            
+
+
+template(name='doc_orders')
+    .ui.header
+        +i name='order-history'
+        |#{product_order_docs.count} #{parent.title} orders
+
+    .ui.selection.list
+        each product_order_docs
+            .ui.header #{title}
+
+
+
+template(name='doc_fans')
+    .ui.inline.header 
+        +i name='flag-filled'
+        |fans
+    if is_fan
+        i.remove.icon.unfan(title='unfan')
+    else
+        .ui.small.compact.button.fans
+            i.plus.icon
+            |become fan
+    each product_fans
+        a.ui.header(href="/user/#{username}/")
+            |#{username}
+
+
+
+
 template(name='friend_button')
     if is_friend
         .ui.animated.button

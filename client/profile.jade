@@ -166,22 +166,16 @@ template(name='user_subscriptions')
         |subscriptions
     .ui.header 
         |subscribed to
-    each subscribed_to
-        .ui.header #{username}
+    .ui.large.link.selection.animated.list
+        each subscribed_to
+            a.item(href="/user/#{username}") #{username}
     .ui.header 
         |subscribed by
-    each subscribed_by
-        .ui.header #{username}
+    .ui.large.link.selection.animated.list
+        each subscribed_by
+            a.item(href="/user/#{username}") #{username}
        
                 
-template(name='user_orders')
-    .ui.header 
-        +i name='order-history'
-        |orders
-    .ui.large.list 
-        each order_docs
-            .item #{when} #{_author_username}
-       
                 
                 
 template(name='user_received')
