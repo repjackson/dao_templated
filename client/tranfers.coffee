@@ -1,4 +1,4 @@
-Router.route '/', (->
+Router.route '/transfers', (->
     @render 'transfers'
     ), name:'transfers'
 

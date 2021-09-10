@@ -1,0 +1,163 @@
+template(name='home')
+    if logging_in
+        .ui.center.aligned.basic.segment
+            i.huge.loading.pizza.grey.icon
+    else
+        .ui.stackable.three.column.padded.grid
+            .column
+                .ui.header 
+                    +i name='yin-yang'
+                    |dao
+            .column
+                +specials
+            .column
+                +soup_small
+            .column
+                +daily_question
+            .column
+                .ui.header 
+                    +i name='money'
+                    |money earned yesterday
+                .ui.header 
+                    +i name='week-view'
+                    |money earned last week
+                .ui.header 
+                    +i name='pay-date'
+                    |payroll yesterday
+            .column
+                .ui.inline.header 
+                    +i name='blog'
+                    |posts
+                // unless current_post
+                // unless subs_ready
+                //     .ui.center.aligned.basic.segment
+                //         i.massive.grey.food.loading.icon
+                each picked_tags
+                    +unpick_tag
+                if subs_ready
+                    if tag_results
+                        each tag_results
+                            +tag_picker
+                .ui.hidden.divider
+                unless subs_ready
+                    .ui.center.aligned.basic.segment
+                        +ibig name='pizza' cl='spinning'
+    
+                else 
+                    if current_post
+                        with current_post
+                            +home_item
+                    else if one_doc
+                        .ui.cards.scrolling
+                            each home_items
+                                +home_item
+                    else if two_docs
+                        .ui.stackable.two.cards.scrolling
+                            each home_items
+                                +home_item
+                    else 
+                        .ui.stackable.centered.cards.scrolling
+                            each home_items
+                                +home_item
+            // .column
+            //     +items
+            .column
+                +checkin_small
+            // .column
+            //     +loss_summary
+                // +losses
+            // .column
+            //     +food
+            // .column
+            //     +drinks
+            .column
+                +order_small
+        
+template(name='daily_question')
+    .ui.header 
+        |daily question
+        
+                
+template(name='soup')
+    .ui.stackable.padded.grid 
+        .sixteen.wide.column
+            .ui.header 
+                +i name='soup-plate'
+                |soup
+            with soup_of_the_day
+                a.ui.header(href="/soup/#{_id}") #{title}
+            
+                
+template(name='soup_small')
+    a.ui.header(href="/soup") 
+        +i name='soup-plate'
+        |soup of the day
+    
+    with soup_doc
+        .ui.header #{title}
+        each ingredients
+            .ui.large.label
+                |#{this}
+
+template(name='specials')
+    a.ui.header(href="/specials")
+        +i name='discount'
+        |specials
+        if is_admin
+            i.plus.link.icon.add_special
+    each specials
+        .ui.header #{title}
+        
+        
+template(name='home_item')
+    // if session_is 'editing_chat' _id
+    //     .ui.item
+    //         .content
+    //             +text_edit key='title' direct=true
+    //             i.checkmark.large.link.green.icon.save_chat   
+    //             +boolean_edit key='archived' label='archived' icon='archive' direct=true
+    // else
+    // .ui.fluid.card(class=card_class)
+    .ui.fluid.card
+        // span.clear_current_post
+        a.zoomer.fly_right(href="/post/#{_id}")
+            if image_url
+                +image_link_view key='image_url' direct=true
+            else if image_id
+                +image_view key='image_id' direct=true 
+            else if youtube_id
+                +youtube_view key='image_id' direct=true
+            // if is_selected
+            //     .ui.header this one
+            // if unless
+            // else
+            //     img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
+        .content
+            a.ui.header.zoomer.fly_right(href="/post/#{_id}") !{title}
+            // a.ui.inline.header.zoomer.clear_current_post !{title}
+            
+            // .metadata
+            //     |#{when}
+            //     small {{long_date _timestamp}}
+            .text.zoomer.clear_current_post
+                |!{body}
+            each tags
+                +flat_tag_picker
+            .ui.large.label #{model}
+            +text_edit key='model' label='model' direct=true
+
+        
+        
+        
+template(name='flat_tag_avatar')
+    // .ui.image.flat_tag_pick.zoomer.pointer
+    with ref_doc_flat
+        // if image_url
+        //     img(src=image_url)
+        //     // +image_link_view key='image_url' direct=true
+        // else if image_id
+        //     // +image_view key='image_id' direct=true
+        if image_id
+            img.ui.mini.rounded.inline.image.zoomer(src="{{c.url image_id width=400 height=400 gravity='face' crop='fill'}}" title=title)
+        // |#{this}
+        

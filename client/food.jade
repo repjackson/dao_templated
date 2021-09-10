@@ -1,34 +1,34 @@
-// template(name='food')     
-//     .ui.stackable.padded.grid
-//         .four.wide.column
-//             // if food_docs.count
-//             .ui.big.inline.header 
-//                 // i.food.icon
-//                 +i name='food'
-//                 |#{food_docs.count} items
-//             if currentUser 
-//                 .ui.circular.icon.button.add_food
-//                     i.plus.icon
+template(name='food')     
+    .ui.stackable.padded.grid
+        .four.wide.column
+            // if food_docs.count
+            .ui.big.inline.header 
+                // i.food.icon
+                +i name='food'
+                |#{food_docs.count} items
+            if currentUser 
+                .ui.circular.icon.button.add_food
+                    i.plus.icon
 
             
-//             +search_input model='food' field='title'
-//             +session_set key='food_view_filter' value='appetizers' icon='nachos'
-//             +session_set key='food_view_filter' value='soup' icon='soup-plate'
-//             +session_set key='food_view_filter' value='salad' icon='salad'
-//             +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
-//             +session_set key='food_view_filter' value='pizza' icon='pizza'
-//             +session_set key='food_view_filter' value='burger' icon='hamburger'
-//             +session_set key='food_view_filter' value='dessert' icon='dessert'
-//             // +session_set key='food_view_filter' value='' icon='cancel'
-//             +session_set key='food_sort' value='views' icon='eye'
-//             +session_set key='food_sort' value='price_dollars' icon='money'
-//             // +session_set key='food_sort_direction' value=1 icon='chevron up'
-//             // +session_set key='food_sort_direction' value=-1 icon='chevron down'
-//             .ui.hidden.divider
-//         .twelve.wide.column
-//             .ui.doubling.centered.four.cards.scrolling
-//                 each food_docs
-//                     +food_item
+            +search_input model='food' field='title'
+            +session_set key='food_view_filter' value='appetizers' icon='nachos'
+            +session_set key='food_view_filter' value='soup' icon='soup-plate'
+            +session_set key='food_view_filter' value='salad' icon='salad'
+            +session_set key='food_view_filter' value='sandwiches' icon='sandwich'
+            +session_set key='food_view_filter' value='pizza' icon='pizza'
+            +session_set key='food_view_filter' value='burger' icon='hamburger'
+            +session_set key='food_view_filter' value='dessert' icon='dessert'
+            // +session_set key='food_view_filter' value='' icon='cancel'
+            +session_set key='food_sort' value='views' icon='eye'
+            +session_set key='food_sort' value='price_dollars' icon='money'
+            // +session_set key='food_sort_direction' value=1 icon='chevron up'
+            // +session_set key='food_sort_direction' value=-1 icon='chevron down'
+            .ui.hidden.divider
+        .twelve.wide.column
+            .ui.doubling.centered.four.cards.scrolling
+                each food_docs
+                    +food_item
 
 
 template(name='food_item')

@@ -9,41 +9,41 @@ if Meteor.isClient
             )
         , 1000
                 
-# if Meteor.isClient
-    # Router.route '/food', (->
-    #     @render 'food'
-    #     ), name:'food'
+if Meteor.isClient
+    Router.route '/food', (->
+        @render 'food'
+        ), name:'food'
 
-    # Template.food.onCreated ->
-    #     Session.setDefault('food_sort','views')
-    #     @autorun -> Meteor.subscribe 'food',
-    #         Session.get('food_title_filter')
-    #         Session.get('food_view_filter')
-    #         Session.get('food_sort')
-    #         Session.get('food_sort_direction')
+    Template.food.onCreated ->
+        Session.setDefault('food_sort','views')
+        @autorun -> Meteor.subscribe 'food',
+            Session.get('food_title_filter')
+            Session.get('food_view_filter')
+            Session.get('food_sort')
+            Session.get('food_sort_direction')
             
-    #     # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
-    #     # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
+        # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
+        # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    # Template.food.helpers
-    #     food_docs: ->
-    #         match = {model:'food'}
-    #         # if Session.get('food_status_filter')
-    #         #     match.status = Session.get('food_status_filter')
-    #         # if Session.get('food_delivery_filter')
-    #         #     match.delivery_method = Session.get('food_sort_filter')
-    #         # if Session.get('food_sort_filter')
-    #         #     match.delivery_method = Session.get('order_sort_filter')
-    #         Docs.find match,
-    #             sort: 
-    #                 "#{Session.get('food_sort')}":Session.get('food_sort_direction')
+    Template.food.helpers
+        food_docs: ->
+            match = {model:'food'}
+            # if Session.get('food_status_filter')
+            #     match.status = Session.get('food_status_filter')
+            # if Session.get('food_delivery_filter')
+            #     match.delivery_method = Session.get('food_sort_filter')
+            # if Session.get('food_sort_filter')
+            #     match.delivery_method = Session.get('order_sort_filter')
+            Docs.find match,
+                sort: 
+                    "#{Session.get('food_sort')}":Session.get('food_sort_direction')
 
-    # Template.food.events
-    #     'click .add_food': ->
-    #         new_id = 
-    #             Docs.insert 
-    #                 model:'food'
-    #         Router.go "/food/#{new_id}/edit"
+    Template.food.events
+        'click .add_food': ->
+            new_id = 
+                Docs.insert 
+                    model:'food'
+            Router.go "/food/#{new_id}/edit"
             
 
 if Meteor.isClient

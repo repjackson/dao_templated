@@ -25,7 +25,13 @@ template(name='nav')
                 +i name='groups' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/shop' class="{{isActiveRoute 'shop'}}")
                 // i.large.users.icon
-                +i name='shop' cl='shop'
+                +i name='shop' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/food' class="{{isActiveRoute 'food'}}")
+                // i.large.users.icon
+                +i name='food' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/drink' class="{{isActiveRoute 'drink'}}")
+                // i.large.users.icon
+                +i name='beer' cl='zoomer'
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon

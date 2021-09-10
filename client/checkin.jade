@@ -1,0 +1,276 @@
+// template(name='checkins')
+//     .ui.stackable.grid
+//         .sixteen.wide.column.scrolling
+//             .ui.stackable.grid 
+//                 .four.wide.column
+//                     .ui.header 
+//                         |alerts
+//                         i.alert.icon
+//                     |view
+//                     // +session_set key='checkin_sort_filter' value='open'               
+//                     +session_set key='checkin_sort_filter' value='now'               
+//                     +session_set key='checkin_sort_filter' value='later'   
+//                     +session_set key='checkin_sort_filter' value=null label='all'
+//                     |delivery
+//                     +session_set key='order_delivery_filter' value='pickup'   
+//                     +session_set key='order_delivery_filter' value='delivery'   
+//                     +session_set key='order_delivery_filter' value=null label='all'   
+//                     +session_set key='order_status_filter' value='cart' label='cart' icon='cart'   
+//                     +session_set key='order_status_filter' value=null label='all status' icon='cart'   
+//                     div
+//                     |sort by
+//                     +session_set key='order_sort_key' value='price'               
+//                 .twelve.wide.column
+//                     a.ui.center.aligned.header(href="/orders")
+//                         +i name='clock' cl='ui tiny inline image'
+//                         | orders
+//                     .ui.button today
+//                     .ui.button now
+//                     .ui.button later
+//                     .ui.button sort order
+//                     .ui.button sort by
+//                     .scrolling
+//                         each orders
+//                             +order_item
+//                             .ui.divider
+     
+template(name='checkin_small')
+    .ui.one.column.stackable.grid
+        .column
+            .ui.inline.header 
+                +i name='health-checkup'
+                // i.checkmark.icon
+                |todays checkins
+            if currentUser.checkedin
+                .ui.red.basic.inverted.small.compact.button.checkout
+                    +i name='exit-sign' cl='ui avatar image'
+                    |check out
+            else 
+                .ui.button.checkin
+                    |checkin
+            .ui.large.link.selection.list.smallscroll
+                each checkin_docs
+                    a.item.fly_left(href="/checkin/#{_id}") 
+                        .content
+                            if checkin_vote
+                                i.green.thumbs.up.icon
+                                each tags
+                                    .ui.large.green.label #{this}
+                            else 
+                                i.red.thumbs.down.icon
+                                each tags
+                                    .ui.large.red.label #{this}
+                            if anon 
+                                i.mask.icon
+template(name='checkins')
+    .ui.one.column.stackable.grid
+        .column
+            .ui.inline.header 
+                +i name='health-checkup'
+                // i.checkmark.icon
+                |todays checkins
+            if currentUser.checkedin
+                .ui.red.basic.inverted.small.compact.button.checkout
+                    +i name='exit-sign' cl='ui avatar image'
+                    |check out
+            else 
+                .ui.button.checkin
+                    |checkin
+            .ui.large.link.selection.list.smallscroll
+                each checkin_docs
+                    a.item.fly_left(href="/checkin/#{_id}") 
+                        .content
+                            if checkin_vote
+                                i.green.thumbs.up.icon
+                                each tags
+                                    .ui.large.green.label #{this}
+                            else 
+                                i.red.thumbs.down.icon
+                                each tags
+                                    .ui.large.red.label #{this}
+                            if anon 
+                                i.mask.icon
+                            |#{_author_username}
+                            small #{when}
+        .column
+            .ui.header
+                i.users.icon
+                |checked in people
+            .ui.large.link.selection.animation.list
+                each checked_in_users
+                    a.item.fly_left(href="/user/#{username}") 
+                        img.ui.avatar.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                        |#{username}
+     
+            
+            
+template(name='checkin_item')
+    a.ui.grid(href="/checkin/#{_id}")
+        .row
+            // .four.wide.column.zoomer
+            //     with checkin_product
+            //         //- img.ui.mini.image(src=image)
+            //         +image_view key='image_id' direct=true cl='zoomer ui fluid image'
+            .sixteen.wide.column
+                .ui.list
+                    each checkin_things
+                        .item
+                            strong #{product_title}
+                            small $#{product_price}
+                            |status:#{status}
+                            // if kve status 'pending'
+                            //     i.large.yellow.clock.icon
+                            // else if kve status 'ready'
+                            //     i.large.green.clock.icon
+                            // else if kve status 'complete'
+                            //     i.large.green.checkmark.icon
+                            // .ui.inline.header product_id: #{product_id}
+                            | {{from_now _timestamp}} 
+                            small ({{long_date _timestamp}})
+                a.ui.icon.big.button(href="/checkin/#{_id}")
+                    i.right.chevron.large.icon
+                .ui.inline.header #{status}
+                .ui.inline.header $#{subtotal}
+                .ui.inline.header paid: #{paid}
+                each checkin_things
+                    img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                if in_dev 
+                    +print_this
+                i.cubes.icon(title='things')
+                // each checkin_things
+                |#{when}, #{_author_username} 
+
+template(name='checkin_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .eight.wide.column
+                    a.ui.icon.button.fly_left(href="/checkins")
+                        i.checkmark.large.icon
+                        |checkins
+                    a.ui.icon.button.fly_left(href="/" title='home')
+                        i.large.home.icon
+                    .ui.inline.header 
+                        // strong '#{checkin_product.title}'
+                        +i name='in-progress--v1' cl='ui avatar image'
+                        |checkin
+                    div
+                    .ui.inline.header 
+                        i.clock.icon
+                        strong #{when}
+                        small by
+                        strong #{_author_username}
+                    with author
+                        +user_card
+                    .ui.grey.inline.header 
+                        i.eye.icon
+                        |viewers
+                    .ui.small.button.mark_viewed
+                        |mark viewed
+                    each view_events
+                        .item 
+                            |#{username} {{from_now view_timestamp}}
+                .six.wide.column
+                    i.big.tag.icon
+                    each tags
+                        .ui.large.basic.label #{this}
+                    if can_edit 
+                        a(href="/checkin/#{_id}/edit")
+                            i.large.pencil.circular.link.icon
+                    .ui.hidden.divider
+                    +comments
+                    +print_this
+                    
+                    
+                    
+
+template(name='user_checkins')
+    .ui.inline.header #{checkins.count} 
+        +i name='invoice'
+        |checkins
+    .ui.button
+        |view complete
+    |sort by
+    .ui.button
+        |price
+    .ui.button
+        |time
+    .ui.button 
+        |delivery
+    .scrolling
+        each checkins
+            +user_checkin_item
+
+template(name='user_checkin_item')
+    .ui.segment
+        // each checkin_items
+        img.ui.avatar.image(src="{{c.url product_doc.image_id width=200 height=200 gravity='face' crop='fill'}}")
+        a.ui.inline.header(href="/checkin/#{_id}")
+            | #{product_doc.title}
+            // |#{subtitle}c
+        .ui.inline.header
+            |status: 
+            if is status 'pending'
+                i.large.yellow.clock.icon
+            else if is status 'ready'
+                i.large.green.clock.icon
+            else if is status 'complete'
+                i.large.green.checkmark.icon
+            |#{status}
+            if product_doc.has_calories
+                .ui.label 
+                    |#{product_doc.calories}cals
+            // .ui.inline.header product_id: #{product_id}
+            
+        a.ui.icon.big.button(href="/checkin/#{_id}")
+            i.right.chevron.large.icon
+        |#{status}
+        i.clock.icon
+        |#{when}
+        if is_admin 
+            +print_this
+            +remove_button
+
+
+
+template(name='checkin_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .four.wide.column
+                    .ui.inline.header
+                        i.pencil.icon
+                        small checkin
+                    div
+                    // +linked_product
+                    .ui.header #{when}
+                .eight.wide.column
+                    .ui.basic.center.aligned.segment
+                        i.thumbs.up.massive.link.icon.upvote(class=upvote_class)
+                        i.thumbs.down.massive.link.icon.downvote(class=downvote_class)
+                    div
+                    // +image_edit key='image_id' label='image' direct=true
+                    +array_edit key='tags' label='emotion tags' icon='tags' direct=true
+                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+                    +html_edit key='notes' label='notes' direct=true
+                    if in_dev
+                        +print_this
+                .four.wide.column
+                    // if session_is 'checkining' true
+                    //     i.big.refresh.icon
+                    // else
+                    .ui.large.fluid.green.button.publish_anon.fly_left(title='complete checkin')
+                        // i.checkmark.large.icon  
+                        +i name='anonymous-mask' cl='ui avatar image'
+                        |publish anonymously
+                    if currentUser
+                        .ui.horizontal.divider or
+                        .ui.large.fluid.orange.button.publish_public.fly_left(title='complete checkin')
+                            // i.checkmark.large.icon   
+                            +i name='identity-theft' cl='ui avatar image'
+                            |publish publically 
+                    .ui.hidden.divider
+                    .ui.red.circular.button.delete_checkin.fly_left
+                        i.large.remove.icon
+                        |cancel
+                        

@@ -1,0 +1,132 @@
+template(name='order_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .centered.row 
+                .six.wide.column
+                    a.fly_right(href="/user/#{_author.username}") 
+                        img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        .ui.large.header.pointer.zoomer
+                            |#{_author.name}
+                .ten.wide.column
+                    .ui.huge.header
+                        |#{title}
+                    .ui.huge.center.aligned.inline.header
+                        |#{price}p
+                    // .f14
+                    //     |#{description}
+                    // .spacer
+                    div 
+                    |#{notes}
+                    .ui.small.inline.header
+                        i.clock.icon
+                        | #{when}, 
+                        |#{_timestamp_long}
+                    div 
+                    .spacer
+                    .spacer
+                    +viewing
+                    if in_dev
+                        +print_this
+                        +remove_button
+                    if is_author
+                        a.ui.circular.basic.icon.button(href="/order/#{_id}/edit")
+                            i.large.pencil.icon
+                    if in_dev
+                        a(href="/order/#{_id}/edit")
+                            i.large.circular.pencil.blue.icon
+                    //- +array_view key='location_tags' label='location_tags' direct=true
+                    
+                    
+template(name='order_small')
+    .ui.stackable.padded.grid
+        .sixteen.wide.column
+            .ui.header 
+                +i name='order-history'
+                |orders
+            unless subs_ready
+                i.massive.money.loading.icon
+                // .ui.center.aligned.basic.segment
+                //     +ibig name='pizza' cl='spinning'
+            else 
+                .ui.selection.animated.list
+                    each order_docs
+                        +order_item
+                        // a.item.fly_right(href="/order/#{_id}")
+                    //     .content 
+                    //         .header #{product_title}
+                    //         |#{when} #{_author_username}
+            
+            
+                        
+            
+template(name='order_item')
+    a.ui.item.fly_right(href="/order/#{_id}")
+        .content
+            // .four.wide.column.zoomer
+            //     with order_product
+            //         //- img.ui.mini.image(src=image)
+            //         +image_view key='image_id' direct=true cl='zoomer ui fluid image'
+            // .ui.list
+            //     // each order_things
+            //     .item
+            .ui.header #{product_title}
+            small $#{product_price}
+            |status:#{status}
+            // if kve status 'pending'
+            //     i.large.yellow.clock.icon
+            // else if kve status 'ready'
+            //     i.large.green.clock.icon
+            // else if kve status 'complete'
+            //     i.large.green.checkmark.icon
+            // .ui.inline.header product_id: #{product_id}
+            | {{from_now _timestamp}} 
+            small ({{long_date _timestamp}})
+            a.ui.icon.big.button(href="/order/#{_id}")
+                i.right.chevron.large.icon
+            .ui.basic.label #{status}
+            .ui.basic.label $#{subtotal}
+            .ui.basic.label paid: #{paid}
+            // each order_things
+            //     img.ui.mini.inline.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+            if in_dev 
+                +print_this
+            // i.cubes.icon(title='things')
+            // each order_things
+            |#{when}, #{_author_username} 
+
+
+
+template(name='order_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row 
+                .four.wide.column
+                    .ui.large.fluid.basic.red.button.delete_order
+                        i.large.remove.red.icon
+                        |delete
+                    .ui.segment
+                        .ui.inline.header
+                            .ui.header author
+                            img.ui.small.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                            |#{_author.name}
+                .eight.wide.column
+                    +textarea_edit key='notes' label='notes' direct=true
+                    
+                    div
+                    if in_dev
+                        +print_this
+                    
+                .four.wide.center.aligned.column
+                    .ui.big.header #{order_price}pts
+                    // div
+                    // .spacer
+                    if complete 
+                        .ui.header completed on {{long_date complete_timestamp}}
+                        a.ui.big.green.button(href="/post/#{post_id}/")
+                            |order complete, go back
+                    else 
+                        .ui.green.huge.rounded.button.confirm_order
+                            i.checkmark.icon
+                            |confirm #{order_price}
+
+                    
