@@ -23,6 +23,7 @@ template(name='badges')
                     .ui.cards
                         each badges 
                             a.card(href="/badge/#{_id}")
+                                img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
                                 .content 
                                     .header #{title}
 
@@ -30,7 +31,7 @@ template(name='user_badges')
     .ui.header user badges
 template(name='badge_edit')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .four.wide.column
                     .ui.inline.header
@@ -52,7 +53,7 @@ template(name='badge_edit')
         
 template(name='badge_view')
     with current_doc
-        .ui.stackable.grid
+        .ui.stackable.padded.grid
             .row
                 .six.wide.column
                     a.ui.icon.button.fly_left(href="/badges")
@@ -78,8 +79,7 @@ template(name='badge_view')
                         small by
                         strong #{_author_username}
                     if can_edit 
-                        a.ui.button(href="/badge/#{_id}/edit")
-                            i.large.pencil.icon
+                        +edit_button
                 .ten.wide.column
                     // img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                     if image_url
@@ -95,6 +95,7 @@ template(name='badge_view')
                     if is_admin
                         +print_this
                     .ui.header 
+                        +i name='certificate'
                         |badgers
                     each badgers
                         a.ui.big.button.fly_left(href="/user/#{username}") #{username}

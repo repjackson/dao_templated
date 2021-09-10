@@ -14,6 +14,15 @@ template(name='doc_array_toggle')
         //-     +user_info
         
 
+template(name='edit_button')
+    a.ui.circular.icon.button(href="/#{model}/#{_id}/edit")
+        i.large.pencil.icon
+
+template(name='save_button')
+    a.ui.circular.green.button(href="/#{model}/#{_id}/")
+        i.large.checkmark.icon
+        |save
+
 
 template(name='reviews')
     .ui.header
