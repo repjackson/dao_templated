@@ -87,7 +87,7 @@ template(name='user_layout')
                         small
                             |profile views
                 .thirteen.wide.column
-                    .ui.six.item.menu.hscroll
+                    .ui.six.item.stackable.menu.hscroll
                         a.item(href="/user/#{current_user.username}/")
                             i.large.dashboard.icon
                             |dashboard
@@ -98,16 +98,16 @@ template(name='user_layout')
                             i.chevron.down.icon
                             |received 
                         a.item(href="/user/#{current_user.username}/topups")
-                            +i name='donate'
+                            +i name='donate' cl='ui avatar image'
                             |topups 
                         a.item(href="/user/#{current_user.username}/subscriptions")
-                            +i name='refresh'
+                            +i name='refresh' cl='ui avatar image'
                             |subscriptions 
                         a.item(href="/user/#{current_user.username}/posts")
-                            +i name='blog'
+                            +i name='blog' cl='ui avatar image'
                             |posts 
                         a.item(href="/user/#{current_user.username}/orders")
-                            +i name='order-history'
+                            +i name='order-history' cl='ui avatar image'
                             |orders 
                     // .spacer
                     +yield

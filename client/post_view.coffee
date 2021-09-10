@@ -31,6 +31,7 @@ Template.post_view.helpers
             
 Template.post_view.events
     'click .purchase': (e,t)->
+        post = Docs.findOne Router.current().params.doc_id
         new_order = 
             Docs.insert     
                 model:'order'
@@ -38,6 +39,7 @@ Template.post_view.events
                 _author_username:Meteor.user().username
                 _timestamp:Date.now()
                 post_id:Router.current().params.doc_id
+                order_price:post.price
         Router.go "/order/#{new_order}/edit"
         
         

@@ -70,23 +70,23 @@ Meteor.publish 'post_tags', (
     match = {}
     match.model = 'post'
     
-    if filter is 'now'
-        now = Date.now()
-        gap = 60*60*1000
-        hour_ago = now-gap
-        match._timestamp = $gte:hour_ago
-    else if filter is 'today'
-        now = Date.now()
-        gap = 60*60*24*1000
-        day_ago = now-gap
-        match._timestamp = $gte:day_ago
+    # if filter is 'now'
+    #     now = Date.now()
+    #     gap = 60*60*1000
+    #     hour_ago = now-gap
+    #     match._timestamp = $gte:hour_ago
+    # else if filter is 'today'
+    #     now = Date.now()
+    #     gap = 60*60*24*1000
+    #     day_ago = now-gap
+    #     match._timestamp = $gte:day_ago
 
     
-    if username
-        if direction is 'sent'
-            match._author_id = user._id
-        if direction is 'received'
-            match.target_id = user._id
+    # if username
+    #     if direction is 'sent'
+    #         match._author_id = user._id
+    #     if direction is 'received'
+    #         match.target_id = user._id
 
     
     if picked_tags.length > 0 then match.tags = $all:picked_tags 
@@ -148,29 +148,6 @@ Meteor.publish 'post_tags', (
             count: tag.count
             model:'location_tag'
             # index: i
-            
-    target_cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "target_username": 1 }
-        { $unwind: "$target_username" }
-        { $group: _id: "$target_username", count: $sum: 1 }
-        { $match: _id: $nin: picked_targets }
-        { $match: count: $lt: result_count }
-        # { $match: _id: {$regex:"#{product_query}", $options: 'i'} }
-        { $sort: count: -1, _id: 1 }
-        { $limit: 10 }
-        { $project: _id: 0, title: '$_id', count: 1 }
-    ], {
-        allowDiskUse: true
-    }
-    
-    target_cloud.forEach (tag, i) =>
-        self.added 'results', Random.id(),
-            title: tag.title
-            count: tag.count
-            model:'target_tag'
-            # index: i
-            
             
     author_cloud = Docs.aggregate [
         { $match: match }

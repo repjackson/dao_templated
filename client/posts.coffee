@@ -14,7 +14,7 @@ Router.route '/posts', (->
 Template.posts.onCreated ->
     Session.setDefault('post_filter','all')
     # @autorun -> Meteor.subscribe 'model_docs', 'order', -> 
-    @autorun -> Meteor.subscribe 'all_users', -> 
+    # @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'post_tags', 
         null
         'sent'
@@ -56,17 +56,6 @@ Template.posts.helpers
             match.tags = $all: picked_tags.array()
         Docs.find match,
             sort: _timestamp:-1
-Template.leaderboard.helpers
-    most_sent_today: ->
-        Meteor.users.find({total_sent_day: $gt:0},
-            sort:
-                total_sent_day:-1
-        )
-    most_received_today: ->
-        Meteor.users.find({total_received_day: $gt:0},
-            sort:
-                total_received_day:-1
-        )
 
 
 Template.post_item.onCreated ->
@@ -84,16 +73,16 @@ Template.posts.events
         Router.go "/post/#{new_id}/edit"   
         
         
-    # 'click .pick_tag': -> picked_tags.push @title
-    'click .unpick_tag': -> picked_tags.remove @valueOf()
-    'click #clear_tags': -> picked_tags.clear()
-    
-    'click .pick_location_tag': -> picked_location_tags.push @title
-    'click .unpick_location_tag': -> picked_location_tags.remove @valueOf()
-    
-    'click .pick_target_tag': -> picked_targets.push @title
-    'click .unpick_target_tag': -> picked_targets.remove @valueOf()
-   
-    'click .pick_author_tag': -> picked_authors.push @title
-    'click .unpick_author_tag': -> picked_authors.remove @valueOf()
+    # # 'click .pick_tag': -> picked_tags.push @title
+    # 'click .unpick_tag': -> picked_tags.remove @valueOf()
     # 'click #clear_tags': -> picked_tags.clear()
+    
+    # 'click .pick_location_tag': -> picked_location_tags.push @title
+    # 'click .unpick_location_tag': -> picked_location_tags.remove @valueOf()
+    
+    # 'click .pick_target_tag': -> picked_targets.push @title
+    # 'click .unpick_target_tag': -> picked_targets.remove @valueOf()
+   
+    # 'click .pick_author_tag': -> picked_authors.push @title
+    # 'click .unpick_author_tag': -> picked_authors.remove @valueOf()
+    # # 'click #clear_tags': -> picked_tags.clear()

@@ -3,9 +3,9 @@ template(name='order_edit')
         .ui.stackable.padded.grid
             .row 
                 .four.wide.column
-                    .ui.large.fluid.basic.button.cancel_transfer
+                    .ui.large.fluid.basic.red.button.delete_order
                         i.large.remove.red.icon
-                        |cancel
+                        |delete
                     .ui.segment
                         .ui.inline.header
                             .ui.header author
@@ -18,38 +18,16 @@ template(name='order_edit')
                     if in_dev
                         +print_this
                     
-                    // div
-                    // .ui.inline.header
-                    //     i.tag.red.icon
-                    //     |tags
-                    // .ui.input
-                    //     input.new_tag(type='text' placeholder='+' autocomplete="off")
-                    //     //- +clear_value                
-                    // each terms 
-                    //     a.ui.large.basic.button.select_term(href='#')
-                    //         if image
-                    //             img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                    //         |#{title}
-                    // each tags
-                    //     .ui.big.basic.label
-                    //         i.delete.icon.remove_element
-                    //         |#{this}
-                    // if suggestions
-                    //     .ui.small.inline.header suggestions
-                    // each suggestions
-                    //     a.ui.large.basic.button.select_term(href='#')
-                    //         // if image
-                    //         //     img.ui.mini.rounded.inline.image(src="{{c.url image height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                    //         |#{title}
                 .four.wide.center.aligned.column
-                    // .ui.big.header #{price}pts
+                    .ui.big.header #{order_price}pts
                     // div
                     // .spacer
                     if complete 
+                        .ui.header completed on {{long_date complete_timestamp}}
                         a.ui.big.green.button(href="/post/#{post_id}/")
                             |order complete, go back
                     else 
                         .ui.green.huge.rounded.button.confirm_order
                             i.checkmark.icon
-                            |confirm
+                            |confirm #{order_price}
 

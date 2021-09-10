@@ -2,16 +2,9 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row 
-                .three.wide.center.aligned.column
-                    a.fly_right(href="/user/#{_author.username}") 
-                        img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
-                        .ui.large.center.aligned.header.pointer.zoomer
-                            |#{_author.name}
                 .ten.wide.column
                     .ui.huge.center.aligned.header
                         |#{title}
-                    .ui.huge.center.aligned.inline.header
-                        |#{price}p
                     // .f14
                     //     |#{description}
                     // .spacer
@@ -20,11 +13,13 @@ template(name='post_view')
                         img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
                         |!{description}
                         |!{body}
+                        |!{content}
                     else 
                         .ui.center.aligned.basic.segment.purchase.pointer.zoomer
                             i.massive.lock.icon
                             |purchase access for #{price}p
                     div
+                .six.wide.column
                     if tags
                         +i name='tags' cl='ui inline image'
                         each tags 
@@ -54,12 +49,11 @@ template(name='post_view')
                         a(href="/post/#{_id}/edit")
                             i.large.circular.pencil.blue.icon
                     //- +array_view key='location_tags' label='location_tags' direct=true
-                .three.wide.center.aligned.column
                     .ui.header 
                         i.coins.icon
-                        |access
-                    .ui.small.header price: #{price}
-                    .ui.fluid.green.button.purchase
+                        |access: #{price}
+                        // .ui.small.header price: #{price}
+                    .ui.fluid.green.big.button.purchase
                         |purchase for #{price}p
                     .ui.header 
                         |orders
@@ -69,6 +63,10 @@ template(name='post_view')
                                 |#{_author_username}
                                 small #{when}
                     +post_tips
+                    a.fly_right(href="/user/#{_author.username}") 
+                        img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                        .ui.large.center.aligned.header.pointer.zoomer
+                            |#{_author.name}
                     
 template(name='post_tips')
     .ui.header 

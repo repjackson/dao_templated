@@ -1,10 +1,10 @@
 template(name='posts')
     .ui.stackable.padded.grid
         .four.wide.column.scrolling
-            .ui.header 
+            .ui.inline.header 
                 +i name='blog'
                 |posts
-            .ui.icon.button.add_post
+            .ui.icon.basic.circular.button.add_post
                 i.plus.large.icon
             // unless tag_results.count
             //     i.loading.yin.yang.big.grey.icon
@@ -27,7 +27,7 @@ template(name='posts')
                 a.ui.basic.link.large.label.zoomer.pick_location_tag #{title}
                     // small #{count}
             div
-            +i name='send' cl='ui inline image'
+            +i name='user-male' cl='ui inline image'
             each picked_authors
                 a.ui.teal.button.unpick_author_tag
                     |#{this}
@@ -35,13 +35,6 @@ template(name='posts')
                 a.ui.basic.link.large.label.zoomer.pick_author_tag #{title}
                     // small #{count}
             div
-            +i name='donate' cl='ui inline image'
-            each picked_targets
-                a.ui.teal.button.unpick_target_tag
-                    |#{this}
-            each target_results
-                a.ui.basic.link.large.label.zoomer.pick_target_tag #{title}
-                    // small #{count}
         .twelve.wide.column
             |bought filter
             +session_set key='view_bought_posts' value='all'               

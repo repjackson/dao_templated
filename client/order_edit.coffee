@@ -3,19 +3,8 @@ Router.route '/order/:doc_id/edit', (->
     @render 'order_edit'
     ), name:'order_edit'
 Template.order_edit.onCreated ->
-    @autorun => Meteor.subscribe 'target_from_order_id', Router.current().params.doc_id, ->
     @autorun => Meteor.subscribe 'author_from_doc_id', Router.current().params.doc_id, ->
     @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
-    @autorun => Meteor.subscribe 'all_users', ->
-    @autorun => @subscribe 'tag_results',
-        # Router.current().params.doc_id
-        picked_tags.array()
-        Session.get('searching')
-        Session.get('current_query')
-        Session.get('dummy')
-    
-
-Template.order_edit.onCreated ->
     @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
     # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
     # @autorun => Meteor.subscribe 'model_docs', 'source'
@@ -67,27 +56,19 @@ Template.order_edit.events
         
         
     'click .delete_order': ->
-        Docs.remove @_id
-        Router.go "/"
-
-
-
-
-
-    'click .cancel_order': ->
         Swal.fire({
-            title: "confirm cancel?"
+            title: "confirm delete?"
             text: ""
             icon: 'question'
             showCancelButton: true,
             confirmButtonColor: 'red'
-            confirmButtonText: 'confirm'
+            confirmButtonText: 'delete'
             cancelButtonText: 'cancel'
             reverseButtons: true
         }).then((result)=>
-        if result.value
-            Docs.remove @_id
-            Router.go '/posts'
+            if result.value
+                Docs.remove @_id
+                Router.go "/post/#{@post_id}"
         )
         
     'click .confirm_order': (e,t)->
