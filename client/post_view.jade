@@ -19,6 +19,7 @@ template(name='post_view')
                             i.massive.lock.icon
                             |purchase access for #{price}p
                     div
+                    +related_posts
                 .six.wide.column
                     if tags
                         +i name='tags' cl='ui inline image'
@@ -76,3 +77,26 @@ template(name='post_tips')
         each post_tips
             a.item(href="/tip/#{_id}") #{amount} #{when}
         
+
+
+template(name='related_posts')
+    .ui.header 
+        i.fork.icon
+        |related posts
+    .ui.cards
+        each related_posts
+            .card 
+                .content 
+                    .header #{title}
+                    
+template(name='related_author_posts')
+    .ui.header 
+        i.fork.icon
+        |related posts by author
+    .ui.cards
+        each related_posts
+            .card 
+                .content 
+                    .header #{title}
+                    
+                    
