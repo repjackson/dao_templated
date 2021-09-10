@@ -52,7 +52,7 @@ template(name='food_view')
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/m/food")
+                    a.ui.basic.large.button.fly_left(href="/food")
                         i.chevron.left.icon
                         +i name='food' cl='ui avatar image'
                         |food
@@ -162,4 +162,4 @@ template(name='food_edit')
                     +key_value_set key='section' value='burger' icon='hamburger'
                     +key_value_set key='section' value='dessert' icon='dessert'
                     +youtube_edit key='youtube_id' value='youtube id' icon='youtube'
-                    +boolean_edit key='special' valeu='special' icon='star'
+                    +boolean_edit key='special' valeu='special' icon='star' direct=true

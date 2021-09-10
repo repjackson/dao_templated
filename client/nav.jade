@@ -9,29 +9,23 @@ template(name='nav')
                     i.big.loading.grey.yin.yang.icon
             // else 
             a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute ''}}" title='home')
-                // i.large.users.icon
                 +i name='yin-yang' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
-                // i.large.users.icon
                 +i name='blog' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/deliveries' class="{{isActiveRoute 'deliveries'}}" title='posts')
-                // i.large.users.icon
                 +i name='truck' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/transfers' class="{{isActiveRoute 'home'}}" title='transfers')
-                // i.large.exchange.icon
                 +i name='transfer-between-users' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/users' class="{{isActiveRoute 'users'}}")
-                // i.large.users.icon
                 +i name='groups' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/shop' class="{{isActiveRoute 'shop'}}")
-                // i.large.users.icon
                 +i name='shop' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/food' class="{{isActiveRoute 'food'}}")
-                // i.large.users.icon
                 +i name='food' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/drinks' class="{{isActiveRoute 'drinks'}}")
-                // i.large.users.icon
                 +i name='beer' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/groups' class="{{isActiveRoute 'groups'}}")
+                +i name='campfire' cl='zoomer'
             a.icon.item(href="/add")
                 i.large.green.plus.icon
             a.icon.item.toggle_topbar(title='alerts')
@@ -59,7 +53,6 @@ template(name='nav')
                         i.large.yin.yang.loading.icon
                 else
                     a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
-                        // i.wallet.icon
                         if currentUser.image_id
                             img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
                         else
@@ -197,7 +190,6 @@ template(name='right_sidebar')
                     i.refresh.loading.icon
                 else
                     +i name='exit' cl='ui avatar image'
-                    // i.sign.out.icon
                 |logout
             
             
