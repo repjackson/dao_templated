@@ -96,7 +96,7 @@ template(name='admin_footer')
       
       
 template(name='nav')
-    #topnav.ui.fluid.attached.four.item.borderless.menu.topnav
+    #topnav.ui.fluid.attached.borderless.menu.topnav
         unless connected
             .item 
                 +status
@@ -105,10 +105,13 @@ template(name='nav')
                 .icon.item
                     i.big.loading.grey.yin.yang.icon
             // else 
-            a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}")
+            a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute ''}}" title='home')
+                // i.large.users.icon
+                +i name='yin-yang' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
                 // i.large.users.icon
                 +i name='blog' cl='zoomer'
-            a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute 'home'}}")
+            a.header.item.zoomer.fly_left(href='/transfers' class="{{isActiveRoute 'home'}}" title='transfers')
                 // i.large.exchange.icon
                 +i name='transfer-between-users' cl='zoomer'
             a.header.item.zoomer.fly_left(href='/users' class="{{isActiveRoute 'users'}}")
@@ -126,8 +129,11 @@ template(name='nav')
             // a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
             //     +i name='plus' cl='zoomer'
             //     // i.large.green.plus.icon
-        
+        .right.menu
             if currentUser
+                a.header.item.zoomer.fly_left(href='/mail' class="{{isActiveRoute 'mail'}}")
+                    i.large.mail.icon
+
                 if logging_out
                     .icon.item
                         i.large.yin.yang.loading.icon
