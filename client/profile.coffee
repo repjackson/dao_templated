@@ -1,3 +1,7 @@
+Router.route '/u/:username', (->
+    @layout 'user_layout'
+    @render 'user_dashboard'
+    ), name:'user_profile_small'
 Router.route '/user/:username', (->
     @layout 'user_layout'
     @render 'user_dashboard'

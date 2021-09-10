@@ -1,0 +1,65 @@
+template(name='nav')
+    #topnav.ui.fluid.attached.borderless.menu.topnav
+        unless connected
+            .item 
+                +status
+        if connected
+            unless subs_ready
+                .icon.item
+                    i.big.loading.grey.yin.yang.icon
+            // else 
+            a.header.item.zoomer.fly_left(href='/' class="{{isActiveRoute ''}}" title='home')
+                // i.large.users.icon
+                +i name='yin-yang' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
+                // i.large.users.icon
+                +i name='blog' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/deliveries' class="{{isActiveRoute 'deliveries'}}" title='posts')
+                // i.large.users.icon
+                +i name='truck' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/transfers' class="{{isActiveRoute 'home'}}" title='transfers')
+                // i.large.exchange.icon
+                +i name='transfer-between-users' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/users' class="{{isActiveRoute 'users'}}")
+                // i.large.users.icon
+                +i name='groups' cl='zoomer'
+            a.header.item.zoomer.fly_left(href='/shop' class="{{isActiveRoute 'shop'}}")
+                // i.large.users.icon
+                +i name='shop' cl='shop'
+            // .right.menu
+            //     a.item.log_out(title='sign out')
+            //         i.sign.out.icon
+            //         |sign out
+            // else 
+            //     a.item(href="/login" title='sign in')
+            //         i.sign.in.icon
+            //         |sign in
+            //       .right.menu
+            // a.icon.item.send_points.zoomer(title='send points' class="{{isActiveRoute 'edit'}}")
+            //     +i name='plus' cl='zoomer'
+            //     // i.large.green.plus.icon
+        .right.menu
+            if currentUser
+                a.header.item.zoomer.fly_left(href='/mail' class="{{isActiveRoute 'mail'}}")
+                    i.large.mail.icon
+
+                if logging_out
+                    .icon.item
+                        i.large.yin.yang.loading.icon
+                else
+                    a.item(href="/user/#{currentUser.username}" class="{{isActiveRoute 'profile'}}")
+                        // i.wallet.icon
+                        if currentUser.image_id
+                            img.ui.avatar.image(src="{{c.url currentUser.image_id width=200 height=200 gravity='face'}}")
+                        else
+                            i.user.icon
+                        strong #{currentUser.name}
+                        |&nbsp;
+                        strong {{int currentUser.points}}p
+            unless currentUser
+                if subs_ready
+                    a.icon.item(href='/login' title='login') 
+                        i.sign.in.large.icon
+                else 
+                    i.yin.yang.loading.icon
+     

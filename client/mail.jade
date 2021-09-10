@@ -4,7 +4,7 @@ template(name='mail')
             .ui.inline.header 
                 +i name='mail'
                 |mail
-            .ui.icon.basic.circular.button.add_post
+            .ui.icon.basic.circular.button.add_message
                 i.plus.large.icon
             // unless tag_results.count
             //     i.loading.yin.yang.big.grey.icon
@@ -53,16 +53,16 @@ template(name='mail')
             // +session_set key='mail_sort_key' value='price'               
             .ui.three.stackable.centered.cards.scrolling
                 // if mail_docs.count
-                each post_docs
-                    +post_item
+                each message_docs
+                    +message_item
                 // else 
                 //     .ui.basic.segment
                 //         i.massive.yin.yang.grey.loading.icon
             
             
             
-template(name='post_item')
-    a.ui.link.card.fly_right(href="/post/#{_id}")
+template(name='message_item')
+    a.ui.link.card.fly_right(href="/message/#{_id}")
         if image_id
             if can_access
                 img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")

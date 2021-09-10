@@ -15,6 +15,21 @@ template(name='doc_array_toggle')
         
 
 
+template(name='linked_product')
+    .ui.segment
+        with linked_product_doc
+            if kve 'model' 'food'
+                a.zoomer.fly_right(href="/food/#{_id}")
+                    img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .ui.header
+                        |#{title}
+            else 
+                a.zoomer.fly_right(href="/product/#{_id}")
+                    img.ui.small.image(src="{{c.url image_id width=200 height=200 gravity='face' crop='fill'}}")
+                    .ui.header
+                        |#{title}
+
+
 
 template(name='session_toggle') 
     .ui.icon.button.toggle_session_var(class=session_toggle_class title=key)
@@ -438,3 +453,18 @@ template(name='user_key_value_edit')
             |#{label}
         else 
             |#{value}
+
+
+
+template(name='product_orders')
+    .ui.inline.header 
+        +i name='order-history'
+        |orders
+    if currentUser
+        i.plus.link.icon.add_order
+        
+    .ui.large.selection.list
+        each order_docs
+            .item #{when} #{_author_username}
+                    
+                    

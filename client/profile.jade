@@ -120,7 +120,28 @@ template(name='user_dashboard')
     with current_user    
         .ui.stackable.one.column.grid
             // if is_current_user
-            
+            .ui.segment 
+                .ui.header 
+                    i.groups.icon
+                    |friends
+                .ui.large.list
+                    each user_friends
+                        a.item(href="/u/#{username}")
+            .ui.segment
+                .ui.header 
+                    i.send.icon
+                    |sent
+            .ui.header 
+                i.mail.icon
+                |mail
+            .ui.link.list
+                each messages
+                    a.item(href="/message/#{_id}/") #{body}
+            .ui.header 
+                i.blog.icon
+                |posts
+            .ui.link.list
+                a.item(href="/post/#{_id}") #{title}
             .column.scrollin
                 +user_topups
             .column.scrollin
