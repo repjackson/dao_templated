@@ -168,7 +168,7 @@ if Meteor.isServer
         # if picked_tags.length > 0 then match.tags = $all: picked_tags
         # if filter then match.model = filter
         match.model = 'group'
-        match.app = 'bc'
+        # match.app = 'bc'
         Docs.find match, 
             sort:
                 "#{group_sort_key}": group_sort_direction

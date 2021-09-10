@@ -24,44 +24,46 @@ template(name='groups')
 
 
 template(name='group_card')
-    .ui.card(class=group_segment_class)
+    a.ui.card(class=group_segment_class href="/group/#{_id}")
         // .ui.header.goto_group #{title}
-        .ui.header #{title}
-        |!{description}
-        div
-        .ui.horizontal.list 
-            .item(title='views')
-                i.eye.icon 
-                |#{views}
-            .item(title='points')
-                i.thumbs.up.outline.icon
-                |#{points}
-            if group_list_id 
-                .item(title='group list')
-                    i.list.icon 
-                    |#{group_list.title}
-            .item
-                i.grey.tags.icon 
-                each five_tags
-                    .ui.small.label #{this}
-        if weight 
-            .ui.small.inline.header #{weight} weight
-        if assigned_by
-            .ui.large.label(title='assigned by')
-                |#{assigned_by}
-            .ui.small.inline.header ->
-        if assigned_to
-            .ui.large.label(title='assigned to')
-                |#{assigned_to}
-        unless complete
-            if percent_complete
-                .rounded(style="height:5px;width:{{percent_complete}}%;background-color:grey" title="{{percent_complete}}% complete")
-                    //- 
-                    //- .ui.bottom.attached.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
-                    //-     .bar
-                        //- .progress
-                    //- .label complete
-    // .spacer
+        img.ui.image(src="{{c.url image_id width=200 height=200 gravity='face'}}")
+        .content
+            .ui.header #{title}
+            |!{description}
+            div
+            .ui.horizontal.list 
+                .item(title='views')
+                    i.eye.icon 
+                    |#{views}
+                .item(title='points')
+                    i.thumbs.up.outline.icon
+                    |#{points}
+                if group_list_id 
+                    .item(title='group list')
+                        i.list.icon 
+                        |#{group_list.title}
+                .item
+                    i.grey.tags.icon 
+                    each five_tags
+                        .ui.small.label #{this}
+            if weight 
+                .ui.small.inline.header #{weight} weight
+            if assigned_by
+                .ui.large.label(title='assigned by')
+                    |#{assigned_by}
+                .ui.small.inline.header ->
+            if assigned_to
+                .ui.large.label(title='assigned to')
+                    |#{assigned_to}
+            unless complete
+                if percent_complete
+                    .rounded(style="height:5px;width:{{percent_complete}}%;background-color:grey" title="{{percent_complete}}% complete")
+                        //- 
+                        //- .ui.bottom.attached.progress(data-percent="{{percent_complete}}" title="{{percent_complete}}% complete")
+                        //-     .bar
+                            //- .progress
+                        //- .label complete
+        // .spacer
 
 
 
