@@ -61,8 +61,15 @@ if Meteor.isClient
         @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
+    Template.group_members.onCreated ->
+        @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
     
 
+    Template.group_members.helpers
+        group_members: ->
+            Meteor.users.find 
+                membership_group_ids:$in:[Router.current().params.doc_id]
+        
     Template.group_view.helpers
         group_members: ->
             Meteor.users.find 
@@ -141,6 +148,11 @@ if Meteor.isClient
 
                 
             
+    # Template.group_members.helpers
+    #     group_members: ->
+    #         group = Router.current().params.doc_id
+    #         Meteor.users.find 
+    #             _id:$in:group.membership_group_ids
     Template.groups.helpers
         picked_group_tags: -> picked_group_tags.array()
         current_group_title_filter: ->

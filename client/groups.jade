@@ -189,6 +189,18 @@ template(name='group_products')
         a.ui.header(href="/product/#{_id}")
             |#{title}
 
+template(name='group_members')  
+    .ui.header 
+        i.users.icon
+        |group members
+    i.plus.circular.link.icon.add_group_product
+    .ui.large.selection.animated.link.list
+        each group_members
+            a.item(href="/user/#{_id}")
+                img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+
+                |#{username}
+
 
 template(name='group_view')            
     .ui.header 
