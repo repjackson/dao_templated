@@ -14,13 +14,38 @@ Template.subscribe_button.events
         Meteor.users.update user._id, 
             $addToSet:
                 subscribed_user_ids:Meteor.userId()
+        $('body').toast(
+            showIcon: 'checkmark'
+            message: "subscribed"
+            showProgress: 'bottom'
+            # class: 'success'
+            # displayTime: 'auto',
+            position: "bottom right"
+        )
+
                 
     'click .unsubscribe': ->
         user = Meteor.users.findOne username:Router.current().params.username
         Meteor.users.update user._id, 
             $pull:
                 subscribed_user_ids:Meteor.userId()
+        $('body').toast(
+            showIcon: 'undo'
+            message: "unsubscribed"
+            showProgress: 'bottom'
+            # class: 'success'
+            # displayTime: 'auto',
+            position: "bottom right"
+        )
+
                 
+Template.subscribe_button.helpers
+    subscribed: ->
+        user = Meteor.users.findOne username:Router.current().params.username
+        if user.subscribed_user_ids and Meteor.userId() in user.subscribed_user_ids
+            true
+        else 
+            false
 
 
 

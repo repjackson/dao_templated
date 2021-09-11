@@ -68,12 +68,6 @@ Template.user_layout.onRendered ->
 Template.user_layout.helpers
     user_from_username_param: -> Meteor.users.findOne username:Router.current().params.username
     user: -> Meteor.users.findOne username:Router.current().params.username
-    subscribed: ->
-        user = Meteor.users.findOne username:Router.current().params.username
-        if user.subscribed_user_ids and Meteor.userId() in user.subscribed_user_ids
-            true
-        else 
-            false
 Template.user_topups.helpers
     topups: ->
         Docs.find 

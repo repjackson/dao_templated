@@ -166,10 +166,10 @@ if Meteor.isServer
             
 
 
-    Meteor.publish 'product_group', (product_id)->
+    Meteor.publish 'group_docs', (product_id)->
         Docs.find   
             model:'group'
-            product_id:product_id
+            # product_id:product_id
             
             
             

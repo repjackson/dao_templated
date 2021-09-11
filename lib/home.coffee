@@ -23,6 +23,9 @@ if Meteor.isClient
         
         
         
+        
+        
+        
     Template.home.onCreated ->
         @autorun => @subscribe('doc_by_id',Session.get('viewing_post_id'))
         @autorun => @subscribe 'post_docs',

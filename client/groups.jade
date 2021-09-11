@@ -37,7 +37,7 @@ template(name='groups')
                 |&nbsp;
                 .spacer 
         
-            span.ui.doubling.cards.scrolling
+            span.ui.four.stackable.cards.scrolling
                 each group_docs
                     +group_card
                  
@@ -113,10 +113,15 @@ template(name='group_edit')
                     div
                     // +html_edit key='directions' label='directions' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
+                    div
                     +array_edit key='location_tags' label='location tags' icon='marker' direct=true
-                    .ui.red.button.delete_group
-                        i.remove.icon   
-                        | delete
+                    div
+                    +link_edit key='link' label='link' icon='globe' direct=true
+                    div
+                    if is_admin
+                        .ui.red.button.delete_group
+                            i.remove.icon   
+                            | delete
                 
                 
 template(name='group_layout')
@@ -140,11 +145,16 @@ template(name='group_layout')
                         +image_view key='image_id' label='image' direct=true
                         div
                         if can_edit
-                            a.ui.icon.button(href="/group/#{_id}/edit")
-                                i.pencil.large.icon
+                            a.ui.icon.basic.button(href="/group/#{_id}/edit")
+                                i.cog.large.icon
                         div
                         +html_view key='description' label='description' direct=true
+                        div
                         +array_view key='tags' label='tags' icon='tags' direct=true
+                        div
+                        +link_view key='link' label='link' icon='linkify' direct=true
+                        div
+                        // +link_view key='link' label='link' icon='linkify' direct=true
                         div
                         +array_view key='location_tags' label='location tags' icon='marker' direct=true
                         if in_dev

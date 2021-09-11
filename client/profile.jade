@@ -111,36 +111,45 @@ template(name='user_layout')
 
 template(name='user_dashboard')
     with current_user    
-        .ui.stackable.one.column.grid
+        .ui.stackable.three.column.grid
             // if is_current_user
-            .ui.segment 
+            .column
+                .ui.segment 
+                    .ui.header 
+                        i.groups.icon
+                        |friends
+                    .ui.large.list
+                        each user_friends
+                            a.item(href="/u/#{username}")
+            .column
+                .ui.segment
+                    .ui.header 
+                        i.send.icon
+                        |sent
+            .column
                 .ui.header 
-                    i.groups.icon
-                    |friends
-                .ui.large.list
-                    each user_friends
-                        a.item(href="/u/#{username}")
-            .ui.segment
-                .ui.header 
-                    i.send.icon
-                    |sent
-            .ui.header 
-                i.mail.icon
-                |mail
-            .ui.link.list
-                each messages
-                    a.item(href="/message/#{_id}/") #{body}
-            .ui.header 
-                i.blog.icon
-                |posts
-            .ui.link.list
-                a.item(href="/post/#{_id}") #{title}
+                    i.mail.icon
+                    |mail
+                .ui.link.list
+                    each messages
+                        a.item(href="/message/#{_id}/") #{body}
+            .column
+                +user_posts_small
             .column.scrollin
                 +user_topups
             .column.scrollin
                 +user_received
             .column.scrollin
                 +user_sent
+              
+              
+              
+template(name='user_posts_small')              
+    .ui.header 
+        i.blog.icon
+        |posts
+    .ui.link.list
+        a.item(href="/post/#{_id}") #{title}
                 
        
 template(name='user_topups')
@@ -149,9 +158,9 @@ template(name='user_topups')
         |topups
     .ui.button.topup
         |topup
-    .ui.selection.animated.list
+    .ui.selection.animated.list.smallscroll
         each topups
-            a.item(href="/topup/#{_id}") #{amount}
+            a.item(href="/topup/#{_id}") #{amount}p #{when}
        
        
        
