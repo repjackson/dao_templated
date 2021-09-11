@@ -1,3 +1,6 @@
+@picked_emotions = new ReactiveArray []
+
+
 Template.body.events
     'click .zoom_in_card': (e,t)->
         $(e.currentTarget).closest('.card').transition('drop', 500)

@@ -4,6 +4,11 @@ if Meteor.isClient
     Router.route '/', (->
         @render 'home'
         ), name:'home'
+    Template.registerHelper 'skip_is_zero', ()-> Session.equals('skip', 0)
+    Template.registerHelper 'one_post', ()-> Counts.get('result_counter') is 1
+    Template.registerHelper 'two_posts', ()-> Counts.get('result_counter') is 2
+    Template.registerHelper 'seven_tags', ()-> @tags[..7]
+    Template.registerHelper 'key_value', (key,value)-> @["#{key}"] is value
             
             
             
@@ -38,6 +43,43 @@ if Meteor.isClient
         @autorun => @subscribe 'post_facets',
             picked_tags.array()
             Session.get('title_filter')
+
+        Session.setDefault('skip',0)
+        Session.setDefault('view_section','content')
+        @autorun -> Meteor.subscribe('alpha_combo',picked_tags.array())
+        # @autorun -> Meteor.subscribe('alpha_single',picked_tags.array())
+        @autorun -> Meteor.subscribe('duck',picked_tags.array())
+        @autorun -> Meteor.subscribe('doc_count',
+            picked_tags.array()
+            Session.get('view_mode')
+            Session.get('emotion_mode')
+            # picked_models.array()
+            # picked_subreddits.array()
+            picked_emotions.array()
+            )
+        @autorun => Meteor.subscribe('dtags',
+            picked_tags.array()
+            Session.get('view_mode')
+            Session.get('emotion_mode')
+            Session.get('toggle')
+            # picked_models.array()
+            # picked_subreddits.array()
+            picked_emotions.array()
+            # Session.get('query')
+            )
+        @autorun => Meteor.subscribe('docs',
+            picked_tags.array()
+            Session.get('view_mode')
+            Session.get('emotion_mode')
+            Session.get('toggle')
+            # picked_models.array()
+            # picked_subreddits.array()
+            picked_emotions.array()
+            # Session.get('query')
+            Session.get('skip')
+            )
+
+
     
     Template.tag_picker.events
         'click .pick_tag': -> 
@@ -55,9 +97,9 @@ if Meteor.isClient
             url = new URL(@FirstURL);
             console.log url
             console.log url.pathname
-            selected_tags.push @Text.toLowerCase()
-            Meteor.call 'call_wiki', selected_tags.array().toString(), ->
-            Meteor.call 'search_reddit', selected_tags.array(), ->
+            picked_tags.push @Text.toLowerCase()
+            Meteor.call 'call_wiki', picked_tags.array().toString(), ->
+            Meteor.call 'search_reddit', picked_tags.array(), ->
     
         'click .abstract': (e,t)-> 
             console.log @
@@ -82,19 +124,19 @@ if Meteor.isClient
         alphas: ->
             Docs.find 
                 model:'alpha'
-                # query: $in: selected_tags.array()
-                query: selected_tags.array().toString()
+                # query: $in: picked_tags.array()
+                query: picked_tags.array().toString()
         # alpha_singles: ->
         #     Docs.find 
         #         model:'alpha'
-        #         query: $in: selected_tags.array()
-        #         # query: selected_tags.array().toString()
+        #         query: $in: picked_tags.array()
+        #         # query: picked_tags.array().toString()
         ducks: ->
             Docs.find 
                 model:'duck'
-                # query: $in: selected_tags.array()
-                query: selected_tags.array().toString()
-        many_tags: -> selected_tags.array().length > 1
+                # query: $in: picked_tags.array()
+                query: picked_tags.array().toString()
+        many_tags: -> picked_tags.array().length > 1
         doc_count: -> Counts.get('result_counter')
             
             
@@ -278,28 +320,28 @@ if Meteor.isClient
                     #         Meteor.call 'lookup_url', search, (err,res)=>
                     #             console.log res
                     #             for tag in res.tags
-                    #                 selected_tags.push tag
+                    #                 picked_tags.push tag
                     #             Session.set('skip',0)
                     #             Session.set('query','')
                     #             $('.search_title').val('')
                     #     else
-                    # unless search in selected_tags.array()
-                    selected_tags.push search
-                    # console.log 'selected tags', selected_tags.array()
+                    # unless search in picked_tags.array()
+                    picked_tags.push search
+                    # console.log 'selected tags', picked_tags.array()
                     # Meteor.call 'call_alpha', search, ->
                     Meteor.call 'search_ddg', search, ->
                     # if Session.equals('view_mode','porn')
                     #     Meteor.call 'search_ph', search, ->
                     # else
                     # window.speechSynthesis.speak new SpeechSynthesisUtterance search
-                    window.speechSynthesis.speak new SpeechSynthesisUtterance selected_tags.array().toString()
-                    Meteor.call 'call_alpha', selected_tags.array().toString(), ->
+                    window.speechSynthesis.speak new SpeechSynthesisUtterance picked_tags.array().toString()
+                    Meteor.call 'call_alpha', picked_tags.array().toString(), ->
                     Meteor.call 'call_wiki', search, ->
-                    Meteor.call 'search_reddit', selected_tags.array(), ->
+                    Meteor.call 'search_reddit', picked_tags.array(), ->
                     Session.set('viewing_doc',null)
     
                     Session.set('skip',0)
-                    # window.speechSynthesis.speak new SpeechSynthesisUtterance selected_tags.array().toString()
+                    # window.speechSynthesis.speak new SpeechSynthesisUtterance picked_tags.array().toString()
     
                     # Session.set('query','')
                     $('.search_title').val('')
@@ -308,7 +350,7 @@ if Meteor.isClient
                     , 10000)
             # if e.which is 8
             #     if search.length is 0
-            #         selected_tags.pop()
+            #         picked_tags.pop()
         # , 1000)
 
 
