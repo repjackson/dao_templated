@@ -32,7 +32,7 @@ template(name='questions')
                         | #{weekly_sessions} sessions
             .six.wide.column
                 //- with top_question
-                //-     +question_card_template
+                //-     +question_card
                 i.link.refresh.icon.refresh_my_time_stats
                 .ui.small.compact.icon.button.toggle_complete(title='view complete' class=view_complete_class)
                     i.checkmark.icon
@@ -45,7 +45,7 @@ template(name='questions')
             
                 .largescroll.ui.segments
                     each questions 
-                        +question_card_template
+                        +question_card
             .six.wide.column
                 if picked_question_doc
                     .ui.icon.right.floated.button.unselect_question
@@ -80,7 +80,7 @@ template(name='question_cloud')
             strong #{this.name}
 
 
-template(name='question_card_template')
+template(name='question_card')
     .ui.segment.pointer.select_question(class=question_segment_class)
         // .ui.header.goto_question #{title}
         .ui.header #{title}

@@ -2,24 +2,19 @@ template(name='groups')
     .ui.stackable.padded.grid
         .four.wide.column
             .ui.inline.header 
-                i.large.fire.icon
+                +i name='campfire'
                 |groups
             i.plus.circular.link.icon.add_group
-            div
-            .ui.inline.small.header
-                i.tag.icon
-                |tags
-            each picked_group_tags
-                a.ui.blue.label.unpick_group_tag
-                    |#{this}
-            each group_tag_results
-                if title
-                    a.ui.basic.circular.small.link.label.pick_group_tag
-                        |#{title} 
-                        small.ui.grey.text #{count}
+            .ui.header
+                |your groups
+            .ui.selection.link.list
+                each my_groups
+                    a.item(href="/group/#{_id}")
+                        |#{title}
         .twelve.wide.column
             span.sorting_row
-                // +session_set key='view_users' value='grid' icon='th' 
+                +session_set key='view_top_groups' value=true label='view top level' icon='chevron' 
+                +session_set key='view_top_groups' value=false icon='chevron down'
                 // +session_set key='view_users' value='list' icon='list'
                 // +session_set key='sort_users_direction' value='-1' icon='chevron down'
                 // +session_set key='sort_users_direction' value='1' icon='chevron up'
@@ -27,12 +22,12 @@ template(name='groups')
                 // +session_set key='sort_users_key' value='created_date' icon='clock'
                 // +session_set key='view_limit' value=1
                 +search_input model='group' field='title'
-                i.large.sort.icon
-                .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
-                    if sorting_up
-                        i.sort.amount.down.icon
-                    else
-                        i.sort.amount.up.icon
+                // i.large.sort.icon
+                // .ui.compact.icon.button.set_sort_direction(title='toggle sort direction')
+                //     if sorting_up
+                //         i.sort.amount.down.icon
+                //     else
+                //         i.sort.amount.up.icon
                 |&nbsp;
                 |&nbsp;
                 .spacer 
@@ -60,6 +55,9 @@ template(name='group_card')
                 i.grey.marker.icon
                 each people_tags
                     .ui.small.label #{this}
+            if parent_id 
+                i.fork.icon
+                |#{parent_group_id}
 
 
                 

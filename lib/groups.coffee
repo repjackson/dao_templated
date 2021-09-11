@@ -149,6 +149,7 @@ if Meteor.isClient
             match = {model:'group'}
             if Session.get('group_title_filter')
                 match.title = {$regex:Session.get('group_title_filter'), $options:'i'}
+            match.parent_group_id = $exists:false
             Docs.find match
             
             
