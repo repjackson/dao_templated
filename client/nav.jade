@@ -58,6 +58,8 @@ template(name='nav')
                     i.yin.yang.loading.icon
      #topnav.ui.fluid.attached.borderless.inverted.menu.topnav.hscroll.mobile.hidden
         if connected
+            a.header.item.zoomer.mobile.hidden(href='/subs' class="{{isActiveRoute 'reddit'}}")
+                +i name='reddit' cl='zoomer'
             a.header.item.zoomer.mobile.hidden(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
                 +i name='blog' cl='zoomer'
             a.header.item.zoomer.mobile.hidden(href='/deliveries' class="{{isActiveRoute 'deliveries'}}" title='posts')
@@ -82,8 +84,6 @@ template(name='nav')
                 +i name='clock' cl='zoomer'
             a.header.item.zoomer.mobile.hidden(href='/badges' class="{{isActiveRoute 'badges'}}")
                 +i name='certificate' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/subs' class="{{isActiveRoute 'reddit'}}")
-                +i name='reddit' cl='zoomer'
 
 
 template(name='topbar')
@@ -124,6 +124,7 @@ template(name='left_sidebar')
         //     .ui.icon.transparent.input
         //         i.search.icon
         //         input.search_global(type='text')
+        +leftbar_nav_item label='reddit' icon='reddit' route='subs'
         +leftbar_nav_item label='food' icon='food' route='food'
         +leftbar_nav_item label='beer' icon='beer' route='drinks'
         +leftbar_nav_item label='inventory' icon='grocery-shelf' route='items'

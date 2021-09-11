@@ -65,19 +65,7 @@ template(name='subs')
                     // // .ui.centered.five.stackable.cards
                     .ui.large.link.list
                         each subreddit_docs
-                            .item.rounded.zoomer(style="background-image:url(#{data.banner_img});, background-size:cover; background-repeat: no-repeat;" )
-                                a(href="/r/#{data.display_name}")
-                                    img.ui.rounded.tiny.inline.image(src=data.icon_img)
-                                    // a.ui.tiny.image.goto_sub(href="/r/#{data.display_name}")
-                                .inline.content.seg
-                                    // .ui.header.goto_sub(style="color:#{data.primary_color}")
-                                    a.ui.inline.header.goto_sub(href="/r/#{data.display_name}")
-                                        // if data.header_img
-                                        //     img.ui.image(src=data.header_img)
-                                        | !{data.title} 
-                                        small !{data.display_name}
-                        // 
-                            // +subreddit_doc
+                            +subreddit_doc
                             // .spacer
                     // unless subreddit_docs.count
                     //     |no results
@@ -89,8 +77,8 @@ template(name='view_layout_button')
 
 template(name='subreddit_doc')
     // a.card.rounded.zoomer(style="background-image:url(#{data.banner_img});, background-size:cover; background-repeat: no-repeat; min-width: 100%;" href="/r/#{data.display_name}")
-    .item.rounded.zoomer(style="background-image:url(#{data.banner_img});, background-size:cover; background-repeat: no-repeat;" )
-        a(href="/r/#{data.display_name}")
+    .item.rounded(style="background-image:url(#{data.banner_img});, background-size:cover; background-repeat: no-repeat;" )
+        a.zoomer(href="/r/#{data.display_name}")
             img.ui.rounded.tiny.inline.image(src=data.icon_img)
             // a.ui.tiny.image.goto_sub(href="/r/#{data.display_name}")
         .inline.content.seg

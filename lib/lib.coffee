@@ -28,6 +28,12 @@ if Meteor.isServer
 # ), fetchPrevious: true
 
 
+
+Router.route '/chart', (->
+    @layout 'layout'
+    @render 'ticker'
+    ), name:'chart'
+
 Docs.helpers
     author: -> Meteor.users.findOne @_author_id
     _author: -> Meteor.users.findOne @_author_id
@@ -194,3 +200,90 @@ Router.onBeforeAction(force_loggedin, {
 #         Session.set('_resetPasswordToken', this.params.token)
 #         @subscribe('enrolledUser', this.params.token).wait()
 # })
+
+
+
+Meteor.methods
+    add_facet_filter: (delta_id, key, filter)->
+        if key is '_keys'
+            new_facet_ob = {
+                key:filter
+                filters:[]
+                res:[]
+            }
+            Docs.update { _id:delta_id },
+                $addToSet: facets: new_facet_ob
+        Docs.update { _id:delta_id, "facets.key":key},
+            $addToSet: "facets.$.filters": filter
+
+        Meteor.call 'fum', delta_id, (err,res)->
+
+
+    remove_facet_filter: (delta_id, key, filter)->
+        if key is '_keys'
+            Docs.update { _id:delta_id },
+                $pull:facets: {key:filter}
+        Docs.update { _id:delta_id, "facets.key":key},
+            $pull: "facets.$.filters": filter
+        Meteor.call 'fum', delta_id, (err,res)->
+
+
+
+    upvote_sentence: (doc_id, sentence)->
+        # console.log sentence
+        if sentence.weight
+            Docs.update(
+                { _id:doc_id, "tone.result.sentences_tone.sentence_id": sentence.sentence_id },
+                $inc: 
+                    "tone.result.sentences_tone.$.weight": 1
+                    points:1
+            )
+        else
+            Docs.update(
+                { _id:doc_id, "tone.result.sentences_tone.sentence_id": sentence.sentence_id },
+                {
+                    $set: 
+                        "tone.result.sentences_tone.$.weight": 1
+                    $inc:
+                        points:1
+                }
+            )
+    tag_sentence: (doc_id, sentence, tag)->
+        # console.log sentence
+        Docs.update(
+            { _id:doc_id, "tone.result.sentences_tone.sentence_id": sentence.sentence_id },
+            { $addToSet: 
+                "tone.result.sentences_tone.$.tags": tag
+                "tags": tag
+            }
+        )
+
+    reset_sentence: (doc_id, sentence)->
+        # console.log sentence
+        Docs.update(
+            { _id:doc_id, "tone.result.sentences_tone.sentence_id": sentence.sentence_id },
+            { 
+                $set: 
+                    "tone.result.sentences_tone.$.weight": -2
+            } 
+        )
+
+
+    downvote_sentence: (doc_id, sentence)->
+        # console.log sentence
+        Docs.update(
+            { _id:doc_id, "tone.result.sentences_tone.sentence_id": sentence.sentence_id },
+            { $inc: 
+                "tone.result.sentences_tone.$.weight": -1
+                points: -1
+            }
+        )
+    check_url: (str)->
+        # console.log 'testing', str
+        pattern = new RegExp('^(https?:\\/\\/)?'+ # protocol
+        '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.)+[a-z]{2,}|'+ # domain name
+        '((\\d{1,3}\\.){3}\\d{1,3}))'+ # OR ip (v4) address
+        '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ # port and path
+        '(\\?[;&a-z\\d%_.~+=-]*)?'+ # query string
+        '(\\#[-a-z\\d_]*)?$','i') # fragment locator
+        return !!pattern.test(str)
