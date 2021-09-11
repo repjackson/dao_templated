@@ -58,6 +58,8 @@ template(name='nav')
                     i.yin.yang.loading.icon
      #topnav.ui.fluid.attached.borderless.inverted.menu.topnav.hscroll.mobile.hidden
         if connected
+            a.header.item.zoomer.mobile.hidden(href='/chat' class="{{isActiveRoute 'chat'}}")
+                +i name='chat' cl='zoomer shadowed'
             a.header.item.zoomer.mobile.hidden(href='/wiki' class="{{isActiveRoute 'wikipedia'}}")
                 +i name='wikipedia' cl='zoomer shadowed'
             a.header.item.zoomer.mobile.hidden(href='/duck' class="{{isActiveRoute 'duck'}}")

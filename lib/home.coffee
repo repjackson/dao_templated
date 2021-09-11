@@ -5,6 +5,9 @@ if Meteor.isClient
         @render 'home'
         ), name:'home'
             
+            
+            
+            
     # Template.losses.onCreated ->
     #     @autorun => @subscribe 'model_docs', 'loss', ->
     # Template.losses.helpers
@@ -43,6 +46,28 @@ if Meteor.isClient
             # Meteor.call 'call_wiki', @title,=>
             #     console.log 'called wiki on', @title
     
+    
+    Template.duck.events
+        'click .topic': (e,t)-> 
+            console.log @
+            window.speechSynthesis.speak new SpeechSynthesisUtterance @Text
+            # console.log @FirstURL.replace(/\s+/g, '-')
+            url = new URL(@FirstURL);
+            console.log url
+            console.log url.pathname
+            selected_tags.push @Text.toLowerCase()
+            Meteor.call 'call_wiki', selected_tags.array().toString(), ->
+            Meteor.call 'search_reddit', selected_tags.array(), ->
+    
+        'click .abstract': (e,t)-> 
+            console.log @
+            window.speechSynthesis.speak new SpeechSynthesisUtterance @AbstractText
+    
+        # 'click .tagger': (e,t)->
+        #     Meteor.call 'call_watson', @_id, 'url', 'url', ->
+    
+    
+    
     Template.home.helpers
         one_doc: ->
             count = 
@@ -52,6 +77,26 @@ if Meteor.isClient
                 ).count()
             # console.log 'count', count
             count is 1
+            
+            
+        alphas: ->
+            Docs.find 
+                model:'alpha'
+                # query: $in: selected_tags.array()
+                query: selected_tags.array().toString()
+        # alpha_singles: ->
+        #     Docs.find 
+        #         model:'alpha'
+        #         query: $in: selected_tags.array()
+        #         # query: selected_tags.array().toString()
+        ducks: ->
+            Docs.find 
+                model:'duck'
+                # query: $in: selected_tags.array()
+                query: selected_tags.array().toString()
+        many_tags: -> selected_tags.array().length > 1
+        doc_count: -> Counts.get('result_counter')
+            
             
     Template.home_item.helpers
         one_doc: ->
@@ -196,6 +241,14 @@ if Meteor.isClient
             Docs.update @_id, 
                 $inc:views:1
     Template.home.events
+        'click .read': (e,t)-> 
+            if @tone 
+                window.speechSynthesis.cancel()
+                for sentence in @tone.result.sentences_tone
+                    console.log sentence
+                    Session.set('current_reading_sentence',sentence)
+                    window.speechSynthesis.speak new SpeechSynthesisUtterance sentence.text
+    
         'click .add_post': ->
             new_id = Docs.insert 
                 model:'post'
@@ -206,6 +259,57 @@ if Meteor.isClient
         'click .unpick_tag': -> 
             Session.set('viewing_post_id', null)
             picked_tags.remove @valueOf()
+        'keyup .search_title': (e,t)->
+            search = $('.search_title').val().toLowerCase().trim()
+            # _.throttle( =>
+    
+            # if search.length > 4
+            #     Session.set('query',search)
+            # else if search.length is 0
+            #     Session.set('query','')
+            if e.which is 13
+                window.speechSynthesis.cancel()
+                # console.log search
+                if search.length > 0
+                    # Meteor.call 'check_url', search, (err,res)->
+                    #     console.log res
+                    #     if res
+                    #         alert 'url'
+                    #         Meteor.call 'lookup_url', search, (err,res)=>
+                    #             console.log res
+                    #             for tag in res.tags
+                    #                 selected_tags.push tag
+                    #             Session.set('skip',0)
+                    #             Session.set('query','')
+                    #             $('.search_title').val('')
+                    #     else
+                    # unless search in selected_tags.array()
+                    selected_tags.push search
+                    # console.log 'selected tags', selected_tags.array()
+                    # Meteor.call 'call_alpha', search, ->
+                    Meteor.call 'search_ddg', search, ->
+                    # if Session.equals('view_mode','porn')
+                    #     Meteor.call 'search_ph', search, ->
+                    # else
+                    # window.speechSynthesis.speak new SpeechSynthesisUtterance search
+                    window.speechSynthesis.speak new SpeechSynthesisUtterance selected_tags.array().toString()
+                    Meteor.call 'call_alpha', selected_tags.array().toString(), ->
+                    Meteor.call 'call_wiki', search, ->
+                    Meteor.call 'search_reddit', selected_tags.array(), ->
+                    Session.set('viewing_doc',null)
+    
+                    Session.set('skip',0)
+                    # window.speechSynthesis.speak new SpeechSynthesisUtterance selected_tags.array().toString()
+    
+                    # Session.set('query','')
+                    $('.search_title').val('')
+                    Meteor.setTimeout( ->
+                        Session.set('toggle',!Session.get('toggle'))
+                    , 10000)
+            # if e.which is 8
+            #     if search.length is 0
+            #         selected_tags.pop()
+        # , 1000)
 
 
 
