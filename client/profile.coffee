@@ -48,8 +48,9 @@ Template.user_subscriptions.helpers
             _id:$in:user.subscribed_user_ids
         
     subscribed_to: ->
+        user = Meteor.users.findOne username:Router.current().params.username
         Meteor.users.find 
-            subscribed_user_ids:$in:[Meteor.userId()]
+            subscribed_user_ids:$in:[user._id]
     
 
 Template.user_layout.onCreated ->

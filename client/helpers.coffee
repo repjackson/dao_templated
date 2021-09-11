@@ -354,7 +354,7 @@ Template.registerHelper 'trunc', (input) ->
         input[0..300]
    
    
-Template.registerHelper 'emotion_avg', (metric) -> results.findOne(model:'emotion_avg')
+Template.registerHelper 'emotion_avg', (metric) -> Results.findOne(model:'emotion_avg')
 Template.registerHelper 'skve', (key,val) -> 
     Session.equals(key,val)
 

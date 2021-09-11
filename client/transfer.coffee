@@ -64,7 +64,7 @@ Template.profile_picker.helpers
 
 Template.transfers.onCreated ->
     Session.setDefault('transfer_filter','all')
-    @autorun -> Meteor.subscribe 'all_users', -> 
+    # @autorun -> Meteor.subscribe 'all_users', -> 
     @autorun -> Meteor.subscribe 'transfer_tags', 
         null
         'sent'
