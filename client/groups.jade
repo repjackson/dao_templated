@@ -159,22 +159,25 @@ template(name='group_layout')
                             +print_this
                     .eleven.wide.column
                         a.ui.basic.button(href="/group/#{_id}/members")
-                            i.users.icon
+                            +i name='groups' cl='ui avatar image'
                             |members
                         a.ui.basic.button(href="/group/#{_id}/products")
-                            i.cart.icon
+                            +i name='shopping-cart' cl='ui avatar image'
                             |products
                         a.ui.basic.button(href="/group/#{_id}/items")
-                            i.list.icon
+                            +i name='list' cl='ui avatar image'
                             |items
                         a.ui.basic.button(href="/group/#{_id}/tasks")
-                            i.tasks.icon
+                            +i name='tasks' cl='ui avatar image'
                             |tasks
+                        a.ui.basic.button(href="/group/#{_id}/posts")
+                            +i name='blog' cl='ui avatar image'
+                            |posts
                         a.ui.basic.button(href="/group/#{_id}/work")
-                            i.wrench.icon
+                            +i name='wrench' cl='ui avatar image'
                             |work
                         a.ui.basic.button(href="/group/#{_id}/relations")
-                            i.exchange.icon
+                            +i name='fork' cl='ui avatar image'
                             |relations
                         .scrolling
                             +yield
@@ -192,7 +195,7 @@ template(name='group_products')
 template(name='group_members')  
     .ui.header 
         i.users.icon
-        |group members
+        |#{group_members.count} group members
     i.plus.circular.link.icon.add_group_product
     .ui.large.selection.animated.link.list
         each group_members

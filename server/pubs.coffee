@@ -287,7 +287,12 @@ Meteor.publish 'user_transfers', (username)->
         
         
 Meteor.publish 'all_users', (doc_id)->
-    Meteor.users.find()
+    Meteor.users.find({},
+        fields:
+            username:1
+            image_id:1
+            tags:1
+        )
 
         
 Meteor.publish 'doc_by_id', (doc_id)->

@@ -548,39 +548,73 @@ template(name='user_order_item')
 
 
 
+// template(name='order_edit')
+//     with current_doc
+//         .ui.stackable.padded.grid
+//             .row
+//                 .four.wide.column
+//                     .ui.inline.header
+//                         i.pencil.icon
+//                         small order
+//                     div
+//                     +linked_product
+//                     .ui.header #{when}
+//                 .eight.wide.column
+//                     .ui.header price: #{purchase_amount}pts
+//                     .ui.header balance #{currentUser.points}pts
+//                     .ui.header balance after purchase #{balance_after_purchase}pts
+//                         small ({{fixed percent_difference}}% difference)
+//                     div
+//                     // +image_edit key='image_id' label='image' direct=true
+//                     // +array_edit key='tags' label='tags' icon='tags' direct=true
+//                     // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
+//                     +textarea_edit key='notes' label='notes' direct=true
+//                     if in_dev
+//                         +print_this
+//                 .four.wide.column
+//                     if session_is 'ordering' true
+//                         i.big.refresh.icon
+//                     else
+//                         .ui.large.fluid.green.button.complete_order.fly_left(title='complete order')
+//                             i.checkmark.large.icon   
+//                             |complete
+//                         .ui.hidden.divider
+//                         .ui.red.circular.button.delete_order.fly_left
+//                             i.large.remove.icon
+//                             |cancel
+                        
+                        
+                        
 template(name='order_edit')
     with current_doc
         .ui.stackable.padded.grid
-            .row
+            .row 
                 .four.wide.column
-                    .ui.inline.header
-                        i.pencil.icon
-                        small order
-                    div
-                    +linked_product
-                    .ui.header #{when}
+                    .ui.large.fluid.basic.red.button.delete_order
+                        i.large.remove.red.icon
+                        |delete
+                    .ui.segment
+                        .ui.inline.header
+                            .ui.header author
+                            img.ui.small.image(src="{{c.url _author.image_id height=200 width=200 gravity='face' crop='fill'}}" class=currentUser.invert_class)
+                            |#{_author.name}
                 .eight.wide.column
-                    .ui.header price: #{purchase_amount}pts
-                    .ui.header balance #{currentUser.points}pts
-                    .ui.header balance after purchase #{balance_after_purchase}pts
-                        small ({{fixed percent_difference}}% difference)
-                    div
-                    // +image_edit key='image_id' label='image' direct=true
-                    // +array_edit key='tags' label='tags' icon='tags' direct=true
-                    // +array_edit key='location_tags' label='location tags' icon='marker' direct=true
                     +textarea_edit key='notes' label='notes' direct=true
+                    
+                    div
                     if in_dev
                         +print_this
-                .four.wide.column
-                    if session_is 'ordering' true
-                        i.big.refresh.icon
-                    else
-                        .ui.large.fluid.green.button.complete_order.fly_left(title='complete order')
-                            i.checkmark.large.icon   
-                            |complete
-                        .ui.hidden.divider
-                        .ui.red.circular.button.delete_order.fly_left
-                            i.large.remove.icon
-                            |cancel
-                        
+                    
+                .four.wide.center.aligned.column
+                    .ui.big.header #{order_price}pts
+                    // div
+                    // .spacer
+                    if complete 
+                        .ui.header completed on {{long_date complete_timestamp}}
+                        a.ui.big.green.button(href="/post/#{post_id}/")
+                            |order complete, go back
+                    else 
+                        .ui.green.huge.rounded.button.confirm_order
+                            i.checkmark.icon
+                            |confirm #{order_price}
                         
