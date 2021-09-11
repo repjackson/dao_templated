@@ -67,6 +67,9 @@ template(name='nav')
                         strong #{currentUser.name}
                         |&nbsp;
                         strong {{int currentUser.points}}p
+                    a.icon.item.toggle_rightbar.no_blink
+                       i.bars.large.icon 
+
             unless currentUser
                 if subs_ready
                     a.icon.item(href='/login' title='login') 

@@ -19,7 +19,7 @@ if Meteor.isClient
                     transition:'overlay'
                     mobileTransition:'overlay'
                     exclusive:true
-                    duration:200
+                    duration:250
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_leftbar')
@@ -31,7 +31,7 @@ if Meteor.isClient
                     transition:'overlay'
                     mobileTransition:'overlay'
                     exclusive:true
-                    duration:200
+                    duration:250
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_rightbar')
@@ -43,7 +43,7 @@ if Meteor.isClient
                     transition:'overlay'
                     mobileTransition:'overlay'
                     exclusive:true
-                    duration:200
+                    duration:250
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_topbar')
@@ -55,7 +55,7 @@ if Meteor.isClient
         #             transition:'overlay'
         #             mobileTransition:'overlay'
         #             exclusive:true
-        #             duration:200
+        #             duration:250
         #             scrollLock:true
         #         })
         #         .sidebar('attach events', '.toggle_leftbar')
@@ -67,7 +67,7 @@ if Meteor.isClient
         #             transition:'overlay'
         #             mobileTransition:'overlay'
         #             exclusive:true
-        #             duration:200
+        #             duration:250
         #             scrollLock:true
         #         })
         #         .sidebar('attach events', '.toggle_cartbar')
@@ -79,7 +79,7 @@ if Meteor.isClient
         #             transition:''
         #             mobileTransition:'overlay'
         #             exclusive:true
-        #             duration:200
+        #             duration:250
         #             scrollLock:true
         #         })
         #         .sidebar('attach events', '.toggle_walletbar')
