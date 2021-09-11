@@ -182,3 +182,7 @@ Meteor.publish 'user_comments', (username, limit=20)->
             disgust_percent:1
             anger_percent:1
     }
+    
+    
+    
+    
