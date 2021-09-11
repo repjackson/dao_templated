@@ -17,7 +17,13 @@ Meteor.methods
         found = Meteor.users.findOne username:username
         unless Meteor.user() and Meteor.user().username is username
             Meteor.users.update found._id, 
-                $inc:profile_views:1
+                $inc:
+                    profile_views:1
+                $addToSet:
+                    profile_viewed_usernames:Meteor.user().username
+                    profile_viewed_user_ids:Meteor.userId()
+                
+                
     search_by_username: (username)->
         found = Meteor.users.findOne 
             username:username

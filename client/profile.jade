@@ -78,26 +78,26 @@ template(name='user_layout')
                         small
                             |profile views
                 .thirteen.wide.column
-                    .ui.stackable.menu.hscroll
-                        a.item(href="/user/#{current_user.username}/")
-                            i.large.dashboard.icon
+                    .ui.stackable.borderless.menu.rounded.hscroll
+                        a.item(href="/user/#{current_user.username}/" class="{{isActiveRoute 'user_dashboard'}}" )
+                            +i name='dashboard' cl='ui avatar image'
                             |dashboard
-                        a.item(href="/user/#{current_user.username}/sent")
-                            i.send.large.icon
+                        a.item(href="/user/#{current_user.username}/sent" class="{{isActiveRoute 'user_sent'}}" )
+                            +i name='sent' cl='ui avatar image'
                             |sent 
-                        a.item(href="/user/#{current_user.username}/received")
-                            i.chevron.down.icon
+                        a.item(href="/user/#{current_user.username}/received" class="{{isActiveRoute 'user_received'}}" )
+                            +i name='donate' cl='ui avatar image'
                             |received 
-                        a.item(href="/user/#{current_user.username}/topups")
+                        a.item(href="/user/#{current_user.username}/topups" class="{{isActiveRoute 'user_topups'}}" )
                             +i name='donate' cl='ui avatar image'
                             |topups 
-                        a.item(href="/user/#{current_user.username}/subscriptions")
+                        a.item(href="/user/#{current_user.username}/subscriptions" class="{{isActiveRoute 'user_subscriptions'}}" )
                             +i name='refresh' cl='ui avatar image'
                             |subscriptions 
-                        a.item(href="/user/#{current_user.username}/posts")
+                        a.item(href="/user/#{current_user.username}/posts" class="{{isActiveRoute 'user_posts'}}" )
                             +i name='blog' cl='ui avatar image'
                             |posts 
-                        a.item(href="/user/#{current_user.username}/orders")
+                        a.item(href="/user/#{current_user.username}/orders" class="{{isActiveRoute 'user_orders'}}" )
                             +i name='order-history' cl='ui avatar image'
                             |orders 
                     // .spacer
@@ -116,7 +116,20 @@ template(name='user_dashboard')
             .column
                 .ui.segment 
                     .ui.header 
-                        i.groups.icon
+                        +i name='activity'
+                        |activity
+                    .ui.list 
+                        .item #{profile_views} profile views
+                        .item #{profile_viewed_usernames.length} individuals
+                    .ui.small.grey.inline.header 
+                        |viewers
+                    each profile_viewed_usernames
+                        a.basic.label(href="/u/#{this}") #{this}
+                        
+            .column
+                .ui.segment 
+                    .ui.header 
+                        +i name='groups'
                         |friends
                     .ui.large.list
                         each user_friends
@@ -124,11 +137,11 @@ template(name='user_dashboard')
             .column
                 .ui.segment
                     .ui.header 
-                        i.send.icon
+                        +i name='sent'
                         |sent
             .column
                 .ui.header 
-                    i.mail.icon
+                    +i name='inbox'
                     |mail
                 .ui.link.list
                     each messages

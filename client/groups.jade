@@ -40,7 +40,7 @@ template(name='groups')
 
 template(name='group_card')                    
     a.ui.card.fly_left(href="/group/#{_id}") 
-        img.ui.image(src="{{c.url image_id width=400 height=300 crop='pad'}}")
+        img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
         .content 
             .ui.inline.header 
                 |#{title}
