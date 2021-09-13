@@ -17,6 +17,10 @@ if Meteor.isClient
         @layout 'group_layout'
         @render 'group_members'
         ), name:'group_members'
+    Router.route '/group/:doc_id/tasks', (->
+        @layout 'group_layout'
+        @render 'group_tasks'
+        ), name:'group_tasks'
     Router.route '/group/:doc_id/products', (->
         @layout 'group_layout'
         @render 'group_products'
@@ -61,6 +65,25 @@ if Meteor.isClient
                     _timestamp:Date.now()
                     group_id:Router.current().params.doc_id
             Router.go "/product/#{new_id}/edit"
+    
+    
+    Template.group_tasks.onCreated ->
+        @autorun => Meteor.subscribe 'group_model_docs', Router.current().params.doc_id, 'task',->
+    Template.group_tasks.helpers 
+        group_task_docs: ->
+            Docs.find   
+                model:'task'
+                group_id:Router.current().params.doc_id
+    Template.group_tasks.events
+        'click .add_group_task': ->
+            new_id = 
+                Docs.insert
+                    model:'task'
+                    _author_id:Meteor.userId()
+                    _author_username:Meteor.user().username
+                    _timestamp:Date.now()
+                    group_id:Router.current().params.doc_id
+            Router.go "/task/#{new_id}/edit"
     
     
     Template.group_link_card.onCreated ->
@@ -108,10 +131,10 @@ if Meteor.isServer
 if Meteor.isClient
     Template.group_layout.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
+        # @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
         @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
+
     Template.group_members.onCreated ->
         @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
     
@@ -121,7 +144,7 @@ if Meteor.isClient
             Meteor.users.find 
                 membership_group_ids:$in:[Router.current().params.doc_id]
         
-    Template.group_view.helpers
+    Template.group_members.helpers
         group_members: ->
             Meteor.users.find 
                 membership_group_ids:$in:[Router.current().params.doc_id]
@@ -147,7 +170,7 @@ if Meteor.isClient
                     false
                 # unless Meteor.userId() in current_group.member_ids
         
-    Template.group_view.events
+    Template.group_members.events
         'click .join': ->
             Meteor.users.update Meteor.userId(),
                 $addToSet:

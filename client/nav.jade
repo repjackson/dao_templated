@@ -61,13 +61,15 @@ template(name='nav')
                     i.yin.yang.loading.icon
      #topnav.ui.fluid.attached.borderless.inverted.small.menu.topnav.hscroll
         if connected
-            a.header.item.zoomer(href='/chat' class="{{isActiveRoute 'chat'}}")
-                +i name='chat' cl='zoomer shadowed'
-            a.header.item.zoomer(href='/wiki' class="{{isActiveRoute 'wikipedia'}}")
+            a.header.item.zoomer(href='/groups' class="{{isActiveRoute 'groups'}}" title='groups')
+                +i name='campfire' cl='zoomer'
+            // a.header.item.zoomer(href='/chat' class="{{isActiveRoute 'chat'}}")
+            //     +i name='chat' cl='zoomer shadowed'
+            a.header.item.zoomer(href='/wiki' class="{{isActiveRoute 'wikipedia'}}" title='wikipedia')
                 +i name='wikipedia' cl='zoomer shadowed'
-            a.header.item.zoomer(href='/duck' class="{{isActiveRoute 'duck'}}")
-                +i name='search' cl='zoomer'
-            a.header.item.zoomer(href='/subs' class="{{isActiveRoute 'reddit'}}")
+            // a.header.item.zoomer(href='/duck' class="{{isActiveRoute 'duck'}}" title='')
+            //     +i name='search' cl='zoomer'
+            a.header.item.zoomer(href='/subs' class="{{isActiveRoute 'reddit'}}" title='reddit')
                 +i name='reddit' cl='zoomer'
             a.header.item.zoomer(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
                 +i name='blog' cl='zoomer'
@@ -87,8 +89,6 @@ template(name='nav')
                 +i name='tasks' cl='zoomer'
             a.header.item.zoomer(href='/places' class="{{isActiveRoute 'places'}}")
                 +i name='marker' cl='zoomer'
-            a.header.item.zoomer(href='/groups' class="{{isActiveRoute 'groups'}}")
-                +i name='campfire' cl='zoomer'
             a.header.item.zoomer(href='/rentals' class="{{isActiveRoute 'rentals'}}")
                 +i name='clock' cl='zoomer'
             a.header.item.zoomer(href='/badges' class="{{isActiveRoute 'badges'}}")

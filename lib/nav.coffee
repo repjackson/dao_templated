@@ -90,7 +90,7 @@ if Meteor.isClient
             Session.set 'logging_out', true
             Meteor.logout ->
                 Session.set 'logging_out', false
-                Router.go '/'
+                # Router.go '/'
                 
     
     

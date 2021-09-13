@@ -165,35 +165,36 @@ template(name='group_layout')
                         if in_dev
                             +print_this
                     .eleven.wide.column
-                        a.ui.basic.button(href="/group/#{_id}/members")
-                            +i name='groups' cl='ui avatar image'
-                            |members
-                        a.ui.basic.button(href="/group/#{_id}/products")
-                            +i name='shopping-cart' cl='ui avatar image'
-                            |products
-                        // a.ui.basic.button(href="/group/#{_id}/items")
-                        //     +i name='list' cl='ui avatar image'
-                        //     |items
-                        a.ui.basic.button(href="/group/#{_id}/tasks")
-                            +i name='tasks' cl='ui avatar image'
-                            |tasks
-                        a.ui.basic.button(href="/group/#{_id}/posts")
-                            +i name='blog' cl='ui avatar image'
-                            |posts
-                        a.ui.basic.button(href="/group/#{_id}/work")
-                            +i name='wrench' cl='ui avatar image'
-                            |work
-                        a.ui.basic.button(href="/group/#{_id}/relations")
-                            +i name='fork' cl='ui avatar image'
-                            |relations
+                        // a.ui.basic.button(href="/group/#{_id}/members")
+                        //     +i name='groups' cl='ui avatar image'
+                        //     |members
+                        // a.ui.basic.button(href="/group/#{_id}/products")
+                        //     +i name='shopping-cart' cl='ui avatar image'
+                        //     |products
+                        // // a.ui.basic.button(href="/group/#{_id}/items")
+                        // //     +i name='list' cl='ui avatar image'
+                        // //     |items
+                        // a.ui.basic.button(href="/group/#{_id}/tasks")
+                        //     +i name='tasks' cl='ui avatar image'
+                        //     |tasks
+                        // a.ui.basic.button(href="/group/#{_id}/posts")
+                        //     +i name='blog' cl='ui avatar image'
+                        //     |posts
+                        // a.ui.basic.button(href="/group/#{_id}/work")
+                        //     +i name='wrench' cl='ui avatar image'
+                        //     |work
+                        // a.ui.basic.button(href="/group/#{_id}/relations")
+                        //     +i name='fork' cl='ui avatar image'
+                        //     |relations
                         .scrolling
                             +yield
-        +admin_footer           
+        if in_dev
+            +admin_footer           
                         
 template(name='group_products')  
     .ui.inline.header 
         +i name='shopping-cart'
-        |group products
+        |products
     i.plus.circular.link.icon.add_group_product
     .ui.large.selection.animated.list
         each group_product_docs
@@ -205,50 +206,38 @@ template(name='group_products')
 template(name='group_posts')  
     .ui.inline.header 
         +i name='blog'
-        |group posts
+        |posts
     i.plus.circular.link.icon.add_group_post
     .ui.selection.link.animated.list
         each group_post_docs
             a.ui.item(href="/post/#{_id}")
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{title}
-
-template(name='group_members')  
-    .ui.header 
-        i.users.icon
-        |#{group_members.count} group members
-    i.plus.circular.link.icon.add_group_product
-    .ui.large.selection.animated.link.list
-        each group_members
-            a.item(href="/user/#{_id}")
+            
+            
+template(name='group_tasks')  
+    .ui.inline.header 
+        +i name='tasks'
+        |tasks
+    i.plus.circular.link.icon.add_group_task
+    .ui.selection.link.animated.list
+        each group_task_docs
+            a.ui.item(href="/task/#{_id}")
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
-
-                |#{username}
+                |#{title}
 
 
 template(name='group_view')     
-    +group_products
-    +group_posts
-    div
-    .ui.inline.header 
-        +i name='groups'
-        |members
-    i.circular.plus.link.icon.add_group_member
-    // if can_join
-    unless is_member
-        .ui.basic.button.join
-            i.user.plus.green.icon
-            |join
-    if is_member
-        .ui.basic.button.leave
-            i.undo.red.icon
-            |leave
-    .ui.large.selection.link.animated.list
-        each group_members
-            .item 
-                a.ui.header(href="/user/#{username}") 
-                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
-                    |#{username}
+    .ui.two.column.stackable.grid 
+        .column
+            .ui.segment
+                +group_products
+        .column
+            .ui.segment
+                +group_posts
+        .column
+            .ui.segment
+                +group_members
     div
     if has_parent_group
         .ui.inline.header 
@@ -278,3 +267,27 @@ template(name='group_view')
                         header 
                             |#{title}
     +comments
+    
+    
+    
+template(name='group_members')
+    .ui.inline.header 
+        +i name='groups'
+        |members
+    i.circular.plus.link.icon.add_group_member
+    // if can_join
+    unless is_member
+        .ui.basic.button.join
+            i.user.plus.green.icon
+            |join
+    if is_member
+        .ui.basic.button.leave
+            i.undo.red.icon
+            |leave
+    .ui.large.selection.link.animated.list
+        each group_members
+            .item 
+                a.ui.header(href="/user/#{username}") 
+                    img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+                    |#{username}
+

@@ -2,7 +2,7 @@ template(name='post_view')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row 
-                .ten.wide.column.scrolling
+                .eleven.wide.column.scrolling
                     .ui.huge.center.aligned.header
                         |#{title}
                     // .f14
@@ -26,7 +26,7 @@ template(name='post_view')
                             +youtube_view key='youtube_id' icon='youtube' label='youtube'
                     div
                     +related_posts
-                .six.wide.column
+                .five.wide.column
                     if link
                         a.ui.basic.button(href=link target='_window')
                             i.external.icon
