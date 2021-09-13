@@ -19,6 +19,48 @@ if Meteor.isClient
     #     loss_docs: ->
     #         Docs.find 
     #             model:'loss'
+    Template.latest_posts.onCreated ->
+        @autorun => @subscribe 'latest_posts', ->
+    Template.latest_tasks.onCreated ->
+        @autorun => @subscribe 'latest_tasks', ->
+  
+    Template.latest_posts.helpers
+        latest_post_docs: ->
+            Docs.find({
+                model:'post'
+            }, {
+                sort:_timestamp:-1
+                limit:10
+            })
+    Template.latest_tasks.helpers
+        latest_task_docs: ->
+            Docs.find({
+                model:'task'
+            }, {
+                sort:
+                    _timestamp:-1
+                limit:10
+            })
+  
+if Meteor.isServer
+    Meteor.publish 'latest_posts', ->
+        Docs.find({
+            model:'post'
+        }, {
+            sort:
+                _timestamp:-1
+            limit:10
+        })    
+    Meteor.publish 'latest_tasks', ->
+        Docs.find({
+            model:'task'
+        }, {
+            sort:_timestamp:-1
+            limit:10
+        })    
+            
+if Meteor.isClient
+  
     Template.tag_picker.onCreated ->
         @autorun => @subscribe 'ref_doc', @data, ->
     Template.unpick_tag.onCreated ->

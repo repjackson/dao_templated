@@ -3,7 +3,7 @@ template(name='home')
         .ui.center.aligned.basic.segment
             i.huge.loading.yin.yang.grey.icon
     else
-        .ui.stackable.three.column.padded.grid
+        .ui.stackable.four.column.padded.grid
             .column
                 .ui.header 
                     +i name='yin-yang'
@@ -14,6 +14,9 @@ template(name='home')
             .column
                 +specials
             .column
+                +latest_posts
+            .column
+                +latest_tasks
             .column
                 +daily_question
             .column
@@ -43,7 +46,7 @@ template(name='home')
                 .ui.hidden.divider
                 unless subs_ready
                     .ui.center.aligned.basic.segment
-                        +ibig name='pizza' cl='spinning'
+                        +ibig name='yin-yang' cl='spinning'
     
                 else 
                     if current_post
@@ -79,6 +82,27 @@ template(name='home')
             
                 
 
+template(name='latest_posts')
+    a.ui.header(href="/posts")
+        +i name='clock'
+        |latest posts
+    .ui.selection.animated.link.list
+        each latest_post_docs
+            a.item(href="/post/#{_id}") 
+                |#{title}
+                small #{when}
+template(name='latest_tasks')
+    a.ui.header(href="/tasks") 
+        +i name='tasks'
+        |latest tasks
+    .ui.selection.animated.link.list
+        each latest_task_docs
+            a.item(href="/task/#{_id}") 
+                |#{title}
+                small #{when}
+                
+                
+                
 template(name='daily_question')
     .ui.inline.header 
         i.question.icon

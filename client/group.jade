@@ -80,6 +80,16 @@ template(name='group_edit')
                     if in_dev 
                         +print_this
                     +boolean_edit key='private' label='private' icon='lock' direct=true
+                    .ui.header  
+                        +i name='cubes'
+                        |modules
+                    +boolean_edit key='has_images' label='images' icon='image' direct=true
+                    +boolean_edit key='has_products' label='products' icon='product' direct=true
+                    +boolean_edit key='has_services' label='services' icon='wrench' direct=true
+                    +boolean_edit key='has_posts' label='posts' icon='blog' direct=true
+                    +boolean_edit key='has_tasks' label='tasks' icon='tasks' direct=true
+                    +boolean_edit key='has_events' label='events' icon='calendar' direct=true
+                    +boolean_edit key='has_foods' label='food' icon='food' direct=true
                     div
                 .ten.wide.column
                     +html_edit key='description' label='description' direct=true
@@ -141,8 +151,8 @@ template(name='group_layout')
         with current_doc
             .ui.stackable.padded.grid
                 .row
-                    .five.wide.column
-                        a.fly_right(href="/groups")
+                    .four.wide.column
+                        a.fly_right(href="/groups" title='groups')
                             i.fire.large.circular.link.icon
                         a.ui.inline.header(href="/group/#{_id}")
                             | #{title}
@@ -159,12 +169,10 @@ template(name='group_layout')
                         div
                         +link_view key='link' label='link' icon='linkify' direct=true
                         div
-                        // +link_view key='link' label='link' icon='linkify' direct=true
-                        div
                         +array_view key='location_tags' label='location tags' icon='marker' direct=true
                         if in_dev
                             +print_this
-                    .eleven.wide.column
+                    .twelve.wide.column
                         // a.ui.basic.button(href="/group/#{_id}/members")
                         //     +i name='groups' cl='ui avatar image'
                         //     |members
@@ -226,18 +234,44 @@ template(name='group_tasks')
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{title}
 
+            
+template(name='group_images')  
+    .ui.inline.header 
+        +i name='image'
+        |images
+    i.plus.circular.link.icon.add_group_image
+    .ui.selection.link.animated.list
+        each group_image_docs
+            a.ui.item(href="/image/#{_id}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                |#{title}
+
 
 template(name='group_view')     
     .ui.two.column.stackable.grid 
-        .column
-            .ui.segment
-                +group_products
-        .column
-            .ui.segment
-                +group_posts
+        if has_products
+            .column
+                .ui.segment
+                    +group_products
+        if has_posts
+            .column
+                .ui.segment
+                    +group_posts
         .column
             .ui.segment
                 +group_members
+        if has_tasks
+            .column
+                .ui.segment
+                    +group_tasks
+        if has_images
+            .column
+                .ui.segment
+                    +group_images
+        if has_videos
+            .column
+                .ui.segment
+                    +group_videos
     div
     if has_parent_group
         .ui.inline.header 
