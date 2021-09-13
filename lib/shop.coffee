@@ -143,7 +143,7 @@ if Meteor.isServer
         )->
         # shop = Docs.findOne shop_id
         match = {model:'shop'}
-        match.app = 'bc'
+        # match.app = 'bc'
         if section 
             match.section = section
         if title_filter and title_filter.length > 1
@@ -224,7 +224,7 @@ if Meteor.isServer
 
 
 if Meteor.isClient
-    Router.route '/shop/:doc_id/edit', (->
+    Router.route '/product/:doc_id/edit', (->
         @layout 'layout'
         @render 'shop_edit'
         ), name:'shop_edit'

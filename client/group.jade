@@ -120,6 +120,9 @@ template(name='group_edit')
                     div
                     +link_edit key='link' label='link' icon='globe' direct=true
                     div
+                    +text_edit key='address' label='address' icon='marker' direct=true
+                    +phone_edit key='phone' label='phone' icon='phone' direct=true
+                    div
                     if is_admin
                         .ui.red.button.delete_group
                             i.remove.icon   
@@ -194,6 +197,16 @@ template(name='group_products')
     i.plus.circular.link.icon.add_group_product
     each group_products
         a.ui.header(href="/product/#{_id}")
+            |#{title}
+            
+            
+template(name='group_posts')  
+    .ui.header 
+        +i name='blog'
+        |group posts
+    i.plus.circular.link.icon.add_group_post
+    each group_post_docs
+        a.ui.header(href="/post/#{_id}")
             |#{title}
 
 template(name='group_members')  

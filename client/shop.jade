@@ -73,7 +73,7 @@ template(name='shop_view')
                         strong #{_author_username}
                     +i name='tags' cl='ui avatar image'
                     each tags
-                        +flat_tag_picker
+                        .ui.basic.label #{this}
                     div
                     +voting_full
                     +comments
@@ -89,18 +89,19 @@ template(name='shop_view')
                     if in_dev
                         +print_this
                 .five.wide.column
-                    .ui.big.fluid.green.button.order_shop 
-                        i.cart.big.icon
-                        .ui.inline.inverted.header
-                            |buy for #{price_points}pts
+                    if price_points
+                        .ui.big.fluid.green.button.order_shop 
+                            i.cart.big.icon
+                            .ui.inline.inverted.header
+                                |buy for #{price_points}pts
                     .ui.header section: #{section}
                     // .ui.header also by #{company}
                     .ui.header ratings
-                    +rating icon='pizza slice' value='3'
+                    +rating icon='star' value='3'
                     +product_orders
-                    .ui.header #{price_points}pts
+                    if price_points
+                        .ui.header #{price_points}pts
                     .ui.header #{views} views
-                    .ui.header #{calories}cals
                     if youtube_id
                         +youtube_view key='youtube_id' value='youtube id' icon='youtube'
 
@@ -123,7 +124,7 @@ template(name='shop_edit')
                 .eight.wide.column
                     .ui.inline.header
                         i.pencil.icon
-                        |small edit community shop item
+                        |editing product
                         | #{title}
                     a.ui.fluid.icon.green.button.fly_up(href="/shop/#{_id}/" title='save shop')
                         i.checkmark.big.icon

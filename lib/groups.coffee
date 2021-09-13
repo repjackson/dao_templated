@@ -21,6 +21,14 @@ if Meteor.isClient
         @layout 'group_layout'
         @render 'group_products'
         ), name:'group_products'
+    Router.route '/group/:doc_id/posts', (->
+        @layout 'group_layout'
+        @render 'group_posts'
+        ), name:'group_posts'
+    Router.route '/group/:doc_id/services', (->
+        @layout 'group_layout'
+        @render 'group_services'
+        ), name:'group_services'
     Router.route '/group/:doc_id/work', (->
         @layout 'group_layout'
         @render 'group_work'
@@ -46,12 +54,47 @@ if Meteor.isClient
                     group_id:Router.current().params.doc_id
             Router.go "/product/#{new_id}/edit"
     
+    
+    Template.group_link_card.onCreated ->
+        # console.log @
+        @autorun => Meteor.subscribe 'group_from_id', Router.current().params.doc_id, ->
+    Template.group_link_card.helpers
+        group_doc: ->
+            console.log @
+            Docs.findOne 
+                model:'group'
+                
+ 
+ 
+ 
+    Template.group_posts.onCreated ->
+        @autorun => Meteor.subscribe 'group_model_docs', Router.current().params.doc_id, 'post',->
+    Template.group_posts.helpers
+        group_post_docs: ->
+            Docs.find 
+                model:'post'
+                group_id:Router.current().params.doc_id
+                
+    Template.group_posts.events
+        'click .add_group_post': ->
+            new_id = 
+                Docs.insert
+                    model:'post'
+                    group_id:Router.current().params.doc_id
+            Router.go "/post/#{new_id}/edit"
+    
 if Meteor.isServer
     Meteor.publish 'group_model_docs', (group_id,model)->
         Docs.find 
             model:model
             group_id:group_id
         
+    Meteor.publish 'group_from_id', (child_id)->
+        child = Docs.findOne child_id
+        Docs.find 
+            model:'group'
+            _id:child.group_id
+                
         
         
 if Meteor.isClient

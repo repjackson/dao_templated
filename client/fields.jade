@@ -129,11 +129,12 @@ template(name='link_edit')
 template(name='link_view')
     if field_value
         div
-        if icon
-            +icon name=icon cl='ui avatar image'
+        // if icon
+        //     +icon name=icon cl='ui avatar image'
+        +icon name='link' cl='ui avatar image'
         //- .ui.inline.header 
         //-     |#{title} #{label}
-        a.ui.header(href=field_value target='_window')
+        a.ui.inline.header(href=field_value target='_window')
             if label 
                 |#{label}
         a(href="#{field_value}" target='_window')
@@ -283,7 +284,6 @@ template(name='textarea_edit')
 template(name='text_edit')
     // div
     .ui.inline.header
-        
         if icon
             i.grey.icon(class=icon)
             // +icon name=icon cl='ui avatar image'
@@ -295,7 +295,7 @@ template(name='text_edit')
             |#{key}
             //- +clear_value
     div
-    .ui.input
+    .ui.fluid.input
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 
