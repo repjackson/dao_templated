@@ -1,88 +1,119 @@
-Router.route '/mail', (->
-    @render 'mail'
-    ), name:'mail'
-
-@picked_tags = new ReactiveArray []
-@picked_authors = new ReactiveArray []
-@picked_targets = new ReactiveArray []
-@picked_timestamp_tags = new ReactiveArray []
-@picked_location_tags = new ReactiveArray []
-
-
-
-
-Template.mail.onCreated ->
-    Session.setDefault('post_filter','all')
-    # @autorun -> Meteor.subscribe 'model_docs', 'order', -> 
-    # @autorun -> Meteor.subscribe 'all_users', -> 
-    @autorun -> Meteor.subscribe 'post_tags', 
-        null
-        'sent'
-        picked_tags.array()
-        picked_authors.array()
-        picked_targets.array()
-        picked_timestamp_tags.array()
-        picked_location_tags.array()
-        Session.get('post_filter')
-        Session.get('post_sort_key')
-        Session.get('post_sort_direction')
-        , ->
-    
-    @autorun => Meteor.subscribe 'mail', 
-        null
-        'sent'
-        picked_tags.array()
-        picked_authors.array()
-        picked_targets.array()
-        picked_timestamp_tags.array()
-        picked_location_tags.array()
-        Session.get('post_filter')
-        Session.get('post_sort_key')
-        Session.get('post_sort_direction')
-        ,->
-
-Template.mail.helpers
-    tag_results: -> Results.find(model:'tag')
-    location_tag_results: -> Results.find(model:'location_tag')
-    target_results: -> Results.find(model:'target_tag')
-    author_results: -> Results.find(model:'author_tag')
-    picked_tags: -> picked_tags.array()
-    picked_authors: -> picked_authors.array()
-    picked_targets: -> picked_targets.array()
-    picked_location_tags: -> picked_location_tags.array()
-    post_docs: ->
-        match = {model:'post'}
-        if picked_tags.array().length > 0
-            match.tags = $all: picked_tags.array()
-        Docs.find match,
-            sort: _timestamp:-1
+if Meteor.isClient
+    Router.route '/mail', (->
+        @layout 'layout'
+        @render 'mail'
+        ), name:'mail'
+    Router.route '/mail/drafts', (->
+        @layout 'layout'
+        @render 'mail_drafts'
+        ), name:'mail_drafts'
+    Router.route '/mail/sent', (->
+        @layout 'layout'
+        @render 'mail_sent'
+        ), name:'mail_sent'
+    Router.route '/mail/archived', (->
+        @layout 'layout'
+        @render 'mail_archived'
+        ), name:'mail_archived'
+    Router.route '/mail/trash', (->
+        @layout 'layout'
+        @render 'mail_trash'
+        ), name:'mail_trash'
 
 
-Template.post_item.onCreated ->
-    @autorun => Meteor.subscribe 'post_orders', @data._id, -> 
+    Router.route '/message/:doc_id/edit', (->
+        @layout 'layout'
+        @render 'message_edit'
+        ), name:'message_edit'
+    Router.route '/message/:doc_id/view', (->
+        @layout 'layout'
+        @render 'message_view'
+        ), name:'message_view'
 
-Template.post_item.events
-    'click .fly_right': (e,t)->
-        $(e.currentTarget).closest('.grid').transition('fly right', 250)
 
-Template.mail.events
-    'click .add_post': ->
-        new_id = 
-            Docs.insert 
-                model:'post'
-        Router.go "/post/#{new_id}/edit"   
-        
-        
-    # # 'click .pick_tag': -> picked_tags.push @title
-    # 'click .unpick_tag': -> picked_tags.remove @valueOf()
-    # 'click #clear_tags': -> picked_tags.clear()
-    
-    # 'click .pick_location_tag': -> picked_location_tags.push @title
-    # 'click .unpick_location_tag': -> picked_location_tags.remove @valueOf()
-    
-    # 'click .pick_target_tag': -> picked_targets.push @title
-    # 'click .unpick_target_tag': -> picked_targets.remove @valueOf()
-   
-    # 'click .pick_author_tag': -> picked_authors.push @title
-    # 'click .unpick_author_tag': -> picked_authors.remove @valueOf()
-    # # 'click #clear_tags': -> picked_tags.clear()
+
+
+    Template.message_view.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.message_view.onRendered ->
+        Meteor.call 'increment_view', Router.current().params.doc_id, ->
+
+
+    Template.mail.onRendered ->
+        @autorun => Meteor.subscribe 'model_docs', 'message'
+    Template.mail.helpers
+        mail_view_mode: -> Session.get 'mail_view_mode'
+        mail_view_mode_label: -> Session.get 'mail_view_mode_label'
+        mail_view_mode_icon: -> Session.get 'mail_view_mode_icon'
+        current_view_messages: ->
+            mail_view_mode = Session.get 'mail_view_mode'
+            if mail_view_mode is 'all'
+                Docs.find
+                    model:'message'
+            else
+                Docs.find
+                    model:'message'
+                    status: mail_view_mode
+
+    Template.mail.events
+        'click .add_message': ->
+            new_message_id = Docs.insert
+                model:'message'
+            Router.go "/message/#{new_message_id}/edit"
+
+
+
+    Template.mail_view_menu_item.helpers
+        view_count: ->
+            # console.log @
+            match = {}
+            # if @
+            Docs.find(
+                model:'message'
+                archived:false
+                recipient: Meteor.user().username
+            ).count()
+
+        menu_item_class: -> if Session.equals('mail_view_mode', @slug) then 'active' else ''
+    Template.mail_view_menu_item.events
+        'click .set_view': ->
+            Session.set 'mail_view_mode', @slug
+            Session.set 'mail_view_mode_label', @label
+            Session.set 'mail_view_mode_icon', @icon
+
+
+    Template.mail.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'message'
+
+    Template.mail.helpers
+        messages: ->
+            Docs.find
+                model:'message'
+    Template.mail.events
+        'click .compose': ->
+            new_message_id = Docs.insert
+                model:'message'
+            Router.go "/message/#{new_message_id}/edit"
+
+        'click .submit_message': ->
+            message = $('.message').val()
+            console.log message
+            Docs.insert
+                model:'messages'
+                message:message
+
+
+
+
+    Template.message_edit.onRendered ->
+    Template.message_edit.onCreated ->
+        @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
+    Template.message_edit.events
+        'click .save_draft': ->
+            Docs.update @_id,
+                $set:
+                    status:'draft'
+        'click .send': ->
+            Docs.update @_id,
+                $set:
+                    status:'sent'

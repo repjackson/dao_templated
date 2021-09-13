@@ -1,115 +1,78 @@
 template(name='mail')
     .ui.stackable.padded.grid
-        .four.wide.column.scrolling
-            .ui.inline.header 
-                +i name='mail'
-                |mail
-            .ui.icon.basic.circular.button.add_message
-                i.plus.large.icon
-            // unless tag_results.count
-            //     i.loading.yin.yang.big.grey.icon
-            // else
-            +i name='tags' cl='ui inline image'
-            each picked_tags
-                +unpick_tag
-                // .ui.blue.button.unpick_tag.zoomer
-                //     |#{this}
-            each tag_results
-                +tag_picker
-                // a.ui.basic.link.large.label.pick_tag #{title}
-                //     // small #{count}
-            div
-            +i name='marker' cl='ui inline image'
-            each picked_location_tags
-                a.ui.red.button.unpick_location_tag
-                    |#{this}
-            each location_tag_results
-                a.ui.basic.link.large.label.zoomer.pick_location_tag #{title}
-                    // small #{count}
-            div
-            +i name='user-male' cl='ui inline image'
-            each picked_authors
-                a.ui.teal.button.unpick_author_tag
-                    |#{this}
-            each author_results
-                a.ui.basic.link.large.label.zoomer.pick_author_tag #{title}
-                    // small #{count}
-            div
-        .twelve.wide.column
-            |bought filter
-            +session_set key='view_bought_mail' value='all'               
-            +session_set key='view_bought_mail' value='no'               
-            +session_set key='view_bought_mail' value='yes'               
-            |price filter
-            +session_set key='view_price_mail' value='free'               
-            +session_set key='view_price_mail' value='affordable'               
-            +session_set key='view_price_mail' value='unaffordable'
-            +session_set key='view_price_mail' value='all'
-            // +session_set key='mail_sort_filter' value='open'               
-            // +session_set key='mail_filter' value='now' icon='clock'            
-            // +session_set key='mail_filter' value='day' icon='sun'
-            // +session_set key='mail_filter' value=null label='all'
-            // i.sort.grey.icon
-            // +session_set key='mail_sort_key' value='price'               
-            .ui.three.stackable.centered.cards.scrolling
-                // if mail_docs.count
-                each message_docs
-                    +message_item
-                // else 
-                //     .ui.basic.segment
-                //         i.massive.yin.yang.grey.loading.icon
-            
-            
-            
-template(name='message_item')
-    a.ui.link.card.fly_right(href="/message/#{_id}")
-        if image_id
-            if can_access
-                img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
-            else 
-                i.massive.lock.icon
-            // a.header(href="/mail/#{_id}") #{title}
-        .content
-            .ui.header
-                |#{title}
-            .ui.inline.header
-                if _author.image_id
-                    img.ui.avatar.image(src="{{c.url _author.image_id height=400 width=400 gravity='face' crop='fill'}}")
-                | #{_author_username}
-                if price    
-                    .ui.big.basic.circular.label #{price}p
-                else 
-                    .ui.basic.green.label free
-                // .ui.big.basic.image.label
-            // .content
-            if can_access
-                |!{body}
-                |!{description}
-            else 
-                i.massive.lock.icon
-            // i.tag.large.grey.icon
-            each tags
-                .ui.basic.large.label #{this}
-            if location_tags
-                i.large.marker.icon
-                each location_tags
-                    .ui.basic.large.label #{this}
-            small #{when}
-                // if in_dev 
-                //     +print_this
-        .ui.attached.basic.buttons
-            .ui.icon.button
-                |#{comment_count}
-                i.chat.outline.icon
-            .ui.icon.button
-                |#{views}
-                i.eye.icon
-            .ui.icon.button
-                |#{upvotes}
-                i.thumbs.up.outline.icon
-            .ui.icon.button
-                |#{downvotes}
-                i.thumbs.down.outline.icon
-            .ui.icon.button.tip
-                +i name='donate' cl='ui avatar image'
+        .row
+            .four.wide.column
+                .ui.large.center.aligned.header 
+                    i.envelope.outline.icon
+                    |mail
+                .ui.fluid.button.compose
+                    i.plus.icon
+                    |compose
+                .ui.large.fluid.vertical.pointing.menu
+                    +mail_view_menu_item icon='inbox' label='inbox' slug='inbox'
+                    +mail_view_menu_item icon='save' label='drafts' slug='draft'
+                    +mail_view_menu_item icon='send' label='sent' slug='sent'
+                    +mail_view_menu_item icon='archive' label='archived' slug='archived'
+                    +mail_view_menu_item icon='clone' label='all' slug='all'
+                    +mail_view_menu_item icon='trash' label='trash' slug='trash'
+            .twelve.wide.column
+                .ui.header #{mail_view_mode_label}
+                each current_view_messages
+                    .ui.segment
+                        .ui.header #{recipient} 
+                        .ui.large.basic.label #{status}
+                        |#{when} #{body}
+                        +remove_button
+
+
+template(name='mail_view_menu_item')
+    a.item.set_view(class=menu_item_class)
+        |#{label}
+        i.grey.icon(class=icon)
+        .ui.small.basic.label #{view_count}
+
+
+template(name='message_edit')
+    with current_doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .ten.wide.column 
+                    .ui.inline.header 
+                        | edit message
+                    +remove_button
+                    +single_user_edit key='recipient' direct=true
+                    +html_edit key='description' label='description' icon='content' direct=true
+                    +array_edit key='tags' label='tags' icon='tags' direct=true
+                    a.ui.fluid.button.save_draft(href="/message/#{_id}/view" title='save')
+                        i.save.icon
+                        |save draft
+                    a.ui.fluid.button.send(href="/message/#{_id}/view" title='save')
+                        i.checkmark.large.green.icon
+                        |send
+                
+
+
+
+
+
+template(name='message_view')
+    with current_doc
+        .ui.stackable.padded.grid
+            .row
+                .eight.wide.column
+                    a.ui.button(href="/messages")
+                        i.chevron.left.icon
+                        +i name='message' classes='ui inline mini image'
+                        |message
+                    .ui.header message view 
+                    +image_view key='message_image_id' label='image' direct=true
+                    a.ui.button(href="/message/#{_id}/edit")
+                        i.pencil.icon
+                        |edit
+                .eight.wide.column
+                    .ui.header #{title}
+                    +icon_view key='icon' direct=true
+                    .ui.header 
+                        +i name='message'
+                    +comments
                     

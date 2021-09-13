@@ -451,51 +451,51 @@ Meteor.publish 'selected_users', (
 
 
 
-Meteor.publish 'user_tags', (
-    picked_user_tags
-    username_query
-    # view_mode
-    # limit
-)->
-    @unblock()
+# Meteor.publish 'user_tags', (
+#     picked_user_tags
+#     username_query
+#     # view_mode
+#     # limit
+# )->
+#     @unblock()
     
-    self = @
-    match = {model:'user'}
-    if picked_user_tags.length > 0 then match.tags = $all: picked_user_tags
-    if username_query    
-        match.username = {$regex:"#{username_query}", $options: 'i'}
-    # match["data.subreddit.over_18"] = $ne:true 
-    # if location_query.length > 1 
-    #     match.location = {$regex:"#{location_query}", $options: 'i'}
-    # if selected_user_location then match.location = selected_user_location
-    # match.model = 'item'
-    # if view_mode is 'users'
-    #     match.bought = $ne:true
-    #     match._author_id = $ne: Meteor.userId()
-    # if view_mode is 'sold'
-    #     match.bought = true
-    #     match._author_id = Meteor.userId()
-    doc_count = Docs.find(match).count()
-    cloud = Docs.aggregate [
-        { $match: match }
-        { $project: "tags": 1 }
-        { $unwind: "$tags" }
-        { $group: _id: "$tags", count: $sum: 1 }
-        { $match: _id: $nin: picked_user_tags }
-        { $sort: count: -1, _id: 1 }
-        { $match: count: $lt: doc_count }
-        { $limit: 20 }
-        { $project: _id: 0, name: '$_id', count: 1 }
-        ]
-    cloud.forEach (user_tag, i) ->
-        self.added 'results', Random.id(),
-            name: user_tag.name
-            count: user_tag.count
-            model:'user_tag'
-            index: i
+#     self = @
+#     match = {model:'user'}
+#     if picked_user_tags.length > 0 then match.tags = $all: picked_user_tags
+#     if username_query    
+#         match.username = {$regex:"#{username_query}", $options: 'i'}
+#     # match["data.subreddit.over_18"] = $ne:true 
+#     # if location_query.length > 1 
+#     #     match.location = {$regex:"#{location_query}", $options: 'i'}
+#     # if selected_user_location then match.location = selected_user_location
+#     # match.model = 'item'
+#     # if view_mode is 'users'
+#     #     match.bought = $ne:true
+#     #     match._author_id = $ne: Meteor.userId()
+#     # if view_mode is 'sold'
+#     #     match.bought = true
+#     #     match._author_id = Meteor.userId()
+#     doc_count = Docs.find(match).count()
+#     cloud = Docs.aggregate [
+#         { $match: match }
+#         { $project: "tags": 1 }
+#         { $unwind: "$tags" }
+#         { $group: _id: "$tags", count: $sum: 1 }
+#         { $match: _id: $nin: picked_user_tags }
+#         { $sort: count: -1, _id: 1 }
+#         { $match: count: $lt: doc_count }
+#         { $limit: 20 }
+#         { $project: _id: 0, name: '$_id', count: 1 }
+#         ]
+#     cloud.forEach (user_tag, i) ->
+#         self.added 'results', Random.id(),
+#             name: user_tag.name
+#             count: user_tag.count
+#             model:'user_tag'
+#             index: i
 
 
-    self.ready()
+#     self.ready()
 
 
 

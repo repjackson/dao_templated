@@ -160,36 +160,36 @@ Meteor.methods
             Meteor.users.update doc._author_id,
                 $inc:anon_karma:-1
 
-force_loggedin =  ()->
-    if !Meteor.userId()
-        @render 'login'
-    else
-        @next()
+# force_loggedin =  ()->
+#     if !Meteor.userId()
+#         @render 'login'
+#     else
+#         @next()
 
-Router.onBeforeAction(force_loggedin, {
-  # only: ['admin']
-  # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
-  except: [
-    'login'
-    'register'
-    # 'users'
-    # 'services'
-    # 'service_view'
-    # 'products'
-    # 'product_view'
-    # 'rentals'
-    # 'rental_view'
-    # 'home'
-    # 'forgot_password'
-    # 'reset_password'
-    # 'user_orders'
-    # 'user_food'
-    # 'user_finance'
-    # 'user_dashboard'
-    # 'verify-email'
-    # 'food_view'
-  ]
-});
+# Router.onBeforeAction(force_loggedin, {
+#   # only: ['admin']
+#   # except: ['register', 'forgot_password','reset_password','front','delta','doc_view','verify-email']
+#   except: [
+#     'login'
+#     'register'
+#     # 'users'
+#     # 'services'
+#     # 'service_view'
+#     # 'products'
+#     # 'product_view'
+#     # 'rentals'
+#     # 'rental_view'
+#     # 'home'
+#     # 'forgot_password'
+#     # 'reset_password'
+#     # 'user_orders'
+#     # 'user_food'
+#     # 'user_finance'
+#     # 'user_dashboard'
+#     # 'verify-email'
+#     # 'food_view'
+#   ]
+# });
 
 
 # Router.route('enroll', {

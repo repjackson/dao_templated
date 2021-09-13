@@ -44,7 +44,8 @@ template(name='group_card')
         .content 
             .ui.inline.header 
                 |#{title}
-            i.grey.tag.icon
+            if private
+                i.large.lock.icon(title='private')
             each tags
                 .ui.small.basic.label #{this}
             if location_tags
@@ -72,11 +73,14 @@ template(name='group_edit')
                         small group
                     a.ui.large.icon.green.button(href="/group/#{_id}/" title='save product')
                         i.checkmark.big.icon
+                    div
                     +text_edit key='title' label='title' direct=true
                     +image_edit key='image_id' label='image' direct=true
                     div
                     if in_dev 
                         +print_this
+                    +boolean_edit key='private' label='private' icon='lock' direct=true
+                    div
                 .ten.wide.column
                     +html_edit key='description' label='description' direct=true
                     .ui.header 

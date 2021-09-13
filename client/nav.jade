@@ -32,8 +32,10 @@ template(name='nav')
             //     // i.large.green.plus.icon
         .right.menu
             if currentUser
-                a.header.item.zoomer.fly_left(href='/mail' class="{{isActiveRoute 'mail'}}")
+                a.icon.item.zoomer.fly_left(href='/mail' class="{{isActiveRoute 'mail'}}")
                     i.large.mail.icon
+                a.icon.item.zoomer.fly_left(href='/inbox' class="{{isActiveRoute 'inbox'}}")
+                    i.large.bell.icon(class=bell_class)
 
                 if logging_out
                     .icon.item
@@ -46,6 +48,7 @@ template(name='nav')
                             i.user.icon
                         strong #{currentUser.name}
                         |&nbsp;
+                    a.item(href="/user/#{currentUser.username}/points" class="{{isActiveRoute 'user_points'}}")
                         strong {{int currentUser.points}}p
                     a.icon.item.toggle_rightbar.no_blink
                        i.bars.large.icon 
@@ -56,44 +59,44 @@ template(name='nav')
                         i.sign.in.large.icon
                 else 
                     i.yin.yang.loading.icon
-     #topnav.ui.fluid.attached.borderless.inverted.menu.topnav.hscroll.mobile.hidden
+     #topnav.ui.fluid.attached.borderless.inverted.small.menu.topnav.hscroll
         if connected
-            a.header.item.zoomer.mobile.hidden(href='/chat' class="{{isActiveRoute 'chat'}}")
+            a.header.item.zoomer(href='/chat' class="{{isActiveRoute 'chat'}}")
                 +i name='chat' cl='zoomer shadowed'
-            a.header.item.zoomer.mobile.hidden(href='/wiki' class="{{isActiveRoute 'wikipedia'}}")
+            a.header.item.zoomer(href='/wiki' class="{{isActiveRoute 'wikipedia'}}")
                 +i name='wikipedia' cl='zoomer shadowed'
-            a.header.item.zoomer.mobile.hidden(href='/duck' class="{{isActiveRoute 'duck'}}")
+            a.header.item.zoomer(href='/duck' class="{{isActiveRoute 'duck'}}")
                 +i name='search' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/subs' class="{{isActiveRoute 'reddit'}}")
+            a.header.item.zoomer(href='/subs' class="{{isActiveRoute 'reddit'}}")
                 +i name='reddit' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
+            a.header.item.zoomer(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
                 +i name='blog' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/deliveries' class="{{isActiveRoute 'deliveries'}}" title='posts')
+            a.header.item.zoomer(href='/deliveries' class="{{isActiveRoute 'deliveries'}}" title='posts')
                 +i name='truck' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/transfers' class="{{isActiveRoute 'home'}}" title='transfers')
+            a.header.item.zoomer(href='/transfers' class="{{isActiveRoute 'home'}}" title='transfers')
                 +i name='transfer-between-users' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/users' class="{{isActiveRoute 'users'}}")
+            a.header.item.zoomer(href='/users' class="{{isActiveRoute 'users'}}")
                 +i name='groups' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/shop' class="{{isActiveRoute 'shop'}}")
+            a.header.item.zoomer(href='/shop' class="{{isActiveRoute 'shop'}}")
                 +i name='shop' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/food' class="{{isActiveRoute 'food'}}")
+            a.header.item.zoomer(href='/food' class="{{isActiveRoute 'food'}}")
                 +i name='food' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/drinks' class="{{isActiveRoute 'drinks'}}")
+            a.header.item.zoomer(href='/drinks' class="{{isActiveRoute 'drinks'}}")
                 +i name='beer' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/tasks' class="{{isActiveRoute 'tasks'}}")
+            a.header.item.zoomer(href='/tasks' class="{{isActiveRoute 'tasks'}}")
                 +i name='tasks' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/places' class="{{isActiveRoute 'places'}}")
+            a.header.item.zoomer(href='/places' class="{{isActiveRoute 'places'}}")
                 +i name='marker' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/groups' class="{{isActiveRoute 'groups'}}")
+            a.header.item.zoomer(href='/groups' class="{{isActiveRoute 'groups'}}")
                 +i name='campfire' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/rentals' class="{{isActiveRoute 'rentals'}}")
+            a.header.item.zoomer(href='/rentals' class="{{isActiveRoute 'rentals'}}")
                 +i name='clock' cl='zoomer'
-            a.header.item.zoomer.mobile.hidden(href='/badges' class="{{isActiveRoute 'badges'}}")
+            a.header.item.zoomer(href='/badges' class="{{isActiveRoute 'badges'}}")
                 +i name='certificate' cl='zoomer'
 
 
 template(name='topbar')
-    .ui.fluid.attached.segment.topbar.top.sidebar
+    .ui.fluid.attached.inverted.segment.topbar.top.sidebar
         .ui.middle.aligned.divided.list
             each recent_alerts
                 +recent_alert
@@ -123,7 +126,7 @@ template(name='walletbar')
         +user_points
         
 template(name='left_sidebar')
-    .ui.left.sidebar.filled
+    .ui.left.sidebar.inverted.vertical.menu
         // a.item.toggle_leftbar.no_blink(href='/' class="{{isActivePath '/'}}" title='home')
         //     img.ui.image(src="https://rosettahall.com/wp-content/uploads/2020/12/Rosetta-White-Transparent-Art-Board.png")
         // .search.item(title='search')
@@ -160,23 +163,22 @@ template(name='left_sidebar')
                 | orders
 
 template(name='leftbar_nav_item')
-    a.ui.basic.compact.button.spaced.toggle_leftbar(href="/#{route}" class="{{isActiveRoute regex=route}}")
+    a.item.toggle_leftbar(href="/#{route}" class="{{isActiveRoute regex=route}}")
         +i name=icon cl='ui avatar image'
         | #{label}
 
 
 
 template(name='right_sidebar')
+    // .ui.right.wide.sidebar.rightbar.filled
     // .ui.right.sidebar.vertical.menu.rightbar(style="background-color:#062639;")
-    .ui.right.wide.sidebar.rightbar.filled
+    .ui.right.sidebar.vertical.inverted.small.menu.rightbar
         with currentUser
-            a.ui.basic.compact.button.toggle_rightbar.no_blink(href="/user/#{username}" class="{{isActiveRoute 'user_layout'}}")
-                img.ui.avatar.compact.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+            a.ui.item.toggle_rightbar.no_blink(href="/user/#{username}" class="{{isActiveRoute 'user_layout'}}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{name}
                 small (#{currentUser.username})
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}" class="{{isActiveRoute regex='user_dashboard'}}")
-                +i name='dashboard' cl='ui avatar image'
-                | dashboard
+            +rightbar_nav_item label='dashboard' icon='dashboard' route='dashboard'
             +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
             +rightbar_nav_item label='posts' icon='blog' route='posts'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
@@ -193,22 +195,8 @@ template(name='right_sidebar')
             +rightbar_nav_item label='checkins' icon='checked-2' route='checkins'
             +rightbar_nav_item label='sent' icon='sent' route='sent'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/friends" class="{{isActiveRoute 'user_friends'}}")
-                +i name='groups' cl='ui avatar image'
-                |friends
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/rewards" class="{{isActiveRoute 'user_rewards'}}")
-                +i name='prize' cl='ui avatar image'
-                |rewards
-            a.ui.basic.compact.button.toggle_rightbar(href="/user/#{username}/orders" class="{{isActiveRoute 'user_orders'}}")
-                +i name='money' cl='ui avatar image'
-                |orders
-            a.ui.basic.compact.button(href="/user/#{username}/stats" class="{{isActiveRoute 'user_stats'}}")
-                +i name='line-chart' cl='ui avatar image'
-                |stats
-                
-            a.ui.button.toggle_rightbar.no_blink(href="/user/#{username}/edit" title='edit account')
-                +i name='settings' cl='ui avatar image'
-                |settings
+            +rightbar_nav_item label='friends' icon='groups' route='topups'
+            +rightbar_nav_item label='friends' icon='omoneyrders' route='orders'
             a.ui.button.logout.toggle_rightbar
                 if is_logging_out
                     i.refresh.loading.icon
@@ -218,6 +206,6 @@ template(name='right_sidebar')
             
             
 template(name='rightbar_nav_item')
-    a.ui.basic.compact.button.toggle_rightbar(href="/user/#{currentUser.username}/#{route}" class="{{isActiveRoute regex='user_checkins'}}")
+    a.item.toggle_rightbar(href="/user/#{currentUser.username}/#{route}" class="{{isActiveRoute regex='user_checkins'}}")
         +i name=icon cl='ui avatar image'
         | #{label}
