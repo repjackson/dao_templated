@@ -3,7 +3,7 @@ template(name='tasks')
         .row
             .three.wide.column
                 .ui.header 
-                    i.tasks.icon
+                    +i name='tasks'
                     |#{tasks.count}
                     |tasks
                 .ui.icon.large.button.new_task

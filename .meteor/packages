@@ -33,3 +33,4 @@ reactive-var
 zimme:active-route
 http
 ecmascript@0.15.0
+reywood:publish-composite

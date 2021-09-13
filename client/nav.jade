@@ -15,8 +15,6 @@ template(name='nav')
                 +i name='yin-yang' cl='zoomer'
             // a.icon.item(href="/add")
             //     i.large.green.plus.icon
-            a.icon.item.toggle_topbar(title='alerts')
-                i.bell.outline.large.icon
 
             // .right.menu
             //     a.item.log_out(title='sign out')
@@ -31,12 +29,13 @@ template(name='nav')
             //     +i name='plus' cl='zoomer'
             //     // i.large.green.plus.icon
         .right.menu
+            a.icon.item(href='/add' title='add doc')
+                i.plus.large.icon
+            a.icon.item.toggle_topbar(title='alerts')
+                i.bell.outline.large.icon
             if currentUser
                 a.icon.item.zoomer.fly_left(href='/mail' class="{{isActiveRoute 'mail'}}")
                     i.large.mail.icon
-                a.icon.item.zoomer.fly_left(href='/inbox' class="{{isActiveRoute 'inbox'}}")
-                    i.large.bell.icon(class=bell_class)
-
                 if logging_out
                     .icon.item
                         i.large.yin.yang.loading.icon
@@ -65,10 +64,14 @@ template(name='nav')
                 +i name='campfire' cl='zoomer'
             // a.header.item.zoomer(href='/chat' class="{{isActiveRoute 'chat'}}")
             //     +i name='chat' cl='zoomer shadowed'
-            a.header.item.zoomer(href='/wiki' class="{{isActiveRoute 'wikipedia'}}" title='wikipedia')
+            a.header.item.zoomer(href='/rentals' class="{{isActiveRoute 'rentals'}}" title='rentals')
+                +i name='clock' cl='zoomer'
+            a.header.disabled.item.zoomer(href='/wiki' class="{{isActiveRoute 'wikipedia'}}" title='wikipedia')
                 +i name='wikipedia' cl='zoomer shadowed'
             // a.header.item.zoomer(href='/duck' class="{{isActiveRoute 'duck'}}" title='')
             //     +i name='search' cl='zoomer'
+            a.header.disabled.item.zoomer(href='/questions' class="{{isActiveRoute 'questions'}}" title='questions')
+                +i name='ask-question' cl='zoomer'
             a.header.item.zoomer(href='/subs' class="{{isActiveRoute 'reddit'}}" title='reddit')
                 +i name='reddit' cl='zoomer'
             a.header.item.zoomer(href='/posts' class="{{isActiveRoute 'posts'}}" title='posts')
@@ -89,8 +92,6 @@ template(name='nav')
                 +i name='tasks' cl='zoomer'
             a.header.item.zoomer(href='/places' class="{{isActiveRoute 'places'}}" title='places')
                 +i name='marker' cl='zoomer'
-            a.header.item.zoomer(href='/rentals' class="{{isActiveRoute 'rentals'}}" title='rentals')
-                +i name='clock' cl='zoomer'
             a.header.item.zoomer(href='/badges' class="{{isActiveRoute 'badges'}}" title='badges')
                 +i name='certificate' cl='zoomer'
 
@@ -100,7 +101,7 @@ template(name='topbar')
         .ui.middle.aligned.divided.list
             each recent_alerts
                 +recent_alert
-        a.ui.basic.button.item.close_topbar(href="/user/#{currentUser.username}/inbox")
+        a.ui.basic.inverted.button.item.close_topbar(href="/inbox")
             i.inbox.icon
             |inbox
         

@@ -81,5 +81,6 @@ $.cloudinary.config
 
         
 
+Router.route '/add', -> @render 'add'
 Router.route '*', -> @render 'home'
 

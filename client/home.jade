@@ -18,6 +18,8 @@ template(name='home')
             .column
                 +latest_tasks
             .column
+                +latest_orders
+            .column
                 +daily_question
             .column
                 .ui.header 
@@ -66,8 +68,8 @@ template(name='home')
                                 +home_item
             // .column
             //     +items
-            // .column
-            //     +checkin_small
+            .column
+                +checkin_small
             // .column
             //     +loss_summary
                 // +losses
@@ -98,6 +100,24 @@ template(name='latest_tasks')
     .ui.selection.animated.link.list
         each latest_task_docs
             a.item(href="/task/#{_id}") 
+                |#{title}
+                small #{when}
+template(name='latest_orders')
+    a.ui.header(href="/orders") 
+        +i name='money'
+        |latest orders
+    .ui.selection.animated.link.list
+        each latest_order_docs
+            a.item(href="/order/#{_id}") 
+                |#{title}
+                small #{when}
+template(name='latest_transfers')
+    a.ui.header(href="/transfers") 
+        +i name='exchange-with-users'
+        |latest transfers
+    .ui.selection.animated.link.list
+        each latest_transfer_docs
+            a.item(href="/transfer/#{_id}") 
                 |#{title}
                 small #{when}
                 
