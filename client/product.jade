@@ -1,11 +1,11 @@
-template(name='shop')     
+template(name='products')     
     .ui.stackable.padded.grid
         .sixteen.wide.column
-            // if shop_docs.count
+            // if product_docs.count
             .ui.big.inline.header 
                 // i.shop.icon
                 +i name='shop'
-                |#{shop_docs.count} community shop items
+                |#{product_docs.count} community shop items
                 
             if currentUser 
                 .ui.circular.icon.button.add_shop
@@ -19,12 +19,12 @@ template(name='shop')
             // +session_set key='shop_sort_direction' value=-1 icon='chevron down'
             .ui.hidden.divider
             .ui.doubling.centered.four.cards.scrolling
-                each shop_docs
-                    +shop_item
+                each product_docs
+                    +product_item
 
 
-template(name='shop_item')
-    a.card.fly_right.zoomer(href="/shop/#{_id}") 
+template(name='product_item')
+    a.card.fly_right.zoomer(href="/product/#{_id}") 
         img.ui.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
         .content
             .header #{title}
@@ -37,22 +37,28 @@ template(name='shop_item')
         .ui.fluid.big.green.button.buy
             |$#{price_points}
 
-template(name='shop_view')
+template(name='product_view')
     with current_doc
         .ui.stackable.padded.grid
             .row
                 .five.wide.column
-                    a.ui.basic.large.button.fly_left(href="/shop")
-                        i.chevron.left.icon
-                        i.large.shop.icon
-                        |shop
+                    if group_id
+                        a.ui.basic.large.button.fly_left(href="/group/#{group_id}")
+                            i.chevron.left.icon
+                            +i name='campfire' cl='ui avatar image'
+                            |group
+                    else
+                        a.ui.basic.large.button.fly_left(href="/products")
+                            i.chevron.left.icon
+                            i.large.shop.icon
+                            |shop
                     if can_edit
-                        a.ui.icon.basic.button.fly_down(href="/shop/#{_id}/edit" title='edit product')
+                        a.ui.icon.basic.button.fly_down(href="/product/#{_id}/edit" title='edit product')
                             i.pencil.icon
 
                     .ui.inline.header 
                         +i name='shop' cl='ui avatar image'
-                        |shop
+                        |product view
                         a(href="http://www.google.com/search?q=#{title}" target='_blank' title='search')
                             i.grey.search.icon
     
@@ -117,23 +123,23 @@ template(name='shop_view')
 //             .item #{when} #{_author_username}
                     
                     
-template(name='shop_edit')
+template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .eight.wide.column
+                .six.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         |editing product
                         | #{title}
-                    a.ui.fluid.icon.green.button.fly_up(href="/shop/#{_id}/" title='save shop')
+                    a.ui.fluid.icon.green.button.fly_up(href="/product/#{_id}/" title='save shop')
                         i.checkmark.big.icon
                     // a.ui.big.circular.icon.green.button.save_this(title='save')
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     // +text_edit key='model' label='model' icon='database' direct=true
                     // +image_link_edit key='image_url' label='image link' icon='image'
-                .eight.wide.column
+                .ten.wide.column
                     +image_edit key='image_id' label='image' icon='image'
                     div
                     // +number_edit key='price_dollars' label='price ($)' icon='money'

@@ -1,51 +1,56 @@
 if Meteor.isClient
-    Router.route '/shop', (->
-        @render 'shop'
-        ), name:'shop'
+    Router.route '/products', (->
+        @render 'products'
+        ), name:'products
+        '
 
-    Template.shop.onCreated ->
-        Session.setDefault('shop_sort','views')
-        @autorun -> Meteor.subscribe 'shop',
-            Session.get('shop_title_filter')
-            Session.get('shop_view_filter')
-            Session.get('shop_sort')
-            Session.get('shop_sort_direction')
+    Template.products.onCreated ->
+        Session.setDefault('product_sort','views')
+        @autorun -> Meteor.subscribe 'product',
+            Session.get('product_title_filter')
+            Session.get('product_view_filter')
+            Session.get('product_sort')
+            Session.get('product_sort_direction')
             
         # @autorun -> Meteor.subscribe 'model_docs', 'product', 20
         # @autorun -> Meteor.subscribe 'model_docs', 'thing', 100
 
-    Template.shop.helpers
-        shop_docs: ->
-            match = {model:'shop'}
-            # if Session.get('shop_status_filter')
-            #     match.status = Session.get('shop_status_filter')
-            # if Session.get('shop_delivery_filter')
-            #     match.delivery_method = Session.get('shop_sort_filter')
-            # if Session.get('shop_sort_filter')
+    Template.products.helpers
+        product_docs: ->
+            match = {model:'product'}
+            # if Session.get('product_status_filter')
+            #     match.status = Session.get('product_status_filter')
+            # if Session.get('product_delivery_filter')
+            #     match.delivery_method = Session.get('product_sort_filter')
+            # if Session.get('product_sort_filter')
             #     match.delivery_method = Session.get('order_sort_filter')
             Docs.find match,
                 sort: 
-                    "#{Session.get('shop_sort')}":Session.get('shop_sort_direction')
+                    "#{Session.get('product_sort')}":Session.get('product_sort_direction')
 
-    Template.shop.events
-        'click .add_shop': ->
+    Template.products.events
+        'click .add_product': ->
             new_id = 
                 Docs.insert 
-                    model:'shop'
-            Router.go "/shop/#{new_id}/edit"
+                    model:'product'
+                    _author_id:Meteor.userId()
+                    _author_username:Meteor.user().username
+                    _timestamp:Date.now()
+
+            Router.go "/product/#{new_id}/edit"
             
 
 if Meteor.isClient
-    Router.route '/shop/:doc_id', (->
+    Router.route '/product/:doc_id', (->
         @layout 'layout'
-        @render 'shop_view'
-        ), name:'shop_view'
+        @render 'product_view'
+        ), name:'product_view'
 
-    Template.shop_view.onRendered ->
+    Template.product_view.onRendered ->
         Meteor.call 'log_view', Router.current().params.doc_id, ->
-    Template.shop_view.onCreated ->
+    Template.product_view.onCreated ->
         @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id, ->
-    Template.shop_view.events
+    Template.product_view.events
         'click .mark_arrived': ->
             # if confirm 'mark arrived?'
             Docs.update Router.current().params.doc_id, 
@@ -70,23 +75,23 @@ if Meteor.isClient
                     delivered_timestamp: Date.now()
                     status: 'delivered' 
       
-        'click .delete_shop': ->
+        'click .delete_product': ->
             thing_count = Docs.find(model:'thing').count()
             if confirm "delete? #{thing_count} things still"
                 Docs.remove @_id
-                Router.go "/shop"
+                Router.go "/product"
     
         'click .mark_ready': ->
             if confirm 'mark ready?'
                 Docs.insert 
-                    model:'shop_event'
-                    shop_id: Router.current().params.doc_id
-                    shop_status:'ready'
+                    model:'product_event'
+                    product_id: Router.current().params.doc_id
+                    product_status:'ready'
 
         'click .add_review': ->
             Docs.insert 
-                model:'shop_review'
-                shop_id: Router.current().params.doc_id
+                model:'product_review'
+                product_id: Router.current().params.doc_id
                 
                 
         'click .review_positive': ->
@@ -98,7 +103,7 @@ if Meteor.isClient
                 $set:
                     rating:-1
 
-        'click .order_shop': ->
+        'click .order_product': ->
             product = Docs.findOne Router.current().params.doc_id
             new_order_id = 
                 Docs.insert 
@@ -110,21 +115,21 @@ if Meteor.isClient
             Router.go "/order/#{new_order_id}/edit"
 
 
-    Template.shop_view.helpers
-        shop_review: ->
+    Template.product_view.helpers
+        product_review: ->
             Docs.findOne 
-                model:'shop_review'
-                shop_id:Router.current().params.doc_id
+                model:'product_review'
+                product_id:Router.current().params.doc_id
     
-        can_shop: ->
+        can_product: ->
             # if StripeCheckout
             unless @_author_id is Meteor.userId()
-                shop_count =
+                product_count =
                     Docs.find(
-                        model:'shop'
-                        shop_id:@_id
+                        model:'product'
+                        product_id:@_id
                     ).count()
-                if shop_count is @servings_amount
+                if product_count is @servings_amount
                     false
                 else
                     true
@@ -135,14 +140,14 @@ if Meteor.isClient
 
 
 if Meteor.isServer
-    Meteor.publish 'shop', (
+    Meteor.publish 'product', (
         title_filter
         section
         sort_key
         sort_direction=-1
         )->
-        # shop = Docs.findOne shop_id
-        match = {model:'shop'}
+        # product = Docs.findOne product_id
+        match = {model:'product'}
         # match.app = 'bc'
         if section 
             match.section = section
@@ -153,11 +158,11 @@ if Meteor.isServer
             sort:"#{sort_key}":sort_direction
             limit:42
         
-    Meteor.publish 'review_from_shop_id', (shop_id)->
-        # shop = Docs.findOne shop_id
-        # match = {model:'shop'}
+    Meteor.publish 'review_from_product_id', (product_id)->
+        # product = Docs.findOne product_id
+        # match = {model:'product'}
         Docs.find 
-            model:'shop_review'
+            model:'product_review'
             shop_id:shop_id
         
     Meteor.publish 'product_by_shop_id', (shop_id)->
@@ -226,17 +231,17 @@ if Meteor.isServer
 if Meteor.isClient
     Router.route '/product/:doc_id/edit', (->
         @layout 'layout'
-        @render 'shop_edit'
-        ), name:'shop_edit'
+        @render 'product_edit'
+        ), name:'product_edit'
 
 
 
-    Template.shop_edit.onCreated ->
+    Template.product_edit.onCreated ->
         @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'doc', Router.current().params.doc_id
         # @autorun => Meteor.subscribe 'model_docs', 'source'
 
-    Template.shop_edit.onRendered ->
+    Template.product_edit.onRendered ->
         # Meteor.setTimeout ->
         #     today = new Date()
         #     $('#availability')
@@ -247,7 +252,7 @@ if Meteor.isClient
         #         })
         # , 2000
 
-    Template.shop_edit.helpers
+    Template.product_edit.helpers
         balance_after_purchase: ->
             Meteor.user().points - @purchase_amount
         percent_difference: ->
@@ -255,7 +260,7 @@ if Meteor.isClient
                 Meteor.user().points - @purchase_amount
             # difference
             @purchase_amount/Meteor.user().points
-    Template.shop_edit.events
+    Template.product_edit.events
         'click .complete_shop': (e,t)->
             console.log @
             Session.set('shoping',true)

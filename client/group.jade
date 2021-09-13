@@ -144,7 +144,7 @@ template(name='group_layout')
                     .five.wide.column
                         a.fly_right(href="/groups")
                             i.fire.large.circular.link.icon
-                        .ui.inline.header
+                        a.ui.inline.header(href="/group/#{_id}")
                             | #{title}
                             small group view
                         +image_view key='image_id' label='image' direct=true
@@ -171,9 +171,9 @@ template(name='group_layout')
                         a.ui.basic.button(href="/group/#{_id}/products")
                             +i name='shopping-cart' cl='ui avatar image'
                             |products
-                        a.ui.basic.button(href="/group/#{_id}/items")
-                            +i name='list' cl='ui avatar image'
-                            |items
+                        // a.ui.basic.button(href="/group/#{_id}/items")
+                        //     +i name='list' cl='ui avatar image'
+                        //     |items
                         a.ui.basic.button(href="/group/#{_id}/tasks")
                             +i name='tasks' cl='ui avatar image'
                             |tasks
@@ -191,23 +191,27 @@ template(name='group_layout')
         +admin_footer           
                         
 template(name='group_products')  
-    .ui.header 
-        i.cart.icon
+    .ui.inline.header 
+        +i name='shopping-cart'
         |group products
     i.plus.circular.link.icon.add_group_product
-    each group_products
-        a.ui.header(href="/product/#{_id}")
-            |#{title}
+    .ui.large.selection.animated.list
+        each group_product_docs
+            a.ui.item(href="/product/#{_id}")
+                img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                |#{title}
             
             
 template(name='group_posts')  
-    .ui.header 
+    .ui.inline.header 
         +i name='blog'
         |group posts
     i.plus.circular.link.icon.add_group_post
-    each group_post_docs
-        a.ui.header(href="/post/#{_id}")
-            |#{title}
+    .ui.selection.link.animated.list
+        each group_post_docs
+            a.ui.item(href="/post/#{_id}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                |#{title}
 
 template(name='group_members')  
     .ui.header 
@@ -217,19 +221,14 @@ template(name='group_members')
     .ui.large.selection.animated.link.list
         each group_members
             a.item(href="/user/#{_id}")
-                img.ui.avatar.image(src="{{c.url profile_image_id height=200 width=200 gravity='face' crop='fill'}}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
 
                 |#{username}
 
 
-template(name='group_view')            
-    .ui.header 
-        +i name='shopping-cart'
-        |products
-    .ui.large.selection.link.animated.list
-        each group_products
-            .item 
-                a.ui.header(href="/product/#{_id}") #{title}
+template(name='group_view')     
+    +group_products
+    +group_posts
     div
     .ui.inline.header 
         +i name='groups'

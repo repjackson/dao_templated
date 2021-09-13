@@ -46,11 +46,19 @@ if Meteor.isClient
     
     Template.group_products.onCreated ->
         @autorun => Meteor.subscribe 'group_model_docs', Router.current().params.doc_id, 'product',->
+    Template.group_products.helpers 
+        group_product_docs: ->
+            Docs.find   
+                model:'product'
+                group_id:Router.current().params.doc_id
     Template.group_products.events
         'click .add_group_product': ->
             new_id = 
                 Docs.insert
                     model:'product'
+                    _author_id:Meteor.userId()
+                    _author_username:Meteor.user().username
+                    _timestamp:Date.now()
                     group_id:Router.current().params.doc_id
             Router.go "/product/#{new_id}/edit"
     

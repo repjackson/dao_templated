@@ -22,6 +22,8 @@ template(name='post_view')
                     else 
                         img.ui.centered.rounded.image(src="{{c.url image_id }}" class=currentUser.invert_class)
                         |!{body}
+                        if has_youtube
+                            +youtube_view key='youtube_id' icon='youtube' label='youtube'
                     div
                     +related_posts
                 .six.wide.column
@@ -84,8 +86,9 @@ template(name='post_view')
 template(name='group_link_card')
     with group_doc
         a.ui.fluid.link.card(href="/group/#{_id}")
+            img.ui.centered.pointer.zoomer.image(src="{{c.url image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
             .content 
-                |#{title}
+                .ui.header #{title}
     
     
 template(name='post_tips')
@@ -166,11 +169,19 @@ template(name='post_edit')
                 .eight.wide.column
                     +text_edit key='title' label='title' direct=true
                     +html_edit key='body' label='body' direct=true
-                    
-                    +image_edit key='image_id' label='image' direct=true
-                    // +key_value_edit key='privacy' value='public' icon='eye' label='public'
-                    // +key_value_edit key='privacy' value='private' icon='lock' label='private'
-                    // +key_value_edit key='privacy' value='anon' icon='anonymous-mask' label='anonymous'
+                    +boolean_edit key='has_youtube' label='youtube' direct=true
+                    if has_youtube
+                        +youtube_edit key='youtube_id' label='youtube id' icon='youtube' direct=true
+                    +boolean_edit key='has_image' label='has image' icon='image' direct=true
+                    if has_image
+                        +image_edit key='image_id' label='image' direct=true
+                    div
+                    .ui.inline.header
+                        +i name='lock'
+                        |privacy
+                    +key_value_edit key='privacy' value='public' icon='eye' label='public'
+                    +key_value_edit key='privacy' value='private' icon='lock' label='private'
+                    +key_value_edit key='privacy' value='anon' icon='anonymous-mask' label='anonymous'
                     div
                     if in_dev
                         +print_this
