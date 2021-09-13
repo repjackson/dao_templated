@@ -38,9 +38,10 @@ template(name='message_edit')
             .centered.row
                 .ten.wide.column 
                     .ui.inline.header 
+                        i.pencil.icon
                         | edit message
                     +remove_button
-                    +single_user_edit key='recipient' direct=true
+                    +single_user_edit key='target_id' label='recipient' direct=true
                     +html_edit key='description' label='description' icon='content' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     a.ui.fluid.button.save_draft(href="/message/#{_id}/view" title='save')
@@ -50,7 +51,8 @@ template(name='message_edit')
                         i.checkmark.large.green.icon
                         |send
                 
-
+                if in_dev 
+                    +print_this
 
 
 

@@ -72,8 +72,9 @@ Template.registerHelper 'pathname_root', () ->
 Template.registerHelper 'current_route', () ->
     Router.current().location.get().path
     
-Template.registerHelper 'target', () ->
-    found = Meteor.users.findOne @target_id
+Template.registerHelper '_target', () ->
+    found = Meteor.users.findOne Template.parentData().target_id
+    # console.log 'found target', found, Template.parentData()
     found
     
     
@@ -250,6 +251,7 @@ Template.registerHelper 'field_value', () ->
         if parent6._id
             parent = Template.parentData(6)
     if parent
+        # console.log parent["#{@key}"]
         parent["#{@key}"]
 
 

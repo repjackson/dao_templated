@@ -493,3 +493,60 @@ Template.user_key_value_edit.helpers
         # parent = Docs.findOne Router.current().params.doc_id
         parent = Template.parentData()
         if parent["#{@key}"] is @value then 'active' else 'basic'
+
+
+
+
+
+Template.single_user_edit.onCreated ->
+    @user_results = new ReactiveVar
+Template.single_user_edit.helpers
+    user_results: -> Template.instance().user_results.get()
+Template.single_user_edit.events
+    'click .clear_results': (e,t)->
+        t.user_results.set null
+
+    'keyup .single_user_select_input': (e,t)->
+        search_value = $(e.currentTarget).closest('.single_user_select_input').val().trim()
+        if search_value.length > 1
+            Meteor.call 'lookup_user', search_value, (err,res)=>
+                if err then console.error err
+                else
+                    t.user_results.set res
+
+    'click .select_user': (e,t) ->
+        page_doc = Docs.findOne Router.current().params.doc_id
+        field = Template.currentData()
+
+        val = t.$('.edit_text').val()
+        if field.direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+
+        console.log @
+
+        doc = Docs.findOne parent._id
+        if doc
+            Docs.update parent._id,
+                $set:
+                    target_id:@_id
+                    target_image_id:@image_id
+                    target_username:@username
+            
+        t.user_results.set null
+        $('.single_user_select_input').val ''
+        # Docs.update page_doc._id,
+        #     $set: assignment_timestamp:Date.now()
+
+    'click .pull_user': ->
+        if confirm "remove #{@username}?"
+            parent = Template.parentData(1)
+            field = Template.currentData()
+            doc = Docs.findOne parent._id
+            if doc
+                Docs.update parent._id,
+                    $unset:"#{field.key}":1
+
+        #     page_doc = Docs.findOne Router.current().params.doc_id
+            # Meteor.call 'unassign_user', page_doc._id, @
