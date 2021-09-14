@@ -85,7 +85,8 @@ template(name='product_view')
                     +comments
                 .seven.wide.column
                     h1.ui.center.aligned.big.header #{title}
-                    |!{body}
+                    .scrolling
+                        |!{body}
                     .ui.header 
                         i.business.icon
                         |#{company}
@@ -111,6 +112,8 @@ template(name='product_view')
                     .ui.header #{views} views
                     if youtube_id
                         +youtube_view key='youtube_id' value='youtube id' icon='youtube'
+                    if watson 
+                        +watson_view
 
 // template(name='product_orders')
 //     .ui.inline.header 
@@ -128,7 +131,7 @@ template(name='product_edit')
     with current_doc
         .ui.stackable.padded.grid
             .row
-                .six.wide.column
+                .four.wide.column
                     .ui.inline.header
                         i.pencil.icon
                         |editing product
@@ -139,13 +142,15 @@ template(name='product_edit')
                     +text_edit key='title' label='title' direct=true
                     +array_edit key='tags' label='tags' icon='tags' direct=true
                     // +text_edit key='model' label='model' icon='database' direct=true
-                    // +image_link_edit key='image_url' label='image link' icon='image'
-                .ten.wide.column
+                .eight.wide.column
                     +image_edit key='image_id' label='image' icon='image'
                     div
-                    // +number_edit key='price_dollars' label='price ($)' icon='money'
                     +number_edit key='price_points' label='price (points)' icon='coins'
                     +html_edit key='body' label='body' direct=true
+                    +image_link_edit key='image_url' label='image link' icon='image'
+                .four.wide.column
+                    +number_edit key='price_dollars' label='price ($)' icon='money'
+                    +link_edit key='link' label='link' icon='globe'
                     .ui.red.large.icon.button.delete_shop(title='delete')
                         i.remove.icon   
                         // | delete

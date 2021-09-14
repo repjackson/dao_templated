@@ -26,7 +26,7 @@ template(name='post_view')
                             +youtube_view key='youtube_id' icon='youtube' label='youtube'
                     div
                     +related_posts
-                .five.wide.column
+                .five.wide.column.scrolling
                     if link
                         a.ui.basic.button(href=link target='_window')
                             i.external.icon
@@ -81,7 +81,8 @@ template(name='post_view')
                         img.ui.centered.pointer.zoomer.image(src="{{c.url _author.image_id height=500 width=500 gravity='face' crop='fill'}}" class=currentUser.invert_class)
                         .ui.large.center.aligned.header.pointer.zoomer
                             |#{_author.name}
-            
+                    if watson 
+                        +watson_view
             
 template(name='group_link_card')
     with group_doc

@@ -216,7 +216,7 @@ template(name='group_posts')
         +i name='blog'
         |posts
     i.plus.circular.link.icon.add_group_post
-    .ui.selection.link.animated.list
+    .ui.selection.link.animated.large.list
         each group_post_docs
             a.ui.item(href="/post/#{_id}")
                 img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")

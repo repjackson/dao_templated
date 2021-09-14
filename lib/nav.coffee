@@ -17,10 +17,10 @@ if Meteor.isClient
                 .sidebar({
                     context: $('.bottom.segment')
                     transition:'overlay'
-                    mobileTransition:'overlay'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:250
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_leftbar')
         , 2000
@@ -29,10 +29,10 @@ if Meteor.isClient
                 .sidebar({
                     context: $('.bottom.segment')
                     transition:'overlay'
-                    mobileTransition:'overlay'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:250
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_rightbar')
         , 2500
@@ -41,10 +41,10 @@ if Meteor.isClient
                 .sidebar({
                     context: $('.bottom.segment')
                     transition:'overlay'
-                    mobileTransition:'overlay'
+                    mobileTransition:'push'
                     exclusive:true
                     duration:250
-                    scrollLock:true
+                    scrollLock:false
                 })
                 .sidebar('attach events', '.toggle_topbar')
         , 2000
@@ -53,7 +53,7 @@ if Meteor.isClient
         #         .sidebar({
         #             context: $('.bottom.segment')
         #             transition:'overlay'
-        #             mobileTransition:'overlay'
+        #             mobileTransition:'push'
         #             exclusive:true
         #             duration:250
         #             scrollLock:true
@@ -65,7 +65,7 @@ if Meteor.isClient
         #         .sidebar({
         #             context: $('.bottom.segment')
         #             transition:'overlay'
-        #             mobileTransition:'overlay'
+        #             mobileTransition:'push'
         #             exclusive:true
         #             duration:250
         #             scrollLock:true
@@ -77,7 +77,7 @@ if Meteor.isClient
         #         .sidebar({
         #             context: $('.bottom.segment')
         #             transition:''
-        #             mobileTransition:'overlay'
+        #             mobileTransition:'push'
         #             exclusive:true
         #             duration:250
         #             scrollLock:true
