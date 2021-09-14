@@ -51,10 +51,18 @@ template(name='layout')
                 // unless connected
                 //     +status
                 +yield
+        +ad_space
         if in_dev
             +admin_footer
 
       
+template(name='ad_space')
+    .ui.padded.one.column.grid
+        .column
+            with current_ad 
+                .ui.header #{title}
+            a.ui.small.header(href="/ads") advertise here
+
 template(name='fullscreen')
     +yield
     if in_dev
@@ -82,6 +90,7 @@ template(name='admin_footer')
                                 |#{when} #{_author_username} 
                                 .ui.label #{app}
                                 +print_this
+                                +remove_button
             .five.wide.column
                 .ui.small.inverted.list.smallscroll
                     each users

@@ -5,7 +5,7 @@ template(name='rentals')
                 |rentals
             .ui.icon.button.add_rental
                 i.plus.icon
-            +rental_cloud
+            // +rental_cloud
         .twelve.wide.column
             .ui.icon.button.set_card_view
                 i.clone.icon
@@ -15,11 +15,11 @@ template(name='rentals')
                 |sort by
                 |#{current_sort}
                 i.dropdown.icon
-                .menu
-                    +sort_item key='most_expensive' label='most expensive' direction='-1'
-                    +sort_item key='_timestamp' label='newest' direction='-1'
-                    +sort_item key='reservation_count' label='most rented' direction='1'
-                    +sort_item key='points' label='most rented' direction='1'
+                // .menu
+                //     +sort_item key='most_expensive' label='most expensive' direction='-1'
+                //     +sort_item key='_timestamp' label='newest' direction='-1'
+                //     +sort_item key='reservation_count' label='most rented' direction='1'
+                //     +sort_item key='points' label='most rented' direction='1'
             .ui.icon.transparent.input
                 i.search.icon
                 input.rental_search(type='text' placeholder='search...')

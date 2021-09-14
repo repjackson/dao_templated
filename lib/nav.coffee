@@ -35,7 +35,7 @@ if Meteor.isClient
                     scrollLock:true
                 })
                 .sidebar('attach events', '.toggle_rightbar')
-        , 2000
+        , 2500
         Meteor.setTimeout ->
             $('.ui.topbar.sidebar')
                 .sidebar({
