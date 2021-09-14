@@ -132,8 +132,8 @@ template(name='link_view')
     if field_value
         div
         // if icon
-        //     +icon name=icon cl='ui avatar image'
-        +icon name='link' cl='ui avatar image'
+        //     +i name=icon cl='ui avatar image'
+        +i name='link' cl='ui avatar image'
         //- .ui.inline.header 
         //-     |#{title} #{label}
         a.ui.inline.header(href=field_value target='_window')
@@ -148,7 +148,7 @@ template(name='image_view')
     if field_value
         //- .ui.inline.header
         //-     if icon
-        //-         +icon name=icon
+        //-         +i name=icon
                 //- i.grey.icon(class=icon)
         //-     if title
         //-         |#{title}
@@ -234,7 +234,7 @@ template(name='raw_edit')
             label 
                 if icon
                     // i.icon(class=field_value)
-                    +icon name=icon cl='ui avatar image'
+                    +i name=icon cl='ui avatar image'
                 if title
                     |#{title}
                 else if label
@@ -253,7 +253,7 @@ template(name='raw_view')
             label 
                 if icon
                     // i.icon(class=field_value)
-                    +icon name=icon cl='ui avatar image'
+                    +i name=icon cl='ui avatar image'
                 if title
                     |#{title}
                 else if label
@@ -271,7 +271,7 @@ template(name='textarea_edit')
             label 
                 if icon
                     // i.icon(class=field_value)
-                    +icon name=icon cl='ui avatar image'
+                    +i name=icon cl='ui avatar image'
                 if title
                     |#{title}
                 else if label
@@ -288,7 +288,7 @@ template(name='text_edit')
     .ui.inline.header
         if icon
             i.grey.icon(class=icon)
-            // +icon name=icon cl='ui avatar image'
+            // +i name=icon cl='ui avatar image'
         if title
             |#{title}
         else if label
@@ -316,7 +316,7 @@ template(name='text_view')
         //- unless header
         //-     div
         //-     if icon
-        //-         +icon name=icon                
+        //-         +i name=icon                
         .ui.inline.grey.small.header
             if title
                 |#{title}
@@ -336,7 +336,7 @@ template(name='text_view')
 template(name='date_edit')
     div
     if icon
-        +icon name=icon cl='ui inline mini image'   
+        +i name=icon cl='ui inline mini image'   
     //-     |&nbsp;
     .ui.inline.header
         if title
@@ -356,7 +356,7 @@ template(name='date_view')
     if field_value
         div
         if icon
-            +icon name=icon cl='ui avatar image'
+            +i name=icon cl='ui avatar image'
         .ui.grey.inline.small.header
             if title
                 |#{title}
@@ -374,7 +374,7 @@ template(name='date_view')
 template(name='time_edit')
     .ui.inline.grey.header
         if icon
-            +icon name=icon cl='ui inline mini image'
+            +i name=icon cl='ui inline mini image'
         if title
             |#{title}
         else if label
@@ -390,7 +390,7 @@ template(name='time_view')
     div
     if field_value
         if icon
-            +icon name=icon cl='ui inline mini image'
+            +i name=icon cl='ui inline mini image'
         .ui.inline.grey.header
             if title
                 |#{title}
@@ -447,7 +447,7 @@ template(name='array_edit')
     .ui.icon.large.input
         if icon
             i.icon
-                +icon name=icon cl=''
+                +i name=icon cl=''
         input.new_element(type='text' placeholder="#{field_value.length} #{label}" autocomplete="off")
         //- +clear_value                
     if field_value
@@ -466,7 +466,7 @@ template(name='array_edit')
 //     .spacer
 //     if i
 //         i.grey.icon(class=i)
-//         // +icon name=icon cl='ui avatar image'
+//         // +i name=icon cl='ui avatar image'
 //     .ui.inline.header
 //         if title
 //             |#{title}
@@ -499,7 +499,7 @@ template(name='array_view')
             .ui.inline.small.grey.header.say_body(title=title)
                 |#{label}
         each field_value
-            .ui.basic.big.label.say_body #{this}
+            .ui.basic.large.label.say_body #{this}
 
 
 template(name='children_edit')
@@ -584,7 +584,7 @@ template(name='boolean_edit')
             i.circle.outline.icon
         //- .ui.compact.button.toggle_boolean(class=boolean_toggle_class)
         if icon
-            +icon name=icon cl='ui avatar image'
+            +i name=icon cl='ui avatar image'
         .inline.f12
             //- if field_value
             //-     i.checkmark.icon
@@ -612,7 +612,7 @@ template(name='boolean_view')
             .ui.inline.grey.small.header
                 if icon
                     //- i.grey.icon(class=icon)
-                    +icon name=icon cl='ui inline mini image'
+                    +i name=icon cl='ui inline mini image'
                 if title
                     |#{title}
                 else if label
@@ -633,7 +633,7 @@ template(name='number_edit')
     .ui.inline.small.header(title=tip)
         if icon
             // i.icon(class=icon)
-            +icon name=icon cl='ui avatar image'
+            +i name=icon cl='ui avatar image'
         if title
             |#{title}
         else if label
@@ -653,7 +653,7 @@ template(name='number_view')
         div
         if icon
             //- i.grey.icon(class=icon)
-            +icon name=icon cl='ui inline mini image'
+            +i name=icon cl='ui inline mini image'
         .ui.inline.small.header
             if title
                 |#{title}
@@ -725,7 +725,7 @@ template(name='float_view')
         div
         if icon
             //- i.grey.icon(class=icon)
-            +icon name=icon cl='ui inline mini image'
+            +i name=icon cl='ui inline mini image'
         .ui.inline.header
             if title
                 |#{title}
@@ -776,13 +776,13 @@ template(name='single_doc_view')
     if field_value
         if icon
             //- i.grey.icon(class=icon)
-            +icon name=icon
+            +i name=icon
         .ui.inline.header(title=key)
             |#{title}
         .ui.label
             if icon
                 //- i.grey.icon(class=icon)
-                +icon name=icon cl='ui avatar image'
+                +i name=icon cl='ui avatar image'
             |#{field_value}
 
 
@@ -791,13 +791,13 @@ template(name='single_doc_edit')
     .ui.inline.header(title=key) 
         if icon
             //- i.grey.icon(class=icon)
-            +icon name=icon
+            +i name=icon
         |#{label} #{title}
     each choices
         .ui.compact.button.select_choice(class=choice_class)
             if icon
                 //- i.grey.icon(class=icon)
-                +icon name=icon cl='ui middle aligned mini image'
+                +i name=icon cl='ui middle aligned mini image'
                 //- +i name=icon cl='ui mini inline image'
             |#{calculated_label}
             |#{slug} #{title}
@@ -806,14 +806,14 @@ template(name='single_doc_edit')
 template(name='multi_doc_edit')
     div
     if icon
-        +icon name=icon cl='ui mini inline image'
+        +i name=icon cl='ui mini inline image'
     .ui.inline.header(title=key)
         |#{title} #{label}    
     each choices
         .ui.compact.button.select_choice(class=choice_class)
             if icon
                 //- i.grey.icon(class=icon)
-                +icon name=icon cl='ui inline image'
+                +i name=icon cl='ui inline image'
             //- |#{title} #{slug}
             |#{slug}
     //- .ui.sub.header 
@@ -855,7 +855,7 @@ template(name='single_user_view')
     if field_value
         div
         if icon
-            +icon name=icon    
+            +i name=icon    
         .ui.inline.header 
             |#{title}
             |#{label}
@@ -968,7 +968,7 @@ template(name='range_edit')
     .ui.form
         .field
             label 
-                +icon name='date-to'
+                +i name='date-to'
                 start date
             #rangestart.ui.calendar
                 .ui.input.left.icon
@@ -977,7 +977,7 @@ template(name='range_edit')
             .ui.button.fluid.get_start save start
         .field
             label 
-                +icon name='date-from'
+                +i name='date-from'
                 |end date
             #rangeend.ui.calendar
                 .ui.input.left.icon
@@ -1008,7 +1008,7 @@ template(name='icon_edit')
     div
     if icon
         //- i.grey.icon(class=icon)
-        +icon name=icon cl='ui avatar image'
+        +i name=icon cl='ui avatar image'
     .ui.inline.header
         if title
             |#{title}
@@ -1035,7 +1035,7 @@ template(name='color_icon_view')
 template(name='icon_view')
     if field_value
         span.inline.spaced
-            +icon name=field_value
+            +i name=field_value
         //- i.icon(class=field_value)
         //- img(src="https://img.icons8.com/office/48/000000/#{field_value}.png")
         //- img(src="https://img.icons8.com/fluent/48/000000/#{field_value}.png")

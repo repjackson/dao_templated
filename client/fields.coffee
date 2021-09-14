@@ -481,7 +481,7 @@ Template.multi_doc_edit.helpers
         target = Template.parentData(2)
 
         if target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'blue' else ''
+            if @slug in target["#{ref_field.key}"] then 'blue' else 'small basic'
         else
             ''
 

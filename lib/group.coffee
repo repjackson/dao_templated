@@ -1,6 +1,5 @@
 if Meteor.isClient
     @picked_group_tags = new ReactiveArray []
-    
     Router.route '/group/:doc_id', (->
         @layout 'group_layout'
         @render 'group_view'
@@ -13,6 +12,13 @@ if Meteor.isClient
         @layout 'group_layout'
         @render 'group_module'
         ), name:'group_module'
+    Template.group_layout.onCreated ->
+        @autorun => Meteor.subscribe 'model_docs', 'group_module', ->
+        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
+        # @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
+        @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
+    
     # Router.route '/group/:doc_id/items', (->
     #     @layout 'group_layout'
     #     @render 'group_items'
@@ -54,8 +60,12 @@ if Meteor.isClient
     Template.group_module.helpers
         current_module: ->
             Router.current().params.module
+    Template.group_module.helpers
         template_name: ->
             "group_#{Router.current().params.module}"
+    Template.group_view.helpers
+        module_template: ->
+            "group_#{@slug}"
     
     
     
@@ -143,12 +153,6 @@ if Meteor.isServer
         
         
 if Meteor.isClient
-    Template.group_layout.onCreated ->
-        @autorun => Meteor.subscribe 'doc_by_id', Router.current().params.doc_id, ->
-        # @autorun => Meteor.subscribe 'group_work', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'parent_group_from_child_id', Router.current().params.doc_id, ->
-        @autorun => Meteor.subscribe 'child_groups_from_parent_id', Router.current().params.doc_id, ->
-
     Template.group_members.onCreated ->
         @autorun => Meteor.subscribe 'group_members', Router.current().params.doc_id, ->
     

@@ -83,10 +83,7 @@ template(name='group_edit')
                     if in_dev 
                         +print_this
                     +boolean_edit key='private' label='private' icon='lock' direct=true
-                    .ui.header  
-                        +i name='cubes'
-                        |modules
-                    +multi_doc_edit key='module_ids' label='modules' ref_model='group_module' direct=true
+                    +multi_doc_edit key='module_slugs' label='modules' ref_model='group_module' icon='cube' direct=true
                     // +boolean_edit key='has_images' label='images' icon='image' direct=true
                     // +boolean_edit key='has_products' label='products' icon='product' direct=true
                     // +boolean_edit key='has_services' label='services' icon='wrench' direct=true
@@ -180,9 +177,10 @@ template(name='group_layout')
                         if in_dev
                             +print_this
                     .twelve.wide.column
-                        // a.ui.basic.button(href="/group/#{_id}/members")
-                        //     +i name='groups' cl='ui avatar image'
-                        //     |members
+                        each group_modules
+                            a.ui.basic.compact.button(href="/group/#{current_doc._id}/m/#{slug}" class="{{isActiveRoute regex=slug}}")
+                                +i name=icon cl='ui avatar image'
+                                |#{slug}
                         // a.ui.basic.button(href="/group/#{_id}/products")
                         //     +i name='shopping-cart' cl='ui avatar image'
                         //     |products
@@ -256,29 +254,30 @@ template(name='group_pictures')
 
 template(name='group_view')     
     .ui.two.column.stackable.grid 
-        if has_products
+        each group_modules
             .column
                 .ui.segment
-                    +group_products
-        if has_posts
-            .column
-                .ui.segment
-                    +group_posts
-        .column
-            .ui.segment
-                +group_members
-        if has_tasks
-            .column
-                .ui.segment
-                    +group_tasks
-        if has_images
-            .column
-                .ui.segment
-                    +group_pictures
-        if has_videos
-            .column
-                .ui.segment
-                    +group_videos
+                    // .ui.header #{title}: #{module_template}
+                    +Template.dynamic template=module_template
+        // if has_posts
+        //     .column
+        //         .ui.segment
+        //             +group_posts
+        // .column
+        //     .ui.segment
+        //         +group_members
+        // if has_tasks
+        //     .column
+        //         .ui.segment
+        //             +group_tasks
+        // if has_images
+        //     .column
+        //         .ui.segment
+        //             +group_pictures
+        // if has_videos
+        //     .column
+        //         .ui.segment
+        //             +group_videos
     div
     if has_parent_group
         .ui.inline.header 

@@ -9,6 +9,12 @@ Template.registerHelper 'current_username', () -> Router.current().params.userna
 Template.registerHelper 'rental', () ->
     Docs.findOne @rental_id
     # Template.parentData()
+Template.registerHelper 'group_modules', () ->
+    console.log @module_slugs
+    Docs.find 
+        model:'group_module'
+        slug:$in:@module_slugs
+    
 Template.registerHelper 'included_ingredients', () ->
     Docs.find
         model:'ingredient'
