@@ -13,10 +13,10 @@ template(name='nav')
             
             a.header.item.zoomer(href='/' class="{{isActiveRoute 'home'}}" title='home')
                 +i name='home' cl='zoomer'
-            .input.item
-                .ui.icon.transparent.input
-                    i.search.icon
-                    input(type='text' placeholder='search')
+            .input.item.mobile.hidden
+                .ui.icon.transparent.disabled.input
+                    i.search.large.icon
+                    input(type='text' )
             // .right.menu
             //     a.item.log_out(title='sign out')
             //         i.sign.out.icon

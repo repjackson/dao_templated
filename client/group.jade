@@ -86,13 +86,14 @@ template(name='group_edit')
                     .ui.header  
                         +i name='cubes'
                         |modules
-                    +boolean_edit key='has_images' label='images' icon='image' direct=true
-                    +boolean_edit key='has_products' label='products' icon='product' direct=true
-                    +boolean_edit key='has_services' label='services' icon='wrench' direct=true
-                    +boolean_edit key='has_posts' label='posts' icon='blog' direct=true
-                    +boolean_edit key='has_tasks' label='tasks' icon='tasks' direct=true
-                    +boolean_edit key='has_events' label='events' icon='calendar' direct=true
-                    +boolean_edit key='has_foods' label='food' icon='food' direct=true
+                    +multi_doc_edit key='module_ids' label='modules' ref_model='group_module' direct=true
+                    // +boolean_edit key='has_images' label='images' icon='image' direct=true
+                    // +boolean_edit key='has_products' label='products' icon='product' direct=true
+                    // +boolean_edit key='has_services' label='services' icon='wrench' direct=true
+                    // +boolean_edit key='has_posts' label='posts' icon='blog' direct=true
+                    // +boolean_edit key='has_tasks' label='tasks' icon='tasks' direct=true
+                    // +boolean_edit key='has_events' label='events' icon='calendar' direct=true
+                    // +boolean_edit key='has_foods' label='food' icon='food' direct=true
                     div
                 .ten.wide.column
                     +html_edit key='description' label='description' direct=true

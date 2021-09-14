@@ -657,64 +657,64 @@ Template.multi_doc_view.helpers
 
 
 
-Template.multi_doc_edit.onCreated ->
-    @autorun => Meteor.subscribe 'model_docs', @data.ref_model
-Template.multi_doc_edit.helpers
-    choices: ->
-        Docs.find model:@ref_model
+# Template.multi_doc_edit.onCreated ->
+#     @autorun => Meteor.subscribe 'model_docs', @data.ref_model
+# Template.multi_doc_edit.helpers
+#     choices: ->
+#         Docs.find model:@ref_model
 
-    choice_class: ->
-        selection = @
-        current = Template.currentData()
-        if @direct
-            parent = Template.parentData()
-        else
-            parent = Template.parentData(5)
-        ref_field = Template.parentData(1)
-        target = Template.parentData(2)
+#     choice_class: ->
+#         selection = @
+#         current = Template.currentData()
+#         if @direct
+#             parent = Template.parentData()
+#         else
+#             parent = Template.parentData(5)
+#         ref_field = Template.parentData(1)
+#         target = Template.parentData(2)
 
-        if target["#{ref_field.key}"]
-            if @slug in target["#{ref_field.key}"] then 'active' else ''
-        else
-            ''
+#         if target["#{ref_field.key}"]
+#             if @slug in target["#{ref_field.key}"] then 'active' else ''
+#         else
+#             ''
 
 
-Template.multi_doc_edit.events
-    'click .select_choice': ->
-        selection = @
-        ref_field = Template.currentData()
-        if ref_field.direct
-            parent = Template.parentData(2)
-        else
-            parent = Template.parentData(6)
-        parent = Template.parentData(1)
-        parent2 = Template.parentData(2)
-        parent3 = Template.parentData(3)
-        parent4 = Template.parentData(4)
-        parent5 = Template.parentData(5)
-        parent6 = Template.parentData(6)
-        parent7 = Template.parentData(7)
+# Template.multi_doc_edit.events
+#     'click .select_choice': ->
+#         selection = @
+#         ref_field = Template.currentData()
+#         if ref_field.direct
+#             parent = Template.parentData(2)
+#         else
+#             parent = Template.parentData(6)
+#         parent = Template.parentData(1)
+#         parent2 = Template.parentData(2)
+#         parent3 = Template.parentData(3)
+#         parent4 = Template.parentData(4)
+#         parent5 = Template.parentData(5)
+#         parent6 = Template.parentData(6)
+#         parent7 = Template.parentData(7)
 
-        #
+#         #
 
-        if parent["#{ref_field.key}"] and @slug in parent["#{ref_field.key}"]
-            doc = Docs.findOne parent._id
-            user = Meteor.users.findOne parent._id
-            if doc
-                Docs.update parent._id,
-                    $pull:"#{ref_field.key}":@slug
-            else if user
-                Meteor.users.update parent._id,
-                    $pull: "#{ref_field.key}": @slug
-        else
-            doc = Docs.findOne parent._id
-            user = Meteor.users.findOne parent._id
-            if doc
-                Docs.update parent._id,
-                    $addToSet: "#{ref_field.key}": @slug
-            else if user
-                Meteor.users.update parent._id,
-                    $addToSet: "#{ref_field.key}": @slug
+#         if parent["#{ref_field.key}"] and @slug in parent["#{ref_field.key}"]
+#             doc = Docs.findOne parent._id
+#             user = Meteor.users.findOne parent._id
+#             if doc
+#                 Docs.update parent._id,
+#                     $pull:"#{ref_field.key}":@slug
+#             else if user
+#                 Meteor.users.update parent._id,
+#                     $pull: "#{ref_field.key}": @slug
+#         else
+#             doc = Docs.findOne parent._id
+#             user = Meteor.users.findOne parent._id
+#             if doc
+#                 Docs.update parent._id,
+#                     $addToSet: "#{ref_field.key}": @slug
+#             else if user
+#                 Meteor.users.update parent._id,
+#                     $addToSet: "#{ref_field.key}": @slug
 
 
 # Template.single_user_edit.onCreated ->
