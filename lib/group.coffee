@@ -9,34 +9,38 @@ if Meteor.isClient
         @layout 'layout'
         @render 'groups'
         ), name:'groups'
-    Router.route '/group/:doc_id/items', (->
+    Router.route '/group/:doc_id/m/:module', (->
         @layout 'group_layout'
-        @render 'group_items'
-        ), name:'group_items'
-    Router.route '/group/:doc_id/members', (->
-        @layout 'group_layout'
-        @render 'group_members'
-        ), name:'group_members'
-    Router.route '/group/:doc_id/tasks', (->
-        @layout 'group_layout'
-        @render 'group_tasks'
-        ), name:'group_tasks'
-    Router.route '/group/:doc_id/products', (->
-        @layout 'group_layout'
-        @render 'group_products'
-        ), name:'group_products'
-    Router.route '/group/:doc_id/posts', (->
-        @layout 'group_layout'
-        @render 'group_posts'
-        ), name:'group_posts'
-    Router.route '/group/:doc_id/services', (->
-        @layout 'group_layout'
-        @render 'group_services'
-        ), name:'group_services'
-    Router.route '/group/:doc_id/work', (->
-        @layout 'group_layout'
-        @render 'group_work'
-        ), name:'group_work'
+        @render 'group_module'
+        ), name:'group_module'
+    # Router.route '/group/:doc_id/items', (->
+    #     @layout 'group_layout'
+    #     @render 'group_items'
+    #     ), name:'group_items'
+    # Router.route '/group/:doc_id/members', (->
+    #     @layout 'group_layout'
+    #     @render 'group_members'
+    #     ), name:'group_members'
+    # Router.route '/group/:doc_id/tasks', (->
+    #     @layout 'group_layout'
+    #     @render 'group_tasks'
+    #     ), name:'group_tasks'
+    # Router.route '/group/:doc_id/products', (->
+    #     @layout 'group_layout'
+    #     @render 'group_products'
+    #     ), name:'group_products'
+    # Router.route '/group/:doc_id/posts', (->
+    #     @layout 'group_layout'
+    #     @render 'group_posts'
+    #     ), name:'group_posts'
+    # Router.route '/group/:doc_id/services', (->
+    #     @layout 'group_layout'
+    #     @render 'group_services'
+    #     ), name:'group_services'
+    # Router.route '/group/:doc_id/work', (->
+    #     @layout 'group_layout'
+    #     @render 'group_work'
+    #     ), name:'group_work'
     
             
     Template.groups.onCreated ->
@@ -46,6 +50,16 @@ if Meteor.isClient
         @autorun => @subscribe 'group_facets',
             picked_group_tags.array()
             Session.get('group_title_filter')
+    
+    Template.group_module.helpers
+        current_module: ->
+            Router.current().params.module
+        template_name: ->
+            "group_#{Router.current().params.module}"
+    
+    
+    
+    
     
     
     Template.group_products.onCreated ->
