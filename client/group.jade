@@ -207,7 +207,7 @@ template(name='group_products')
     .ui.large.selection.animated.list
         each group_product_docs
             a.ui.item(href="/product/#{_id}")
-                img.ui.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
+                img.ui.avatar.image(src="{{c.url image_id height=200 width=200 gravity='face' crop='fill'}}")
                 |#{title}
             
             

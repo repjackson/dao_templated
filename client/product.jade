@@ -83,8 +83,9 @@ template(name='product_view')
                     div
                     +voting_full
                     +comments
-                .six.wide.column
+                .seven.wide.column
                     h1.ui.center.aligned.big.header #{title}
+                    |!{body}
                     .ui.header 
                         i.business.icon
                         |#{company}
@@ -94,7 +95,7 @@ template(name='product_view')
                         img.ui.inline.rounded.image(src="{{c.url image_id width=500 height=500 gravity='face' crop='fill'}}")
                     if in_dev
                         +print_this
-                .five.wide.column
+                .four.wide.column
                     if price_points
                         .ui.big.fluid.green.button.order_shop 
                             i.cart.big.icon
