@@ -99,6 +99,9 @@ if Meteor.isClient
             Session.get('global_search')
         
     Template.nav.events
+        'click .set_model': ->
+            Meteor.call 'set_facets', @slug, Meteor.userId()
+    
         'keyup .global_search': _.throttle((e,t)->
             # console.log Router.current().route.getName()
             # current_name = Router.current().route.getName()
@@ -163,9 +166,9 @@ if Meteor.isClient
             Session.set('is_global_searching', false)
             Session.set('global_search', null)
     
-    # Template.topbar.onCreated ->
-    #     @autorun => Meteor.subscribe 'my_received_messages'
-    #     @autorun => Meteor.subscribe 'my_sent_messages'
+    Template.topbar.onCreated ->
+        @autorun => Meteor.subscribe 'my_received_messages'
+        @autorun => Meteor.subscribe 'my_sent_messages'
     
     Template.nav.helpers
         search_value: ->
@@ -204,29 +207,29 @@ if Meteor.isClient
         #         recipient_id:Meteor.userId()
         #         read_ids:$nin:[Meteor.userId()]
         #     ).count()
-    # Template.topbar.helpers
-    #     recent_alerts: ->
-    #         Docs.find 
-    #             model:'message'
-    #             recipient_id:Meteor.userId()
-    #             read_ids:$nin:[Meteor.userId()]
-    #         , sort:_timestamp:-1
+    Template.topbar.helpers
+        recent_alerts: ->
+            Docs.find 
+                model:'message'
+                recipient_id:Meteor.userId()
+                read_ids:$nin:[Meteor.userId()]
+            , sort:_timestamp:-1
             
-    # Template.recent_alert.events
-    #     'click .mark_read': (e,t)->
-    #         # console.log @
-    #         # console.log $(e.currentTarget).closest('.alert')
-    #         # $(e.currentTarget).closest('.alert').transition('slide left')
-    #         Meteor.call 'mark_read', @_id, ->
+    Template.recent_alert.events
+        'click .mark_read': (e,t)->
+            # console.log @
+            # console.log $(e.currentTarget).closest('.alert')
+            # $(e.currentTarget).closest('.alert').transition('slide left')
+            Meteor.call 'mark_read', @_id, ->
                 
-    #         # Meteor.setTimeout ->
-    #         # , 500
+            # Meteor.setTimeout ->
+            # , 500
          
          
             
-    # Template.topbar.events
-    #     'click .close_topbar': ->
-    #         Session.set('viewing_alerts', false)
+    Template.topbar.events
+        'click .close_topbar': ->
+            Session.set('viewing_alerts', false)
     
             
             

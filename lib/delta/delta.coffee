@@ -235,7 +235,6 @@ if Meteor.isClient
         'click .create_model': ->
             new_model_id = Docs.insert
                 model:'model'
-                app:'bc'
                 slug: Router.current().params.model_slug
             new_model = Docs.findOne new_model_id
             Router.go "/model/edit/#{new_model._id}"
@@ -279,7 +278,6 @@ if Meteor.isClient
             Docs.insert
                 model:'delta'
                 view_mode:'cards'
-                app:'bc'
                 model_filter: Router.current().params.model_slug
 
         'click .print_delta': (e,t)->
@@ -305,7 +303,6 @@ if Meteor.isClient
             model = Docs.findOne
                 model:'model'
                 slug: Router.current().params.model_slug
-                # app:'bc'
             # console.log model
             if model.collection and model.collection is 'users'
                 name = prompt 'first and last name'
@@ -332,7 +329,6 @@ if Meteor.isClient
                     model:'model'
                     _timestamp:Date.now()
                     _author_id:Meteor.userId()
-                    app:'bc'
                     
                 Router.go "/model/edit/#{new_doc_id}"
             else
@@ -340,7 +336,6 @@ if Meteor.isClient
                 new_doc_id = Docs.insert
                     _timestamp:Date.now()
                     _author_id:Meteor.userId()
-                    app:'bc'
                     model:model.slug
                 Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
 

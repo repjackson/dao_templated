@@ -330,9 +330,9 @@ Template.viewing.helpers
 
 Template.remove_button.events
     'click .remove_doc': (e,t)->
-        if confirm "remove transfer?"
+        if confirm "remove #{@model}:#{@title}?"
             Docs.remove @_id
-            Router.go "/user/#{Meteor.user().username}"
+            # Router.go "/user/#{Meteor.user().username}"
 
 Template.remove_icon.events
     'click .remove_doc': (e,t)->

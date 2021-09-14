@@ -4,10 +4,10 @@ Meteor.methods
             delta = Docs.findOne
                 model:'delta'
                 _author_id:Meteor.userId()
-        # else
-        #     delta = Docs.findOne
-        #         model:'delta'
-        #         _author_id:null
+            # else
+            #     delta = Docs.findOne
+            #         model:'delta'
+            #         _author_id:null
             model = Docs.findOne
                 model:'model'
                 slug:model_slug
@@ -68,7 +68,7 @@ Meteor.methods
             model:'model'
             slug:delta.model_filter
 
-        built_query = {app:'bc'}
+        built_query = {}
         if delta.search_query
             if model.collection and model.collection is 'users'
                 built_query.username = {$regex:"#{delta.search_query}", $options: 'i'}

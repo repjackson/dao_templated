@@ -301,7 +301,6 @@ Template.registerHelper 'user_from_id', () -> Meteor.users.findOne @
 Template.registerHelper 'model_docs_helper', (model) ->
     Docs.find 
         model:model
-        app:'bc'
         # group_id = Meteor.user().current_group_id
         
 Template.registerHelper 'connected', () -> 

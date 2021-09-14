@@ -83,8 +83,8 @@ template(name='model_edit_layout')
                         i.icon(class=icon)
                         |#{title}
                     div
-                    |created
-                    +creation_info
+                    |added #{when}
+                    +print_this
                     div
                     a.ui.big.icon.green.circular.button(href="/m/#{slug}")
                         i.big.checkmark.icon
@@ -112,7 +112,7 @@ template(name='model_edit_layout')
 template(name='model_edit_dashboard')
     .ui.form
         +text_edit key='title' label='title' direct=true
-        +slug_edit key='slug' label='slug' direct=true
+        +text_edit key='slug' label='slug' direct=true
         +icon_edit key='icon' label='icon' direct=true
         +textarea_edit key='description' label='description' direct=true
         +array_edit key='tags' label='tags' direct=true
