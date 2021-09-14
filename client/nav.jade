@@ -71,6 +71,8 @@ template(name='nav')
                 +i name='wikipedia' cl='zoomer shadowed'
             // a.header.item.zoomer(href='/duck' class="{{isActiveRoute 'duck'}}" title='')
             //     +i name='search' cl='zoomer'
+            a.header.disabled.item.zoomer(href='/images' class="{{isActiveRoute 'images'}}" title='images')
+                +i name='image' cl='zoomer'
             a.header.disabled.item.zoomer(href='/questions' class="{{isActiveRoute 'questions'}}" title='questions')
                 +i name='ask-question' cl='zoomer'
             a.header.item.zoomer(href='/subs' class="{{isActiveRoute 'reddit'}}" title='reddit')
@@ -181,7 +183,8 @@ template(name='right_sidebar')
                 |#{name}
                 small (#{currentUser.username})
             +rightbar_nav_item label='dashboard' icon='dashboard' route='dashboard'
-            +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
+            +rightbar_nav_item label='bookmarks' icon='bookmark' route='bookmarks'
+            // +rightbar_nav_item label='checkins' icon='satisfaction' route='checkins'
             +rightbar_nav_item label='posts' icon='blog' route='posts'
             +rightbar_nav_item label='topups' icon='donation' route='topups'
             +rightbar_nav_item label='work' icon='services' route='work'

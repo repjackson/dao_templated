@@ -202,7 +202,7 @@ template(name='group_layout')
 template(name='group_products')  
     .ui.inline.header 
         +i name='shopping-cart'
-        |products
+        |#{group_product_docs.count} products
     i.plus.circular.link.icon.add_group_product
     .ui.large.selection.animated.list
         each group_product_docs
@@ -214,7 +214,7 @@ template(name='group_products')
 template(name='group_posts')  
     .ui.inline.header 
         +i name='blog'
-        |posts
+        |#{group_post_docs.count} posts
     i.plus.circular.link.icon.add_group_post
     .ui.selection.link.animated.large.list
         each group_post_docs
@@ -235,7 +235,7 @@ template(name='group_tasks')
                 |#{title}
 
             
-template(name='group_images')  
+template(name='group_pictures')  
     .ui.inline.header 
         +i name='image'
         |images
@@ -267,7 +267,7 @@ template(name='group_view')
         if has_images
             .column
                 .ui.segment
-                    +group_images
+                    +group_pictures
         if has_videos
             .column
                 .ui.segment
