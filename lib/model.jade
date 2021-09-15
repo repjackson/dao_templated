@@ -81,7 +81,7 @@ template(name='model_edit_layout')
     with current_doc
         .ui.stackable.padded.grid            
             .centered.row
-                .four.wide.column
+                .eight.wide.column
                     small editing model
                     .ui.inline.header
                         +i name=icon
@@ -95,9 +95,8 @@ template(name='model_edit_layout')
                         i.big.checkmark.icon
                     i#delete_model.trash.red.circular.link.icon
                     .ui.divider
-                    +boolean_edit key='show_filter_bar' label='show filter bar' direct=true icon='filter'
-                    +boolean_edit key='show_facets' label='show facets' direct=true icon='diamond'
-                .twelve.wide.column
+                    // +boolean_edit key='show_filter_bar' label='show filter bar' direct=true icon='filter'
+                    // +boolean_edit key='show_facets' label='show facets' direct=true icon='diamond'
                     .ui.form
                         +text_edit key='title' label='title' direct=true
                         +text_edit key='slug' label='slug' direct=true
@@ -107,14 +106,15 @@ template(name='model_edit_layout')
                         //- +text_edit key='collection' label='collection' direct=true
                         // +key_value_edit key='collection' value='docs' icon='document'
                         // +key_value_edit key='collection' value='users' icon='users'
+                .eight.wide.column
                     //- |#{model}
                     //- each fields
                     //-     +Template.dynamic template=edit_template 
                     //-     // .ui.header #{key} [#{field}] #{label}
                     .spacer
                     .ui.inline.header fields
-                    .ui.icon.large.compact.button.add_field
-                        i.plus.green.icon
+                    .ui.icon.large.button.add_field
+                        i.plus.icon
                     .spacer
                     .ui.segments
                         each fields

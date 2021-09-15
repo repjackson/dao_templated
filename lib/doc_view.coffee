@@ -116,7 +116,7 @@ if Meteor.isClient
             parent = Docs.findOne Router.current().params.doc_id
             # parent = Docs.findOne Template.parentData()._id
             Docs.find
-                # parent_id:Router.current().params.doc_id
+                parent_id:Router.current().params.doc_id
                 model:'comment'
     Template.comments.events
         'keyup .add_comment': (e,t)->

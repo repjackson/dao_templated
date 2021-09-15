@@ -267,10 +267,10 @@
         
         
 Meteor.publish 'doc_comments', (doc_id)->
-    console.log 'hi pubbing'
+    # console.log 'hi pubbing'
     Docs.find   
         model:'comment'
-        # parent_id:doc_id  
+        parent_id:doc_id  
         
         
 Meteor.publish 'doc_by_id', (doc_id)->
