@@ -11,7 +11,7 @@ body {
     /*background: rgba(200,200,200,1) !important;*/
     filter: invert(1) !important; 
     /* overscroll-behavior: none; */
-    /*transition: all .25s ease !important;*/
+    transition: all 1s ease !important;
      background: black !important; 
 }
 
@@ -357,9 +357,9 @@ img, .button{
     transition: all .25s ease !important;
 } 
 
-/*.card {*/
-/*     border-radius:10px !important; */
-/*}*/
+.card {
+     border-radius:10px !important; 
+}
 
 .image:not(.flat), img {
     border-radius:10px !important; 
@@ -591,7 +591,7 @@ input.username_search{
     /*font-family: 'Benne', sans-serif !important;*/
     /*filter: invert(.9) !important;*/
 
-    /*border-radius:7px !important; */
+    border-radius:10px !important; 
 }
 
 .attached.label {

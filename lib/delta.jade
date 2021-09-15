@@ -21,19 +21,19 @@ template(name='delta')
                         input#search(type='text' autocomplete="off" value=current_delta.search_query)
                     unless false
                         // - .ui.segment(class=loading_class)
-                        .ui.inline.small.grey.header(title='change sort direction')
-                            |sort by
+                        // .ui.inline.small.grey.header(title='change sort direction')
+                        //     |sort by
                         if sortable_fields.count
                             .ui.simple.large.dropdown(title='sort by')
                                 strong #{current_delta.sort_key}
-                                i.dropdown.icon
+                                i.dropdown.large.icon
                                 .menu
                                     each sortable_fields
                                         .item.set_sort_key 
                                             if icon 
-                                                +icon name=icon
+                                                +i name=icon
                                             |#{title}
-                            .ui.tertiary.icon.button.set_sort_direction(title='sort direction')
+                            .ui.icon.button.set_sort_direction(title='sort direction')
                                 if sorting_up
                                     i.sort.amount.down.large.icon
                                 else
@@ -91,7 +91,7 @@ template(name='delta')
                     //- each current_delta.result_ids
                     //-     .ui.header #{this}
                     // if delta_key_value_is 'view_mode' 'cards'
-                    .ui.stackable.cards
+                    .ui.stackable.centered.cards
                         if is_loading
                             each current_delta.result_ids
                                 .ui.card
@@ -149,11 +149,12 @@ template(name='model_top')
             a.ui.icon.basic.compact.circular.button.go_home
                 i.big.home.icon
         a.ui.inline.large.header.reset(title="#{description}, #{views} views")
-            i.large.icon(class=icon)
+            // i.large.icon(class=icon)
+            +i name=icon
             | #{current_model.title}
     unless is_loading
         // if currentUser
-        i.plus.large.green.circular.link.icon.add_model_doc(title="add #{slug}")
+        i.plus.large.circular.link.icon.add_model_doc(title="add #{slug}")
         // unless key_value_is current_delta.model_filter 'model'
             // unless key_value_is current_model.collection 'user'
             // if is_admin
@@ -168,10 +169,11 @@ template(name='model_top')
             // if is_admin
             // if in_dev
             i.refresh.link.reset.grey.circular.icon(title='reload session')
-            i.code.link.icon.print_delta(title='print session doc')
-            i.trash.delete_delta.link.icon(title='delete session')
+            if in_dev
+                i.code.link.icon.print_delta(title='print session doc')
+            // i.trash.delete_delta.link.icon(title='delete session')
         else
-            .create_delta.ui.big.green.circular.button(title='new session')
+            .create_delta.ui.circular.button(title='new session')
                 i.plus.icon
                 |start your session
             

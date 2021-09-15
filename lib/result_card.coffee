@@ -4,7 +4,7 @@ if Meteor.isClient
         #     $('.progress').popup()
         # , 2000
     Template.delta_result_card.onCreated ->
-        console.log 'hi', @
+        # console.log 'hi', @
         @autorun => Meteor.subscribe 'doc_by_id', @data._id
         # @autorun => Meteor.subscribe 'user_from_id', @data._id
 
@@ -39,9 +39,9 @@ if Meteor.isClient
                 #     if result._author_id is Meteor.userId()
                 #         result
                 # else
-            else
-                console.log 'doc not found', @
-                #     result
+            # else
+            #     console.log 'doc not found', @
+                    # result
             # else if Meteor.users.findOne @_id
             #     # console.log 'user'
             #     Meteor.users.findOne @_id
