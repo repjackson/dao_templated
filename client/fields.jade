@@ -436,14 +436,14 @@ template(name='array_edit')
     // .spacer
     // .spacer
     //     i.grey.icon(class=i)
-    // .ui.inline.header
-    //     |#{field_value.length}
-    //     if title
-    //         |#{title}
-    //     else if label
-    //         |#{label}
-    //     else if key
-    //         |#{key}
+    .ui.inline.header
+        |#{field_value.length}
+        if title
+            |#{title}
+        else if label
+            |#{label}
+        else if key
+            |#{key}
     .ui.icon.large.input
         if icon
             i.icon

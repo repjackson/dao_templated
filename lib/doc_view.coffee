@@ -95,3 +95,36 @@ if Meteor.isClient
             if confirm 'Confirm delete doc'
                 Docs.remove @_id
                 Router.go "/m/#{@model}"            
+                
+    Template.comments.onRendered ->
+        # Meteor.setTimeout ->
+        #     $('.accordion').accordion()
+        # , 1000
+    Template.comments.onCreated ->
+        # parent = Docs.findOne Template.parentData()._id
+        parent = Docs.findOne Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'comments', parent._id
+        # if parent
+    Template.comments.helpers
+        doc_comments: ->
+            parent = Docs.findOne Router.current().params.doc_id
+            # parent = Docs.findOne Template.parentData()._id
+            Docs.find
+                parent_id:parent._id
+                model:'comment'
+    Template.comments.events
+        'keyup .add_comment': (e,t)->
+            if e.which is 13
+                # parent = Docs.findOne Template.parentData()._id
+                parent = Docs.findOne Router.current().params.doc_id
+                comment = t.$('.add_comment').val()
+                Docs.insert
+                    parent_id: parent._id
+                    model:'comment'
+                    parent_model:parent.model
+                    body:comment
+                t.$('.add_comment').val('')
+    
+        'click .remove_comment': ->
+            if confirm 'Confirm remove comment'
+                Docs.remove @_id

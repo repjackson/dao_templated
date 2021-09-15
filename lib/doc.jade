@@ -46,11 +46,35 @@ template(name='model_doc_view')
                                     +Template.dynamic template=view_template 
                         // each current_model.actions
                         //     +Template.dynamic template=this data=current_doc
-                        //- +comments
+                        - +comments
                         //- div
                         //- if watson
                         //-     +watson_view
                         
+  
+  
+template(name='comments')
+    // .ui.grey.header
+    //     i.chat.outline.icon
+    //     |comments
+    // if currentUser
+    .ui.icon.large.input
+        i.large.chat.outline.icon
+        input.add_comment(model='text' placeholder='comment...')
+    .ui.comments
+        each doc_comments
+            .comment
+                .content
+                    .ui.header #{body}
+                    .meta #{when}
+                        |by 
+                        a.fly_right(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                        if currentUser
+                            +voting_small
+                            if can_edit
+                                +remove_button
+                                
+                                
                         
                         
 template(name='model_doc_edit')
