@@ -103,8 +103,8 @@ template(name='model_edit_layout')
                         +textarea_edit key='description' label='description' direct=true
                         +array_edit key='tags' label='tags' direct=true
                         //- +text_edit key='collection' label='collection' direct=true
-                        +key_value_edit key='collection' value='docs' icon='document'
-                        +key_value_edit key='collection' value='users' icon='users'
+                        // +key_value_edit key='collection' value='docs' icon='document'
+                        // +key_value_edit key='collection' value='users' icon='users'
                     //- |#{model}
                     //- each fields
                     //-     +Template.dynamic template=edit_template 
@@ -146,13 +146,14 @@ template(name='field_edit')
         if viewing_content
             .content
                 +text_edit key='title' label='label' direct=true
+                // +text_edit key='field_type' label='field type' direct=true
                 +slug_edit key='key' label='key' direct=true
                 +number_edit key='rank' label='rank' direct=true      
                 +icon_edit key='icon' label='icon' direct=true       
                 //- +textarea_edit key='description' label='description' direct=true
                 .spacer
-                if in_dev
-                    +text_edit key='field_type' label='field type' direct=true
+                // if in_dev
+                +text_edit key='field_type' label='field type' direct=true
                 +key_value_edit key='field_type' value='text' icon='header'
                 +key_value_edit key='field_type' value='array' icon='list'
                 +key_value_edit key='field_type' value='boolean' icon='green toggle off'

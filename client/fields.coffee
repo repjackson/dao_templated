@@ -354,12 +354,8 @@ Template.boolean_edit.events
         # $(e.currentTarget).closest('.button').transition('pulse', 100)
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":!parent["#{@key}"]
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":!parent["#{@key}"]
 
 Template.single_doc_view.onCreated ->
@@ -773,12 +769,8 @@ Template.multi_user_edit.events
             parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $addToSet:"#{field.key}":@_id
-        else if user
-            Meteor.users.update parent._id,
                 $addToSet:"#{field.key}":@_id
 
 
@@ -792,14 +784,9 @@ Template.multi_user_edit.events
             page_doc = Docs.findOne Router.current().params.doc_id
             parent = Template.parentData(5)
             doc = Docs.findOne parent._id
-            user = Meteor.users.findOne parent._id
             if doc
                 Docs.update parent._id,
                     $pull:"#{@key}":@_id
-            else if user
-                Meteor.users.update parent._id,
-                    $pull:"#{@key}":@_id
-            # Meteor.call 'unassign_user', page_doc._id, @
 
 
 
@@ -909,12 +896,8 @@ Template.date_edit.events
         val = t.$('.edit_date').val()
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 
@@ -929,12 +912,8 @@ Template.datetime_edit.events
         val = t.$('.edit_datetime').val()
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 
@@ -950,11 +929,6 @@ Template.time_edit.events
         val = t.$('.edit_time').val()
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
                 $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
-                $set:"#{@key}":val
-            
