@@ -9,7 +9,7 @@ body {
     /*scroll-behavior: smooth;*/
     /*margin-top: 5em;*/
     /*background: rgba(200,200,200,1) !important;*/
-    /*filter: invert(1) !important; */
+    filter: invert(1) !important; 
     /* overscroll-behavior: none; */
     /*transition: all .25s ease !important;*/
      /*background: #0e0e44 !important; */
@@ -361,10 +361,10 @@ img, .button{
 /*     border-radius:10px !important; */
 /*}*/
 
-/*.image:not(.flat), img {*/
-    /*border-radius:10px !important; */
-    /*filter: invert(.9) !important;*/
-/*}*/
+.image:not(.flat), img {
+    border-radius:10px !important; 
+    filter: invert(.9) !important;
+}
 
 /*}*/
 .zoomer:hover {

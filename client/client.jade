@@ -37,9 +37,9 @@ template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     +nav
     .ui.bottom.attached.pushable.segment.scroling
-        +left_sidebar
-        +right_sidebar
-        +topbar
+        // +left_sidebar
+        // +right_sidebar
+        // +topbar
         // +cartbar
         // +walletbar
         // +secnav
@@ -51,17 +51,17 @@ template(name='layout')
                 // unless connected
                 //     +status
                 +yield
-        +ad_space
-        if in_dev
-            +admin_footer
+        // +ad_space
+//         if in_dev
+//             +admin_footer
 
       
-template(name='ad_space')
-    .ui.padded.one.column.grid
-        .column
-            with current_ad 
-                .ui.header #{title}
-            a.ui.small.header(href="/ads") advertise here
+// template(name='ad_space')
+//     .ui.padded.one.column.grid
+//         .column
+//             with current_ad 
+//                 .ui.header #{title}
+//             a.ui.small.header(href="/ads") advertise here
 
 template(name='fullscreen')
     +yield

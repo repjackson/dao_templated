@@ -5,80 +5,82 @@ template(name='home')
     else
         .ui.stackable.four.column.padded.grid
             .column
-                .ui.header 
-                    +i name='yin-yang'
-                    |dao
-                .ui.inline.input 
-                    input.search_title(type='text' autofocus='')
+                a.ui.massive.button(href="/m/model")
+                    i.yin.yang.icon
+            //     .ui.header 
+            //         +i name='yin-yang'
+            //         |dao
+            //     .ui.inline.input 
+            //         input.search_title(type='text' autofocus='')
 
-            .column
-                +specials
-            .column
-                +latest_posts
-            .column
-                +latest_tasks
-            .column
-                +latest_orders
-            .column
-                +daily_question
-            .column
-                .ui.header 
-                    +i name='money'
-                    |money earned yesterday
-                .ui.header 
-                    +i name='week-view'
-                    |money earned last week
-                .ui.header 
-                    +i name='pay-date'
-                    |payroll yesterday
-            .column
-                .ui.inline.header 
-                    +i name='blog'
-                    |posts
-                // unless current_post
-                // unless subs_ready
-                //     .ui.center.aligned.basic.segment
-                //         i.massive.grey.food.loading.icon
-                each picked_tags
-                    +unpick_tag
-                if subs_ready
-                    if tag_results
-                        each tag_results
-                            +tag_picker
-                .ui.hidden.divider
-                unless subs_ready
-                    .ui.center.aligned.basic.segment
-                        +ibig name='yin-yang' cl='spinning'
+            // .column
+            //     +specials
+            // .column
+            //     +latest_posts
+            // .column
+            //     +latest_tasks
+            // .column
+            //     +latest_orders
+            // .column
+            //     +daily_question
+            // .column
+            //     .ui.header 
+            //         +i name='money'
+            //         |money earned yesterday
+            //     .ui.header 
+            //         +i name='week-view'
+            //         |money earned last week
+            //     .ui.header 
+            //         +i name='pay-date'
+            //         |payroll yesterday
+            // .column
+            //     .ui.inline.header 
+            //         +i name='blog'
+            //         |posts
+            //     // unless current_post
+            //     // unless subs_ready
+            //     //     .ui.center.aligned.basic.segment
+            //     //         i.massive.grey.food.loading.icon
+            //     each picked_tags
+            //         +unpick_tag
+            //     if subs_ready
+            //         if tag_results
+            //             each tag_results
+            //                 +tag_picker
+            //     .ui.hidden.divider
+            //     unless subs_ready
+            //         .ui.center.aligned.basic.segment
+            //             +ibig name='yin-yang' cl='spinning'
     
-                else 
-                    if current_post
-                        with current_post
-                            +home_item
-                    else if one_doc
-                        .ui.cards.scrolling
-                            each home_items
-                                +home_item
-                    else if two_docs
-                        .ui.stackable.two.cards.scrolling
-                            each home_items
-                                +home_item
-                    else 
-                        .ui.stackable.centered.cards.scrolling
-                            each home_items
-                                +home_item
+            //     else 
+            //         if current_post
+            //             with current_post
+            //                 +home_item
+            //         else if one_doc
+            //             .ui.cards.scrolling
+            //                 each home_items
+            //                     +home_item
+            //         else if two_docs
+            //             .ui.stackable.two.cards.scrolling
+            //                 each home_items
+            //                     +home_item
+            //         else 
+            //             .ui.stackable.centered.cards.scrolling
+            //                 each home_items
+            //                     +home_item
+            // // .column
+            // //     +items
             // .column
-            //     +items
-            .column
-                +checkin_small
-            // .column
-            //     +loss_summary
-                // +losses
-            // .column
-            //     +food
-            // .column
-            //     +drinks
-            // .column
-            //     +order_small
+            //     +checkin_small
+            // // .column
+            // //     +loss_summary
+            //     // +losses
+            // // .column
+            // //     +food
+            // // .column
+            // //     +drinks
+            // // .column
+            // //     +order_small
         
                 
             

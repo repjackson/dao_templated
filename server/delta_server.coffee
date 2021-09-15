@@ -1,64 +1,64 @@
 Meteor.methods
     set_facets: (model_slug, force)->
-        if Meteor.userId()
-            delta = Docs.findOne
-                model:'delta'
-                _author_id:Meteor.userId()
-            # else
-            #     delta = Docs.findOne
-            #         model:'delta'
-            #         _author_id:null
-            model = Docs.findOne
-                model:'model'
-                slug:model_slug
-    
-            # if model_slug is delta.model_filter
-            #     return
-            # else
-            fields =
-                Docs.find
-                    model:'field'
-                    parent_id:model._id
-    
-            Docs.update model._id,
-                $inc: views: 1
-    
-    
-            Docs.update delta._id,
-                $set:model_filter:model_slug
-    
-            # Docs.update delta._id,
-            #     $set:facets:[
-            #         {
-            #             key:'_timestamp_tags'
-            #             filters:[]
-            #             res:[]
-            #         }
-            #     ]
-            Docs.update delta._id,
-                $set:facets:[]
-            for field in fields.fetch()
-                if field.faceted is true
-                    # if Meteor.user()
-                    # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
-                    Docs.update delta._id,
-                        $addToSet:
-                            facets: {
-                                title:field.title
-                                icon:field.icon
-                                key:field.key
-                                rank:field.rank
-                                field_type:field.field_type
-                                filters:[]
-                                res:[]
-                            }
-    
-            field_ids = _.pluck(fields.fetch(), '_id')
-    
-            Docs.update delta._id,
-                $set:
-                    viewable_fields: field_ids
-            Meteor.call 'fum', delta._id
+        # if Meteor.userId()
+        #     delta = Docs.findOne
+        #         model:'delta'
+        #         _author_id:Meteor.userId()
+        # else
+        delta = Docs.findOne
+            model:'delta'
+            _author_id:null
+        model = Docs.findOne
+            model:'model'
+            slug:model_slug
+
+        # if model_slug is delta.model_filter
+        #     return
+        # else
+        fields =
+            Docs.find
+                model:'field'
+                parent_id:model._id
+
+        Docs.update model._id,
+            $inc: views: 1
+
+
+        Docs.update delta._id,
+            $set:model_filter:model_slug
+
+        # Docs.update delta._id,
+        #     $set:facets:[
+        #         {
+        #             key:'_timestamp_tags'
+        #             filters:[]
+        #             res:[]
+        #         }
+        #     ]
+        Docs.update delta._id,
+            $set:facets:[]
+        for field in fields.fetch()
+            if field.faceted is true
+                # if Meteor.user()
+                # if _.intersection(Meteor.user().roles,field.view_roles).length > 0
+                Docs.update delta._id,
+                    $addToSet:
+                        facets: {
+                            title:field.title
+                            icon:field.icon
+                            key:field.key
+                            rank:field.rank
+                            field_type:field.field_type
+                            filters:[]
+                            res:[]
+                        }
+
+        field_ids = _.pluck(fields.fetch(), '_id')
+
+        Docs.update delta._id,
+            $set:
+                viewable_fields: field_ids
+        Meteor.call 'fum', delta._id
 
 
     fum: (delta_id)->
