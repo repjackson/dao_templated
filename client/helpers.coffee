@@ -41,7 +41,7 @@ Template.registerHelper 'can_access', () ->
         Docs.findOne 
             model:'order'
             post_id:@_id
-            _author_id:Meteor.userId()
+            # _author_id:Meteor.userId()
     if found_order
         true
     else 
@@ -194,23 +194,23 @@ Template.registerHelper 'loading_class', () ->
     if Session.get 'loading' then 'disabled' else ''
 
 
-Template.registerHelper 'in_list', (key) ->
-    if Meteor.userId()
-        if Meteor.userId() in @["#{key}"] then true else false
+# Template.registerHelper 'in_list', (key) ->
+#     if Meteor.userId()
+#         if Meteor.userId() in @["#{key}"] then true else false
 
-Template.registerHelper 'is_current_user', () ->
-    if Meteor.user()
-        if Meteor.user().username is Router.current().params.username
-            true
-        else
-            if Meteor.user().roles and 'dev' in Meteor.user().roles
-                true
-            else
-                false
-    else 
-        false
+# Template.registerHelper 'is_current_user', () ->
+#     if Meteor.user()
+#         if Meteor.user().username is Router.current().params.username
+#             true
+#         else
+#             if Meteor.user().roles and 'dev' in Meteor.user().roles
+#                 true
+#             else
+#                 false
+#     else 
+#         false
 
-Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
+# Template.registerHelper 'current_user', () ->  Meteor.users.findOne username:Router.current().params.username
 
 
             

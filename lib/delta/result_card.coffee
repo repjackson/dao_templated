@@ -33,24 +33,24 @@ if Meteor.isClient
             if Docs.findOne @_id
                 # console.log 'doc'
                 result = Docs.findOne @_id
-                if result.private is true
-                    if result._author_id is Meteor.userId()
-                        result
-                else
-                    result
-            else if Meteor.users.findOne @_id
-                # console.log 'user'
-                Meteor.users.findOne @_id
+                # if result.private is true
+                #     if result._author_id is Meteor.userId()
+                #         result
+                # else
+                #     result
+            # else if Meteor.users.findOne @_id
+            #     # console.log 'user'
+            #     Meteor.users.findOne @_id
 
     Template.delta_result_card.events
         'click .result': (e,t)->
             # console.log @
             model_slug =  Router.current().params.model_slug
             # $(e.currentTarget).closest('.result').transition('fade')
-            if Meteor.user()
-                Docs.update @_id,
-                    $inc: views: 1
-                    $addToSet:viewer_usernames:Meteor.user().username
+            # if Meteor.user()
+            #     Docs.update @_id,
+            #         $inc: views: 1
+            #         $addToSet:viewer_usernames:Meteor.user().username
             # else
             #     Docs.update @_id,
             #         $inc: views: 1
