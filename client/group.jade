@@ -33,32 +33,32 @@ template(name='groups')
                 .spacer 
         
             span.ui.four.stackable.cards.scrolling
-                each group_docs
-                    +group_card
+                // each group_docs
+                    // +group_card
                  
                  
 
-template(name='group_card')                    
-    a.ui.card.fly_left(href="/group/#{_id}") 
-        img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
-        .content 
-            .ui.inline.header 
-                |#{title}
-            if private
-                i.large.lock.icon(title='private')
-            each tags
-                .ui.small.basic.label #{this}
-            if location_tags
-                i.grey.marker.icon
-                each location_tags
-                    .ui.small.label #{this}
-            if people_tags
-                i.grey.marker.icon
-                each people_tags
-                    .ui.small.label #{this}
-            if parent_id 
-                i.fork.icon
-                |#{parent_group_id}
+// template(name='group_card')                    
+//     a.ui.card.fly_left(href="/group/#{_id}") 
+//         img.ui.image(src="{{c.url image_id width=400 height=400 crop='pad'}}")
+//         .content 
+//             .ui.inline.header 
+//                 |#{title}
+//             if private
+//                 i.large.lock.icon(title='private')
+//             each tags
+//                 .ui.small.basic.label #{this}
+//             if location_tags
+//                 i.grey.marker.icon
+//                 each location_tags
+//                     .ui.small.label #{this}
+//             if people_tags
+//                 i.grey.marker.icon
+//                 each people_tags
+//                     .ui.small.label #{this}
+//             if parent_id 
+//                 i.fork.icon
+//                 |#{parent_group_id}
 
 
                 
