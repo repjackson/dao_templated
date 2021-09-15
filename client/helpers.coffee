@@ -112,8 +112,8 @@
 # Template.registerHelper 'from_now', (input) -> moment(input).fromNow()
 # Template.registerHelper 'cal_time', (input) -> moment(input).calendar()
 
-# Template.registerHelper 'current_doc', (input) -> 
-#     Docs.findOne Router.current().params.doc_id
+Template.registerHelper 'current_doc', (input) -> 
+    Docs.findOne Router.current().params.doc_id
 #     # moment(input).calendar()
 
 

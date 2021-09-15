@@ -3,9 +3,9 @@ if Meteor.isClient
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         # console.log Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'upvoters', Router.current().params.doc_id
-        @autorun -> Meteor.subscribe 'downvoters', Router.current().params.doc_id
+        @autorun -> Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
+        # @autorun -> Meteor.subscribe 'upvoters', Router.current().params.doc_id
+        # @autorun -> Meteor.subscribe 'downvoters', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'model_docs', 'field_type'
 
     Template.model_doc_view.helpers
@@ -57,8 +57,8 @@ if Meteor.isClient
 
 
     Template.model_doc_edit.onCreated ->
-        @autorun -> Meteor.subscribe 'me'
-        @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
+        # @autorun -> Meteor.subscribe 'me'
+        @autorun -> Meteor.subscribe 'doc_by_id', Router.current().params.doc_id
         @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         @autorun -> Meteor.subscribe 'model_docs', 'field_type'

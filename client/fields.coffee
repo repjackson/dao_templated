@@ -188,12 +188,8 @@ Template.array_edit.events
                 # if @direct
                 parent = Template.parentData()
                 doc = Docs.findOne parent._id
-                user = Meteor.users.findOne parent._id
                 if doc
                     Docs.update parent._id,
-                        $addToSet:"#{@key}":element_val
-                else if user
-                    Meteor.users.update parent._id,
                         $addToSet:"#{@key}":element_val
                     
                 # window.speechSynthesis.speak new SpeechSynthesisUtterance element_val
@@ -210,12 +206,8 @@ Template.array_edit.events
             parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $pull:"#{field.key}":element
-        else if user
-            Meteor.users.update parent._id,
                 $pull:"#{field.key}":element
 
         t.$('.new_element').focus()
@@ -273,12 +265,8 @@ Template.text_edit.events
             parent = Template.parentData(5)
 
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne username:Router.current().params.username
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":val
         $('body').toast(
             message: "'#{val}' saved"
@@ -301,15 +289,15 @@ Template.textarea_view.onRendered ->
 
 Template.number_edit.events
     'blur .edit_number': (e,t)->
-        parent = Template.parentData()
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
+
         val = parseInt t.$('.edit_number').val()
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 
@@ -527,12 +515,8 @@ Template.color_icon_edit.events
         else
             parent = Template.parentData(5)
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 
@@ -546,12 +530,8 @@ Template.icon_edit.events
         else
             parent = Template.parentData(5)
         doc = Docs.findOne parent._id
-        user = Meteor.users.findOne parent._id
         if doc
             Docs.update parent._id,
-                $set:"#{@key}":val
-        else if user
-            Meteor.users.update parent._id,
                 $set:"#{@key}":val
 
 
@@ -620,22 +600,14 @@ Template.single_doc_edit.events
         # if parent["#{key}"] and @["#{ref_field.button_key}"] in parent["#{key}"]
         if parent["#{key}"] and @slug in parent["#{key}"]
             doc = Docs.findOne parent._id
-            user = Meteor.users.findOne parent._id
             if doc
                 Docs.update parent._id,
                     $unset:"#{ref_field.key}":1
-            else if user
-                Meteor.users.update parent._id,
-                    $unset: "#{ref_field.key}":1
         else
             doc = Docs.findOne parent._id
-            user = Meteor.users.findOne parent._id
 
             if doc
                 Docs.update parent._id,
-                    $set: "#{ref_field.key}": @slug
-            else if user
-                Meteor.users.update parent._id,
                     $set: "#{ref_field.key}": @slug
 
 

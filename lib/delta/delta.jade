@@ -19,7 +19,7 @@ template(name='delta')
                         else
                             i.search.icon
                         input#search(type='text' autocomplete="off" value=current_delta.search_query)
-                    unless single_doc
+                    unless false
                         // - .ui.segment(class=loading_class)
                         .ui.inline.small.grey.header(title='change sort direction')
                             |sort by
@@ -175,6 +175,11 @@ template(name='model_top')
                 i.plus.icon
                 |start your session
             
+            
+            
+template(name='print_this')
+template(name='key_value_edit')
+template(name='remove_button')
             
             
 template(name='toggle_visible_field')            

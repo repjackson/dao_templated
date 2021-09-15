@@ -304,38 +304,36 @@ if Meteor.isClient
                 model:'model'
                 slug: Router.current().params.model_slug
             # console.log model
-            if model.collection and model.collection is 'users'
-                name = prompt 'first and last name'
-                split = name.split ' '
-                first_name = split[0]
-                last_name = split[1]
-                username = name.split(' ').join('_')
-                # console.log username
-                Meteor.call 'add_user', first_name, last_name, username, 'guest', (err,res)=>
-                    if err
-                        alert err
-                    else
-                        Meteor.users.update res,
-                            $set:
-                                first_name:first_name
-                                last_name:last_name
-                        Router.go "/m/#{model.slug}/#{res}/edit"
+            # if model.collection and model.collection is 'users'
+            #     name = prompt 'first and last name'
+            #     split = name.split ' '
+            #     first_name = split[0]
+            #     last_name = split[1]
+            #     username = name.split(' ').join('_')
+            #     # console.log username
+            #     Meteor.call 'add_user', first_name, last_name, username, 'guest', (err,res)=>
+            #         if err
+            #             alert err
+            #         else
+            #             Meteor.users.update res,
+            #                 $set:
+            #                     first_name:first_name
+            #                     last_name:last_name
+            #             Router.go "/m/#{model.slug}/#{res}/edit"
             # else if model.slug is 'gift'
             #     new_doc_id = Docs.insert
             #         model:model.slug
             #     Router.go "/debit/#{new_doc_id}/edit"
-            else if model.slug is 'model'
+            if model.slug is 'model'
                 new_doc_id = Docs.insert
                     model:'model'
                     _timestamp:Date.now()
-                    _author_id:Meteor.userId()
                     
                 Router.go "/model/edit/#{new_doc_id}"
             else
                 console.log model
                 new_doc_id = Docs.insert
                     _timestamp:Date.now()
-                    _author_id:Meteor.userId()
                     model:model.slug
                 Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
 
@@ -540,9 +538,7 @@ if Meteor.isServer
     Meteor.publish 'my_delta', ->
         # Docs.find
         #     model:'delta'
-        # if Meteor.userId()
         #     Docs.find
-        #         _author_id:Meteor.userId()
         #         model:'delta'
         # else
         Docs.find

@@ -276,8 +276,8 @@ Meteor.publish 'doc_by_id', (doc_id)->
 #         Docs.findOne transfer_id
     
     
-# Meteor.publish 'doc', (doc_id)->
-#     Docs.find doc_id
+Meteor.publish 'doc', (doc_id)->
+    Docs.find doc_id
     
 # Meteor.publish 'comments', (doc_id)->
 #     # doc = Docs.findOne doc_id

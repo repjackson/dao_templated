@@ -32,7 +32,7 @@ if Meteor.isClient
             else ''
 
         result: ->
-            console.log 'result data,', @
+            # console.log 'result data,', @
             if Docs.findOne @_id
                 result = Docs.findOne @_id
                 # if result.private is true

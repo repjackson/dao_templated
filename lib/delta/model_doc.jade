@@ -23,13 +23,13 @@ template(name='model_doc_view')
                         div
                         .ui.small.header #{views} views
                         .ui.small.inline.header by
-                        each viewer_usernames
-                            .ui.small.label #{this}
+                        // each viewer_usernames
+                        //     .ui.small.label #{this}
                         
                         .ui.small.header
-                            |by
-                            +author_info
-                            +creation_info
+                            // |by
+                            // +author_info
+                            // +creation_info
                         //- +points_transaction
                         //- +voting
                     .twelve.wide.column
@@ -44,8 +44,8 @@ template(name='model_doc_view')
                             unless header
                                 .item
                                     +Template.dynamic template=view_template 
-                        each current_model.actions
-                            +Template.dynamic template=this data=current_doc
+                        // each current_model.actions
+                        //     +Template.dynamic template=this data=current_doc
                         //- +comments
                         //- div
                         //- if watson
@@ -54,34 +54,34 @@ template(name='model_doc_view')
                         
                         
 template(name='model_doc_edit')
-    if template_exists
-        +Template.dynamic template=model_template
-    else
-        with current_doc
-            .ui.stackable.padded.grid
-                .centered.row
-                    .four.wide.column
-                        .ui.header(title="model: #{model}")
-                            |edit #{model}
-                        +creation_info
-                        a.ui.big.icon.green.circular.button(href="/m/#{model}/#{_id}/view")
-                            i.big.checkmark.icon
-                        #delete_doc.ui.icon.circular.button
-                            i.trash.icon
-                        if is_user
-                            +boolean_edit key='private' direct=true
-                    .twelve.wide.column
-                        .ui.stackable.two.column.grid
-                            //- |#{model}
-                            each edit_fields
-                                .column
-                                    +Template.dynamic template=edit_template 
-                                    .spacer
-                                // .ui.header #{key} [#{field}] #{label}
-                //- if watson 
-                //-     .row
-                //-         .sixteen.wide.column
-                //-             +watson_view
+    // if template_exists
+    //     +Template.dynamic template=model_template
+    // else
+    with current_doc
+        .ui.stackable.padded.grid
+            .centered.row
+                .four.wide.column
+                    .ui.header(title="model: #{model}")
+                        |edit #{model}
+                    // +creation_info
+                    a.ui.big.icon.green.circular.button(href="/m/#{model}/#{_id}/view")
+                        i.big.checkmark.icon
+                    #delete_doc.ui.icon.circular.button
+                        i.trash.icon
+                    if is_user
+                        +boolean_edit key='private' direct=true
+                .twelve.wide.column
+                    .ui.stackable.two.column.grid
+                        //- |#{model}
+                        each edit_fields
+                            .column
+                                +Template.dynamic template=edit_template 
+                                .spacer
+                            // .ui.header #{key} [#{field}] #{label}
+            //- if watson 
+            //-     .row
+            //-         .sixteen.wide.column
+            //-             +watson_view
                 
             
 // template(name='points_transaction')
