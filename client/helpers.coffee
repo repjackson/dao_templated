@@ -49,13 +49,13 @@ Template.registerHelper 'can_access', () ->
     
         
 Template.registerHelper 'is_admin', () ->
-    # Meteor.users.findOne username:Router.current().params.username
-    if Meteor.user() and Meteor.user().roles
-        if 'admin' in Meteor.user().roles then true else false
+    true
+    # # Meteor.users.findOne username:Router.current().params.username
+    # if Meteor.user() and Meteor.user().roles
+    #     if 'admin' in Meteor.user().roles then true else false
         
 
 Template.registerHelper 'is_current_user', () ->
-    Meteor.user().username is Router.current().params.username
 
 
 Template.registerHelper 'ingredient_products', () ->
@@ -93,7 +93,7 @@ Template.registerHelper 'kve', (key,value) ->
 Template.registerHelper 'display_mode', () -> Session.get('display_mode',true)
 Template.registerHelper 'is_loading', () -> Session.get 'loading'
 Template.registerHelper 'dev', () -> Meteor.isDevelopment
-Template.registerHelper 'is_author', ()-> @_author_id is Meteor.userId()
+# Template.registerHelper 'is_author', ()-> @_author_id is Meteor.userId()
 Template.registerHelper 'to_percent', (number) -> (number*100).toFixed()
 Template.registerHelper 'long_time', (input) -> moment(input).format("h:mm a")
 Template.registerHelper 'long_date', (input) -> moment(input).format("dd, MMMM Do h:mm a")

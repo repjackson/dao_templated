@@ -113,13 +113,13 @@ Template.link_edit.events
         # else
         #     parent = Template.parentData(5)
         doc = Docs.findOne Router.current().params.doc_id
-        user = Meteor.users.findOne username:Router.current().params.username
+        # user = Meteor.users.findOne username:Router.current().params.username
         if doc
             Docs.update doc._id,
                 $set:"#{@key}":val
-        else if user
-            Meteor.users.update doc._id,
-                $set:"#{@key}":val
+        # else if user
+        #     Meteor.users.update doc._id,
+        #         $set:"#{@key}":val
 
 
 

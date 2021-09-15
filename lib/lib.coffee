@@ -31,19 +31,19 @@ if Meteor.isServer
 
 
 Docs.helpers
-    author: -> Meteor.users.findOne @_author_id
-    _author: -> Meteor.users.findOne @_author_id
-    _buyer: -> Meteor.users.findOne @buyer_id
-    target_user: ->
-        Meteor.users.findOne @target_id
+    # author: -> Meteor.users.findOne @_author_id
+    # _author: -> Meteor.users.findOne @_author_id
+    # _buyer: -> Meteor.users.findOne @buyer_id
+    # target_user: ->
+    #     Meteor.users.findOne @target_id
     
     when: -> moment(@_timestamp).fromNow()
     is_visible: -> @published in [0,1]
     is_published: -> @published is 1
     is_anonymous: -> @published is 0
     is_private: -> @published is -1
-    is_read: ->
-        @read_ids and Meteor.userId() in @read_ids
+    # is_read: ->
+    #     @read_ids and Meteor.userId() in @read_ids
 
     enabled_features: () ->
         Docs.find

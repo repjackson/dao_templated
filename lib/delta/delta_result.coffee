@@ -40,15 +40,11 @@ if Meteor.isClient
             if Docs.findOne @_id
                 # console.log 'doc'
                 result = Docs.findOne @_id
-                if result.private is true
-                    if result._author_id is Meteor.userId()
-                        result
-                else
-                    result
-            else if Meteor.users.findOne @_id
-                # console.log 'user'
-                Meteor.users.findOne @_id
-
+                # if result.private is true
+                #     if result._author_id is Meteor.userId()
+                #         result
+                # else
+                #     result
     Template.delta_list_result.events
         'click .result': (e,t)->
             # console.log @
