@@ -73,8 +73,8 @@ template(name='delta')
                         // - with delta
                         // -     +key_value_edit key='view_mode' value='list'
                         // -     +key_value_edit key='view_mode' value='cards'
-                        +set_view_mode title='list' icon='list'
-                        +set_view_mode title='cards' icon='clone'
+                        // +set_view_mode title='list' icon='list'
+                        // +set_view_mode title='cards' icon='clone'
                         //- .ui.inline.small.grey.header view
                         //- .ui.simple.dropdown.item
                         //-     |#{current_delta.view_mode}
@@ -90,42 +90,42 @@ template(name='delta')
                 .scrolling
                     //- each current_delta.result_ids
                     //-     .ui.header #{this}
-                    if delta_key_value_is 'view_mode' 'cards'
-                        .ui.stackable.cards
-                            if is_loading
-                                each current_delta.result_ids
-                                    .ui.card
-                                        .ui.placeholder
-                                            .rectangular.image
-                                        .content
-                                            .ui.fluid.placeholder
-                                                .header
-                                                    .line
+                    // if delta_key_value_is 'view_mode' 'cards'
+                    .ui.stackable.cards
+                        if is_loading
+                            each current_delta.result_ids
+                                .ui.card
+                                    .ui.placeholder
+                                        .rectangular.image
+                                    .content
+                                        .ui.fluid.placeholder
+                                            .header
                                                 .line
-                                                .line
-                                                .line
-                                                .line
-                            else
-                                each current_delta.result_ids
-                                    +delta_result_card
-                    else if delta_key_value_is 'view_mode' 'list'
-                        //- .ui.segments
-                        each current_delta.result_ids
-                            if is_loading
-                                .ui.basic.segment
-                                    .ui.fluid.placeholder
-                                        .line
-                                        .line
-                                        .line
-                                        .line
-                            else 
-                                +delta_list_result
-                                // .ui.divider
+                                            .line
+                                            .line
+                                            .line
+                                            .line
+                        else
+                            each current_delta.result_ids
+                                +delta_result_card
+                    // else if delta_key_value_is 'view_mode' 'list'
+                    //     //- .ui.segments
+                    //     each current_delta.result_ids
+                    //         if is_loading
+                    //             .ui.basic.segment
+                    //                 .ui.fluid.placeholder
+                    //                     .line
+                    //                     .line
+                    //                     .line
+                    //                     .line
+                    //         else 
+                    //             +delta_list_result
+                    //             // .ui.divider
                 //- +Template.dynamic template=view_mode_template
-            .row 
-                .sixteen.wide.column
-                    if model_stats_exists
-                        +Template.dynamic template=model_stats
+            // .row 
+            //     .sixteen.wide.column
+            //         if model_stats_exists
+            //             +Template.dynamic template=model_stats
         unless current_model
             if subs_ready
                 if in_dev
@@ -154,9 +154,9 @@ template(name='model_top')
     unless is_loading
         // if currentUser
         unless key_value_is current_delta.model_filter 'model'
-            unless key_value_is current_model.collection 'user'
-                // if is_admin
-                i.plus.large.green.circular.link.icon.add_model_doc(title="add #{slug}")
+            // unless key_value_is current_model.collection 'user'
+            // if is_admin
+            i.plus.large.green.circular.link.icon.add_model_doc(title="add #{slug}")
         //     else 
         //         if is_admin
         // .ui.icon.basic.circular.button.add_model_doc(title="add #{slug}")
@@ -166,10 +166,10 @@ template(name='model_top')
         // if is_admin
         if current_delta
             // if is_admin
-            if in_dev
-                i.refresh.link.reset.grey.circular.icon(title='reload session')
-                i.code.link.icon.print_delta(title='print session doc')
-                i.trash.delete_delta.link.icon(title='delete session')
+            // if in_dev
+            i.refresh.link.reset.grey.circular.icon(title='reload session')
+            i.code.link.icon.print_delta(title='print session doc')
+            i.trash.delete_delta.link.icon(title='delete session')
         else
             .create_delta.ui.big.green.circular.button(title='new session')
                 i.plus.icon

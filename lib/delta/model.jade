@@ -29,10 +29,10 @@ template(name='model_view')
                         a.ui.fluid.button(href="/m/#{model}/#{_id}/edit")
                             i.pencil.icon
                             |edit
-                    each model.actions
-                        +Template.dynamic template=this data=current_doc
+                    // each model.actions
+                    //     +Template.dynamic template=this data=current_doc
                     // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
-                    +creation_info
+                    // +creation_info
                 .twelve.wide.column
                     .ui.header
                         each fields
@@ -46,7 +46,7 @@ template(name='model_view')
                             .item
                                 +Template.dynamic template=view_template 
                     div
-                    +comments
+                    // +comments
         .ui.stackable.padded.grid
             .four.wide.column
                 h1.ui.header #{title}

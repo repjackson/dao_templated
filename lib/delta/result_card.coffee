@@ -4,17 +4,19 @@ if Meteor.isClient
         #     $('.progress').popup()
         # , 2000
     Template.delta_result_card.onCreated ->
-        @autorun => Meteor.subscribe 'doc', @data._id
-        @autorun => Meteor.subscribe 'user_from_id', @data._id
+        console.log 'hi', @
+        @autorun => Meteor.subscribe 'doc_by_id', @data._id
+        # @autorun => Meteor.subscribe 'user_from_id', @data._id
 
     Template.delta_result_card.helpers
         template_exists: ->
-            current_model = Router.current().params.model_slug
-            if current_model
-                if Template["#{current_model}_card"]
-                    return true
-                else
-                    return false
+            false
+            # current_model = Router.current().params.model_slug
+            # if current_model
+            #     if Template["#{current_model}_card"]
+            #         return true
+            #     else
+            #         return false
 
         model_template: ->
             current_model = Router.current().params.model_slug
@@ -30,13 +32,15 @@ if Meteor.isClient
             else ''
 
         result: ->
+            console.log 'result data,', @
             if Docs.findOne @_id
-                # console.log 'doc'
                 result = Docs.findOne @_id
                 # if result.private is true
                 #     if result._author_id is Meteor.userId()
                 #         result
                 # else
+            else
+                console.log 'doc not found', @
                 #     result
             # else if Meteor.users.findOne @_id
             #     # console.log 'user'
@@ -69,7 +73,7 @@ if Meteor.isClient
                 Router.go "/m/#{model_slug}/#{@_id}/view"
 
         'click .set_model': ->
-            Meteor.call 'set_delta_facets', @slug, Meteor.userId()
+            Meteor.call 'set_delta_facets', @slug
 
         'click .route_model': ->
             Session.set 'loading', true

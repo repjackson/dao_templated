@@ -59,14 +59,12 @@ Template.not_found.events
 #         if confirm "delete #{@} user?"
 #             Meteor.users.remove @_id
     
-# Template.admin_footer.helpers
-#     docs: ->
-#         Docs.find()
+Template.admin_footer.helpers
+    docs: ->
+        Docs.find()
 
-#     users: ->
-#         Meteor.users.find()
-#     results: ->
-#         Results.find()
+    results: ->
+        Results.find()
 
 
 Router.configure

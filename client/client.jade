@@ -76,7 +76,6 @@ template(name='admin_footer')
             i.shield.icon
             |admin footer
         .ui.inline.header #{docs.count} docs
-        .ui.inline.header #{users.count} users
         .ui.stackable.padded.grid
             .five.wide.column
                 .ui.small.inverted.list.smallscroll
@@ -91,17 +90,6 @@ template(name='admin_footer')
                                 .ui.label #{app}
                                 +print_this
                                 +remove_button
-            .five.wide.column
-                .ui.small.inverted.list.smallscroll
-                    each users
-                        .item 
-                            .content 
-                                .header
-                                    |#{username} 
-                                +print_this
-                                a.ui.icon.button(href="/user/#{_id}/edit")
-                                    i.pencil.icon
-                                i.remove.link.icon.delete_user
             .five.wide.column
                 .ui.inline.inverted.header #{results.count} results
                 .ui.small.inverted.list.smallscroll

@@ -269,8 +269,8 @@
         
         
         
-# Meteor.publish 'doc_by_id', (doc_id)->
-#     Docs.find doc_id
+Meteor.publish 'doc_by_id', (doc_id)->
+    Docs.find doc_id
 # Meteor.publish 'target_from_transfer_id', (transfer_id)->
 #     transfer = 
 #         Docs.findOne transfer_id

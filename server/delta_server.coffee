@@ -70,22 +70,22 @@ Meteor.methods
 
         built_query = {}
         if delta.search_query
-            if model.collection and model.collection is 'users'
-                built_query.username = {$regex:"#{delta.search_query}", $options: 'i'}
-            else
-                built_query.title = {$regex:"#{delta.search_query}", $options: 'i'}
+            # if model.collection and model.collection is 'users'
+            #     built_query.username = {$regex:"#{delta.search_query}", $options: 'i'}
+            # else
+            built_query.title = {$regex:"#{delta.search_query}", $options: 'i'}
 
         fields =
             Docs.find
                 model:'field'
                 parent_id:model._id
-        if model.collection and model.collection is 'users'
-            unless delta.model_filter is 'user'
-                # built_query.roles = $in:[delta.model_filter]
-                built_query.disabled = $ne:true
-        else
-            # unless delta.model_filter is 'post'
-            built_query.model = delta.model_filter
+        # if model.collection and model.collection is 'users'
+        #     unless delta.model_filter is 'user'
+        #         # built_query.roles = $in:[delta.model_filter]
+        #         built_query.disabled = $ne:true
+        # else
+        # unless delta.model_filter is 'post'
+        built_query.model = delta.model_filter
         # unless Meteor.user() and 'admin' in Meteor.user().roles
         #     built_query.app = 'stand'
 
@@ -120,10 +120,10 @@ Meteor.methods
             if facet.filters.length > 0
                 built_query["#{facet.key}"] = $all: facet.filters
 
-        if model.collection and model.collection is 'users'
-            total = Meteor.users.find(built_query).count()
-        else
-            total = Docs.find(built_query).count()
+        # if model.collection and model.collection is 'users'
+        #     total = Meteor.users.find(built_query).count()
+        # else
+        total = Docs.find(built_query).count()
         # response
         # for facet in delta.facets
         #     values = []
@@ -158,12 +158,12 @@ Meteor.methods
         # results_cursor =
         #     Docs.find( built_query, modifier )
 
-        if model and model.collection and model.collection is 'users'
-            results_cursor = Meteor.users.find(built_query, modifier)
-            # else
-            #     results_cursor = global["#{model.collection}"].find(built_query, modifier)
-        else
-            results_cursor = Docs.find built_query, modifier
+        # if model and model.collection and model.collection is 'users'
+        #     results_cursor = Meteor.users.find(built_query, modifier)
+        #     # else
+        #     #     results_cursor = global["#{model.collection}"].find(built_query, modifier)
+        # else
+        results_cursor = Docs.find built_query, modifier
 
         # if total is 1
         #     result_ids = results_cursor.fetch()
@@ -194,10 +194,10 @@ Meteor.methods
             { $project: _id: 0, name: '$_id', count: 1 }
         ]
         if pipe
-            if collection and collection is 'users'
-                agg = Meteor.users.rawCollection().aggregate(pipe,options)
-            else
-                agg = global['Docs'].rawCollection().aggregate(pipe,options)
+            # if collection and collection is 'users'
+            #     agg = Meteor.users.rawCollection().aggregate(pipe,options)
+            # else
+            agg = global['Docs'].rawCollection().aggregate(pipe,options)
             # else
             res = {}
             if agg

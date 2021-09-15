@@ -84,19 +84,19 @@ template(name='model_doc_edit')
                 //-             +watson_view
                 
             
-template(name='points_transaction')
-    .ui.header my points #{currentUser.points}
-    .ui.header offer points
-    .ui.input
-        input.offer_points_amount(type='number')
-    .ui.button.offer_points
-        i.right.chevron.icon
-    each offers
-        +offer
+// template(name='points_transaction')
+//     .ui.header my points #{currentUser.points}
+//     .ui.header offer points
+//     .ui.input
+//         input.offer_points_amount(type='number')
+//     .ui.button.offer_points
+//         i.right.chevron.icon
+//     each offers
+//         +offer
         
         
 template(name='offer')
     .ui.small.inline.header amount #{amount}
-    +author_info                        
+    // +author_info                        
     
                         
