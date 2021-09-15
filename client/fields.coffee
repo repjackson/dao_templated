@@ -108,14 +108,14 @@ Template.clear_value.events
 Template.link_edit.events
     'blur .edit_url': (e,t)->
         val = t.$('.edit_url').val()
-        # if @direct
-        #     parent = Template.parentData()
-        # else
-        #     parent = Template.parentData(5)
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
         doc = Docs.findOne Router.current().params.doc_id
         # user = Meteor.users.findOne username:Router.current().params.username
         if doc
-            Docs.update doc._id,
+            Docs.update parent._id,
                 $set:"#{@key}":val
         # else if user
         #     Meteor.users.update doc._id,
@@ -138,7 +138,10 @@ Template.image_link_edit.events
 Template.image_edit.events
     "change input[name='upload_image']": (e) ->
         files = e.currentTarget.files
-        parent = Template.parentData()
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
         Cloudinary.upload files[0],
             # folder:"secret" # optional parameters described in http://cloudinary.com/documentation/upload_images#remote_upload
             # model:"private" # optional: makes the image accessible only via a signed url. The signed url is available publicly for 1 hour.
@@ -150,15 +153,14 @@ Template.image_edit.events
                     if doc
                         Docs.update parent._id,
                             $set:"#{@key}":res.public_id
-                    user = Meteor.users.findOne parent._id
-                    if user
-                        Meteor.users.update parent._id,
-                            $set:"#{@key}":res.public_id
 
 
 
     'click #remove_photo': ->
-        parent = Template.parentData()
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
 
         if confirm 'Remove Photo?'
             # Docs.update parent._id,
@@ -186,7 +188,10 @@ Template.array_edit.events
             element_val = t.$('.new_element').val().trim().toLowerCase()
             if element_val.length>0
                 # if @direct
-                parent = Template.parentData()
+                if @direct
+                    parent = Template.parentData()
+                else
+                    parent = Template.parentData(5)
                 doc = Docs.findOne parent._id
                 if doc
                     Docs.update parent._id,
@@ -303,14 +308,14 @@ Template.number_edit.events
 
 Template.float_edit.events
     'blur .edit_float': (e,t)->
-        # if @direct
-        #     parent = Template.parentData()
-        # else
-        #     parent = Template.parentData(5)
+        if @direct
+            parent = Template.parentData()
+        else
+            parent = Template.parentData(5)
         val = parseFloat(t.$('.edit_float').val())
         doc = Docs.findOne Router.current().params.doc_id
         if doc
-            Docs.update doc._id,
+            Docs.update parent._id,
                 $set:"#{@key}":val
 
 
