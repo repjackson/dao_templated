@@ -96,21 +96,27 @@ if Meteor.isClient
                 Docs.remove @_id
                 Router.go "/m/#{@model}"            
                 
+                
+                
+                
+                
+                
     Template.comments.onRendered ->
         # Meteor.setTimeout ->
         #     $('.accordion').accordion()
         # , 1000
     Template.comments.onCreated ->
+        console.log 'subbing'
         # parent = Docs.findOne Template.parentData()._id
-        parent = Docs.findOne Router.current().params.doc_id
-        @autorun => Meteor.subscribe 'comments', parent._id
+        # parent = Docs.findOne Router.current().params.doc_id
+        @autorun => Meteor.subscribe 'doc_comments', Router.current().params.doc_id, ->
         # if parent
     Template.comments.helpers
         doc_comments: ->
             parent = Docs.findOne Router.current().params.doc_id
             # parent = Docs.findOne Template.parentData()._id
             Docs.find
-                parent_id:parent._id
+                # parent_id:Router.current().params.doc_id
                 model:'comment'
     Template.comments.events
         'keyup .add_comment': (e,t)->
@@ -119,12 +125,14 @@ if Meteor.isClient
                 parent = Docs.findOne Router.current().params.doc_id
                 comment = t.$('.add_comment').val()
                 Docs.insert
-                    parent_id: parent._id
+                    parent_id: Router.current().params.doc_id
                     model:'comment'
-                    parent_model:parent.model
+                    _timestamp:Date.now()
+                    # parent_model:parent.model
                     body:comment
                 t.$('.add_comment').val('')
     
         'click .remove_comment': ->
             if confirm 'Confirm remove comment'
                 Docs.remove @_id
+

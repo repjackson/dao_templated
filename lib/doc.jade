@@ -12,21 +12,21 @@ template(name='model_doc_view')
                             |#{current_model.title}
                         // if can_edit
                         a.ui.large.icon.circular.button.fly_down(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
-                            i.pencil.blue.large.icon
+                            i.pencil.large.icon
                         // if is_admin
-                        .ui.header 
-                            i.clock.icon
-                            |timestamp tags
+                        // .ui.header 
+                        //     i.clock.icon
+                        //     |timestamp tags
                         each _timestamp_tags
                             .ui.inverted.label #{this}
                         // +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark'
                         div
-                        .ui.small.header #{views} views
-                        .ui.small.inline.header by
+                        .ui.small.header #{views}
+                        // .ui.small.inline.header by
                         // each viewer_usernames
                         //     .ui.small.label #{this}
                         
-                        .ui.small.header
+                        // .ui.small.header
                             // |by
                             // +author_info
                             // +creation_info
@@ -46,7 +46,7 @@ template(name='model_doc_view')
                                     +Template.dynamic template=view_template 
                         // each current_model.actions
                         //     +Template.dynamic template=this data=current_doc
-                        - +comments
+                        +comments
                         //- div
                         //- if watson
                         //-     +watson_view
@@ -66,13 +66,12 @@ template(name='comments')
             .comment
                 .content
                     .ui.header #{body}
-                    .meta #{when}
-                        |by 
-                        a.fly_right(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
-                        if currentUser
-                            +voting_small
-                            if can_edit
-                                +remove_button
+                    // .meta #{when}
+                    //     // |by 
+                    //     // a.fly_right(href="/user/#{author.username}") #{author.first_name} #{author.last_name}
+                    //     // +voting_small
+                    //     // if can_edit
+                    //     //     +remove_button
                                 
                                 
                         

@@ -38,9 +38,9 @@ template(name='delta_result_card')
                         //- a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         //-     i.right.chevron.yellow.large.icon
                     if is_admin
-                        if _author_id
-                            +author_info
-                        +creation_info
+                        // if _author_id
+                        //     +author_info
+                        // +creation_info
                         .ui.small.inline.header #{views} views
                             //- i.eye.icon
                             each viewer_usernames
