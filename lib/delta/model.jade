@@ -28,7 +28,7 @@ template(name='model_view')
                             |edit
                     each model.actions
                         +Template.dynamic template=this data=current_doc
-                    +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
+                    // +user_list_toggle key='bookmark_ids' icon='bookmark' label='Bookmark' color='red'
                     +creation_info
                 .twelve.wide.column
                     .ui.header
@@ -93,68 +93,29 @@ template(name='model_edit_layout')
                     +boolean_edit key='show_filter_bar' label='show filter bar' direct=true icon='filter'
                     +boolean_edit key='show_facets' label='show facets' direct=true icon='diamond'
                 .twelve.wide.column
-                    a.ui.large.basic.button.spaced(href="/model/edit/#{current_doc._id}/" class="{{isActiveRoute 'model_edit_dashboard'}}")
-                        +i name='settings' cl='ui avatar image'
-                        |main
-                    a.ui.large.basic.button.spaced(href="/model/edit/#{current_doc._id}/fields" class="{{isActiveRoute 'model_edit_fields'}}")
-                        +i name='list' cl='ui avatar image'
-                        |fields
-                    a.ui.large.basic.button.spaced(href="/model/edit/#{current_doc._id}/modules" class="{{isActiveRoute 'model_edit_modules'}}")
-                        +i name='cube' cl='ui avatar image'
-                        |modules
-                    a.ui.large.basic.button.spaced(href="/model/edit/#{current_doc._id}/permissions" class="{{isActiveRoute 'model_edit_permissions'}}")
-                        +i name='shield' cl='ui avatar image'
-                        |permissions
-                    +yield
-                    
-                    
-                    
-template(name='model_edit_dashboard')
-    .ui.form
-        +text_edit key='title' label='title' direct=true
-        +text_edit key='slug' label='slug' direct=true
-        +icon_edit key='icon' label='icon' direct=true
-        +textarea_edit key='description' label='description' direct=true
-        +array_edit key='tags' label='tags' direct=true
-        //- +text_edit key='collection' label='collection' direct=true
-        +key_value_edit key='collection' value='docs' icon='document'
-        +key_value_edit key='collection' value='users' icon='users'
-
-        //- +multi_doc_edit key='actions' label='actions' ref_model='action' direct=true
-        //- +text_edit key='app' label='app' direct=true
-        
-template(name='model_edit_fields')
-    //- |#{model}
-    //- each fields
-    //-     +Template.dynamic template=edit_template 
-    //-     // .ui.header #{key} [#{field}] #{label}
-    .spacer
-    .ui.inline.header fields
-    .ui.icon.large.compact.button.add_field
-        i.plus.green.icon
-    .spacer
-    .ui.segments
-        each fields
-            +field_edit
+                    .ui.form
+                        +text_edit key='title' label='title' direct=true
+                        +text_edit key='slug' label='slug' direct=true
+                        +icon_edit key='icon' label='icon' direct=true
+                        +textarea_edit key='description' label='description' direct=true
+                        +array_edit key='tags' label='tags' direct=true
+                        //- +text_edit key='collection' label='collection' direct=true
+                        +key_value_edit key='collection' value='docs' icon='document'
+                        +key_value_edit key='collection' value='users' icon='users'
+                    //- |#{model}
+                    //- each fields
+                    //-     +Template.dynamic template=edit_template 
+                    //-     // .ui.header #{key} [#{field}] #{label}
+                    .spacer
+                    .ui.inline.header fields
+                    .ui.icon.large.compact.button.add_field
+                        i.plus.green.icon
+                    .spacer
+                    .ui.segments
+                        each fields
+                            +field_edit
         
             
-template(name='model_edit_modules')
-    .ui.segment
-        .ui.header
-            +icon name='module'
-            |modules
-        +boolean_edit key='show_comments' label='comments' icon='chat' direct=true
-        +boolean_edit key='show_voting' label='voting' icon='elections' direct=true
-        +boolean_edit key='show_orders' label='ordering' icon='shop' direct=true
-        +boolean_edit key='show_reviews' label='reviews' icon='feedback' direct=true
-    .spacer
-    +comments
-
-
-template(name='model_edit_permissions')
-    .ui.header permissions
-    +multi_doc_edit key='view_roles' label='view roles' ref_model='role' direct=true
-
 
 template(name='field_edit')
     .ui.segment.field_segment

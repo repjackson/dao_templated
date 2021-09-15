@@ -1,130 +1,127 @@
 template(name='delta')
     .ui.stackable.padded.grid
         with current_model
-            unless current_model.show_facets
-                .middle.aligned.row
-                    .sixteen.wide.column
-                        +model_top
-            .row
-                if current_model.show_facets
-                    .four.wide.column
-                        +model_top
-                        each sorted_facets
-                            +facet
-                div(class=result_column_class)
-                    unless current_model.show_facets
-                        +model_top
-                    if current_model.show_filter_bar
-                        |&nbsp;
-                        .ui.icon.input(class=query_class)
-                            if current_delta.search_query
-                                i.link.remove.large.icon.clear_query
-                            else
-                                i.search.icon
-                            input#search(type='text' autocomplete="off" value=current_delta.search_query)
-                        unless single_doc
-                            // - .ui.segment(class=loading_class)
-                            .ui.inline.small.grey.header(title='change sort direction')
-                                |sort by
-                            if sortable_fields.count
-                                .ui.simple.large.dropdown(title='sort by')
-                                    strong #{current_delta.sort_key}
-                                    i.dropdown.icon
-                                    .menu
-                                        each sortable_fields
-                                            .item.set_sort_key 
-                                                if icon 
-                                                    +icon name=icon
-                                                |#{title}
-                                .ui.tertiary.icon.button.set_sort_direction(title='sort direction')
-                                    if sorting_up
-                                        i.sort.amount.down.large.icon
-                                    else
-                                        i.sort.amount.up.large.icon
-                            //- .ui.compact.button.set_sort_direction
-                            //-     |#{current_delta.sort_direction}
-                            |&nbsp;
-                            |&nbsp;
-                            //- .ui.inline.small.grey.header
-                            //-     |viewing
-                            //- .ui.simple.dropdown(title='visible fields')
-                            //-     | fields
-                            //-     i.dropdown.icon
-                            //-     .menu
-                            //-         each model_fields
-                            //-             +toggle_visible_field
-                            |&nbsp;
-                            |&nbsp;
-                            |&nbsp;
-                        
-                            .ui.simple.dropdown(title='result limit')
-                                .text.large #{current_delta.limit}
+            // unless current_model.show_facets
+            .middle.aligned.row
+                .sixteen.wide.column
+                    +model_top
+                    // if current_model.show_facets
+                    //     .four.wide.column
+                    //         each sorted_facets
+                    //             +facet
+                    // unless current_model.show_facets
+                    //     +model_top
+                        if current_model.show_filter_bar
+                    |&nbsp;
+                    .ui.icon.input(class=query_class)
+                        if current_delta.search_query
+                            i.link.remove.large.icon.clear_query
+                        else
+                            i.search.icon
+                        input#search(type='text' autocomplete="off" value=current_delta.search_query)
+                    unless single_doc
+                        // - .ui.segment(class=loading_class)
+                        .ui.inline.small.grey.header(title='change sort direction')
+                            |sort by
+                        if sortable_fields.count
+                            .ui.simple.large.dropdown(title='sort by')
+                                strong #{current_delta.sort_key}
                                 i.dropdown.icon
                                 .menu
-                                    +set_limit amount=1
-                                    +set_limit amount=5
-                                    +set_limit amount=10
-                                    +set_limit amount=20
-                                    +set_limit amount=50
-                            |&nbsp;
-                            |&nbsp;
-                            |&nbsp;
-                            |of 
-                            .ui.small.inline.header(title='total results') #{current_delta.total}
-                            |&nbsp;
-                            |&nbsp;
-                            // - with delta
-                            // -     +key_value_edit key='view_mode' value='list'
-                            // -     +key_value_edit key='view_mode' value='cards'
-                            +set_view_mode title='list' icon='list'
-                            +set_view_mode title='cards' icon='clone'
-                            //- .ui.inline.small.grey.header view
-                            //- .ui.simple.dropdown.item
-                            //-     |#{current_delta.view_mode}
-                            //-     i.dropdown.icon
-                            //-     .menu
-                            //-         //- +set_view_mode title='table' icon='table'
-                                    //- +set_view_mode title='items' icon='list'
-                                    //- +set_view_mode title='map' icon='map'
-                                    //- +set_view_mode title='graph' icon='graph'
-                            //- .ui.compact.small.icon.button.toggle_right_panel
-                            //-     i.table.large.icon
-                            //- .spacer
-                    .scrolling
-                        //- each current_delta.result_ids
-                        //-     .ui.header #{this}
-                        if delta_key_value_is 'view_mode' 'cards'
-                            .ui.stackable.cards
-                                if is_loading
-                                    each current_delta.result_ids
-                                        .ui.card
-                                            .ui.placeholder
-                                                .rectangular.image
-                                            .content
-                                                .ui.fluid.placeholder
-                                                    .header
-                                                        .line
-                                                    .line
-                                                    .line
-                                                    .line
-                                                    .line
+                                    each sortable_fields
+                                        .item.set_sort_key 
+                                            if icon 
+                                                +icon name=icon
+                                            |#{title}
+                            .ui.tertiary.icon.button.set_sort_direction(title='sort direction')
+                                if sorting_up
+                                    i.sort.amount.down.large.icon
                                 else
-                                    each current_delta.result_ids
-                                        +delta_result_card
-                        else if delta_key_value_is 'view_mode' 'list'
-                            //- .ui.segments
-                            each current_delta.result_ids
-                                if is_loading
-                                    .ui.basic.segment
-                                        .ui.fluid.placeholder
-                                            .line
-                                            .line
-                                            .line
-                                            .line
-                                else 
-                                    +delta_list_result
-                                    // .ui.divider
-                    //- +Template.dynamic template=view_mode_template
+                                    i.sort.amount.up.large.icon
+                        //- .ui.compact.button.set_sort_direction
+                        //-     |#{current_delta.sort_direction}
+                        |&nbsp;
+                        |&nbsp;
+                        //- .ui.inline.small.grey.header
+                        //-     |viewing
+                        //- .ui.simple.dropdown(title='visible fields')
+                        //-     | fields
+                        //-     i.dropdown.icon
+                        //-     .menu
+                        //-         each model_fields
+                        //-             +toggle_visible_field
+                        |&nbsp;
+                        |&nbsp;
+                        |&nbsp;
+                    
+                        .ui.simple.dropdown(title='result limit')
+                            .text.large #{current_delta.limit}
+                            i.dropdown.icon
+                            .menu
+                                +set_limit amount=1
+                                +set_limit amount=5
+                                +set_limit amount=10
+                                +set_limit amount=20
+                                +set_limit amount=50
+                        |&nbsp;
+                        |&nbsp;
+                        |&nbsp;
+                        |of 
+                        .ui.small.inline.header(title='total results') #{current_delta.total}
+                        |&nbsp;
+                        |&nbsp;
+                        // - with delta
+                        // -     +key_value_edit key='view_mode' value='list'
+                        // -     +key_value_edit key='view_mode' value='cards'
+                        +set_view_mode title='list' icon='list'
+                        +set_view_mode title='cards' icon='clone'
+                        //- .ui.inline.small.grey.header view
+                        //- .ui.simple.dropdown.item
+                        //-     |#{current_delta.view_mode}
+                        //-     i.dropdown.icon
+                        //-     .menu
+                        //-         //- +set_view_mode title='table' icon='table'
+                                //- +set_view_mode title='items' icon='list'
+                                //- +set_view_mode title='map' icon='map'
+                                //- +set_view_mode title='graph' icon='graph'
+                        //- .ui.compact.small.icon.button.toggle_right_panel
+                        //-     i.table.large.icon
+                        //- .spacer
+                .scrolling
+                    //- each current_delta.result_ids
+                    //-     .ui.header #{this}
+                    if delta_key_value_is 'view_mode' 'cards'
+                        .ui.stackable.cards
+                            if is_loading
+                                each current_delta.result_ids
+                                    .ui.card
+                                        .ui.placeholder
+                                            .rectangular.image
+                                        .content
+                                            .ui.fluid.placeholder
+                                                .header
+                                                    .line
+                                                .line
+                                                .line
+                                                .line
+                                                .line
+                            else
+                                each current_delta.result_ids
+                                    +delta_result_card
+                    else if delta_key_value_is 'view_mode' 'list'
+                        //- .ui.segments
+                        each current_delta.result_ids
+                            if is_loading
+                                .ui.basic.segment
+                                    .ui.fluid.placeholder
+                                        .line
+                                        .line
+                                        .line
+                                        .line
+                            else 
+                                +delta_list_result
+                                // .ui.divider
+                //- +Template.dynamic template=view_mode_template
             .row 
                 .sixteen.wide.column
                     if model_stats_exists
@@ -138,7 +135,7 @@ template(name='delta')
             //- else
             .ui.basic.segment
                 .ui.header
-                    i.big.loading.grey.yin.yang.icon
+                    i.massive.loading.grey.yin.yang.icon
             
             
 template(name='model_top')

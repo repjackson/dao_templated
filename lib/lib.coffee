@@ -29,10 +29,6 @@ if Meteor.isServer
 
 
 
-Router.route '/chart', (->
-    @layout 'layout'
-    @render 'ticker'
-    ), name:'chart'
 
 Docs.helpers
     author: -> Meteor.users.findOne @_author_id
@@ -56,26 +52,26 @@ Docs.helpers
 
 
 
-Meteor.users.helpers
-    name: ->
-        if @display_name
-            "#{@display_name}"
-        else if @first_name and @last_name
-            "#{@first_name} #{@last_name}"
-        else
-            "#{@username}"
-    is_current_member: ->
-        if @roles
-            if 'admin' in @roles
-                if 'member' in @current_roles then true else false
-            else
-                if 'member' in @roles then true else false
+# Meteor.users.helpers
+#     name: ->
+#         if @display_name
+#             "#{@display_name}"
+#         else if @first_name and @last_name
+#             "#{@first_name} #{@last_name}"
+#         else
+#             "#{@username}"
+#     is_current_member: ->
+#         if @roles
+#             if 'admin' in @roles
+#                 if 'member' in @current_roles then true else false
+#             else
+#                 if 'member' in @roles then true else false
 
-    email_address: -> if @emails and @emails[0] then @emails[0].address
-    email_verified: -> if @emails and @emails[0] then @emails[0].verified
-    five_tags: -> if @tags then @tags[..4]
-    three_tags: -> if @tags then @tags[..2]
-    last_name_initial: -> if @last_name then @last_name.charAt 0
+#     email_address: -> if @emails and @emails[0] then @emails[0].address
+#     email_verified: -> if @emails and @emails[0] then @emails[0].verified
+#     five_tags: -> if @tags then @tags[..4]
+#     three_tags: -> if @tags then @tags[..2]
+#     last_name_initial: -> if @last_name then @last_name.charAt 0
  
  
     

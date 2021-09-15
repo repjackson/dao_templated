@@ -19,7 +19,7 @@ head
     script(src='https://cdn.jsdelivr.net/npm/jquery@3.3.1/dist/jquery.min.js')
     script(src='https://cdn.jsdelivr.net/npm/fomantic-ui@2.7.4/dist/semantic.min.js')
     
-    script(src="https://cdn.jsdelivr.net/npm/sweetalert2@9")
+    // script(src="https://cdn.jsdelivr.net/npm/sweetalert2@9")
     script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/dist/suneditor.min.js")
     script(src="https://cdn.jsdelivr.net/npm/suneditor@latest/src/lang/en.js")
 
@@ -35,22 +35,22 @@ head
     
 template(name='layout')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
-    +nav
-    .ui.bottom.attached.pushable.segment.scroling
-        // +left_sidebar
-        // +right_sidebar
-        // +topbar
-        // +cartbar
-        // +walletbar
-        // +secnav
-        if logging_in
-            .ui.center.aligned.basic.segment
-                i.massive.loading.yin.yang.grey.icon
-        else
-            .global_conainer.pusher
-                // unless connected
-                //     +status
-                +yield
+    // +nav
+    // .ui.bottom.attached.pushable.segment.scroling
+    //     // +left_sidebar
+    //     // +right_sidebar
+    //     // +topbar
+    //     // +cartbar
+    //     // +walletbar
+    //     // +secnav
+    //     if logging_in
+    //         .ui.center.aligned.basic.segment
+    //             i.massive.loading.yin.yang.grey.icon
+    //     else
+    .global_conainer.pusher
+        // unless connected
+        //     +status
+        +yield
         // +ad_space
 //         if in_dev
 //             +admin_footer

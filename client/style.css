@@ -12,7 +12,7 @@ body {
     filter: invert(1) !important; 
     /* overscroll-behavior: none; */
     /*transition: all .25s ease !important;*/
-     /*background: #0e0e44 !important; */
+     background: black !important; 
 }
 
 .shadowed {

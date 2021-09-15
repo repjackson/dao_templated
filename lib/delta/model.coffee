@@ -65,18 +65,6 @@ if Meteor.isClient
         @layout 'model_edit_layout'
         @render 'model_edit_dashboard'
         ), name:'model_edit_dashboard'
-    Router.route '/model/edit/:doc_id/fields', (->
-        @layout 'model_edit_layout'
-        @render 'model_edit_fields'
-        ), name:'model_edit_fields'
-    Router.route '/model/edit/:doc_id/modules', (->
-        @layout 'model_edit_layout'
-        @render 'model_edit_modules'
-        ), name:'model_edit_modules'
-    Router.route '/model/edit/:doc_id/permissions', (->
-        @layout 'model_edit_layout'
-        @render 'model_edit_permissions'
-        ), name:'model_edit_permissions'
 
 
     Template.model_edit_layout.onCreated ->
@@ -107,7 +95,7 @@ if Meteor.isClient
 
 
 
-    Template.model_edit_fields.helpers
+    Template.model_edit_layout.helpers
         fields: ->
             Docs.find {
                 model:'field'
@@ -115,10 +103,10 @@ if Meteor.isClient
             }, sort:rank:1
 
     Template.model_edit_layout.events
-        'click #delete_model': (e,t)->
-            if confirm 'delete model?'
-                Docs.remove Router.current().params.doc_id, ->
-                    Router.go "/"
+        # 'click #delete_model': (e,t)->
+        #     if confirm 'delete model?'
+        #         Docs.remove Router.current().params.doc_id, ->
+        #             Router.go "/"
 
         'click .add_field': ->
             Docs.insert

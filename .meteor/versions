@@ -1,5 +1,3 @@
-accounts-base@2.0.1
-accounts-password@2.0.1
 aldeed:simple-schema@1.3.3
 allow-deny@1.1.0
 autoupdate@1.7.0
@@ -21,7 +19,6 @@ dburles:collection-helpers@1.1.0
 ddp@1.4.0
 ddp-client@2.5.0
 ddp-common@1.4.0
-ddp-rate-limiter@1.1.0
 ddp-server@2.4.1
 deps@1.0.12
 diff-sequence@1.1.1
@@ -31,7 +28,6 @@ ecmascript-runtime@0.7.0
 ecmascript-runtime-client@0.11.1
 ecmascript-runtime-server@0.10.1
 ejson@1.1.1
-email@2.1.1
 es5-shim@4.8.0
 fetch@0.1.1
 francocatena:status@1.5.3
@@ -53,7 +49,6 @@ iron:url@1.0.11
 jquery@1.11.11
 launch-screen@1.3.0
 lepozepo:cloudinary@4.2.6
-localstorage@1.2.0
 logging@1.2.0
 manuel:reactivearray@1.0.9
 meteor@1.9.3
@@ -82,7 +77,6 @@ ordered-dict@1.1.0
 promise@0.12.0
 raix:eventemitter@0.1.3
 random@1.2.0
-rate-limit@1.0.9
 react-fast-refresh@0.1.1
 reactive-dict@1.3.0
 reactive-var@1.0.11
@@ -90,9 +84,7 @@ reload@1.3.1
 retry@1.1.0
 reywood:publish-composite@1.7.3
 routepolicy@1.1.1
-service-configuration@1.1.0
 session@1.2.0
-sha@1.0.9
 shell-server@0.5.0
 socket-stream-client@0.4.0
 spacebars@1.2.0
@@ -109,4 +101,3 @@ underscore@1.0.10
 url@1.3.2
 webapp@1.11.1
 webapp-hashing@1.1.0
-zimme:active-route@2.3.2
