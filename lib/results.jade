@@ -22,30 +22,21 @@ template(name='delta_result_card')
                         //-     i.right.chevron.green.icon
                             //- +icon name='chevron-right' clases='ui avatar image'
                         if is_admin
-                            a.ui.compact.basic.button.route_model(href="/model/edit/#{_id}")
+                            a.ui.compact.icon.basic.button.route_model(href="/model/edit/#{_id}")
                                 i.cog.icon
-                                |edit model
+                                // |edit model
                             span(title='views')
                                 i.grey.eye.icon
                                 | #{views}
-                            .ui.teal.label 
-                                |#{app}
+                            // .ui.teal.label 
+                            //     |#{app}
                     else
                         if can_edit
                             a.ui.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
-                                i.pencil.large.icon
+                                i.pencil.icon
                                 //- |edit
                         //- a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
                         //-     i.right.chevron.yellow.large.icon
-                    if is_admin
-                        // if _author_id
-                        //     +author_info
-                        // +creation_info
-                        .ui.small.inline.header #{views} views
-                            //- i.eye.icon
-                            each viewer_usernames
-                                .ui.small.inverted.label #{this}
-                    //- +comments
                 if is_admin
                     +print_this
                     +remove_button
