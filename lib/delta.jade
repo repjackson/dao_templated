@@ -100,7 +100,7 @@ template(name='delta')
                                     .content
                                         .ui.fluid.placeholder
                                             .header
-                                                .line
+                                            .line
                                             .line
                                             .line
                                             .line
@@ -146,8 +146,7 @@ template(name='model_top')
     else
         unless key_value_is current_delta.model_filter 'model'
             // if is_admin
-            a.ui.icon.basic.compact.circular.button.go_home
-                i.big.home.icon
+            i.big.circular.link.home.icon.zoomer.go_home
         a.ui.inline.large.header.reset(title="#{description}, #{views} views")
             // i.large.icon(class=icon)
             +i name=icon
