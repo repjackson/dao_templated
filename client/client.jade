@@ -118,37 +118,6 @@ template(name='admin_footer')
                                 .ui.label model:#{model}
                                 +print_this
       
-      
-      
-template(name='add')
-    .ui.padded.grid
-        .ui.one.column.row 
-            .column
-                .ui.center.aligned.big.header 
-                    i.plus.icon
-                    |add document
-        .ui.four.column.centered.row 
-            +add_column label='post' model='post' icon='blog'
-            +add_column label='event' model='event' icon='calendar'
-            +add_column label='review' model='review' icon='chat'
-            +add_column label='picture' model='picture' icon='image'
-            +add_column label='food' model='food' icon='food'
-            +add_column label='drink' model='drink' icon='beer'
-            +add_column label='user' model='user' icon='user'
-            +add_column label='ingredient' model='ingredient' icon='ingredients'
-            +add_column label='checkin' model='checkin' icon='checkmark'
-            +add_column label='transfer' model='transfer' icon='donation'
-            +add_column label='topup' model='topup' icon='donation'
-        
-template(name='add_column')
-    a.center.aligned.column.zoomer.add_doc.pointer
-        a.ui.icon.header
-            +i name=icon
-            |#{label}
-
-
-      
-
 
 
 
@@ -165,7 +134,7 @@ template(name='not_found')
                   
                   
                   
-template(name='inbox')
-    .ui.header 
-        i.mail.icon
-        |inbox
+template(name='print_this')
+    i.circular.large.code.link.icon.print_this
+template(name='remove_button')
+    i.circular.large.remove.link.icon.print_this
