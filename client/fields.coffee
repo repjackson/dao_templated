@@ -28,7 +28,7 @@ Template.key_value_set.helpers
         if Template.parentData()[@key] is @value then 'teal' else 'basic'
 Template.key_value_set.events
     'click .set_value': ->
-        Docs.update Router.current().params.doc_id,
+        Docs.update Template.parentData()._id,
             $set:"#{@key}":@value
 
 Template.html_edit.onRendered ->
