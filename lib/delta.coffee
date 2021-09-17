@@ -130,7 +130,7 @@ if Meteor.isClient
         @render 'delta'
         ), name:'delta'
 
-    Template.delta.onCreated ->
+    Template.layout.onCreated ->
         @autorun -> Meteor.subscribe 'query', Session.get('query'), ->
     Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
@@ -143,7 +143,7 @@ if Meteor.isClient
     # Template.delta.onRendered ->
     #     Meteor.call 'log_view', @_id, ->
 
-    Template.delta.helpers
+    Template.layout.helpers
         results: ->
             Docs.find 
                 title: {$regex:Session.get('query'), $options:'i'}
@@ -229,7 +229,7 @@ if Meteor.isClient
             Docs.find 
                 model:'model'
 
-    Template.delta.events
+    Template.layout.events
         'click .toggle_sort_column': ->
             console.log @
             delta = Docs.findOne model:'delta'

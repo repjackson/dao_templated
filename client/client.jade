@@ -47,13 +47,30 @@ template(name='layout')
     //         .ui.center.aligned.basic.segment
     //             i.massive.loading.yin.yang.grey.icon
     //     else
-    .global_conainer.pusher
-        // unless connected
-        //     +status
-        +yield
-        // +ad_space
-        if in_dev
-            +admin_footer
+    .sixteen.wide.center.aligned.column
+        .ui.big.icon.input   
+            i.search.icon
+            input#search(type='text')
+        .ui.big.cards
+            each results
+                .card
+                    img.ui.image(src="{{c.url image_id gravity='face' crop='fit'}}" )
+                    .content
+                        .ui.header
+                            |#{title}
+                        .ui.label model:#{model}
+                        .ui.label #{points}p
+                        +print_this
+                        if in_dev 
+                            +remove_button
+
+    // .global_conainer.pusher
+    //     // unless connected
+    //     //     +status
+    //     +yield
+    //     // +ad_space
+    //     if in_dev
+    //         +admin_footer
 
       
 // template(name='ad_space')
