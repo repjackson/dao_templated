@@ -5,6 +5,9 @@
 Template.print_this.events
     'click .print_this': ->
         console.log @
+        
+        
+        
 
 Template.remove_button.events
     'click .remove_this': ->
@@ -12,17 +15,8 @@ Template.remove_button.events
             console.log @
             Docs.remove @_id
 
-Router.configure
-    layoutTemplate: 'layout'
-    notFoundTemplate: 'home'
-    loadingTemplate: 'splash'
-    trackPageView: true
-
 
 $.cloudinary.config
     cloud_name:"facet"
 
         
-
-Router.route '*', -> @render 'home'
-
