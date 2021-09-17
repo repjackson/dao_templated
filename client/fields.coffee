@@ -9,6 +9,18 @@ Template.youtube_view.onRendered ->
     , 1000
 
 
+Template.related_wiki_article.onCreated ->
+    @autorun => Meteor.subscribe 'related_wiki_article', Router.current().params.doc_id, ->
+        
+        
+Template.related_wiki_article.helpers
+    related_article: ->
+        Docs.findOne 
+            model:'wikipedia'
+            # title:@title
+            
+        
+    
 Template.call_wiki.events
     'click .call_wiki': ->
         console.log @

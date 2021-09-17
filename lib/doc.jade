@@ -51,6 +51,12 @@ template(name='model_doc_view')
                         // if watson
                         //     +watson_view
                         +call_wiki
+                        +related_wiki_article
+                        
+                        
+template(name='related_wiki_article')
+    with related_article
+        .ui.header #{title}
                         
                         
 template(name='call_wiki')  

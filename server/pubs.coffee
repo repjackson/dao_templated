@@ -279,7 +279,11 @@ Meteor.publish 'doc_by_id', (doc_id)->
 #     transfer = 
 #         Docs.findOne transfer_id
     
-    
+Meteor.publish 'related_wiki_article', (doc_id)->
+    post = Docs.findOne doc_id
+    Docs.find 
+        model:'wikipedia'
+        title:post.title
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
     
