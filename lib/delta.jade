@@ -14,6 +14,8 @@ template(name='delta')
                             .content
                                 .ui.header
                                     |#{title}
+                                .ui.label model:#{model}
+                                .ui.label #{points}p
                                 +print_this
                                 if in_dev 
                                     +remove_button
