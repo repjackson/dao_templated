@@ -292,6 +292,12 @@ Meteor.publish 'related_wiki_article', (doc_id)->
 Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
     
+
+Meteor.publish 'query', (query)->
+    Docs.find {
+        title: {$regex:query, $options:'i'}
+    }, limit:10
+    
 # Meteor.publish 'comments', (doc_id)->
 #     # doc = Docs.findOne doc_id
 #     Docs.find 

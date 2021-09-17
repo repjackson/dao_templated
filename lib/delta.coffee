@@ -131,7 +131,7 @@ if Meteor.isClient
         ), name:'delta'
 
     Template.delta.onCreated ->
-        @autorun -> Meteor.subscribe 'models', ->
+        @autorun -> Meteor.subscribe 'query', Session.get('query'), ->
     Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
@@ -144,6 +144,10 @@ if Meteor.isClient
     #     Meteor.call 'log_view', @_id, ->
 
     Template.delta.helpers
+        results: ->
+            Docs.find 
+                title: {$regex:Session.get('query'), $options:'i'}
+
         result_column_class: ->
             delta = Docs.findOne model:'delta'
             model = Docs.findOne model:'model'
@@ -389,13 +393,13 @@ if Meteor.isClient
             #             picked_tags.pop()
         'keyup #search': _.throttle((e,t)->
             query = $('#search').val()
-            Session.set('current_query', query)
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $set:search_query:query
-            Session.set 'loading', true
-            Meteor.call 'fum', delta._id, ->
-                Session.set 'loading', false
+            Session.set('query', query)
+            # delta = Docs.findOne model:'delta'
+            # Docs.update delta._id,
+            #     $set:search_query:query
+            # Session.set 'loading', true
+            # Meteor.call 'fum', delta._id, ->
+            #     Session.set 'loading', false
 
             # console.log Session.get('current_query')
             if e.which is 13

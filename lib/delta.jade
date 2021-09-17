@@ -4,12 +4,19 @@ template(name='delta')
         // unless current_model.show_facets
         .middle.aligned.row
             .sixteen.wide.center.aligned.column
-                +model_top
-                .ui.cards
-                    each model_docs
-                        .ui.big.button.pick_model
-                            +i name=icon
+                .ui.big.input   
+                    i.search.icon
+                    input#search(type='text')
+                .ui.big.list
+                    each results
+                        .ui.header
                             |#{title}
+                // +model_top
+                // .ui.cards
+                //     each model_docs
+                //         .ui.big.button.pick_model
+                //             +i name=icon
+                //             |#{title}
                     // if current_model.show_facets
                     //     .four.wide.column
                     //         each sorted_facets
