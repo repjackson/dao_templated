@@ -51,12 +51,16 @@ template(name='home')
     //     else
     .sixteen.wide.center.aligned.column
         .ui.big.icon.input   
-            i.search.icon
-            input#search(type='text')
+            if query
+                i.remove.link.large.icon.clear_query
+            else
+                i.search.large.icon
+            input#search(type='text' value=query)
+            
         each picked_tags
-            .ui.large.label.unpick_tag #{this}
+            a.ui.big.active.label.unpick_tag.pointer.zoomer #{this}
         each result_tags
-            .ui.large.label.pick_tag #{title}
+            a.ui.large.label.pick_tag.zoomer.pointer #{title}
         
         .ui.big.cards.scrolling
             each results

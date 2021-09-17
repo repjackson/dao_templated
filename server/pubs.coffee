@@ -81,7 +81,7 @@ Meteor.publish 'tags', (
         match.title = {$regex:query, $options:'i'}
 
     
-    # if picked_tags.length > 0 then match.tags = $all:picked_tags 
+    if picked_tags.length > 0 then match.tags = $all:picked_tags 
 
     # if picked_location_tags.length > 0 then match.location_tags = $all:picked_location_tags 
     # if picked_timestamp_tags.length > 0 then match._timestamp_tags = $all:picked_timestamp_tags 
@@ -252,7 +252,7 @@ Meteor.publish 'query', (
         
     match = {}
     if picked_tags.length > 0
-        match.tags = $in:picked_tags
+        match.tags = $all:picked_tags
     if query.length > 0
         match.title = {$regex:query, $options:'i'}
     Docs.find match, { limit:20, sort:points:-1}
