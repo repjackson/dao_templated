@@ -161,20 +161,6 @@ if Meteor.isClient
             console.log delta
 
 
-        'click .go_home': ->
-            Session.set 'loading', true
-            Router.go "/m/model"
-            # Meteor.call 'log_view', @_id, ->
-            Meteor.call 'set_facets', 'model', ->
-                Session.set 'loading', false
-
-        'click .create_model': ->
-            new_model_id = Docs.insert
-                model:'model'
-                slug: Router.current().params.model_slug
-            new_model = Docs.findOne new_model_id
-            Router.go "/model/edit/#{new_model._id}"
-
 
         'click .clear_query': ->
             # console.log @
@@ -184,101 +170,6 @@ if Meteor.isClient
             Session.set 'loading', true
             Meteor.call 'fum', delta._id, ->
                 Session.set 'loading', false
-
-        'click .set_sort_key': ->
-            # console.log @
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $set:sort_key:@key
-            Session.set 'loading', true
-            Meteor.call 'fum', delta._id, ->
-                Session.set 'loading', false
-
-        'click .set_sort_direction': (e,t)->
-            # console.log @
-            # $(e.currentTarget).closest('.button').transition('pulse', 250)
-
-            delta = Docs.findOne model:'delta'
-            if delta.sort_direction is -1
-                Docs.update delta._id,
-                    $set:sort_direction:1
-            else
-                Docs.update delta._id,
-                    $set:sort_direction:-1
-            Session.set 'loading', true
-            Meteor.call 'fum', delta._id, ->
-                Session.set 'loading', false
-
-        'click .create_delta': (e,t)->
-            console.log 'create delta'
-            Docs.insert
-                model:'delta'
-                view_mode:'cards'
-                model_filter: Router.current().params.model_slug
-
-        'click .print_delta': (e,t)->
-            delta = Docs.findOne model:'delta'
-            console.log delta
-
-        'click .reset': ->
-            model_slug =  Router.current().params.model_slug
-            Session.set 'loading', true
-            Meteor.call 'set_facets', model_slug, true, ->
-                Session.set 'loading', false
-
-        'click .delete_delta': (e,t)->
-            delta = Docs.findOne model:'delta'
-            if delta
-                if confirm "delete  #{delta._id}?"
-                    Docs.remove delta._id
-
-        # 'mouseenter .add_model_doc': (e,t)->
-    	# 	$(e.currentTarget).addClass('spinning')
-
-        'click .add_model_doc': ->
-            model = Docs.findOne
-                model:'model'
-                slug: Router.current().params.model_slug
-            # console.log model
-            # if model.collection and model.collection is 'users'
-            #     name = prompt 'first and last name'
-            #     split = name.split ' '
-            #     first_name = split[0]
-            #     last_name = split[1]
-            #     username = name.split(' ').join('_')
-            #     # console.log username
-            #     Meteor.call 'add_user', first_name, last_name, username, 'guest', (err,res)=>
-            #         if err
-            #             alert err
-            #         else
-            #             Meteor.users.update res,
-            #                 $set:
-            #                     first_name:first_name
-            #                     last_name:last_name
-            #             Router.go "/m/#{model.slug}/#{res}/edit"
-            # else if model.slug is 'gift'
-            #     new_doc_id = Docs.insert
-            #         model:model.slug
-            #     Router.go "/debit/#{new_doc_id}/edit"
-            if model.slug is 'model'
-                new_doc_id = Docs.insert
-                    model:'model'
-                    _timestamp:Date.now()
-                    
-                Router.go "/model/edit/#{new_doc_id}"
-            else
-                console.log model
-                new_doc_id = Docs.insert
-                    _timestamp:Date.now()
-                    model:model.slug
-                Router.go "/m/#{model.slug}/#{new_doc_id}/edit"
-
-
-        'click .edit_model': ->
-            model = Docs.findOne
-                model:'model'
-                slug: Router.current().params.model_slug
-            Router.go "/model/edit/#{model._id}"
 
         # 'click .page_up': (e,t)->
         #     delta = Docs.findOne model:'delta'
