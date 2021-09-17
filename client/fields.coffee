@@ -30,6 +30,19 @@ Template.key_value_set.events
     'click .set_value': ->
         Docs.update Template.parentData()._id,
             $set:"#{@key}":@value
+            
+            
+            
+Template.voting.events
+    'click .vote_up': ->
+        Docs.update @_id,
+            $inc:points:1
+    'click .vote_down': ->
+        Docs.update @_id,
+            $inc:points:-1
+
+
+
 
 Template.html_edit.onRendered ->
     @editor = SUNEDITOR.create((document.getElementById('sample') || 'sample'),{

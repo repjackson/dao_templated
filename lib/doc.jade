@@ -9,7 +9,7 @@ template(name='model_doc_view')
                         .ui.circular.basic.large.button.back_to_model.fly_right
                             i.chevron.left.icon
                             // i.big.icon(class=current_model.icon)
-                            +i name=current_model.icon
+                            +i name=current_model.icon cl='ui avatar image'
                             |#{current_model.title}
                         // if can_edit
                         a.ui.large.icon.circular.button.fly_down(href="/m/#{current_model.slug}/#{_id}/edit" title='Edit')
@@ -31,7 +31,7 @@ template(name='model_doc_view')
                             // +author_info
                             // +creation_info
                         //- +points_transaction
-                        //- +voting
+                        +voting
                     .twelve.wide.column
                         .ui.header
                             each fields

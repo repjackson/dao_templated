@@ -14,6 +14,15 @@ template(name='key_value_set')
         |#{value}
         
         
+template(name='voting')
+    .ui.circular.basic.icon.button.vote_up
+        i.thumbs.up.icon
+    |#{points}
+    .ui.circular.basic.icon.button.vote_downs
+        i.thumbs.down.icon
+        
+        
+        
         
 template(name='key_value_edit')
     .ui.circular.button.set_value(class=kve_class)

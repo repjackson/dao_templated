@@ -79,16 +79,16 @@ template(name='model_view')
 template(name='model_edit_layout')
     // +nav
     with current_doc
-        .ui.stackable.grid            
+        .ui.stackable.padded.grid            
             .centered.row
-                .eight.wide.column
+                .four.wide.column
                     small editing model
                     .ui.inline.header
                         +i name=icon
                         // i.icon(class=icon)
                         |#{title}
                     div
-                    |added #{when}
+                    | #{when}
                     +print_this
                     div
                     a.ui.big.icon.pink.circular.button(href="/m/#{slug}")
@@ -106,7 +106,7 @@ template(name='model_edit_layout')
                         //- +text_edit key='collection' label='collection' direct=true
                         // +key_value_set key='collection' value='docs' icon='document'
                         // +key_value_set key='collection' value='users' icon='users'
-                .eight.wide.column
+                .twelve.wide.column
                     //- |#{model}
                     //- each fields
                     //-     +Template.dynamic template=edit_template 
