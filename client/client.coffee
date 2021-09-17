@@ -1,9 +1,16 @@
 @picked_emotions = new ReactiveArray []
+@picked_tags = new ReactiveArray []
 
 
 Template.print_this.events
     'click .print_this': ->
         console.log @
+
+Template.remove_button.events
+    'click .remove_this': ->
+        if confirm "delete #{@title}?"
+            console.log @
+            Docs.remove @_id
 Template.body.events
     'click .zoom_in_card': (e,t)->
         $(e.currentTarget).closest('.card').transition('drop', 500)

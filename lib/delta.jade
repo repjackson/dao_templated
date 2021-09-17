@@ -15,6 +15,8 @@ template(name='delta')
                                 .ui.header
                                     |#{title}
                                 +print_this
+                                if in_dev 
+                                    +remove_button
                 // +model_top
                 // .ui.cards
                 //     each model_docs
@@ -199,6 +201,7 @@ template(name='model_top')
 template(name='print_this')
     i.circular.code.link.icon.print_this        
 template(name='remove_button')
+    i.circular.remove.link.icon.remove_this        
             
             
 template(name='toggle_visible_field')            

@@ -296,7 +296,7 @@ Meteor.publish 'doc', (doc_id)->
 Meteor.publish 'query', (query)->
     Docs.find {
         title: {$regex:query, $options:'i'}
-    }, limit:10
+    }, { limit:10, sort:points:-1}
     
 # Meteor.publish 'comments', (doc_id)->
 #     # doc = Docs.findOne doc_id
