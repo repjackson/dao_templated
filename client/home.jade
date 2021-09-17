@@ -62,9 +62,9 @@ template(name='home')
         each result_tags
             a.ui.compact.large.button.pick_tag.zoomer.pointer #{title}
         
-        .ui.big.cards.scrollin
+        .ui.centered.cards.scrollin
             each results
-                .card
+                div(class=card_class)
                     img.ui.image(src="{{c.url image_id }}" )
                     img.ui.image(src="{{c.url image }}" )
                     .content

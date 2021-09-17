@@ -21,6 +21,13 @@ Template.home.onCreated ->
         , ->
 
 Template.home.helpers
+    card_class: ->
+        count = Docs.find({}).count()
+        console.log 'count', count
+        if count is 1
+            'ui fluid card'
+        else 
+            'ui card'
     query: -> Session.get('query')
     results: ->
         match = {}
