@@ -266,3 +266,53 @@ template(name='toggle_delta_config')
             // | #{label}
             
             
+            
+            
+template(name='delta_result_card')
+    with result
+        // if template_exists
+        //     +Template.dynamic template=model_template
+        // else
+        .ui.card.result.pointer(class=loading_class tabindex="1")
+            .content
+                if title
+                    .ui.header #{title}
+                if tags 
+                    each tags 
+                        .ui.basic.label #{this}
+                if image
+                    img.ui.image(src="{{c.url image gravity='face' crop='fit'}}" class=currentUser.invert_class)
+                if key_value_is 'model' 'model'
+                    .ui.inline.header
+                        // i.icon(class=icon)
+                        +i name=icon
+                        |#{title}
+                else
+                    each fields
+                        +Template.dynamic template=view_template
+                        div
+                if key_value_is 'model' 'model'
+                    //- +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark' color='red'
+                    //- a.ui.button.route_model(href="/m/#{slug}")
+                    //-     |view model
+                    //-     i.right.chevron.green.icon
+                        //- +icon name='chevron-right' clases='ui avatar image'
+                    // a.ui.compact.icon.basic.button.route_model(href="/model/edit/#{_id}")
+                    //     i.cog.icon
+                    //     // |edit model
+                    span(title='views')
+                        i.grey.eye.icon
+                        | #{views}
+                    // .ui.teal.label 
+                    //     |#{app}
+                else
+                    if can_edit
+                        a.ui.icon.button(href="/m/#{current_model.slug}/#{_id}/edit" title='edit')
+                            i.pencil.icon
+                            //- |edit
+                    //- a.ui.icon.large.button(href="/m/#{current_model.slug}/#{_id}/view" title='view')
+                    //-     i.right.chevron.yellow.large.icon
+                if is_admin
+                    +print_this
+                    +remove_button            
+            
