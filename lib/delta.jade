@@ -2,15 +2,19 @@ template(name='delta')
     .ui.stackable.padded.grid
         // with current_model
         // unless current_model.show_facets
-        .middle.aligned.row
+        .row
             .sixteen.wide.center.aligned.column
-                .ui.big.input   
+                .ui.big.icon.input   
                     i.search.icon
                     input#search(type='text')
-                .ui.big.list
+                .ui.big.cards
                     each results
-                        .ui.header
-                            |#{title}
+                        .card
+                            img.ui.image(src="{{c.url image_id gravity='face' crop='fit'}}" )
+                            .content
+                                .ui.header
+                                    |#{title}
+                                +print_this
                 // +model_top
                 // .ui.cards
                 //     each model_docs
@@ -280,6 +284,8 @@ template(name='delta_result_card')
                 if tags 
                     each tags 
                         .ui.basic.label #{this}
+                if image_id
+                    img.ui.image(src="{{c.url imag_ide gravity='face' crop='fit'}}" class=currentUser.invert_class)
                 if image
                     img.ui.image(src="{{c.url image gravity='face' crop='fit'}}" class=currentUser.invert_class)
                 if key_value_is 'model' 'model'
