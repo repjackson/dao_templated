@@ -131,15 +131,15 @@ if Meteor.isClient
         ), name:'delta'
 
     Template.delta.onCreated ->
-        @autorun -> Meteor.subscribe 'me'
-        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'my_delta'
-        @autorun -> Meteor.subscribe 'all_users'
+        @autorun -> Meteor.subscribe 'models', ->
+    Template.delta.onCreated ->
+        # @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
+        # @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
+        # @autorun -> Meteor.subscribe 'my_delta'
 
-        Session.set 'loading', true
-        Meteor.call 'set_facets', Router.current().params.model_slug, ->
-            Session.set 'loading', false
+        # Session.set 'loading', true
+        # Meteor.call 'set_facets', Router.current().params.model_slug, ->
+        #     Session.set 'loading', false
     # Template.delta.onRendered ->
     #     Meteor.call 'log_view', @_id, ->
 
@@ -221,7 +221,9 @@ if Meteor.isClient
         model_stats: ->
             current_model = Router.current().params.model_slug
             "#{current_model}_stats"
-
+        model_docs: ->
+            Docs.find 
+                model:'model'
 
     Template.delta.events
         'click .toggle_sort_column': ->
@@ -431,25 +433,25 @@ if Meteor.isClient
             delta = Docs.findOne model:'delta'
             @_id in delta.viewable_fields
 
-    Template.set_limit.events
-        'click .set_limit': ->
-            # console.log @
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $set:limit:@amount
-            Session.set 'loading', true
-            Meteor.call 'fum', delta._id, ->
-                Session.set 'loading', false
+    # Template.set_limit.events
+    #     'click .set_limit': ->
+    #         # console.log @
+    #         delta = Docs.findOne model:'delta'
+    #         Docs.update delta._id,
+    #             $set:limit:@amount
+    #         Session.set 'loading', true
+    #         Meteor.call 'fum', delta._id, ->
+    #             Session.set 'loading', false
 
-    Template.set_view_mode.events
-        'click .set_view_mode': ->
-            # console.log @
-            delta = Docs.findOne model:'delta'
-            Docs.update delta._id,
-                $set:view_mode:@title
-            Session.set 'loading', true
-            Meteor.call 'fum', delta._id, ->
-                Session.set 'loading', false
+    # Template.set_view_mode.events
+    #     'click .set_view_mode': ->
+    #         # console.log @
+    #         delta = Docs.findOne model:'delta'
+    #         Docs.update delta._id,
+    #             $set:view_mode:@title
+    #         Session.set 'loading', true
+    #         Meteor.call 'fum', delta._id, ->
+    #             Session.set 'loading', false
 
 
 

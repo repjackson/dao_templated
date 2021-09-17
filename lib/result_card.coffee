@@ -70,7 +70,7 @@ if Meteor.isClient
             if @model is 'model'
                 Router.go "/m/#{@slug}"
             else
-                Router.go "/m/#{model_slug}/#{@_id}/view"
+                Router.go "/m/#{@model}/#{@_id}/view"
 
         'click .set_model': ->
             Meteor.call 'set_delta_facets', @slug
