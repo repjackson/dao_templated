@@ -7,6 +7,10 @@ Template.print_this.events
         console.log @
         
         
+Template.home.helpers
+    ten_tags: ->
+        @tags[..10]
+        
         
 
 Template.remove_button.events

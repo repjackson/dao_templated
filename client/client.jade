@@ -65,6 +65,8 @@ template(name='home')
                         +print_this
                         if in_dev 
                             +remove_button
+                        each ten_tags 
+                            .ui.label #{this}
 
                   
 template(name='print_this')
