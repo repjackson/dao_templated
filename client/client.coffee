@@ -7,7 +7,15 @@ Template.print_this.events
         console.log @
         
         
+Template.home.events
+    'click .pick_tag': ->
+        picked_tags.push @title
+    'click .unpick_tag': ->
+        picked_tags.remove @valueOf()
+        
 Template.home.helpers
+    picked_tags: ->
+        picked_tags.array()
     ten_tags: ->
         @tags[..10]
         

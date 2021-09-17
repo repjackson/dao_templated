@@ -53,9 +53,12 @@ template(name='home')
         .ui.big.icon.input   
             i.search.icon
             input#search(type='text')
+        each picked_tags
+            .ui.large.label.unpick_tag #{this}
         each result_tags
-            .ui.large.label #{title}
-        .ui.big.cards
+            .ui.large.label.pick_tag #{title}
+        
+        .ui.big.cards.scrolling
             each results
                 .card
                     img.ui.image(src="{{c.url image_id }}" )

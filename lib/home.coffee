@@ -3,146 +3,23 @@ if Meteor.isClient
         nl2br = (text + '').replace(/([^>\r\n]?)(\r\n|\n\r|\r|\n)/g, '$1' + '<br>' + '$2')
         new Spacebars.SafeString(nl2br)
     
-    
-    Template.registerHelper 'delta_key_value_is', (key, value) ->
-        # console.log 'key', key
-        delta = Docs.findOne model:'delta'
-        # console.log 'value', value
-        if delta
-            delta["#{key}"] is value
-        
-        
     Template.registerHelper 'fixed', (input) ->
         if input
             input.toFixed(2)
             
             
-    Template.registerHelper 'sortable_fields', () ->
-        model = Docs.findOne
-            model:'model'
-            slug:Router.current().params.model_slug
-        if model
-            Docs.find {
-                model:'field'
-                parent_id:model._id
-                sortable:true
-            }, sort:rank:1
-
-
-    Template.registerHelper 'current_delta', () -> Docs.findOne model:'delta'
-    Template.registerHelper 'view_template', ->
-        # console.log 'view template this', @
-        field_type_doc =
-            Docs.findOne
-                model:'field_type'
-                _id: @field_type_id
-        # console.log 'field type doc', field_type_doc
-        "#{field_type_doc.slug}_view"
-
-
-    Template.registerHelper 'edit_template', ->
-        field_type_doc =
-            Docs.findOne
-                model:'field_type'
-                _id: @field_type_id
-
-        # console.log 'field type doc', field_type_doc
-        "#{field_type_doc.slug}_edit"
-
-
-    Template.registerHelper 'fields', () ->
-        model = Docs.findOne
-            model:'model'
-            slug:Router.current().params.model_slug
-        if model
-            match = {}
-            # if Meteor.user()
-            #     match.view_roles = $in:Meteor.user().roles
-            match.model = 'field'
-            match.parent_id = model._id
-            # console.log model
-            cur = Docs.find match,
-                sort:rank:1
-            # console.log cur.fetch()
-            cur
-
-    Template.registerHelper 'edit_fields', () ->
-        console.log 'finding edit fields'
-        model = Docs.findOne
-            model:'model'
-            slug:Router.current().params.model_slug
-        if model
-            Docs.find {
-                model:'field'
-                parent_id:model._id
-                # edit_roles:$in:Meteor.user().roles
-            }, sort:rank:1
-
-
-    Template.registerHelper 'view_template', -> "#{@field_type}_view"
-    Template.registerHelper 'edit_template', -> "#{@field_type}_edit"
-
-    Template.registerHelper 'current_model', ->
-        Docs.findOne
-            model:'model'
-            slug: Router.current().params.model_slug
-
     Template.registerHelper 'is_loading', () ->
         Session.get('loading')
-    Template.registerHelper 'field_value', () ->
-        # console.log @
-        parent = Template.parentData()
-        parent5 = Template.parentData(5)
-        parent6 = Template.parentData(6)
-
-
-        if @direct
-            parent = Template.parentData()
-        else if parent5
-            if parent5._id
-                parent = Template.parentData(5)
-        else if parent6
-            if parent6._id
-                parent = Template.parentData(6)
-        # console.log 'parent', parent
-        if parent
-            parent["#{@key}"]
-
-
-    Template.registerHelper 'sorted_field_values', () ->
-        # console.log @
-        parent = Template.parentData()
-        parent5 = Template.parentData(5)
-        parent6 = Template.parentData(6)
-
-
-        if @direct
-            parent = Template.parentData()
-        else if parent5._id
-            parent = Template.parentData(5)
-        else if parent6._id
-            parent = Template.parentData(6)
-        if parent
-            _.sortBy parent["#{@key}"], 'number'
-
-
-    # Router.route '/m/:model_slug', (->
-    #     @render 'delta'
-    #     ), name:'delta'
 
     Template.home.onCreated ->
-        @autorun -> Meteor.subscribe 'query', Session.get('query'), ->
-        @autorun -> Meteor.subscribe 'tags', Session.get('query'), ->
-    # Template.delta.onCreated ->
-        # @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
-        # @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
-        # @autorun -> Meteor.subscribe 'my_delta'
-
-        # Session.set 'loading', true
-        # Meteor.call 'set_facets', Router.current().params.model_slug, ->
-        #     Session.set 'loading', false
-    # Template.delta.onRendered ->
-    #     Meteor.call 'log_view', @_id, ->
+        @autorun -> Meteor.subscribe 'query', 
+            Session.get('query')
+            picked_tags.array()
+            , ->
+        @autorun -> Meteor.subscribe 'tags', 
+            Session.get('query')
+            picked_tags.array()
+            , ->
 
     Template.home.helpers
         results: ->

@@ -1,21 +1,3 @@
-# Meteor.publish 'user_sent', (username)->
-#     Docs.find {
-#         model:'transfer'
-#         _author_id: user._id
-#     }, 
-#         limit:100    
-# Meteor.publish 'user_subscribed_to', (username)->
-#         subscribed_user_ids:$in:[Meteor.userId()]
-    
-        
-# Meteor.publish 'user_subscribed_by', (username)->
-#         _id:$in: user.subscribed_user_ids
-    
-# Meteor.publish 'model_docs', (model)->
-#     Docs.find {  
-#         model:model
-#     }, limit:100
-    
 # Meteor.publish 'transfers', (
 #     username
 #     direction
@@ -263,10 +245,17 @@ Meteor.publish 'doc', (doc_id)->
     Docs.find doc_id
     
 
-Meteor.publish 'query', (query)->
-    Docs.find {
-        title: {$regex:query, $options:'i'}
-    }, { limit:20, sort:points:-1}
+Meteor.publish 'query', (
+    query
+    picked_tags=[]
+    )->
+        
+    match = {}
+    if picked_tags.length > 0
+        match.tags = $in:picked_tags
+    if query.length > 0
+        match.title = {$regex:query, $options:'i'}
+    Docs.find match, { limit:20, sort:points:-1}
     
 # Meteor.publish 'comments', (doc_id)->
 #     # doc = Docs.findOne doc_id
