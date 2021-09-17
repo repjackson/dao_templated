@@ -50,17 +50,17 @@ template(name='home')
     //             i.massive.loading.yin.yang.grey.icon
     //     else
     .sixteen.wide.center.aligned.column
+            
+        each picked_tags
+            a.ui.big.active.label.unpick_tag.pointer.zoomer #{this}
         .ui.big.icon.input   
             if query
                 i.remove.link.large.icon.clear_query
             else
                 i.search.large.icon
             input#search(type='text' value=query)
-            
-        each picked_tags
-            a.ui.big.active.label.unpick_tag.pointer.zoomer #{this}
         each result_tags
-            a.ui.large.label.pick_tag.zoomer.pointer #{title}
+            a.ui.compact.large.button.pick_tag.zoomer.pointer #{title}
         
         .ui.big.cards.scrolling
             each results

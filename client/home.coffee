@@ -23,8 +23,11 @@ Template.home.onCreated ->
 Template.home.helpers
     query: -> Session.get('query')
     results: ->
-        Docs.find 
-            title: {$regex:Session.get('query'), $options:'i'}
+        match = {}
+        # if Session.get('query').length > 0
+        #     match.title = {$regex:Session.get('query'), $options:'i'}
+        Docs.find match
+            
     result_tags: ->
         Results.find {} 
             # title: {$regex:Session.get('query'), $options:'i'}
