@@ -9,6 +9,12 @@ Template.youtube_view.onRendered ->
     , 1000
 
 
+Template.call_wiki.events
+    'click .call_wiki': ->
+        console.log @
+
+
+
 Template.youtube_edit.events
     'blur .youtube_id': (e,t)->
         if @direct

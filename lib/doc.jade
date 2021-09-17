@@ -48,10 +48,14 @@ template(name='model_doc_view')
                         //     +Template.dynamic template=this data=current_doc
                         +comments
                         //- div
-                        //- if watson
-                        //-     +watson_view
+                        // if watson
+                        //     +watson_view
+                        +call_wiki
                         
-  
+                        
+template(name='call_wiki')  
+    .ui.button.call_wiki
+        |call wiki
   
 template(name='comments')
     // .ui.grey.header
