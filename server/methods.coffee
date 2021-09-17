@@ -14,10 +14,10 @@ Meteor.methods
                 # for term,i in response.data[1]
                 #     url = response.data[3][i]
     
-    search_wiki: (query)->
+    call_wiki: (query)->
         # term = query.split(' ').join('_')
         # term = query[0]
-        @unblock()
+        # @unblock()
         term = query
         # HTTP.get "https://en.wikipedia.org/wiki/#{term}",(err,response)=>
         # HTTP.get "https://en.wikipedia.org/w/api.php?action=query&list=search&srwhat=text&srsearch=#{term}&searchformat=json",(err,response)=>
@@ -26,7 +26,7 @@ Meteor.methods
             if err
                 console.log err
             unless err
-                # console.log response
+                console.log response
                 for term,i in response.data[1]
                     url = response.data[3][i]
                     # console.log response.data[3]

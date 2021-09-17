@@ -12,7 +12,11 @@ Template.youtube_view.onRendered ->
 Template.call_wiki.events
     'click .call_wiki': ->
         console.log @
-        Meteor.call 'call_wiki', @title, (err,res)->
+        Meteor.call 'call_wiki', @name, (err,res)->
+            if err
+                console.log err
+            if res
+                console.log res
             
 
 

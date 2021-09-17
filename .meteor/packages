@@ -25,3 +25,4 @@ session@1.2.0                 # Client-side reactive dictionary for your app
 dburles:collection-helpers
 underscore@1.0.10
 coffeescript
+http
