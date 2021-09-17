@@ -22,6 +22,7 @@ Template.youtube_edit.events
                 $set:"#{@key}":val
 
 
+
 Template.key_value_set.helpers
     key_value_class: ->
         if Template.parentData()[@key] is @value then 'teal' else 'basic'
