@@ -443,7 +443,7 @@ template(name='model_edit_layout')
             
 
 template(name='field_edit')
-    .ui.segment.field_segment
+    .ui.basic.segment.field_segment
         a.title.field_edit(href="#")
             |#{rank}
             if icon
@@ -478,21 +478,19 @@ template(name='field_edit')
                 +text_edit key='field_type' label='field type' direct=true
                 +key_value_set key='field_type' value='text' icon='header'
                 +key_value_set key='field_type' value='array' icon='list'
-                +key_value_set key='field_type' value='boolean' icon='green toggle off'
-                +key_value_set key='field_type' value='number' icon='blue hashtag'
-                +key_value_set key='field_type' value='float' icon='blue hashtag'
+                +key_value_set key='field_type' value='boolean' icon='switch'
+                +key_value_set key='field_type' value='number' icon='hashtag'
+                +key_value_set key='field_type' value='float' icon='hashtag'
                 +key_value_set key='field_type' value='html' icon='code'
                 +key_value_set key='field_type' value='textarea' icon='content'
                 +key_value_set key='field_type' value='image' icon='picture'
                 +key_value_set key='field_type' value='date' icon='calendar'
                 +key_value_set key='field_type' value='time' icon='clock'
-                +key_value_set key='field_type' value='link' icon='linkify'
+                +key_value_set key='field_type' value='link' icon='link'
                 +key_value_set key='field_type' value='youtube' icon='video'
-                +key_value_set key='field_type' value='color' icon='paint brush'
+                +key_value_set key='field_type' value='color' icon='paint-brush'
                 +key_value_set key='field_type' value='single_doc' icon='clone'
                 +key_value_set key='field_type' value='multi_doc' icon='clone'
-                +key_value_set key='field_type' value='single_user' icon='clone'
-                +key_value_set key='field_type' value='multi_user' icon='clone'
                 if in_dev
                     i.large.code.icon
                     +single_doc_edit key='field_type' ref_model='field_type' label='field type' direct=true        
@@ -500,9 +498,6 @@ template(name='field_edit')
                     // +text_edit key='field_type_id' label='field type id' direct=true        
                     // +single_doc_edit key='field_type_id' ref_model_slug='field_type' label='field type id' direct=true        
                     .spacer
-                    +multi_doc_edit key='view_roles' ref_model_slug='role' label='view roles' direct=true icon='eye'          
-                    .spacer
-                    +multi_doc_edit key='edit_roles' ref_model_slug='role' label='edit roles' direct=true icon='pencil'        
                     +text_edit key='ref_model' label='reference model' direct=true
                 .spacer
                 +boolean_edit key='faceted' label='faceted' icon='diamond' direct=true

@@ -333,8 +333,8 @@ template(name='text_edit')
         else if key
             |#{key}
             //- +clear_value
-    div
-    .ui.fluid.input
+    // div
+    .ui.input
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
         
 
@@ -775,9 +775,10 @@ template(name='float_view')
         .ui.inline.large.header &nbsp; #{field_value}
 
 template(name='slug_edit')
-    if icon
-        i.grey.icon(class=icon)
+    // if icon
+    //     i.grey.icon(class=icon)
     .ui.inline.header.pointer.slugify_title
+        +i name='slug'
         if title
             |#{title}
         else if label
@@ -786,7 +787,7 @@ template(name='slug_edit')
             |#{key}
         // small (auto slugify)
     //- +clear_value
-    .ui.icon.fluid.input
+    .ui.input
         input.edit_text(type='text' value=field_value placeholder=placeholder autocomplete="off")
 
 template(name='slug_view')
