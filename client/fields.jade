@@ -400,7 +400,7 @@ template(name='time_view')
                 |#{key}
             else
                 |#{this}
-        .ui.inline.header &nbsp; #{field_value}
+        .ui.inline.header &nbsp; {{from_now field_value}}
 
 template(name='datetime_edit')
     .ui.form

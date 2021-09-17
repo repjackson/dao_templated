@@ -3,7 +3,7 @@ template(name='delta')
         with current_model
             // unless current_model.show_facets
             .middle.aligned.row
-                .sixteen.wide.column
+                .sixteen.wide.center.aligned.column
                     +model_top
                     // if current_model.show_facets
                     //     .four.wide.column
@@ -40,7 +40,7 @@ template(name='delta')
                                     i.sort.amount.up.large.icon
                         //- .ui.compact.button.set_sort_direction
                         //-     |#{current_delta.sort_direction}
-                        i.circular.link.chevron.right.icon.skip_left
+                        i.circular.link.chevron.left.icon.skip_left
                         i.circular.link.chevron.right.icon.skip_right
                         |&nbsp;
                         |&nbsp;
