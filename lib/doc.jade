@@ -21,8 +21,7 @@ template(name='model_doc_view')
                         each _timestamp_tags
                             .ui.inverted.label #{this}
                         // +user_list_toggle key='bookmark_ids' icon='bookmark' label='bookmark'
-                        div
-                        .ui.small.header #{views}
+                        .ui.small.inline.header #{views}
                         // .ui.small.inline.header by
                         // each viewer_usernames
                         //     .ui.small.label #{this}
@@ -84,8 +83,8 @@ template(name='model_doc_edit')
     with current_doc
         .ui.stackable.padded.grid
             .centered.row
-                .four.wide.column
-                    .ui.header(title="model: #{model}")
+                .sixteen.wide.column
+                    .ui.inline.header(title="model: #{model}")
                         |edit #{model}
                     // +creation_info
                     a.ui.big.icon.green.circular.button(href="/m/#{model}/#{_id}/view")
@@ -94,7 +93,6 @@ template(name='model_doc_edit')
                         i.trash.icon
                     if is_user
                         +boolean_edit key='private' direct=true
-                .twelve.wide.column
                     .ui.stackable.two.column.grid
                         //- |#{model}
                         each edit_fields
