@@ -126,13 +126,13 @@ if Meteor.isClient
             _.sortBy parent["#{@key}"], 'number'
 
 
-    Router.route '/m/:model_slug', (->
-        @render 'delta'
-        ), name:'delta'
+    # Router.route '/m/:model_slug', (->
+    #     @render 'delta'
+    #     ), name:'delta'
 
     Template.layout.onCreated ->
         @autorun -> Meteor.subscribe 'query', Session.get('query'), ->
-    Template.delta.onCreated ->
+    # Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'my_delta'
@@ -148,86 +148,7 @@ if Meteor.isClient
             Docs.find 
                 title: {$regex:Session.get('query'), $options:'i'}
 
-        result_column_class: ->
-            delta = Docs.findOne model:'delta'
-            model = Docs.findOne model:'model'
-            if model.show_facets
-                'twelve wide column'
-            else
-                'sixteen wide column'
-    
-        subs_ready: ->
-            Template.instance().subscriptionsReady()
-        table_header_column: ->
-            console.log @
-
-
-        model_fields: ->
-            delta = Docs.findOne model:'delta'
-            model = Docs.findOne model:'model'
-            Docs.find
-                model:'field'
-                parent_id: model._id
-        query_class:->
-            delta = Docs.findOne model:'delta'
-            if delta
-                if delta.search_query
-                    'focus'
-                else
-                    'small'
-        current_delta_model: ->
-            delta = Docs.findOne model:'delta'
-            model = Docs.findOne model:'model'
-            console.log 'delta',delta
-            console.log 'model',model
-
-        current_model: ->
-            Docs.findOne
-                model:'model'
-                slug: Router.current().params.model_slug
-
-        sorting_up: ->
-            delta = Docs.findOne model:'delta'
-            if delta
-                if delta.sort_direction is 1 then true
-
-        picked_tags: -> picked_tags.list()
-        view_mode_template: ->
-            # console.log @
-            delta = Docs.findOne model:'delta'
-            if delta
-                "delta_#{delta.view_mode}"
-
-        sorted_facets: ->
-            current_delta =
-                Docs.findOne
-                    model:'delta'
-            if current_delta
-                # console.log _.sortBy current_delta.facets,'rank'
-                _.sortBy current_delta.facets,'rank'
-
-        global_tags: ->
-            doc_count = Docs.find().count()
-            if 0 < doc_count < 3 then Tags.find { count: $lt: doc_count } else Tags.find()
-
-        single_doc: ->
-            false
-            # delta = Docs.findOne model:'delta'
-            # count = delta.result_ids.length
-            # if count is 1 then true else false
-
-        model_stats_exists: ->
-            current_model = Router.current().params.model_slug
-            if Template["#{current_model}_stats"]
-                return true
-            else
-                return false
-        model_stats: ->
-            current_model = Router.current().params.model_slug
-            "#{current_model}_stats"
-        model_docs: ->
-            Docs.find 
-                model:'model'
+        picked_tags: -> picked_tags.array()
 
     Template.layout.events
         'click .toggle_sort_column': ->
@@ -420,113 +341,74 @@ if Meteor.isClient
 
 
 
-    Template.toggle_visible_field.events
-        'click .toggle_visibility': ->
-            console.log @
-            delta = Docs.findOne model:'delta'
-            console.log 'viewable fields', delta.viewable_fields
-            if @_id in delta.viewable_fields
-                Docs.update delta._id,
-                    $pull:viewable_fields: @_id
-            else
-                Docs.update delta._id,
-                    $addToSet: viewable_fields: @_id
-
-    Template.toggle_visible_field.helpers
-        field_visible: ->
-            delta = Docs.findOne model:'delta'
-            @_id in delta.viewable_fields
-
-    # Template.set_limit.events
-    #     'click .set_limit': ->
-    #         # console.log @
-    #         delta = Docs.findOne model:'delta'
-    #         Docs.update delta._id,
-    #             $set:limit:@amount
-    #         Session.set 'loading', true
-    #         Meteor.call 'fum', delta._id, ->
-    #             Session.set 'loading', false
-
-    # Template.set_view_mode.events
-    #     'click .set_view_mode': ->
-    #         # console.log @
-    #         delta = Docs.findOne model:'delta'
-    #         Docs.update delta._id,
-    #             $set:view_mode:@title
-    #         Session.set 'loading', true
-    #         Meteor.call 'fum', delta._id, ->
-    #             Session.set 'loading', false
 
 
-
-
-
-    Template.facet.onCreated ->
-        @viewing_facet = new ReactiveVar true
+    # Template.facet.onCreated ->
+    #     @viewing_facet = new ReactiveVar true
     
-    Template.facet.onRendered ->
-        Meteor.setTimeout ->
-            $('.accordion').accordion()
-        , 1500
+    # Template.facet.onRendered ->
+    #     Meteor.setTimeout ->
+    #         $('.accordion').accordion()
+    #     , 1500
 
-    Template.facet.events
-        # 'click .ui.accordion': ->
-        #     $('.accordion').accordion()
-        'click .toggle_view_facet': (e,t)->
-            t.viewing_facet.set !t.viewing_facet.get()
+    # Template.facet.events
+    #     # 'click .ui.accordion': ->
+    #     #     $('.accordion').accordion()
+    #     'click .toggle_view_facet': (e,t)->
+    #         t.viewing_facet.set !t.viewing_facet.get()
 
-        'click .toggle_selection': ->
-            delta = Docs.findOne model:'delta'
-            facet = Template.currentData()
+    #     'click .toggle_selection': ->
+    #         delta = Docs.findOne model:'delta'
+    #         facet = Template.currentData()
 
-            Session.set 'loading', true
-            if facet.filters and @name in facet.filters
-                Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
-                    Session.set 'loading', false
-            else
-                Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
-                    Session.set 'loading', false
+    #         Session.set 'loading', true
+    #         if facet.filters and @name in facet.filters
+    #             Meteor.call 'remove_facet_filter', delta._id, facet.key, @name, ->
+    #                 Session.set 'loading', false
+    #         else
+    #             Meteor.call 'add_facet_filter', delta._id, facet.key, @name, ->
+    #                 Session.set 'loading', false
 
-        'keyup .add_filter': (e,t)->
-            # console.log @
-            if e.which is 13
-                delta = Docs.findOne model:'delta'
-                facet = Template.currentData()
-                if @field_type is 'number'
-                    filter = parseInt t.$('.add_filter').val()
-                else
-                    filter = t.$('.add_filter').val()
-                Session.set 'loading', true
-                Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
-                    Session.set 'loading', false
-                t.$('.add_filter').val('')
-
-
+    #     'keyup .add_filter': (e,t)->
+    #         # console.log @
+    #         if e.which is 13
+    #             delta = Docs.findOne model:'delta'
+    #             facet = Template.currentData()
+    #             if @field_type is 'number'
+    #                 filter = parseInt t.$('.add_filter').val()
+    #             else
+    #                 filter = t.$('.add_filter').val()
+    #             Session.set 'loading', true
+    #             Meteor.call 'add_facet_filter', delta._id, facet.key, filter, ->
+    #                 Session.set 'loading', false
+    #             t.$('.add_filter').val('')
 
 
-    Template.facet.helpers
-        viewing_results: ->
-            Template.instance().viewing_facet.get()
-        filtering_res: ->
-            delta = Docs.findOne model:'delta'
-            filtering_res = []
-            if @key is '_keys'
-                @res
-            else
-                for filter in @res
-                    if filter.count < delta.total
-                        filtering_res.push filter
-                    else if filter.name in @filters
-                        filtering_res.push filter
-                filtering_res
-        toggle_value_class: ->
-            facet = Template.parentData()
-            delta = Docs.findOne model:'delta'
-            if Session.equals 'loading', true
-                 'disabled basic'
-            else if facet.filters.length > 0 and @name in facet.filters
-                'active'
-            else ''
+
+
+    # Template.facet.helpers
+    #     viewing_results: ->
+    #         Template.instance().viewing_facet.get()
+    #     filtering_res: ->
+    #         delta = Docs.findOne model:'delta'
+    #         filtering_res = []
+    #         if @key is '_keys'
+    #             @res
+    #         else
+    #             for filter in @res
+    #                 if filter.count < delta.total
+    #                     filtering_res.push filter
+    #                 else if filter.name in @filters
+    #                     filtering_res.push filter
+    #             filtering_res
+    #     toggle_value_class: ->
+    #         facet = Template.parentData()
+    #         delta = Docs.findOne model:'delta'
+    #         if Session.equals 'loading', true
+    #              'disabled basic'
+    #         else if facet.filters.length > 0 and @name in facet.filters
+    #             'active'
+    #         else ''
 
 
 
@@ -557,9 +439,9 @@ if Meteor.isServer
             model:'delta'
                 
                 
-if Meteor.isClient
-    Template.model_view.onCreated ->
-        @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
-        @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
+# if Meteor.isClient
+#     Template.model_view.onCreated ->
+#         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
+#         @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
+#         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
                 
