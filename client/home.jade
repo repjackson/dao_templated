@@ -53,7 +53,7 @@ template(name='home')
             
         each picked_tags
             a.ui.big.active.label.unpick_tag.pointer.zoomer #{this}
-        .ui.big.icon.input   
+        .ui.icon.input   
             if query
                 i.remove.link.large.icon.clear_query
             else
@@ -62,7 +62,7 @@ template(name='home')
         each result_tags
             a.ui.compact.large.button.pick_tag.zoomer.pointer #{title}
         
-        .ui.centered.cards.scrollin
+        .ui.centered.cards.scrolling
             each results
                 div(class=card_class)
                     img.ui.image(src="{{c.url image_id }}" )
@@ -77,6 +77,11 @@ template(name='home')
                             +remove_button
                         each ten_tags 
                             .ui.label #{this}
+                        if one_doc
+                            if Company 
+                                +i name='business'
+                                each Company
+                                    .ui.large.label #{this}
 
                   
 template(name='print_this')

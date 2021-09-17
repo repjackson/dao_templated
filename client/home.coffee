@@ -21,9 +21,13 @@ Template.home.onCreated ->
         , ->
 
 Template.home.helpers
+    one_doc: ->
+        count = Docs.find({}).count()
+        count is 1
+        
     card_class: ->
         count = Docs.find({}).count()
-        console.log 'count', count
+        # console.log 'count', count
         if count is 1
             'ui fluid card'
         else 
