@@ -53,10 +53,13 @@ template(name='home')
         .ui.big.icon.input   
             i.search.icon
             input#search(type='text')
+        each result_tags
+            .ui.label #{title}
         .ui.big.cards
             each results
                 .card
-                    img.ui.image(src="{{c.url image_id gravity='face' crop='fit'}}" )
+                    img.ui.image(src="{{c.url image_id }}" )
+                    img.ui.image(src="{{c.url image }}" )
                     .content
                         .ui.header
                             |#{title}

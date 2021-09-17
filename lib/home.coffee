@@ -132,6 +132,7 @@ if Meteor.isClient
 
     Template.home.onCreated ->
         @autorun -> Meteor.subscribe 'query', Session.get('query'), ->
+        @autorun -> Meteor.subscribe 'tags', Session.get('query'), ->
     # Template.delta.onCreated ->
         # @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
         # @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
@@ -147,6 +148,9 @@ if Meteor.isClient
         results: ->
             Docs.find 
                 title: {$regex:Session.get('query'), $options:'i'}
+        result_tags: ->
+            Results.find {} 
+                # title: {$regex:Session.get('query'), $options:'i'}
 
         picked_tags: -> picked_tags.array()
 
