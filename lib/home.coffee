@@ -410,38 +410,3 @@ if Meteor.isClient
     #             'active'
     #         else ''
 
-
-
-
-if Meteor.isServer
-    Meteor.publish 'model_from_slug', (model_slug)->
-        # if model_slug in ['model','brick','field','tribe','block','page']
-        #     Docs.find
-        #         model:'model'
-        #         slug:model_slug
-        # else
-        match = {}
-        # if tribe_slug then match.slug = tribe_slug
-        match.model = 'model'
-        match.slug = model_slug
-
-        Docs.find match
-
-
-    Meteor.publish 'my_delta', ->
-        # Docs.find
-        #     model:'delta'
-        #     Docs.find
-        #         model:'delta'
-        # else
-        Docs.find
-            _author_id:null
-            model:'delta'
-                
-                
-# if Meteor.isClient
-#     Template.model_view.onCreated ->
-#         @autorun -> Meteor.subscribe 'model_from_slug', Router.current().params.model_slug
-#         @autorun -> Meteor.subscribe 'model_fields_from_slug', Router.current().params.model_slug
-#         @autorun -> Meteor.subscribe 'doc', Router.current().params.doc_id
-                

@@ -16,11 +16,6 @@
 #         model:model
 #     }, limit:100
     
-Meteor.publish 'models', ()->
-    Docs.find {  
-        model:'model'
-    }, limit:100
-    
 # Meteor.publish 'transfers', (
 #     username
 #     direction

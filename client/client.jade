@@ -33,7 +33,7 @@ head
         gtag('config', 'G-GLYPPRGJFQ');
 
     
-template(name='layout')
+template(name='home')
     // img.ui.fluid.image.checkin_banner(src="{{c.url 'frontrange' width=1000 height=1000 crop='crop'}}")
     // +nav
     // .ui.bottom.attached.pushable.segment.scroling
@@ -64,75 +64,6 @@ template(name='layout')
                         if in_dev 
                             +remove_button
 
-    // .global_conainer.pusher
-    //     // unless connected
-    //     //     +status
-    //     +yield
-    //     // +ad_space
-    //     if in_dev
-    //         +admin_footer
-
-      
-// template(name='ad_space')
-//     .ui.padded.one.column.grid
-//         .column
-//             with current_ad 
-//                 .ui.header #{title}
-//             a.ui.small.header(href="/ads") advertise here
-
-template(name='fullscreen')
-    +yield
-    if in_dev
-        +admin_footer
-      
-
-      
-template(name='admin_footer')
-    .ui.fluid.inverted.segment
-        .ui.inline.header 
-            i.shield.icon
-            |admin footer
-        .ui.inline.header #{docs.count} docs
-        .ui.stackable.padded.grid
-            .five.wide.column
-                .ui.small.inverted.list.smallscroll
-                    each docs
-                        .item 
-                            .content 
-                                .header
-                                    |#{title} 
-                                .ui.blue.label
-                                    |#{model}
-                                |#{when} #{_author_username} 
-                                .ui.label #{app}
-                                +print_this
-                                +remove_button
-            .five.wide.column
-                .ui.inline.inverted.header #{results.count} results
-                .ui.small.inverted.list.smallscroll
-                    each results
-                        .item 
-                            .content 
-                                .header
-                                    |#{title} 
-                                .ui.label model:#{model}
-                                +print_this
-      
-
-
-
-template(name='not_found')
-    .ui.center.aligned.basic.segment
-        .ui.header 
-            // i.question.icon
-            |'#{current_route}'
-            |not found
-        .ui.big.basic.ciruclar.button.browser_back
-            i.undo.icon
-            |back
-            
-                  
-                  
                   
 template(name='print_this')
     i.circular.large.code.link.icon.print_this
